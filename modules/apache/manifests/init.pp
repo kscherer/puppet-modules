@@ -14,7 +14,7 @@
 #
 class apache {
   include apache::params
-  package { 'httpd': 
+  package { 'httpd':
     name   => $apache::params::apache_name,
     ensure => installed,
   }
@@ -38,12 +38,4 @@ class apache {
     }
     default: { }
   }
-  
-  
-  file { $apache::params::vdir:
-    ensure => directory,
-    recurse => true,
-    purge => true,
-    notify => Service['httpd'],
-  } 
 }
