@@ -7,62 +7,72 @@
   http://activemq.apache.org/camel/schema/spring http://activemq.apache.org/camel/schema/spring/camel-spring.xsd">
 
 <% if webconsole_real -%>
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <value>file:${activemq.base}/conf/credentials.properties</value>
-        </property>
-    </bean>
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations">
+      <value>file:${activemq.base}/conf/credentials.properties</value>
+    </property>
+  </bean>
 
 <% end -%>
-    <broker xmlns="http://activemq.apache.org/schema/core" brokerName="localhost" useJmx="true">
-        <managementContext>
-            <managementContext createConnector="false"/>
-        </managementContext>
+  <broker xmlns="http://activemq.apache.org/schema/core" brokerName="<%= broker_name -%>" useJmx="true" schedulePeriodForDestinationPurge="60000">
+    <destinationPolicy>
+      <policyMap>
+        <policyEntries>
+          <policyEntry topic=">" producerFlowControl="false"/>
+          <policyEntry queue="*.reply.>" gcInactiveDestinations="true" inactiveTimoutBeforeGC="300000" />
+        </policyEntries>
+      </policyMap>
+    </destinationPolicy>
 
-        <plugins>
-          <statisticsBrokerPlugin/>
-          <simpleAuthenticationPlugin>
-            <users>
-              <authenticationUser username="mcollective" password="marionette" groups="mcollective,everyone"/>
-              <authenticationUser username="admin" password="secret" groups="mcollective,admin,everyone"/>
-            </users>
-          </simpleAuthenticationPlugin>
-          <authorizationPlugin>
-            <map>
-              <authorizationMap>
-                <authorizationEntries>
-                  <authorizationEntry queue=">" write="admins" read="admins" admin="admins" />
-                  <authorizationEntry topic=">" write="admins" read="admins" admin="admins" />
-                  <authorizationEntry topic="mcollective.>" write="mcollective" read="mcollective" admin="mcollective" />
-                  <authorizationEntry queue="mcollective.>" write="mcollective" read="mcollective" admin="mcollective" />
-                  <authorizationEntry topic="ActiveMQ.Advisory.>" read="everyone" write="everyone" admin="everyone"/>
-                </authorizationEntries>
-              </authorizationMap>
-            </map>
-          </authorizationPlugin>
-        </plugins>
+    <managementContext>
+      <managementContext createConnector="false"/>
+    </managementContext>
 
-        <systemUsage>
-            <systemUsage>
-                <memoryUsage>
-                    <memoryUsage limit="20 mb"/>
-                </memoryUsage>
-                <storeUsage>
-                    <storeUsage limit="1 gb" name="foo"/>
-                </storeUsage>
-                <tempUsage>
-                    <tempUsage limit="100 mb"/>
-                </tempUsage>
-            </systemUsage>
-        </systemUsage>
+    <plugins>
+      <statisticsBrokerPlugin/>
+      <simpleAuthenticationPlugin>
+        <users>
+          <authenticationUser username="amq" password="secret" groups="admins,everyone"/>
+          <authenticationUser username="mcollective" password="marionette" groups="mcollective,everyone"/>
+          <authenticationUser username="admin" password="secret" groups="mcollective,admin,everyone"/>
+        </users>
+      </simpleAuthenticationPlugin>
+      <authorizationPlugin>
+        <map>
+          <authorizationMap>
+            <authorizationEntries>
+              <authorizationEntry queue=">" write="admins" read="admins" admin="admins" />
+              <authorizationEntry topic=">" write="admins" read="admins" admin="admins" />
+              <authorizationEntry topic="mcollective.>" write="mcollective" read="mcollective" admin="mcollective" />
+              <authorizationEntry queue="mcollective.>" write="mcollective" read="mcollective" admin="mcollective" />
+              <authorizationEntry topic="ActiveMQ.Advisory.>" read="everyone" write="everyone" admin="everyone"/>
+            </authorizationEntries>
+          </authorizationMap>
+        </map>
+      </authorizationPlugin>
+    </plugins>
 
-        <transportConnectors>
-            <transportConnector name="openwire" uri="tcp://0.0.0.0:6166"/>
-            <transportConnector name="stomp+nio" uri="stomp://0.0.0.0:6163"/>
-        </transportConnectors>
-    </broker>
+    <systemUsage>
+      <systemUsage>
+        <memoryUsage>
+          <memoryUsage limit="20 mb"/>
+        </memoryUsage>
+        <storeUsage>
+          <storeUsage limit="1 gb" name="foo"/>
+        </storeUsage>
+        <tempUsage>
+          <tempUsage limit="100 mb"/>
+        </tempUsage>
+      </systemUsage>
+    </systemUsage>
+
+    <transportConnectors>
+      <transportConnector name="openwire" uri="tcp://0.0.0.0:6166"/>
+      <transportConnector name="stomp+nio" uri="stomp://0.0.0.0:6163"/>
+    </transportConnectors>
+  </broker>
 
 <% if webconsole_real -%>
-      <import resource="jetty.xml"/>
+  <import resource="jetty.xml"/>
 <% end -%>
 </beans>

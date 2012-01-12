@@ -28,11 +28,13 @@ class activemq(
   $version       = 'present',
   $ensure        = 'running',
   $webconsole    = true,
-  $server_config = 'UNSET'
+  $server_config = 'UNSET',
+  $broker_name   = 'localhost'
 ) {
 
   validate_re($ensure, '^running$|^stopped$')
   validate_re($version, '^present$|^latest$|^[._0-9a-zA-Z:-]+$')
+  validate_re($broker_name, '^[._0-9a-zA-Z:-]+$')
   validate_bool($webconsole)
 
   $version_real = $version
