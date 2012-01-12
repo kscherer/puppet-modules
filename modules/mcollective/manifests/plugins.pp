@@ -88,4 +88,16 @@ class mcollective::plugins(
     ddl         => true,
     application => false,
   }
+  mcollective::plugins::plugin { 'shellcmd':
+    ensure      => present,
+    type        => 'agent',
+    ddl         => true,
+    application => true,
+  }
+  mcollective::plugins::plugin { 'etc_facts':
+    ensure      => present,
+    type        => 'agent',
+    ddl         => true,
+    application => true,
+  }
 }
