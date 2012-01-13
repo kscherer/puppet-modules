@@ -7,7 +7,7 @@
 # Actions:
 #
 # Requires:
-# 
+#
 #  Class['dashboard']
 #  Class['mysql'] <--Storeconfigs
 #  Class['ruby']
@@ -19,40 +19,65 @@
 # Sample Usage:
 #
 class puppet (
-  $version                  = 'present',
-  $master                   = false,
-  $agent                    = true,
-  $dashboard                = false,
-  $puppet_conf              = $puppet::params::puppet_conf,
-  $puppet_logdir            = $puppet::params::puppet_logdir,
-  $puppet_vardir            = $puppet::params::puppet_vardir,
-  $puppet_ssldir            = $puppet::params::puppet_ssldir,
-  $puppet_defaults          = $puppet::params::puppet_defaults,
-  $puppet_master_service    = $puppet::params::puppet_master_service,
-  $puppet_agent_service     = $puppet::params::puppet_agent_service,
-  $puppet_agent_name        = $puppet::params::puppet_agent_name,
-  $puppet_server            = $puppet::params::puppet_server,
-  $storeconfigs             = $puppet::params::storeconfigs,
-  $storeconfigs_dbadapter   = $puppet::params::storeconfigs_dbadapter,
-  $storeconfigs_dbuser      = $puppet::params::storeconfigs_dbuser,
-  $storeconfigs_dbpassword  = $puppet::params::storeconfigs_dbpassword,
-  $storeconfigs_dbserver    = $puppet::params::storeconfigs_dbserver,
-  $storeconfigs_dbsocket    = $puppet::params::storeconfigs_dbsocket,
-  $certname                 = $puppet::params::certname,
-  $puppet_master_package    = $puppet::params::puppet_master_package,
-  $package_provider         = undef,
-  $modulepath               = $puppet::params::modulepath,
-  $dashboard_version        = undef,
-  $dashboard_site           = undef,
-  $dashboard_user           = undef,
-  $dashboard_password       = undef
-
-) inherits puppet::params {
-
+  $puppet_master_ensure        = 'present',
+  $master                      = false,
+  $puppet_agent_ensure         = 'present',
+  $agent                       = true,
+  $confdir                     = $puppet::params::confdir,
+  $manifest                    = $puppet::params::manifest,
+  $modulepath                  = $puppet::params::modulepath,
+  $puppet_conf                 = $puppet::params::puppet_conf,
+  $puppet_logdir               = $puppet::params::puppet_logdir,
+  $puppet_vardir               = $puppet::params::puppet_vardir,
+  $puppet_ssldir               = $puppet::params::puppet_ssldir,
+  $puppet_defaults             = $puppet::params::puppet_defaults,
+  $puppet_master_service       = $puppet::params::puppet_master_service,
+  $puppet_agent_service        = $puppet::params::puppet_agent_service,
+  $puppet_agent_service_enable = true,
+  $puppet_server               = $puppet::params::puppet_server,
+  $puppet_passenger            = false,
+  $puppet_site                 = $puppet::params::puppet_site,
+  $puppet_passenger_port       = $puppet::params::puppet_passenger_port,
+  $passenger_ensure            = undef,
+  $passenger_package           = undef,
+  $passenger_provider          = 'gem',
+  $puppet_docroot              = $puppet::params::puppet_docroot,
+  $storeconfigs                = false,
+  $thinstoreconfigs            = false,
+  $storeconfigs_dbadapter      = $puppet::params::storeconfigs_dbadapter,
+  $storeconfigs_dbuser         = $puppet::params::storeconfigs_dbuser,
+  $storeconfigs_dbpassword     = $puppet::params::storeconfigs_dbpassword,
+  $storeconfigs_dbserver       = $puppet::params::storeconfigs_dbserver,
+  $storeconfigs_dbsocket       = $puppet::params::storeconfigs_dbsocket,
+  $mysql_root_pw               = $puppet::params::mysql_root_pw,
+  $certname                    = $puppet::params::certname,
+  $autosign                    = false,
+  $puppet_master_package       = $puppet::params::puppet_master_package,
+  $package_provider            = $puppet::params::package_provider,
+  $user_id                     = undef,
+  $group_id                    = undef,
+  $dashboard                   = false,
+  $dashboard_ensure            = undef,
+  $dashboard_user              = undef,
+  $dashboard_group             = undef,
+  $dashboard_password          = undef,
+  $dashboard_db                = undef,
+  $dashboard_charset           = undef,
+  $dashboard_site              = undef,
+  $dashboard_port              = undef,
+  $dashboard_passenger         = undef,
+  $mysql_package_provider      = $puppet::params::mysql_package_provider,
+  $ruby_mysql_package          = $puppet::params::ruby_mysql_package,
+  $activerecord_provider       = $puppet::params::activerecord_provider,
+  $activerecord_package        = $puppet::params::activerecord_package,
+  $activerecord_ensure         = $puppet::params::activerecord_ensure
+) inherits puppet::params
+{
   $v_bool = [ '^true$', '^false$' ]
   $v_alphanum = '^[._0-9a-zA-Z:-]+$'
-  $v_path = '^/'
-  validate_re($version, $v_alphanum)
+  $v_path = '^[/$]'
+  validate_re($puppet_master_ensure, $v_alphanum)
+  validate_re($puppet_agent_ensure, $v_alphanum)
   validate_re("$master", $v_bool)
   validate_re("$agent", $v_bool)
   validate_re("$dashboard", $v_bool)
@@ -74,66 +99,94 @@ class puppet (
   validate_re($certname, $v_alphanum)
   validate_re($modulepath, $v_path)
 
-  $version_real                 = $version
-  $master_real                  = $master
-  $agent_real                   = $agent
-  $dashboard_real               = $dashboard
-  $puppet_conf_real             = $puppet_conf
-  $puppet_logdir_real           = $puppetlogdir
-  $puppet_vardir_real           = $puppet_vardir
-  $puppet_ssldir_real           = $puppet_ssldir
-  $puppet_defaults_real         = $puppet_defaults
-  $puppet_master_service_real   = $puppet_master_service
-  $puppet_agent_service_real    = $puppet_agent_service
-  $puppet_agent_name_real       = $puppet_agent_name
-  $puppet_server_real           = $puppet_server
-  $storeconfigs_dbadapter_real  = $storeconfigs_dbadapter
-  $storeconfigs_dbuser_real     = $storeconfigs_dbuser
-  $storeconfigs_dbpassword_real = $storeconfigs_dbpassword
-  $storeconfigs_dbsocket_real   = $storeconfigs_dbsocket
-  $storeconfigs_dbserver_real   = $storeconfigs_dbserver
-  $storeconfigs_real            = $storeconfigs
-  $certname_real                = $certname
-  $puppet_master_package_real   = $puppet_master_package
-  $modulepath_real              = $modulepath
-
-  if $dashboard_real {
-
+  if $dashboard {
     class {'dashboard':
-      dashboard_version         => $dashboard_version,
-      dashboard_site            => $dashboard_site,
-      dashboard_user            => $dashboard_user,
-      dashboard_password        => $dashboard_password,
+      dashboard_ensure       => $dashboard_ensure,
+      dashboard_group        => $dashboard_group,
+      dashboard_db           => $dashboard_db,
+      dashboard_charset      => $dashboard_charset,
+      dashboard_site         => $dashboard_site,
+      dashboard_port         => $dashboard_port,
+      passenger              => $dashboard_passenger,
+      passenger_ensure       => $passenger_ensure,
+      passenger_package      => $passenger_package,
+      passenger_provider     => $passenger_provider,
+      mysql_package_provider => $mysql_package_provider,
+      ruby_mysql_package     => $ruby_mysql_package,
+      mysql_root_pw          => $mysql_root_pw,
+      dashboard_user         => $dashboard_user,
+      dashboard_password     => $dashboard_password,
     }
   }
 
-  if $master_real {
+  if $master {
     class {'puppet::master':
-      version                   => $version_real,
-      modulepath                => $modulepath_real,
-      storeconfigs              => $storeconfigs_real,
-      storeconfigs_dbadapter    => $storeconfigs_dbadapter_real,
-      storeconfigs_dbuser       => $storeconfigs_dbuser_real,
-      storeconfigs_dbpassword   => $storeconfigs_dbpassword_real,
-      storeconfigs_dbserver     => $storeconfigs_dbserver_real,
-      storeconfigs_dbsocket     => $storeconfigs_dbsocket_real,
-      certname                  => $certname_real,
-      puppet_master_service     => $puppet_master_service_real,
-      puppet_master_package     => $puppet_master_package_real,
+      puppet_master_ensure      => $puppet_master_ensure,
+      confdir                   => $confdir,
+      puppet_server             => $puppet_server,
+      puppet_passenger          => $puppet_passenger,
+      passenger_ensure          => $passenger_ensure,
+      passenger_package         => $passenger_package,
+      passenger_provider        => $passenger_provider,
+      puppet_site               => $puppet_site,
+      puppet_passenger_port     => $puppet_passenger_port,
+      puppet_docroot            => $puppet_docroot,
+      puppet_vardir             => $puppet_vardir,
+      modulepath                => $modulepath,
+      storeconfigs              => $storeconfigs,
+      thinstoreconfigs          => $thinstoreconfigs,
+      storeconfigs_dbadapter    => $storeconfigs_dbadapter,
+      storeconfigs_dbuser       => $storeconfigs_dbuser,
+      storeconfigs_dbpassword   => $storeconfigs_dbpassword,
+      storeconfigs_dbserver     => $storeconfigs_dbserver,
+      storeconfigs_dbsocket     => $storeconfigs_dbsocket,
+      mysql_root_pw             => $mysql_root_pw,
+      certname                  => $certname,
+      autosign                  => $autosign,
+      manifest                  => $manifest,
+      puppet_master_service     => $puppet_master_service,
+      puppet_master_package     => $puppet_master_package,
       package_provider          => $package_provider,
+      dashboard_port            => $dashboard_port, # needed for puppet.conf
+      mysql_package_provider    => $mysql_package_provider,
+      ruby_mysql_package        => $ruby_mysql_package,
+      activerecord_provider     => $activerecord_provider,
+      activerecord_package      => $activerecord_package,
+      activerecord_ensure       => $activerecord_ensure,
     }
   }
 
-  if $agent_real {
+  if $agent {
     class {'puppet::agent':
-      version                   => $version_real,
-      puppet_defaults           => $puppet_defaults_real, 
-      puppet_agent_service      => $puppet_agent_service_real,
-      puppet_agent_name         => $puppet_agent_name_real,
-      puppet_server             => $puppet_server_real,
-      puppet_conf               => $puppet_conf_real,
+      puppet_agent_ensure         => $puppet_agent_ensure,
+      puppet_defaults             => $puppet_defaults,
+      puppet_agent_service        => $puppet_agent_service,
+      puppet_server               => $puppet_server,
+      puppet_conf                 => $puppet_conf,
+      puppet_agent_name           => $puppet_agent_name,
+      package_provider            => $package_provider,
+      puppet_agent_service_enable => $puppet_agent_service_enable,
     }
   }
 
-}
+  user { 'puppet':
+    ensure => present,
+    uid    => $user_id,
+    gid    => 'puppet',
+  }
 
+  group { 'puppet':
+    ensure => present,
+    gid    => $group_id,
+  }
+
+  if ! defined(File['/etc/puppet']) {
+    file { '/etc/puppet':
+      ensure       => directory,
+      group        => 'puppet',
+      owner        => 'puppet',
+      recurse      => true,
+      recurselimit => '1',
+    }
+  }
+}
