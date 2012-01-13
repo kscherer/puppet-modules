@@ -30,6 +30,7 @@ class apt(
 
   file { "sources.list":
     name => "${apt::params::root}/sources.list",
+    content => "#moved to sources.list.d",
     ensure => present,
     owner => root,
     group => root,
