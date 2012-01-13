@@ -58,15 +58,20 @@ class dashboard (
   $dashboard_port           = $dashboard::params::dashboard_port,
   $mysql_root_pw            = $dashboard::params::mysql_root_pw,
   $passenger                = $dashboard::params::passenger,
+  $passenger_ensure         = undef,
+  $passenger_package        = undef,
+  $passenger_provider       = 'gem',
   $mysql_package_provider   = $dashboard::params::mysql_package_provider,
   $ruby_mysql_package       = $dashboard::params::ruby_mysql_package
 ) inherits dashboard::params {
 
-  class { 'mysql': }
-  class { 'mysql::server': root_password => $mysql_root_pw }
-  class { 'mysql::ruby':
-    package_provider => $dashboard::params::mysql_package_provider,
-    package_name     => $dashboard::params::ruby_mysql_package,
+  if ! defined(Class['mysql']) {
+    class { 'mysql': }
+    class { 'mysql::server': config_hash => { root_password => $mysql_root_pw } }
+    class { 'mysql::ruby':
+      package_provider => $dashboard::params::mysql_package_provider,
+      package_name     => $dashboard::params::ruby_mysql_package,
+    }
   }
 
   if $passenger {
@@ -80,8 +85,11 @@ class dashboard (
     -> Class['dashboard::passenger']
 
     class { 'dashboard::passenger':
-      dashboard_site => $dashboard_site,
-      dashboard_port => $dashboard_port,
+      dashboard_site     => $dashboard_site,
+      dashboard_port     => $dashboard_port,
+      passenger_ensure   => $passenger_ensure,
+      passenger_package  => $passenger_package,
+      passenger_provider => $passenger_provider,
     }
 
   } else {
@@ -94,31 +102,6 @@ class dashboard (
     -> Exec['db-migrate']
     -> Service[$dashboard_service]
 
-    case $operatingsystem {
-      'centos','redhat','oel': {
-        file { '/etc/sysconfig/puppet-dashboard':
-          ensure  => present,
-          content => template('dashboard/puppet-dashboard-sysconfig'),
-          owner   => '0',
-          group   => '0',
-          mode    => '0644',
-          require => [ Package[$dashboard_package], User[$dashboard_user] ],
-          before  => Service[$dashboard_service],
-        }
-      }
-      'debian','ubuntu': {
-        file { '/etc/default/puppet-dashboard':
-          ensure  => present,
-          content => template('dashboard/puppet-dashboard.default.erb'),
-          owner   => '0',
-          group   => '0',
-          mode    => '0644',
-          require => [ Package[$dashboard_package], User[$dashboard_user] ],
-          before  => Service[$dashboard_service],
-        }
-      }
-    }
-
     service { $dashboard_service:
       ensure     => running,
       enable     => true,
@@ -129,7 +112,39 @@ class dashboard (
   }
 
   package { $dashboard_package:
-    ensure => $dashboard_version,
+    ensure => $dashboard_ensure,
+  }
+
+  case $operatingsystem {
+    'centos','redhat','oel': {
+      $dashboard_defaults_name = '/etc/sysconfig/puppet-dashboard'
+      $dashboard_defaults_content = 'dashboard/puppet-dashboard-sysconfig'
+    }
+    'debian','ubuntu': {
+      $dashboard_defaults_name = '/etc/default/puppet-dashboard'
+      $dashboard_defaults_content = 'dashboard/puppet-dashboard-default.erb'
+    }
+  }
+
+  file { 'dashboard-defaults' :
+    path => "$dashboard_defaults_name",
+    ensure  => present,
+    content => template("$dashboard_defaults_content"),
+    owner   => '0',
+    group   => '0',
+    mode    => '0644',
+    require => [ Package[$dashboard_package], User[$dashboard_user] ],
+    before  => $passenger ? {
+      false => Service[$dashboard_service],
+      default => undef,
+    }
+  }
+
+  service { $dashboard_workers:
+    ensure     => running,
+    enable     => true,
+    hasrestart => true,
+    subscribe  => File['dashboard-defaults'],
   }
 
   File {
@@ -162,7 +177,7 @@ class dashboard (
 
   file { '/etc/logrotate.d/puppet-dashboard':
     ensure  => present,
-    content => template('puppet/puppet-dashboard.logrotate.erb'),
+    content => template('dashboard/puppet-dashboard.logrotate.erb'),
     owner   => '0',
     group   => '0',
     mode    => '0644',

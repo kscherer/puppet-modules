@@ -21,13 +21,14 @@ class dashboard::params {
   $dashboard_environment = 'production'
   $dashboard_site        = "${fqdn}"
   $dashboard_port        = '8080'
-  $passenger             = 'false'
+  $passenger             = false
   $mysql_root_pw         = 'changemetoo'
   $rails_base_uri        = '/'
 
  case $operatingsystem {
     'centos', 'redhat', 'fedora': {
       $dashboard_service      = 'puppet-dashboard'
+      $dashboard_workers      = 'puppet-dashboard-workers'
       $dashboard_package      = 'puppet-dashboard'
       $dashboard_root         = '/usr/share/puppet-dashboard'
       $mysql_package_provider = 'yum'
@@ -35,6 +36,7 @@ class dashboard::params {
     }
     'ubuntu', 'debian': {
       $dashboard_service      = 'puppet-dashboard'
+      $dashboard_workers      = 'puppet-dashboard-workers'
       $dashboard_package      = 'puppet-dashboard'
       $dashboard_root         = '/usr/share/puppet-dashboard'
       $mysql_package_provider = 'aptitude'

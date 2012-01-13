@@ -14,35 +14,29 @@
 #
 class dashboard::passenger (
   $dashboard_site,
-  $dashboard_port
+  $dashboard_port,
+  $passenger_ensure = undef,
+  $passenger_package = undef,
+  $passenger_provider = 'gem'
 ) inherits dashboard {
 
   Class ['::passenger']
-  -> Apache::Vhost[$dashboard_site]
+  -> Apache::Vhost["dashboard-$dashboard_site"]
 
-  class { '::passenger':
-     port    => $dashboard_port,
-   }
+  if ! defined(Class['::passenger']) {
+    class { '::passenger':
+      passenger_ensure   => $passenger_ensure,
+      passenger_package  => $passenger_package,
+      passenger_provider => $passenger_provider,
+    }
+  }
 
   file { '/etc/init.d/puppet-dashboard':
     ensure => absent,
   }
 
-  case $operatingsystem {
-    'centos','redhat','oel': {
-      file { '/etc/sysconfig/puppet-dashboard':
-        ensure => absent,
-      }
-    }
-    'debian','ubuntu': {
-      file { '/etc/default/puppet-dashboard':
-        ensure => absent,
-      }
-    }
-  }
-
-  apache::vhost { $dashboard_site:
-    port     => '8080',
+  apache::vhost { "dashboard-$dashboard_site":
+    port     => $dashboard_port,
     priority => '50',
     docroot  => '/usr/share/puppet-dashboard/public',
     template => 'dashboard/puppet-dashboard-passenger-vhost.erb',
