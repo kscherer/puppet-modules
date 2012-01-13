@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# This is an auto-deployment script run on the slave doing
+# the nx run itself.  It allows us to auto-deploy a new setting
+# into the host's config file w/o messing with it by hand.
+
+# removing/adding executable permissions can be used as a toggle
+# (or to just remove this file entirely....)
+
+TOP=$1
+MYRC=$2
+HERE=`dirname $0`
+
+# echo Running from $TOP, using $MYRC config file.
+# echo Fix config, nothing currently to do...
+
+# We need this for the CONFIGS setting
+. $MYRC
+
+function delete_failed_build() {
+    for b in $TOP/builds-201[1-3]-*/* ; do
+        if [ -f $b/00-wrbuild.log ]; then
+            grep -q '$1.buildlogger.*Error' $b/00-wrbuild.log
+            if [ $? = 0 ]; then
+                echo Removing useless build failure $b
+                rm -rf $b
+            fi
+        fi
+    done
+}
+
+delete_failed_build gnome-terminal
+delete_failed_build mesa-dri-glsl
+delete_failed_build calibrateproto
+
+# Ancient shit nobody should care about anymore.
+for b in $TOP/builds-2011-0[1-9]-*/* ; do
+    if [ -d $b ]; then
+        echo Removing ancient build failure $b
+        rm -rf $b
+    fi
+done
+
+#clean out any ICE failures as well
+for b in $TOP/builds-201[1-3]-*/* ; do
+    if [ -f $b/00-wrbuild.log ]; then
+        grep -qF -e 'Segmentation fault' -e 'internal compiler error:' -e 'Your Makefile has been rebuilt' $b/00-wrbuild.log
+        if [ $? = 0 ]; then
+            echo Removing ICE build failure $b
+            rm -rf $b
+        fi
+    fi
+done
+
+TC=`cat $TOP/wrlinux-x/.subgits|grep subgit|grep toolchain|tail -n1|sed 's/.*"\(.*\)".*/\1/'`
+cd $TOP/wrlinux-x/layers
+for i in `ls -1d wrll-toolchain* 2>/dev/null | grep -v $TC ` ; do
+    echo removing old toolchain $i
+    rm -rf $i
+done
+
+#run pauls script
+$TOP/notxylo/fix-config $TOP $MYRC
+
+exit 0

@@ -1,0 +1,52 @@
+# This is a basic configuration file with some examples, for device mapper
+# multipath.
+# For a complete list of the default configuration values, see
+# /usr/share/doc/device-mapper-multipath-0.4.7/multipath.conf.defaults
+# For a list of configuration options with descriptions, see
+# /usr/share/doc/device-mapper-multipath-0.4.7/multipath.conf.annotated
+
+defaults {
+    user_friendly_names yes
+}
+
+blacklist {
+    devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
+    devnode "^hd[a-z][[0-9]*]"
+    devnode "^sda[0-9]*$"
+    devnode "^cciss!c[0-9]d[0-9]*[p[0-9]*]"
+    device {
+        vendor DELL.*
+        product Universal.*
+    }
+    device {
+        vendor DELL.*
+        product Virtual.*
+    }
+}
+
+devices {
+    device {
+        vendor                  "DELL"
+        product                 "MD3000|MD3000i"
+        getuid_callout          "/sbin/scsi_id -g -u -s /block/%n"
+        prio_callout            "/sbin/mpath_prio_rdac /dev/%n"
+        features                "2 pg_init_retries 50"
+        hardware_handler        "1 rdac"
+        path_grouping_policy    group_by_prio
+        failback                immediate
+        no_path_retry           fail
+        rr_min_io               1000
+        path_checker            rdac
+    }
+}
+
+multipaths {
+    multipath {
+        wwid <%= wwid_disk1 %>
+        alias ba1
+    }
+    multipath {
+        wwid <%= wwid_disk2 %>
+        alias ba2
+    }
+}

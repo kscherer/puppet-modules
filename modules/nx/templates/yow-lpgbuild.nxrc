@@ -1,0 +1,97 @@
+
+# Place this file in $HOME/.nxrc and adjust to suit
+
+# git path to the closest mirror, DONT PULL OVER THE WAN!
+DEFAULT_SERVER=git://yow-git.ottawa.windriver.com
+
+# Path and name of config file; see (and copy) the sample file in the repo.
+CONFIGS=/home/buildadmin/configs/<%= hostname %>
+# Remove so that files are picked up locally
+#CONFIG_REPO=git://ala-git/git/users/buildadmin/configs
+# Remove so that files are picked up locally
+#NXRC_REPO=git://ala-git/git/users/buildadmin/nxrc_files
+
+# Value given to configure for --enable-jobs=
+<% if has_variable?("jobs") then -%>
+JOBS=<%= jobs -%>
+<% else -%>
+JOBS=<%= processorcount.to_i * 2 -%>
+<% end %>
+
+# Value given to configure for --enable-parallel-pkgbuilds=
+<% if has_variable?("parallel_pkgs") then -%>
+PKG_JOBS=<%= parallel_pkgs -%>
+<% else -%>
+PKG_JOBS=2
+<% end %>
+
+# Overall process priority set via nice(1).
+NICE=15
+
+# Set this if you want to re-use existing host tools somewhere
+# OLD_TOOLS=/opt/windriver/4.x/host-tools
+
+SPAM_THRESHOLD=20
+
+# Use this if you want existing wrlinux-x used instead of cloning a new one.
+# WRLINUX=/path/to/some/wrlinux-x
+# WRLINUX=/home/buildadmin/repos/wrlinux-x
+<% if has_variable?("default_branch") then %>
+DEFAULT_BRANCH=<% default_branch -%>
+<% else %>
+DEFAULT_BRANCH=master
+<% end %>
+
+# Uncomment this if you don't want your wrlinux-x pulled before each build.
+# PULL=0
+
+# Set this if you want to remove any old builds so you can run in a loop.
+LOOP=1
+
+# If a build fails, how many lines of the buildlog tail get mailed
+LOGLINES=200
+
+# Set this to pass optional args to "make" when the build is run
+# MAKE_ARGS="--no-print-directory --always-make"
+
+# Where buildfailures will be sent (not set = no e-mails)
+MAILTO="konrad.scherer@windriver.com"
+
+# Make it look like this person sent the build failures.
+NXUSER="BuildFailures@windriver.com"
+
+# Use this SMTP server, or if not set, check $HOME/.gitconfig for one.
+SMTPSERVER=prod-webmail.wrs.com
+
+# If mailing, do we ram the logs off somewhere for later triage?
+# Where to push the logs should look like the following.  Note that the
+# end user has to configure non-interactive ssh pushes in advance.
+# Also note that the PATH is a filesystem path as seen via ssh.
+PUSH_HOST=yow-git
+PUSH_PATH=/git/local/kscherer/nx-fails-4.2
+# Below is optional, it will default to what "whoami" says.
+PUSH_USER=kscherer
+
+# Also create a baseline URL for gitweb in the mails, that can have a branch
+# name added as a suffix.  Obviously the below and the above must be in sync.
+# Craft it so a branch name can be appended to it, as per example below.
+HTTP_URL="http://yow-git/cgi-bin/cgit.cgi/local/kscherer/nx-fails-4.2/log/?h="
+
+PUSH_SPATH=/git/local/kscherer/nx-stats-4.2
+
+AUTO_UPDATE=1
+
+FIX_CONFIG=/home/buildadmin/nxrc_files/hostel-fix-config
+
+# Uncomment this if you use distcc for builds.
+# DISTCC=yes
+# POST_BUILD=yow-cache
+
+# Set this if you want users on the machine to be able to block the
+# next build from starting via "touch /var/tmp/STFU"
+ENABLE_STFU=1
+
+MAINTAINER=konrad.scherer@windriver.com
+
+#create lots of heat!!
+NEVERIDLE=1

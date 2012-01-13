@@ -1,0 +1,3 @@
+common_pc_64-pne --enable-board=common_pc_64 --enable-profile=pne
+ppc_e500-glibc_cgl --enable-cpu=ppc_e500 --enable-rootfs=glibc_cgl
+

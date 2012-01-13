@@ -1,0 +1,39 @@
+#!/bin/bash
+
+#tell nx to stop building
+touch /var/tmp/STFU
+
+#wait for nx to stop building
+while [ 1 ]; do
+    tail -n 2 /home/buildadmin/log/nx.log | grep -q "STFU deployed"
+    if [ "$?" -eq "0" ]; then
+        break
+    fi
+    sleep 5m
+    continue
+done
+
+#do the build
+make "$@"
+
+#tell nx to start building
+rm /var/tmp/STFU
+
+#optionally mail the developer that the build is finished
+if [ "X$MAILTO" != "X" ]; then
+    echo "Sending notification of build completion"
+    MAIL_FILE=$(mktemp)
+    hostname=$(hostname)
+    now=$(date)
+	
+    TO_STR=""
+	for i in `echo $MAILTO` ; do
+		TO_STR="$TO_STR --to $i"
+	done
+    
+    echo "Subject: Hostel build on $hostname completed" >> $MAIL_FILE
+    echo "" >> $MAIL_FILE
+    echo "Build on $hostname completed as of $now." >> $MAIL_FILE
+    git send-email --from hostel@wrs.com $TO_STR --quiet \
+        --smtp-server=prod-webmail.wrs.com $MAIL_FILE >> /dev/null 2>&1
+fi

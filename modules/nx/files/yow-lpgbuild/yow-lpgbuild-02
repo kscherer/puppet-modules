@@ -1,0 +1,2 @@
+ppc64_970-glibc_cgl --enable-cpu=ppc64_970 --enable-rootfs=glibc_cgl
+
