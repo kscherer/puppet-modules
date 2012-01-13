@@ -3,9 +3,9 @@ class mysql::config(
   $old_root_password = '',
   $bind_address = '127.0.0.1',
   $port = 3306,
-  # rather or not to store the rootpw in /etc/my.cnf
-  $etc_root_password = false
-) {
+  $socket = $mysql::params::socket,
+  $my_cnf = $mysql::params::my_cnf,
+) inherits mysql::params {
 
   # manage root password if it is set
   if !($root_password == 'UNSET') {
@@ -26,12 +26,6 @@ class mysql::config(
     file{'/root/.my.cnf':
       content => template('mysql/my.cnf.pass.erb'),
     }
-    if $etc_root_password {
-       file{'/etc/my.cnf':
-          content => template('mysql/my.cnf.pass.erb'),
-          require => Exec['set_mysql_rootpw'],
-       }
-    }
   }
   File {
     owner => 'root',
@@ -48,8 +42,7 @@ class mysql::config(
     ensure  => directory,
     mode    => '755',
   }
-
-  file { '/etc/mysql/my.cnf':
+  file { "$my_cnf":
     content => template('mysql/my.cnf.erb'),
   }
 }
