@@ -125,5 +125,16 @@ module Puppet
       desc "Configures whether or not the device is enslaved to a bonding device"
       newvalues(:yes, :no)
     end
+
+    newparam(:mtu) do
+      desc "Configure the MTU of the device"
+    end
+
+    newparam(:peerntp) do
+      desc "Modify /etc/ntp.conf if dhclient receives ntp server info. default to 'no'."
+      newvalues(:yes, :no)
+      defaultto(:no)
+    end
+
   end
 end
