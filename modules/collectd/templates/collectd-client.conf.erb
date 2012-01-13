@@ -1,0 +1,42 @@
+# Config file for collectd(1).
+#
+# Some plugins need additional configuration and are disabled by default.
+# Please read collectd.conf(5) for details.
+#
+# You should also read /usr/share/doc/collectd-core/README.Debian.plugins
+# before enabling any more plugins.
+
+Hostname "<%= hostname %>"
+#FQDNLookup true
+#BaseDir "/var/lib/collectd"
+#PluginDir "/usr/lib/collectd"
+#TypesDB "/usr/share/collectd/types.db" "/etc/collectd/my_types.db"
+#Interval 10
+#ReadThreads 5
+
+LoadPlugin syslog
+
+<Plugin "syslog">
+  LogLevel "info"
+</Plugin>
+
+<LoadPlugin python>
+    Globals true
+</LoadPlugin>
+
+<Plugin python>
+    ModulePath "/opt/collectd-plugins/"
+
+    Import "carbon_writer"
+    <Module carbon_writer>
+        LineReceiverHost "<%= carbon_host %>"
+        LineReceiverPort <%= carbon_line_receiver_port %>
+        DeriveCounters true
+        TypesDB "/usr/share/collectd/types.db"
+    </Module>
+</Plugin>
+
+Include "/etc/collectd.d"
+#Include "/etc/collectd/filters.conf"
+#Include "/etc/collectd/thresholds.conf"
+
