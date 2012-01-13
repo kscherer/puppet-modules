@@ -1,5 +1,5 @@
 # The site file for the puppet master server
-$extlookup_datadir = "$confdir/environments/$environment/manifests/extdata/"
+$extlookup_datadir = "$confdir/environments/$environment/extdata/"
 $extlookup_precedence = ["package", "common"]
 
 # Define the bucket
