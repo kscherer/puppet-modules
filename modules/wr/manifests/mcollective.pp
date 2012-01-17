@@ -2,15 +2,15 @@
 class wr::mcollective {
 
   $collective = $::hostname ? {
-    /^ala-*$/ => 'ala',
-    /^pek-*$/ => 'pek',
-    /^yow-*$/ => 'yow',
+    /^ala-.*$/ => 'ala',
+    /^pek-.*$/ => 'pek',
+    /^yow-.*$/ => 'yow',
   }
 
   $puppet_server = $::hostname ? {
-    /^ala-*$/ => 'ala-lpd-puppet.wrs.com',
-    /^pek-*$/ => 'pek-lpd-puppet.wrs.com',
-    /^yow-*$/ => 'yow-lpgbld-master.ottawa.wrs.com',
+    /^ala-.*$/ => 'ala-lpd-puppet.wrs.com',
+    /^pek-.*$/ => 'pek-lpd-puppet.wrs.com',
+    /^yow-.*$/ => 'yow-lpgbld-master.ottawa.wrs.com',
   }
 
   $stomp_server = { host1 => "$puppet_server", port1 => '6163', user1 => 'mcollective',
