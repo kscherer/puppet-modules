@@ -17,7 +17,7 @@ class wr::mcollective {
     password1 => 'marionette' }
 
   class {
-    mcollective:
+    '::mcollective':
       client                => true,
       manage_plugins        => true,
       fact_source           => 'yaml',
