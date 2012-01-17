@@ -14,9 +14,9 @@ class wr::master {
       puppet_agent_ensure         => 'present',
       puppet_agent_service_enable => false,
       puppet_server => $::hostname ? {
-        /^ala-*$/                 => 'ala-lpd-puppet.wrs.com',
-        /^pek-*$/                 => 'pek-lpd-puppet.wrs.com',
-        /^yow-*$/                 => 'yow-lpgbld-master.ottawa.wrs.com',
+        /^ala.*$/                 => 'ala-lpd-puppet.wrs.com',
+        /^pek.*$/                 => 'pek-lpd-puppet.wrs.com',
+        /^yow.*$/                 => 'yow-lpgbld-master.ottawa.wrs.com',
       },
       master                      => true,
       manifest                    => '$confdir/environments/$environment/manifests/site.pp',
