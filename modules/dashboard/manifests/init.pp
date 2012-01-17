@@ -83,6 +83,7 @@ class dashboard (
     -> File["${dashboard::params::dashboard_root}/config/database.yml"]
     -> Exec['db-migrate']
     -> Class['dashboard::passenger']
+    -> Service[$dashboard_workers]
 
     class { 'dashboard::passenger':
       dashboard_site     => $dashboard_site,
@@ -101,6 +102,7 @@ class dashboard (
     -> File["${dashboard::params::dashboard_root}/config/database.yml"]
     -> Exec['db-migrate']
     -> Service[$dashboard_service]
+    -> Service[$dashboard_workers]
 
     service { $dashboard_service:
       ensure     => running,
