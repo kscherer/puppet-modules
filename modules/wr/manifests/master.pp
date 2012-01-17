@@ -2,6 +2,12 @@
 
 class wr::master {
 
+  Class['redhat']
+  -> Class['java']
+  -> Class['activemq']
+  -> Class['wr::mcollective']
+  -> Class['wr::master']
+
   class {
     puppet:
       agent                       => true,
@@ -9,7 +15,7 @@ class wr::master {
       puppet_agent_service_enable => false,
       puppet_server => $::hostname ? {
         /^ala-*$/                 => 'ala-lpd-puppet.wrs.com',
-        /^pek-*$/                 => 'ala-lpd-puppet.wrs.com',
+        /^pek-*$/                 => 'pek-lpd-puppet.wrs.com',
         /^yow-*$/                 => 'yow-lpgbld-master.ottawa.wrs.com',
       },
       master                      => true,
