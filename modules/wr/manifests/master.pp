@@ -7,9 +7,10 @@ class wr::master {
       agent                       => true,
       puppet_agent_ensure         => 'present',
       puppet_agent_service_enable => false,
-      puppet_server => $::domain ? {
-        'wrs.com'                 => 'ala-lpd-puppet.wrs.com',
-        /^ottawa.w*.com$/         => 'yow-lpgbld-master.ottawa.wrs.com',
+      puppet_server => $::hostname ? {
+        /^ala-*$/                 => 'ala-lpd-puppet.wrs.com',
+        /^pek-*$/                 => 'ala-lpd-puppet.wrs.com',
+        /^yow-*$/                 => 'yow-lpgbld-master.ottawa.wrs.com',
       },
       master                      => true,
       manifest                    => '$confdir/environments/$environment/manifests/site.pp',
