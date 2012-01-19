@@ -15,5 +15,5 @@ node 'ala-lpd-puppet.wrs.com' inherits master_common {
 node 'pek-lpd-puppet.wrs.com' inherits master_common {
 }
 
-node 'yow-lpd-puppet.wrs.com' inherits master_common {
+node 'yow-lpd-puppet.ottawa.wrs.com' inherits master_common {
 }
