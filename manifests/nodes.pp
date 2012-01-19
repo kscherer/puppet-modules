@@ -1,8 +1,7 @@
 node default {
 }
 
-node 'ala-lpd-puppet.wrs.com' {
-
+node master_common {
   class { redhat: }
   class { java: distribution => 'java-1.6.0-openjdk' }
   class { activemq: broker_name => 'ala-broker' }
@@ -10,11 +9,11 @@ node 'ala-lpd-puppet.wrs.com' {
   class { wr::master: }
 }
 
-node 'pek-lpd-puppet.wrs.com' {
+node 'ala-lpd-puppet.wrs.com' inherits master_common {
+}
 
-  class { redhat: }
-  class { java: distribution => 'java-1.6.0-openjdk' }
-  class { activemq: broker_name => 'pek-broker' }
-  class { wr::mcollective: }
-  class { wr::master: }
+node 'pek-lpd-puppet.wrs.com' inherits master_common {
+}
+
+node 'yow-lpd-puppet.wrs.com' inherits master_common {
 }
