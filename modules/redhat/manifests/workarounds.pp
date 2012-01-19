@@ -1,6 +1,6 @@
 #Class of workarounds specific to redhat class System
 class redhat::workarounds {
-  
+
   file_line {
     "stop_dhcp_modifying_ntp_conf":
       path => "/etc/sysconfig/network-scripts/ifcfg-eth0",
@@ -35,5 +35,12 @@ class redhat::workarounds {
         command => '/bin/mount -a',
         refreshonly => true
     }
+  }
+
+  #make sure the firewall is disabled
+  service {
+    ['iptables','ip6tables']:
+      enable => false,
+      ensure => stopped,
   }
 }
