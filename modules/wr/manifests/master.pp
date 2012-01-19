@@ -3,8 +3,6 @@
 class wr::master {
 
   Class['redhat']
-  -> Class['java']
-  -> Class['activemq']
   -> Class['mysql']
   -> Class['mysql::ruby']
   -> Class['wr::mcollective']
