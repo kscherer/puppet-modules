@@ -3,7 +3,7 @@ $extlookup_datadir = "$confdir/environments/$environment/extdata/"
 $extlookup_precedence = ["package", "common"]
 
 # Define the bucket
-filebucket { main: server => puppet, path => false }
+filebucket { main: server => $::server, path => false }
 
 # Specify it as the default target
 File { backup => main }
