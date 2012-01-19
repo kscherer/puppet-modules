@@ -7,13 +7,14 @@ class wr::mcollective {
     /^yow.*$/ => 'yow',
   }
 
-  $puppet_server = $::hostname ? {
+  $amqp_server = $::hostname ? {
     /^ala.*$/ => 'ala-lpd-puppet.wrs.com',
     /^pek.*$/ => 'pek-lpd-puppet.wrs.com',
-    /^yow.*$/ => 'yow-lpgbld-master.ottawa.wrs.com',
+    #/^yow.*$/ => 'yow-lpd-amqp.ottawa.wrs.com',
+    /^yow.*$/ => '128.224.194.12',
   }
 
-  $stomp_server = { host1 => "$puppet_server", port1 => '6163', user1 => 'mcollective',
+  $stomp_server = { host1 => "$amqp_server", port1 => '6163', user1 => 'mcollective',
     password1 => 'marionette' }
 
   class {
