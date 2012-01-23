@@ -57,14 +57,10 @@ class nrpe {
   }
 
   class redhat {
-
-    include ::redhat
-
     package {
       [ 'nagios-plugins-disk', 'nagios-plugins-file_age', 'nagios-plugins-ntp',
         'nagios-plugins-procs']:
         ensure  => present,
-        require => Yumrepo['epel'];
     }
   }
 
