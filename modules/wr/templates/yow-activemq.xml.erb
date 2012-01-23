@@ -40,7 +40,7 @@
           networkTTL="2"
           dynamicOnly="true">
         <excludedDestinations>
-          <queue physicalName="yow>" />
+          <queue physicalName="yow.>" />
         </excludedDestinations>
       </networkConnector>
       <networkConnector
@@ -54,7 +54,7 @@
           dynamicOnly="true"
           conduitSubscriptions="false">
         <excludedDestinations>
-          <topic physicalName="yow>" />
+          <topic physicalName="yow.>" />
         </excludedDestinations>
       </networkConnector>
 
@@ -69,7 +69,7 @@
         networkTTL="2"
         dynamicOnly="true">
         <excludedDestinations>
-          <queue physicalName="yow>" />
+          <queue physicalName="yow.>" />
         </excludedDestinations>
       </networkConnector>
       <networkConnector
@@ -83,7 +83,7 @@
           dynamicOnly="true"
           conduitSubscriptions="false">
         <excludedDestinations>
-          <topic physicalName="yow>" />
+          <topic physicalName="yow.>" />
         </excludedDestinations>
       </networkConnector>
     </networkConnectors>
@@ -105,8 +105,8 @@
               <authorizationEntry topic=">" write="admins" read="admins" admin="admins" />
               <authorizationEntry topic="mcollective.>" write="mcollective" read="mcollective" admin="mcollective" />
               <authorizationEntry queue="mcollective.>" write="mcollective" read="mcollective" admin="mcollective" />
-              <authorizationEntry topic="yow>" write="mcollective" read="mcollective" admin="mcollective" />
-              <authorizationEntry queue="yow>" write="mcollective" read="mcollective" admin="mcollective" />
+              <authorizationEntry topic="yow.>" write="mcollective" read="mcollective" admin="mcollective" />
+              <authorizationEntry queue="yow.>" write="mcollective" read="mcollective" admin="mcollective" />
               <authorizationEntry topic="ActiveMQ.Advisory.>" read="everyone" write="everyone" admin="everyone"/>
             </authorizationEntries>
           </authorizationMap>
