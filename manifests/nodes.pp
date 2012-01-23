@@ -41,6 +41,11 @@ node 'yow-lpg-amqp.ottawa.windriver.com' {
   -> Class['activemq']
   class { redhat: }
   class { java: distribution => 'java-1.6.0-openjdk' }
+
+  #need to define these here due to template declared here
+  #will move when I fix the activemq class
+  $broker_name = 'yow-broker'
+  $webconsole_real = true
   class { activemq:
     broker_name => 'yow-broker',
     server_config => template('wr/yow-activemq.xml.erb')
