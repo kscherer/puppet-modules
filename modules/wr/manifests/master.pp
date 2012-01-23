@@ -19,6 +19,7 @@ class wr::master {
         /^yow.*$/                 => 'yow-lpd-puppet.ottawa.wrs.com',
       },
       master                      => true,
+      autosign                    => true,
       manifest                    => '$confdir/environments/$environment/manifests/site.pp',
       modulepath                  => '$confdir/environments/$environment/modules',
       puppet_passenger            => true,
