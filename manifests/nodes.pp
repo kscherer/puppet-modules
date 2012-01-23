@@ -29,4 +29,5 @@ node 'yow-lpd-puppet.ottawa.wrs.com' {
   class { redhat: }
   class { wr::mcollective: }
   class { wr::master: }
+  class { nrpe: }
 }
