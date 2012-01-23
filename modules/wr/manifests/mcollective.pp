@@ -1,5 +1,7 @@
 # A class to hold common mcollective params for mcollective
-class wr::mcollective {
+class wr::mcollective(
+  $client = false
+  ) {
 
   $collective = $::hostname ? {
     /^ala.*$/ => 'ala',
@@ -19,7 +21,7 @@ class wr::mcollective {
 
   class {
     '::mcollective':
-      client                => true,
+      client                => $client,
       manage_plugins        => true,
       fact_source           => 'yaml',
       yaml_facter_source    => '/etc/mcollective/provisioned.yaml:/etc/mcollective/facter.yaml',
