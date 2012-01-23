@@ -11,6 +11,10 @@ node 'ala-lpd-puppet.wrs.com' {
   class { activemq: broker_name => 'ala-broker' }
   class { wr::mcollective: }
   class { wr::master: }
+
+  Class['redhat']
+  -> Class['nrpe']
+  class { nrpe: }
 }
 
 node 'pek-lpd-puppet.wrs.com' {
@@ -23,6 +27,10 @@ node 'pek-lpd-puppet.wrs.com' {
   class { activemq: broker_name => 'pek-broker' }
   class { wr::mcollective: }
   class { wr::master: }
+
+  Class['redhat']
+  -> Class['nrpe']
+  class { nrpe: }
 }
 
 node 'yow-lpd-puppet.ottawa.wrs.com' {
@@ -51,4 +59,8 @@ node 'yow-lpg-amqp.ottawa.windriver.com' {
     server_config => template('wr/yow-activemq.xml.erb')
   }
   class { wr::mcollective: }
+
+  Class['redhat']
+  -> Class['nrpe']
+  class { nrpe: }
 }
