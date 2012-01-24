@@ -12,8 +12,7 @@ class wr::mcollective(
   $amqp_server = $::hostname ? {
     /^ala.*$/ => 'ala-lpd-puppet.wrs.com',
     /^pek.*$/ => 'pek-lpd-puppet.wrs.com',
-    #/^yow.*$/ => 'yow-lpd-amqp.ottawa.wrs.com',
-    /^yow.*$/ => '128.224.194.12',
+    /^yow.*$/ => 'yow-lpg-amqp.ottawa.wrs.com',
   }
 
   $stomp_server = { host1 => "$amqp_server", port1 => '6163', user1 => 'mcollective',
