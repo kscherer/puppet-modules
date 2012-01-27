@@ -1,0 +1,196 @@
+#!/bin/bash
+#
+# nx_instance  Manage nx instances as if they are services
+#
+# chkconfig: - 345 95 5
+# description: Nx is a simple shell script used to do coverage testing
+#              of Wind River Linux
+
+# Source function library.
+. /etc/init.d/functions
+
+scriptname=$(basename $0)
+#This script expects to be called through links of the format:
+#nx_instance.1 for the first instance. Otherwise default is to 1
+instance=1
+if [ "x$scriptname" != "xnx_instance" ]; then
+    instance=${scriptname##*.}
+fi
+nx_instance="nx_instance.$instance"
+
+if [ -f /etc/sysconfig/${nx_instance} ]; then
+    . /etc/sysconfig/${nx_instance}
+fi
+
+if [ -z "$nx_user" ]; then
+    # Assume the user to run nx is nxadm
+    nx_user="nxadm"
+fi
+
+nx_userhome="/home/${nx_user}/"
+hostname=$(hostname -s)
+nx_builddir="${nx_userhome}/nx/${hostname}.${instance}"
+
+#nx has its own pid file
+pidfile="${nx_builddir}/.nx.lock"
+
+if ! [ -d ${nx_builddir} ]; then
+    echo 1>&2 "nx build dir ${nx_builddir} has not been created"
+    failure "nx build dir not found"
+    echo 1>&2
+    exit 1
+fi
+
+# Check that nx has been installed
+nx=${nx_builddir}/notxylo/nx
+if ! [ -f $nx ]; then
+    echo 1>&2 "nx not found. Expected it located here: $nx"
+    failure "nx not found"
+    echo 1>&2
+    exit 1
+fi
+
+daemonopts="--pidfile=${pidfile} --user=${nx_user}"
+nxopts="--rcfile ${nx_builddir}/nxrc_files/$hostname autorestart >> ${nx_builddir}/nx.log 2>&1 &"
+
+#just to be safe make sure nxrc_files has latest configs
+nx_command="cd ${nx_builddir};\
+pushd nxrc_files > /dev/null 2>&1;\
+if [ -d .git ]; then git pull; fi;\
+popd > /dev/null 2>&1;\
+${nx_builddir}/notxylo/nx ${nxopts}"
+
+RETVAL=0
+
+start() {
+    echo -n "Starting nx instance ${instance}"
+
+    if [ -f /var/tmp/STFU ]; then
+        rm -f /var/tmp/STFU
+    fi
+
+    if [ -f /var/tmp/ESAD ]; then
+        rm -f /var/tmp/ESAD
+    fi
+
+    #This will start each nx instance in its own process group
+    daemon ${daemonopts} ${nx_command}
+    RETVAL=$?
+    echo
+    return $RETVAL
+}
+
+stop() {
+    echo -n "Shutting down nx instance ${instance} ..."
+    local pid=$(cat $pidfile)
+
+    #check if pid in pidfile is valid
+    if [ -d /proc/$pid ]; then
+        local pgid=$(ps -p $pid -o pgid=)
+        #echo "Send TERM signal to instance ${instance} with pid $pid and pgid $pgid"
+
+        #first try gentle kill using kill program, not builtin kill which does not
+        #support process group kill
+        /bin/kill -- -${pgid## }
+
+        #wait and check if process is actually dead
+        sleep 5
+        if ps -U ${nx_user} -o pgid= | grep -q $pgid
+        then
+            #echo "TERM failed. Killing instance ${instance} with pid $pid and pgid $pgid"
+            /bin/kill -s 9 -- -${pgid}
+        fi
+    else
+        echo -n "pid $pid already dead"
+    fi
+    echo
+    return 0
+}
+
+restart() {
+    stop
+    start
+}
+
+nx_status(){
+    #Monitoring nx is a little tricky. Here are the possible states:
+    #Stopped, Building, Hung, Waiting for commits or to retry git pulls
+    #SFTU deployed
+    #The return codes are from LSB:
+    #http://refspecs.linuxbase.org/LSB_3.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html
+
+    #assume no pidfile means that nx is stopped
+    if [ ! -f $pidfile ]; then
+        echo "No pidfile found. Assuming nx instance $instance is stopped"
+        RETVAL=3
+        return $RETVAL
+    fi
+
+    local pid=$(cat $pidfile)
+
+    #check if pid in pidfile is valid
+    if [ -d /proc/$pid ]; then
+        local five_min=300 #5 * 60 seconds
+        local thirty_min=1800 #30 * 60 seconds
+        local nx_log="${nx_builddir}/nx.log"
+        #When nx is building is makes a link to the current build
+        local wrbuildlog="${nx_builddir}/current_build/00-wrbuild.log"
+        if [ -f $wrbuildlog ]; then
+            #If the 00-wrbuild.log was modified recently then build is not hung
+            local wrbuildlog_age=$(($(date +%s) - $(stat -c '%Y' "${wrbuildlog}")))
+            if [ $wrbuildlog_age -lt $five_min ]; then
+                echo "Nx instance $instance is running"
+                RETVAL=0
+            else
+                echo "Nx is hung"
+                RETVAL=1
+            fi
+        elif [ -f "/var/tmp/SFTU" ]; then
+            echo "SFTU deployed. Nx waiting"
+            RETVAL=150 # Reserved for application return code
+        elif [ ! -f ${nx_builddir}/nx.log ]; then
+            echo "Nx instance $instance is stopped"
+            RETVAL=3
+        elif [ $(tail -n 1 ${nx_builddir}/nx.log | grep -q "Build blackout") -eq 0 ]; then
+            echo "Build blackout. Nx waiting"
+            RETVAL=0
+        elif [ $(tail -n 1 ${nx_builddir}/nx.log | grep -q "No new commits") -eq 0 ]; then
+            echo "Waiting for commits."
+            RETVAL=0
+        elif [ $(tail -n 1 ${nx_builddir}/nx.log | grep -q "Network glitch") -eq 0 ]; then
+            echo "Something messed up - repo corrupt, network might be down, etc."
+            RETVAL=151 # Reserved for application return code
+        elif [ $(($(date +%s) - $(stat -c '%Y' "${nx_log}"))) -lt $thirty_min ]; then
+            echo "Nx is waiting"
+            RETVAL=0
+        else
+            echo "I have no idea what nx is doing"
+            RETVAL=4 # Unknown state
+        fi
+    else
+        echo "Nx instance $instance is stopped"
+        RETVAL=3
+    fi
+    return $RETVAL
+}
+
+# See how we were called.
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart
+        ;;
+    status)
+        nx_status
+        ;;
+    *)
+        echo "Usage: nx_instance {start|stop|restart|status}"
+        RETVAL=2
+        ;;
+esac
+exit $RETVAL
