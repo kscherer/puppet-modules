@@ -1,0 +1,13 @@
+em1_broadcast,128.224.137.255
+em1_netmask,255.255.255.0
+em1_ip,128.224.137.27
+em1_mac,00:23:AE:FD:11:7C
+em1_gateway,128.224.137.1
+p3p1_broadcast,172.17.137.255
+p3p1_ip,172.17.137.27
+p3p1_netmask,255.255.255.0
+p3p1_mac,00:10:18:3B:D5:44
+iscsi_initiator_name,iqn.1994-05.com.redhat:fd39b92b5fc8
+iscsi_target_name,iqn.1992-08.com.netapp:sn.135094594
+iscsi_node_iface0_port0,172.17.137.101
+iscsi_uuid,eb3bd126-e7b8-4949-860e-8e622c202169

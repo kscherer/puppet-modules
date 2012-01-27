@@ -1,0 +1,13 @@
+eth0_broadcast,128.224.137.255
+eth0_netmask,255.255.255.0
+eth0_ip,128.224.137.22
+eth0_mac,00:23:AE:FD:0F:C0
+eth0_gateway,128.224.137.1
+eth2_broadcast,172.17.137.255
+eth2_ip,172.17.137.22
+eth2_netmask,255.255.255.0
+eth2_mac,00:10:18:3B:D5:08
+iscsi_initiator_name,iqn.1994-05.com.redhat:ed563245b59
+iscsi_target_name,iqn.1992-08.com.netapp:sn.135094953
+iscsi_node_iface0_port0,172.17.137.100
+iscsi_uuid,648cb054-2d53-47a3-8382-0a62c616f6db
