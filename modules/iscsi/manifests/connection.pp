@@ -12,7 +12,6 @@ define iscsi::connection(
   exec {
     "create_$name":
       command => "iscsiadm -m iface -I $name -o new",
-      path    => '/usr/bin/:/sbin/:/bin',
       unless  => "iscsiadm -m iface | grep -q $name",
       notify  => Exec["login_iscsi_$name"],
   }
@@ -20,7 +19,6 @@ define iscsi::connection(
   #bind the new iface to a specific network device
   exec {
     "update_$name":
-      path    => '/usr/bin/:/sbin/:/bin',
       unless  =>
         "iscsiadm -m iface | grep $name | grep -q $iscsi_connection_device",
       require => Exec["create_$name"],
@@ -32,7 +30,6 @@ define iscsi::connection(
   #create the iscsi node for each iface
   exec {
     "create_iscsi_${name}_node0":
-      path    => '/usr/bin/:/sbin/:/bin',
       unless  => "iscsiadm -m node | grep -q ${iscsi_node_port0}",
       require => [ Exec["update_$name"], Exec["create_$name"]],
       notify  => Exec["login_iscsi_$name"],
@@ -44,7 +41,6 @@ define iscsi::connection(
   if $iscsi_node_port1 != 'UNSET' {
     exec {
       "create_iscsi_${name}_node1":
-        path    => '/usr/bin/:/sbin/:/bin',
         unless  => "iscsiadm -m node | grep -q ${iscsi_node_port1}",
         require => [ Exec["update_$name"], Exec["create_$name"]],
         notify  => Exec["login_iscsi_$name"],
@@ -58,7 +54,6 @@ define iscsi::connection(
   #are as many connections as nodes
   exec {
     "login_iscsi_$name":
-      path    => '/usr/bin/:/sbin/:/bin',
       unless  => "test `iscsiadm -m node |grep $iscsi_target_name | \
         wc -l` -eq `iscsiadm -m session | grep $iscsi_target_name | \
         wc -l` &> /dev/null",

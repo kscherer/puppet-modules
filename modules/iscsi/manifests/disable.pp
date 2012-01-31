@@ -2,7 +2,6 @@
 class iscsi::disable {
   exec {
     'iscsi_disable':
-      path    => '/usr/bin/:/sbin/:/bin',
       tag     => 'disable_iscsi',
       command =>
       'multipath -F; service multipathd -F; service iscsi stop;\

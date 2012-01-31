@@ -1,9 +1,15 @@
 # The site file for the puppet master server
-$extlookup_datadir = "$confdir/environments/$environment/extdata/"
-$extlookup_precedence = ["package", "common"]
+$extlookup_datadir = "${confdir}/environments/$environment/extdata/"
+$extlookup_precedence = ['package', 'common']
+
+#set the default path for all exec resources
+Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
 # Define the bucket
-filebucket { main: server => $::server, path => false }
+filebucket {
+  'main':
+    server => $::server, path => false
+}
 
 # Specify it as the default target
 File { backup => main }
@@ -14,5 +20,5 @@ if $::operatingsystem == 'RedHat' and $::operatingsystemrelease == '4' {
 }
 
 # define nodes
-import "nodes.pp"
+import 'nodes.pp'
 
