@@ -18,8 +18,12 @@ if [ "x$scriptname" != "xnx_instance" ]; then
 fi
 nx_instance="nx_instance.$instance"
 
-if [ -f /etc/sysconfig/${nx_instance} ]; then
-    . /etc/sysconfig/${nx_instance}
+if [ -f /etc/sysconfig/nx_instance ]; then
+    . /etc/sysconfig/nx_instance
+fi
+
+if [ -f /etc/default/nx_instance ]; then
+    . /etc/default/nx_instance
 fi
 
 if [ -z "$nx_user" ]; then
@@ -29,7 +33,10 @@ fi
 
 nx_userhome="/home/${nx_user}/"
 hostname=$(hostname -s)
-nx_builddir="${nx_userhome}/nx/${hostname}.${instance}"
+
+if [ -z "$nx_builddir" ]; then
+    nx_builddir="${nx_userhome}/nx/${hostname}.${instance}"
+fi
 
 #nx has its own pid file
 pidfile="${nx_builddir}/.nx.lock"
@@ -61,16 +68,35 @@ popd > /dev/null 2>&1;\
 ${nx_builddir}/notxylo/nx ${nxopts}"
 
 RETVAL=0
+nx_status_string=""
 
 start() {
     echo -n "Starting nx instance ${instance}"
 
-    if [ -f /var/tmp/STFU ]; then
-        rm -f /var/tmp/STFU
+    #cannot start nx if this file is present
+    if [ -f /var/tmp/ESAD ]; then
+        echo -n "Removing ESAD"
+        rm -f /var/tmp/ESAD
     fi
 
-    if [ -f /var/tmp/ESAD ]; then
-        rm -f /var/tmp/ESAD
+    #first check that current status of the nx instance
+    nx_status
+
+    if [ "$RETVAL" -eq "0" ]; then
+        echo "Nx already running. Not starting."
+        return 0;
+    elif [ "$RETVAL" -eq "1" ]; then
+        echo "Nx is hung, restarting..."
+        stop
+    elif [ "$RETVAL" -eq "150" ]; then
+        echo "Warning: SFTU deployed. Not starting nx."
+        return 0
+    elif [ "$RETVAL" -eq "151" ]; then
+        echo "Warning: Nx is experiencing external glitches. Not starting nx."
+        return 0
+    elif [ "$RETVAL" -eq "4" ]; then
+        echo "Nx is in unknown state, restarting..."
+        stop
     fi
 
     #This will start each nx instance in its own process group
@@ -121,7 +147,7 @@ nx_status(){
 
     #assume no pidfile means that nx is stopped
     if [ ! -f $pidfile ]; then
-        echo "No pidfile found. Assuming nx instance $instance is stopped"
+        $nx_status_string="No pidfile found. Assuming nx instance $instance is stopped"
         RETVAL=3
         return $RETVAL
     fi
@@ -135,40 +161,44 @@ nx_status(){
         local nx_log="${nx_builddir}/nx.log"
         #When nx is building is makes a link to the current build
         local wrbuildlog="${nx_builddir}/current_build/00-wrbuild.log"
+        local wrbuildlog_age=$(($(date +%s) - $(stat -c '%Y' "${wrbuildlog}")))
+        local nxlog_age=$(($(date +%s) - $(stat -c '%Y' "${nx_log}")))
         if [ -f $wrbuildlog ]; then
             #If the 00-wrbuild.log was modified recently then build is not hung
-            local wrbuildlog_age=$(($(date +%s) - $(stat -c '%Y' "${wrbuildlog}")))
             if [ $wrbuildlog_age -lt $five_min ]; then
-                echo "Nx instance $instance is running"
+                $nx_status_string="Nx instance $instance is running"
+                RETVAL=0
+            elif [ $nxlog_age -lt $five_min ]; then
+                $nx_status_string="Nx instance $instance is running"
                 RETVAL=0
             else
-                echo "Nx is hung"
+                $nx_status_string="Nx is hung"
                 RETVAL=1
             fi
         elif [ -f "/var/tmp/SFTU" ]; then
-            echo "SFTU deployed. Nx waiting"
+            $nx_status_string="SFTU deployed. Nx waiting"
             RETVAL=150 # Reserved for application return code
         elif [ ! -f ${nx_builddir}/nx.log ]; then
-            echo "Nx instance $instance is stopped"
+            $nx_status_string="Nx instance $instance is stopped"
             RETVAL=3
         elif [ $(tail -n 1 ${nx_builddir}/nx.log | grep -q "Build blackout") -eq 0 ]; then
-            echo "Build blackout. Nx waiting"
+            $nx_status_string="Build blackout. Nx waiting"
             RETVAL=0
         elif [ $(tail -n 1 ${nx_builddir}/nx.log | grep -q "No new commits") -eq 0 ]; then
-            echo "Waiting for commits."
+            $nx_status_string="Waiting for commits."
             RETVAL=0
         elif [ $(tail -n 1 ${nx_builddir}/nx.log | grep -q "Network glitch") -eq 0 ]; then
-            echo "Something messed up - repo corrupt, network might be down, etc."
+            $nx_status_string="Something messed up - repo corrupt, network might be down, etc."
             RETVAL=151 # Reserved for application return code
-        elif [ $(($(date +%s) - $(stat -c '%Y' "${nx_log}"))) -lt $thirty_min ]; then
-            echo "Nx is waiting"
+        elif [ $nxlog_age -lt $thirty_min ]; then
+            $nx_status_string="Nx is waiting"
             RETVAL=0
         else
-            echo "I have no idea what nx is doing"
+            $nx_status_string="I have no idea what nx is doing"
             RETVAL=4 # Unknown state
         fi
     else
-        echo "Nx instance $instance is stopped"
+        $nx_status_string="Nx instance $instance is stopped"
         RETVAL=3
     fi
     return $RETVAL
@@ -187,6 +217,7 @@ case "$1" in
         ;;
     status)
         nx_status
+        echo $nx_status_string
         ;;
     *)
         echo "Usage: nx_instance {start|stop|restart|status}"
