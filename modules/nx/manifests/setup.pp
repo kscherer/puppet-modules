@@ -7,8 +7,8 @@ define nx::setup {
 
   Exec {
     cwd     => $nx_builddir,
-    require => [ File["$nx_builddir"], User['nxadm'] ],
-    user    => 'nxadm';
+    require => [ File[$nx_builddir], User['nxadm'] ],
+    user    => 'nxadm',
   }
 
   #clone all the needed repos to run nx
