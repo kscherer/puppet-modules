@@ -74,15 +74,15 @@ class puppet (
   $activerecord_ensure         = $puppet::params::activerecord_ensure
 ) inherits puppet::params
 {
-  $v_bool = [ '^true$', '^false$' ]
   $v_alphanum = '^[._0-9a-zA-Z:-]+$'
   $v_path = '^[/$]'
   validate_re($puppet_master_ensure, $v_alphanum)
   validate_re($puppet_agent_ensure, $v_alphanum)
-  validate_re($master, $v_bool)
-  validate_re($agent, $v_bool)
-  validate_re($dashboard, $v_bool)
-  validate_re($storeconfigs, $v_bool)
+  $master_bool = any2bool($master)
+  $agent_bool = any2bool($agent)
+  $dashboard_bool = any2bool($dashboard)
+  $storeconfigs_bool = any2bool($storeconfigs)
+  $thinstoreconfigs_bool = any2bool($thinstoreconfigs)
   validate_re($puppet_conf, $v_path)
   validate_re($puppet_logdir, $v_path)
   validate_re($puppet_vardir, $v_path)
@@ -100,7 +100,7 @@ class puppet (
   validate_re($certname, $v_alphanum)
   validate_re($modulepath, $v_path)
 
-  if $dashboard {
+  if $dashboard_bool {
     class {'dashboard':
       dashboard_ensure       => $dashboard_ensure,
       dashboard_group        => $dashboard_group,
@@ -120,7 +120,7 @@ class puppet (
     }
   }
 
-  if $master {
+  if $master_bool {
     class {'puppet::master':
       puppet_master_ensure      => $puppet_master_ensure,
       confdir                   => $confdir,
@@ -134,8 +134,8 @@ class puppet (
       puppet_docroot            => $puppet_docroot,
       puppet_vardir             => $puppet_vardir,
       modulepath                => $modulepath,
-      storeconfigs              => $storeconfigs,
-      thinstoreconfigs          => $thinstoreconfigs,
+      storeconfigs              => $storeconfigs_bool,
+      thinstoreconfigs          => $thinstoreconfigs_bool,
       storeconfigs_dbadapter    => $storeconfigs_dbadapter,
       storeconfigs_dbuser       => $storeconfigs_dbuser,
       storeconfigs_dbpassword   => $storeconfigs_dbpassword,
@@ -157,7 +157,7 @@ class puppet (
     }
   }
 
-  if $agent {
+  if $agent_bool {
     class {'puppet::agent':
       puppet_agent_ensure         => $puppet_agent_ensure,
       puppet_defaults             => $puppet_defaults,
