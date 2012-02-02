@@ -45,8 +45,10 @@ multipaths {
         wwid <%= wwid_disk1 %>
         alias ba1
     }
+<% unless wwid_disk2 == 'UNSET' -%>
     multipath {
         wwid <%= wwid_disk2 %>
         alias ba2
     }
+<% end -%>
 }

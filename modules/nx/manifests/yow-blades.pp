@@ -39,8 +39,16 @@ class nx::yow-blades {
 }
 
 class nx::md3000_iscsi_setup {
+
+  #retrieve the uuid of the multipath disks
+  $wwid_disk1 = extlookup('wwid_disk1')
+  $wwid_disk2 = extlookup('wwid_disk2')
+
   class{ 'iscsi::md3000': }
-  -> class{ 'multipath': }
+  -> class{ 'multipath':
+    wwid_disk1 = $wwid_disk1,
+    wwid_disk2 = $wwid_disk2,
+  }
   -> Anchor['nx::begin']
   -> Class['nx']
   -> Class['nx::md3000_iscsi_setup']

@@ -14,16 +14,16 @@ class puppet::params {
 
   $puppet_server                    = 'aserver.puppetlabs.lan'
   $puppet_storeconfigs_password     = 'password'
-  $modulepath                       = "/etc/puppet/modules"
+  $modulepath                       = '/etc/puppet/modules'
   $storeconfigs_dbadapter           = 'mysql'
   $storeconfigs_dbuser              = 'puppet'
   $storeconfigs_dbpassword          = 'password'
   $storeconfigs_dbserver            = 'localhost'
   $storeconfigs_dbsocket            = '/var/run/mysqld/mysqld.sock'
-  $certname                         = $fqdn
+  $certname                         = $::fqdn
   $confdir                          = '/etc/puppet/puppet.conf'
   $manifest                         = '/etc/puppet/manifests/site.pp'
-  $puppet_site                      = $fqdn
+  $puppet_site                      = $::fqdn
   $puppet_docroot                   = '/etc/puppet/rack/public/'
   $puppet_passenger_port            = '8140'
   $mysql_root_pw                    = 'changemetoo'
@@ -31,7 +31,7 @@ class puppet::params {
   $activerecord_package             = 'activerecord'
   $activerecord_ensure              = 'installed'
 
-  case $operatingsystem {
+  case $::operatingsystem {
     'centos', 'redhat', 'fedora': {
       $puppet_master_package        = 'puppet-server'
       $puppet_master_service        = 'puppetmaster'
@@ -47,7 +47,7 @@ class puppet::params {
       $package_provider             = 'yum'
       $mysql_package_provider       = 'yum'
       $ruby_mysql_package           = 'ruby-mysql'
-   }
+    }
     'ubuntu', 'debian': {
       $puppet_master_package        = 'puppetmaster'
       $puppet_master_service        = 'puppetmaster'
@@ -87,7 +87,7 @@ class puppet::params {
       $ruby_mysql_package           = 'mysql'
     }
     default: {
-      warning("Operating system $operatingsystem not supported.")
+      warning("Operating system $::operatingsystem not supported.")
     }
   }
 }

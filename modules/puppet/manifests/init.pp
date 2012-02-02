@@ -23,6 +23,7 @@ class puppet (
   $master                      = false,
   $puppet_agent_ensure         = 'present',
   $agent                       = true,
+  $puppet_agent_name           = $puppet::params::puppet_agent_name,
   $confdir                     = $puppet::params::confdir,
   $manifest                    = $puppet::params::manifest,
   $modulepath                  = $puppet::params::modulepath,
@@ -78,10 +79,10 @@ class puppet (
   $v_path = '^[/$]'
   validate_re($puppet_master_ensure, $v_alphanum)
   validate_re($puppet_agent_ensure, $v_alphanum)
-  validate_re("$master", $v_bool)
-  validate_re("$agent", $v_bool)
-  validate_re("$dashboard", $v_bool)
-  validate_re("$storeconfigs", $v_bool)
+  validate_re($master, $v_bool)
+  validate_re($agent, $v_bool)
+  validate_re($dashboard, $v_bool)
+  validate_re($storeconfigs, $v_bool)
   validate_re($puppet_conf, $v_path)
   validate_re($puppet_logdir, $v_path)
   validate_re($puppet_vardir, $v_path)

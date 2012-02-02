@@ -46,6 +46,7 @@ node 'yow-lpd-puppet.ottawa.wrs.com' {
 node 'yow-lpg-amqp.ottawa.windriver.com' {
   Class['redhat']
   -> Class['java']
+  -> Class['nrpe']
   -> Class['activemq']
   class { redhat: }
   class { java: distribution => 'java-1.6.0-openjdk' }
@@ -59,8 +60,9 @@ node 'yow-lpg-amqp.ottawa.windriver.com' {
     server_config => template('wr/yow-activemq.xml.erb')
   }
   class { wr::mcollective: }
-
-  Class['redhat']
-  -> Class['nrpe']
   class { nrpe: }
+}
+
+node 'yow-blade1.wrs.com' {
+  class { 'wr::yow-blades': }
 }

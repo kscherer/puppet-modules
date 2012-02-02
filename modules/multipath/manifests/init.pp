@@ -1,5 +1,5 @@
 #how the mount is defined
-define mpath_mount($device) {
+define multipath::mount($device) {
   mount {
     $name:
       ensure   => mounted,
@@ -13,7 +13,11 @@ define mpath_mount($device) {
 }
 
 #This class currently assumes 2 multipath disks
-class multipath {
+class multipath(
+  $wwid_disk1,
+  $wwid_disk2 = 'UNSET'
+  ) {
+
   package {
     'device-mapper-multipath':
       ensure => installed;
@@ -28,12 +32,9 @@ class multipath {
       require    => [ Package['device-mapper-multipath']];
   }
 
-  $wwid_disk1 = extlookup('wwid_disk1')
-  $wwid_disk2 = extlookup('wwid_disk2')
-
   file {
     '/etc/multipath.conf':
-      content => template('iscsi/multipath.conf.erb'),
+      content => template('multipath/multipath.conf.erb'),
       require => Package['device-mapper-multipath'],
       notify  => [ Service[ 'multipathd' ], Exec['create_multipath'] ],
       owner   => root, group => root, mode => '0644';
