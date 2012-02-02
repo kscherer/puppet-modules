@@ -7,6 +7,7 @@ class wr::yow-blades inherits wr::common {
   }
   -> class { 'wr::mcollective': }
   -> class { 'puppet':
+    puppet_server               => 'yow-lpd-puppet.ottawa.wrs.com',
     puppet_agent_ensure         => 'latest',
     puppet_agent_service_enable => false,
     agent                       => true,
