@@ -46,8 +46,8 @@ class nx::md3000_iscsi_setup {
 
   class{ 'iscsi::md3000': }
   -> class{ 'multipath':
-    wwid_disk1 = $wwid_disk1,
-    wwid_disk2 = $wwid_disk2,
+    wwid_disk1 => $wwid_disk1,
+    wwid_disk2 => $wwid_disk2,
   }
   -> Anchor['nx::begin']
   -> Class['nx']
