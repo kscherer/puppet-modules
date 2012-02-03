@@ -88,9 +88,10 @@ class ntp($servers="UNSET",
 
   if ($supported == true) {
 
-    package { $pkg_name:
+    @package { $pkg_name:
       ensure => $package_ensure,
     }
+    realize(Package[$pkg_name])
 
     file { $config:
       ensure => file,
