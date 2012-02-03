@@ -2,7 +2,7 @@
 #
 # nx_instance  Manage nx instances as if they are services
 #
-# chkconfig: - 345 95 5
+# chkconfig: 345 95 5
 # description: Nx is a simple shell script used to do coverage testing
 #              of Wind River Linux
 
