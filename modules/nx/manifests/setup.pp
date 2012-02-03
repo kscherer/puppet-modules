@@ -31,8 +31,8 @@ define nx::setup {
   file {
     "/etc/init.d/nx_instance.$name":
       ensure => link,
-      user   => root,
-      group  => root,
+      owner  => 'root',
+      group  => 'root',
       mode   => '0755',
       notify => Service["nx_instance.$name"],
       target => '/etc/init.d/nx_instance';

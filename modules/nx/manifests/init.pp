@@ -28,7 +28,7 @@ class nx {
   }
 
   File {
-    user    => 'nxadm',
+    owner   => 'nxadm',
     group   => 'nxadm',
     require => User['nxadm'],
   }
@@ -46,8 +46,8 @@ class nx {
       source  => "puppet:///nx/$name",
       require => File['/home/nxadm/bin'];
     '/etc/init.d/nx_instance':
-      user    => root,
-      group   => root,
+      owner   => 'root',
+      group   => 'root',
       source  => "puppet:///nx/$name";
   }
 
