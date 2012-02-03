@@ -28,7 +28,7 @@ class wrlinux {
   #only include a package if it has not already been defined. The
   #difficulty of defining a package in multiple files is a known
   #problem with puppet.
-  define wr::smart_package() {
+  define wrlinux::smart_package() {
     if ! defined(Package[$name]) {
       package {
         $name:
@@ -36,5 +36,5 @@ class wrlinux {
       }
     }
   }
-  wr::smart_package { $package_list : }
+  wrlinux::smart_package { $package_list : }
 }

@@ -86,6 +86,7 @@ class nx::netapp_iscsi_setup {
 
   class{ 'iscsi::netapp': }
   -> Anchor['nx::begin']
+  -> Class['nx']
   -> Class['nx::netapp_iscsi_setup']
   -> Class['nx::yow-blades']
   -> Anchor['nx::end']
