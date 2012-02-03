@@ -14,6 +14,7 @@ class wr::yow-blades inherits wr::common {
   -> class { 'nrpe': }
   -> class { 'nis': }
   -> class { 'wrlinux': }
+  -> class { 'collectd': }
   -> class { 'nx': }
 
   user {
