@@ -114,7 +114,13 @@ class puppet::agent(
     realize(Concat[$puppet::params::puppet_conf])
     Concat<| title == $puppet::params::puppet_conf |> {
       require +> Package[$puppet::params::puppet_agent_name],
-      notify  +> $puppet::agent::service_notify,
+    }
+
+    #for some reason puppet cannot handle undef with +>
+    if $puppet::agent::service_notify != '' {
+      Concat<| title == $puppet::params::puppet_conf |> {
+        notify  +> $puppet::agent::service_notify,
+      }
     }
 
     if ! defined(Concat::Fragment['puppet.conf-common']) {

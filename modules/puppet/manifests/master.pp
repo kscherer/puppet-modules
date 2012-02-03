@@ -233,7 +233,13 @@ class puppet::master (
   realize(Concat[$puppet::params::puppet_conf])
   Concat<| title == $puppet::params::puppet_conf |> {
     require +> $service_require,
-    notify  +> $service_notify,
+  }
+
+  #for some reason puppet cannot handle undef with +>
+  if $puppet::master::service_notify != '' {
+    Concat<| title == $puppet::params::puppet_conf |> {
+      notify  +> $service_notify,
+    }
   }
 
   if ! defined(Concat::Fragment['puppet.conf-common']) {
