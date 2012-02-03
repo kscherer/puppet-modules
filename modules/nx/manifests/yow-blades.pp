@@ -111,8 +111,8 @@ class nx::netapp_iscsi_setup {
       require => [ File['/home/nxadm'], File['/buildarea/nxadm/nx']];
     [ "/home/nxadm/nx/${::hostname}.1", "/home/nxadm/nx/${::hostname}.2",
       "/home/nxadm/nx/${::hostname}.3", "/home/nxadm/nx/${::hostname}.4"]:
-        mode    => '0755',
-        ensure  => directory;
+        ensure  => directory,
+        mode    => '0755';
     }
 
     $iscsi_uuid = extlookup('iscsi_uuid')
@@ -124,7 +124,7 @@ class nx::netapp_iscsi_setup {
       device   => "UUID=$iscsi_uuid",
       fstype   => ext3,
       options  => 'noatime,nodiratime,data=writeback,_netdev,reservation,commit=100',
-      require  => [ File['/buildarea'], Iscsi_test::Connection['iface0']],
+      require  => [ File['/buildarea'], Iscsi::Connection['iface0']],
       remounts => true;
   }
 }

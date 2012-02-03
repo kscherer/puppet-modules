@@ -43,7 +43,7 @@ class nis {
       hasrestart => true,
       hasstatus  => true,
       require    => [ File['/etc/yp.conf'], File['/etc/nsswitch.conf'],
-                      Line['nisdomain'], Package['ypbind']];
+                      File_line['nisdomain'], Package['ypbind']];
   }
 
   service {
