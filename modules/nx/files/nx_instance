@@ -181,13 +181,13 @@ nx_status(){
         elif [ ! -f ${nx_builddir}/nx.log ]; then
             nx_status_string="Nx instance $instance is stopped"
             RETVAL=3
-        elif [ $(tail -n 1 ${nx_builddir}/nx.log | grep -q "Build blackout") -eq 0 ]; then
+        elif [ $(tail -n 1 ${nx_builddir}/nx.log | grep -q "Build blackout") -eq "0" ]; then
             nx_status_string="Build blackout. Nx waiting"
             RETVAL=0
-        elif [ $(tail -n 1 ${nx_builddir}/nx.log | grep -q "No new commits") -eq 0 ]; then
+        elif [ $(tail -n 1 ${nx_builddir}/nx.log | grep -q "No new commits") -eq "0" ]; then
             nx_status_string="Waiting for commits."
             RETVAL=0
-        elif [ $(tail -n 1 ${nx_builddir}/nx.log | grep -q "Network glitch") -eq 0 ]; then
+        elif [ $(tail -n 1 ${nx_builddir}/nx.log | grep -q "Network glitch") -eq "0" ]; then
             nx_status_string="Something messed up - repo corrupt, network might be down, etc."
             RETVAL=151 # Reserved for application return code
         elif [ $nxlog_age -lt $thirty_min ]; then
