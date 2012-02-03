@@ -86,7 +86,6 @@ class nx::netapp_iscsi_setup {
 
   class{ 'iscsi::netapp': }
   -> Anchor['nx::begin']
-  -> Class['nx']
   -> Class['nx::netapp_iscsi_setup']
   -> Class['nx::yow-blades']
   -> Anchor['nx::end']
@@ -110,8 +109,10 @@ class nx::netapp_iscsi_setup {
       target  => '/buildarea/nxadm/nx',
       replace => false,
       require => [ File['/home/nxadm'], File['/buildarea/nxadm/nx']];
-    [ "/home/nxadm/nx/${::hostname}.1", "/home/nxadm/nx/${::hostname}.2",
-      "/home/nxadm/nx/${::hostname}.3", "/home/nxadm/nx/${::hostname}.4"]:
+    ["/buildarea/nxadm/nx/${::hostname}.1",
+      "/buildarea/nxadm/nx/${::hostname}.2",
+      "/buildarea/nxadm/nx/${::hostname}.3",
+      "/buildarea/nxadm/nx/${::hostname}.4"]:
         ensure  => directory,
         mode    => '0755';
     }

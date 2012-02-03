@@ -30,7 +30,6 @@ class nx {
   File {
     owner   => 'nxadm',
     group   => 'nxadm',
-    require => User['nxadm'],
   }
 
   file {
