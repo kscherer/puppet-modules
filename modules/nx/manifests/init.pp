@@ -40,15 +40,24 @@ class nx {
     '/home/nxadm/bin':
       ensure  => directory,
       mode    => '0755';
-    ['hostel-fix-config','ice_check.sh','pull-multicore-layer','hostel-make']:
-      path    => "/home/nxadm/bin/$name",
-      mode    => '0755',
-      source  => "puppet:///nx/$name",
-      require => File['/home/nxadm/bin'];
     '/etc/init.d/nx_instance':
       owner   => 'root',
       group   => 'root',
-      source  => "puppet:///nx/$name";
+      source  => 'puppet:///nx/nx_instance';
+  }
+
+  define nx::script() {
+    file {
+      $name:
+        path    => "/home/nxadm/bin/$name",
+        mode    => '0755',
+        source  => "puppet:///nx/$name",
+        require => File['/home/nxadm/bin'];
+    }
+  }
+
+  nx::script {
+    ['hostel-fix-config','ice_check.sh','pull-multicore-layer','hostel-make']:
   }
 
   case $::hostname {
