@@ -3,7 +3,6 @@ class nx::yow-hostel {
 
   class { 'nfs': }
   -> Anchor['nx::begin']
-  -> Class['nx']
   -> Class['nx::yow-hostel']
   -> Anchor['nx::end']
 

@@ -40,7 +40,7 @@ class puppet::agent(
   $puppet_agent_service_enable = true
 ) inherits puppet::params {
 
-  if $kernel == "Linux" {
+  if $kernel == 'Linux' {
     file { $puppet_defaults:
       mode   => '0644',
       owner  => 'root',
@@ -101,7 +101,7 @@ class puppet::agent(
     }
   }
 
-  if $puppet_agent_ensure == 'present' {
+  if $puppet_agent_ensure =~ /(present|installed|latest)/ {
 
     include concat::setup
 
@@ -120,18 +120,18 @@ class puppet::agent(
         require => Package['puppet'],
         notify  => $puppet::agent::service_notify,
       }
-    # } else {
-    #   Concat<| title == $puppet_conf |> {
-    #     require => Package['puppet'],
-    #     notify  +> $puppet::agent::service_notify,
-    #   }
+    } else {
+      Concat[ $puppet_conf ] {
+        require => Package['puppet'],
+        notify  +> $puppet::agent::service_notify,
+      }
     }
 
     if ! defined(Concat::Fragment['puppet.conf-common']) {
       concat::fragment { 'puppet.conf-common':
         order   => '00',
         target  => $puppet_conf,
-        content => template("puppet/puppet.conf-common.erb"),
+        content => template('puppet/puppet.conf-common.erb'),
       }
     }
   }
