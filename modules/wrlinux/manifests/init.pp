@@ -25,16 +25,16 @@ class wrlinux {
   $hostos="${os}-${osrelease}${arch}"
   $package_list = extlookup( $hostos )
 
-  #only include a package if it has not already been defined the
+  #only include a package if it has not already been defined. The
   #difficulty of defining a package in multiple files is a known
-  #problem with puppet. Declaring each package virtual and immediately
-  #realizing it will prevent multiple definition errors
+  #problem with puppet.
   define wr::smart_package() {
-    @package {
-      $name:
-        ensure => installed;
+    if ! defined(Package[$name]) {
+      package {
+        $name:
+          ensure => installed;
+      }
     }
-    realize( Package[$name] )
   }
   wr::smart_package { $package_list : }
 }
