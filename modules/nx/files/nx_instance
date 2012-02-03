@@ -58,12 +58,12 @@ if ! [ -f $nx ]; then
 fi
 
 daemonopts="--pidfile=${pidfile} --user=${nx_user}"
-nxopts="--rcfile ${nx_builddir}/nxrc_files/$hostname autorestart >> ${nx_builddir}/nx.log 2>&1 &"
+nxopts="--rcfile ${nx_builddir}/nxrc_files/$hostname.${instance} autorestart >> ${nx_builddir}/nx.log 2>&1 &"
 
 #just to be safe make sure nxrc_files has latest configs
 nx_command="cd ${nx_builddir};\
 pushd nxrc_files > /dev/null 2>&1;\
-if [ -d .git ]; then git pull; fi;\
+if [ -d .git ]; then git pull > /dev/null 2>&1; fi;\
 popd > /dev/null 2>&1;\
 ${nx_builddir}/notxylo/nx ${nxopts}"
 
