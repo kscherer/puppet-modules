@@ -94,9 +94,7 @@ class puppet::master (
   $activerecord_provider   = $puppet::params::activerecord_provider,
   $activerecord_package    = $puppet::params::activerecord_package,
   $activerecord_ensure     = $puppet::params::activerecord_ensure
-) inherits puppet::params {
-
-  include concat::setup
+) inherits puppet::config {
 
   #all files for the puppet master are owned by puppet user
   File {
@@ -146,14 +144,14 @@ class puppet::master (
 
     #httpd service is setup in apache class
     $service_notify  = Service['httpd']
-    $service_require = [ Package[$puppet_master_package], Class['::passenger']]
+    $service_require = Package[$puppet_master_package]
 
     Concat::Fragment['puppet.conf-master'] -> Service['httpd']
 
-    exec { "Certificate_Check":
+    exec { 'Certificate_Check':
       command   => "puppet cert --generate ${certname} --trace",
-      unless    => "/bin/ls ${puppet_ssldir}/certs/${certname}.pem",
-      path      => "/usr/bin:/usr/local/bin",
+      unless    => "ls ${puppet::params::puppet_ssldir}/certs/${::certname}.pem",
+      path      => '/bin/:/usr/bin:/usr/local/bin',
       before    => Class['::passenger'],
       require   => Package[$puppet_master_package],
       logoutput => on_failure,
@@ -179,21 +177,21 @@ class puppet::master (
       ssl      => true,
     }
 
-    file { ["/etc/puppet/rack", "/etc/puppet/rack/public"]:
+    file { ['/etc/puppet/rack', '/etc/puppet/rack/public']:
       ensure => directory,
       mode   => '0755',
     }
 
-    file { "/etc/puppet/rack/config.ru":
+    file { '/etc/puppet/rack/config.ru':
       ensure => present,
-      source => "puppet:///modules/puppet/config.ru",
+      source => 'puppet:///modules/puppet/config.ru',
       mode   => '0644',
     }
 
     concat::fragment { 'puppet.conf-master':
       order   => '05',
-      target  => "/etc/puppet/puppet.conf",
-      content => template("puppet/puppet.conf-master.erb"),
+      target  => '/etc/puppet/puppet.conf',
+      content => template('puppet/puppet.conf-master.erb'),
     }
   } else {
 
@@ -201,8 +199,8 @@ class puppet::master (
 
     concat::fragment { 'puppet.conf-master':
       order   => '05',
-      target  => "/etc/puppet/puppet.conf",
-      content => template("puppet/puppet.conf-master.erb"),
+      target  => '/etc/puppet/puppet.conf',
+      content => template('puppet/puppet.conf-master.erb'),
     }
 
     if $package_provider == 'gem' {
@@ -221,7 +219,7 @@ class puppet::master (
       $service_notify = Service[$puppet_master_service]
 
       service {
-        "$puppet_master_service":
+        $puppet_master_service:
           ensure    => running,
           enable    => true,
           hasstatus => true,
@@ -232,24 +230,17 @@ class puppet::master (
     }
   }
 
-  if ! defined(Concat[$puppet_conf]) {
-    concat { $puppet_conf:
-      mode    => '0644',
-      require => $service_require,
-      notify  => $puppet::master::service_notify,
-    }
-  # } else {
-  #   Concat<| title == $puppet_conf |> {
-  #     require  $service_require,
-  #     notify  +:service_notify,
-  #   }
+  realize(Concat[$puppet::params::puppet_conf])
+  Concat<| title == $puppet::params::puppet_conf |> {
+    require +> $service_require,
+    notify  +> $service_notify,
   }
 
   if ! defined(Concat::Fragment['puppet.conf-common']) {
     concat::fragment { 'puppet.conf-common':
       order   => '00',
-      target  => $puppet_conf,
-      content => template("puppet/puppet.conf-common.erb"),
+      target  => $puppet::params::puppet_conf,
+      content => template('puppet/puppet.conf-common.erb'),
     }
   }
 

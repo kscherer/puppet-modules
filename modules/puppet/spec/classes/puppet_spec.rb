@@ -11,6 +11,9 @@ describe 'puppet', :type => :class do
     it { should contain_service('puppet').with_ensure('running').with_enable(true) }
     it { should contain_concat('/etc/puppet/puppet.conf').with_mode('0644') }
     it { should contain_file('/etc/puppet').with_ensure('directory') }
+    it { should contain_concat('/etc/puppet/puppet.conf')\
+        .with_notify('Service[puppet]')\
+        .with_require('Package[puppet]') }
   end
 
   describe "agent with disabled service" do
@@ -21,6 +24,9 @@ describe 'puppet', :type => :class do
     it { should contain_service('puppet').with_ensure('stopped').with_enable(false) }
     it { should contain_concat('/etc/puppet/puppet.conf').with_mode('0644') }
     it { should contain_file('/etc/puppet').with_ensure('directory') }
+    it { should contain_concat('/etc/puppet/puppet.conf')\
+        .without_notify('Service[puppet]')\
+        .with_require('Package[puppet]') }
   end
 
   describe "agent gem with running service" do
@@ -31,6 +37,9 @@ describe 'puppet', :type => :class do
     it { should contain_exec('puppet_agent_start') }
     it { should contain_concat('/etc/puppet/puppet.conf').with_mode('0644') }
     it { should contain_file('/etc/puppet').with_ensure('directory') }
+    it { should contain_concat('/etc/puppet/puppet.conf')\
+        .with_notify('Exec[puppet_agent_start]')\
+        .with_require('Package[puppet]') }
   end
 
   describe "agent uninstalled" do
@@ -40,6 +49,7 @@ describe 'puppet', :type => :class do
     it { should contain_package('puppet').with_ensure('absent') }
     it { should_not contain_service('puppet') }
     it { should_not contain_exec('puppet_agent_start') }
+    it { should_not contain_concat('/etc/puppet/puppet.conf') }
   end
 
   describe "agent and master installed" do
@@ -50,6 +60,9 @@ describe 'puppet', :type => :class do
     it { should contain_package('puppet-server').with_ensure('present').with_provider('yum') }
     it { should contain_service('puppet') }
     it { should contain_service('puppetmaster') }
+    it { should contain_concat('/etc/puppet/puppet.conf')\
+        .with_notify(['Service[puppetmaster]','Service[puppet]'])\
+        .with_require(['Package[puppet-server]','Package[puppet]']) }
   end
 
   describe "only master installed with passenger gem" do
@@ -64,6 +77,10 @@ describe 'puppet', :type => :class do
     it { should_not contain_service('puppetmaster') }
     it { should contain_apache__vhost('puppet-puppet.test.com') }
     it { should contain_exec('compile-passenger') }
+    it { should contain_concat('/etc/puppet/puppet.conf')\
+        .with_require('Package[puppet-server]')\
+        .with_notify('Service[httpd]')\
+    }
   end
 
   describe "only master installed with passenger package" do

@@ -153,16 +153,16 @@ nx_status(){
     fi
 
     local pid=$(cat $pidfile)
+    local five_min=300 #5 * 60 seconds
+    local thirty_min=1800 #30 * 60 seconds
+    local nx_log="${nx_builddir}/nx.log"
+        #When nx is building is makes a link to the current build
+    local wrbuildlog="${nx_builddir}/current_build/00-wrbuild.log"
+    local wrbuildlog_age=$(($(date +%s) - $(stat -c '%Y' "${wrbuildlog}")))
+    local nxlog_age=$(($(date +%s) - $(stat -c '%Y' "${nx_log}")))
 
     #check if pid in pidfile is valid
     if [ -d /proc/$pid ]; then
-        local five_min=300 #5 * 60 seconds
-        local thirty_min=1800 #30 * 60 seconds
-        local nx_log="${nx_builddir}/nx.log"
-        #When nx is building is makes a link to the current build
-        local wrbuildlog="${nx_builddir}/current_build/00-wrbuild.log"
-        local wrbuildlog_age=$(($(date +%s) - $(stat -c '%Y' "${wrbuildlog}")))
-        local nxlog_age=$(($(date +%s) - $(stat -c '%Y' "${nx_log}")))
         if [ -f $wrbuildlog ]; then
             #If the 00-wrbuild.log was modified recently then build is not hung
             if [ $wrbuildlog_age -lt $five_min ]; then
@@ -197,6 +197,10 @@ nx_status(){
             nx_status_string="I have no idea what nx is doing"
             RETVAL=4 # Unknown state
         fi
+    elif [ $nxlog_age -lt $five_min ]; then
+        #it is possible that the pidfile is out of date
+        nx_status_string="Nx instance $instance is running"
+        RETVAL=0
     else
         nx_status_string="Nx instance $instance is stopped"
         RETVAL=3

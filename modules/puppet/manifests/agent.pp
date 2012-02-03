@@ -38,9 +38,9 @@ class puppet::agent(
   $package_provider            = $puppet::params::package_provider,
   $puppet_agent_ensure         = present,
   $puppet_agent_service_enable = true
-) inherits puppet::params {
+) inherits puppet::config {
 
-  if $kernel == 'Linux' {
+  if $::kernel == 'Linux' {
     file { $puppet_defaults:
       mode   => '0644',
       owner  => 'root',
@@ -103,8 +103,6 @@ class puppet::agent(
 
   if $puppet_agent_ensure =~ /(present|installed|latest)/ {
 
-    include concat::setup
-
     #ensure that the /etc/puppet directory is available
     if defined(File['/etc/puppet']) {
       File ['/etc/puppet'] {
@@ -113,18 +111,10 @@ class puppet::agent(
       }
     }
 
-    #setup up the puppet conf concat file
-    if ! defined(Concat[$puppet_conf]) {
-      concat { $puppet_conf:
-        mode    => '0644',
-        require => Package['puppet'],
-        notify  => $puppet::agent::service_notify,
-      }
-    } else {
-      Concat[ $puppet_conf ] {
-        require => Package['puppet'],
-        notify  +> $puppet::agent::service_notify,
-      }
+    realize(Concat[$puppet::params::puppet_conf])
+    Concat<| title == $puppet::params::puppet_conf |> {
+      require +> Package[$puppet::params::puppet_agent_name],
+      notify  +> $puppet::agent::service_notify,
     }
 
     if ! defined(Concat::Fragment['puppet.conf-common']) {

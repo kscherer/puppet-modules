@@ -34,7 +34,6 @@ define nx::setup {
       owner  => 'root',
       group  => 'root',
       mode   => '0755',
-      notify => Service["nx_instance.$name"],
       target => '/etc/init.d/nx_instance';
   }
 
