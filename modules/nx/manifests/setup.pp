@@ -7,7 +7,7 @@ define nx::setup {
 
   Exec {
     cwd     => $nx_builddir,
-    require => [ File[$nx_builddir], User['nxadm'] ],
+    require => User['nxadm'],
     user    => 'nxadm',
   }
 
