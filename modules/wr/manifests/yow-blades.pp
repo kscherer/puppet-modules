@@ -13,7 +13,11 @@ class wr::yow-blades inherits wr::common {
   }
   -> class { 'nrpe': }
   -> class { 'nis': }
-  -> class { 'collectd::client': }
   -> class { 'wrlinux': }
   -> class { 'nx': }
+
+  user {
+    'root':
+      password => '$1$5VSxF7IZ$.yx57bNrz.RCFQRnz3KYV0';
+  }
 }

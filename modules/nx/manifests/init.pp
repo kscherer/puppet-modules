@@ -20,7 +20,7 @@ class nx {
   user {
     'nxadm':
       ensure     => present,
-      gid        => 'nxadmin',
+      gid        => 'nxadm',
       managehome => true,
       home       => '/home/nxadm',
       password   => '$1$NLcnHXhT$JF7LPuL7Er8lGAxRiS/gc0',

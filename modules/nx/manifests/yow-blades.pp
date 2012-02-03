@@ -1,11 +1,6 @@
 #
 class nx::yow-blades {
 
-  user {
-    'root':
-      password => '$1$5VSxF7IZ$.yx57bNrz.RCFQRnz3KYV0';
-  }
-
   file {
     '/mnt/yow-blades':
       ensure => directory,
@@ -49,7 +44,6 @@ class nx::md3000_iscsi_setup {
     wwid_disk2 => $wwid_disk2,
   }
   -> Anchor['nx::begin']
-  -> Class['nx']
   -> Class['nx::md3000_iscsi_setup']
   -> Class['nx::yow-blades']
   -> Anchor['nx::end']
@@ -106,8 +100,7 @@ class nx::netapp_iscsi_setup {
     '/home/nxadm/nx':
       ensure  => link,
       target  => '/buildarea/nxadm/nx',
-      replace => false,
-      require => [ File['/home/nxadm'], File['/buildarea/nxadm/nx']];
+      replace => false;
     ["/buildarea/nxadm/nx/${::hostname}.1",
       "/buildarea/nxadm/nx/${::hostname}.2",
       "/buildarea/nxadm/nx/${::hostname}.3",
