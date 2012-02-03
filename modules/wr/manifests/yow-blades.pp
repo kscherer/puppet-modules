@@ -3,7 +3,6 @@ class wr::yow-blades inherits wr::common {
   class { 'redhat': }
   -> class { 'ntp':
     servers    => ['ntp-1.wrs.com','ntp-2.wrs.com'],
-    autoupdate => true,
   }
   -> class { 'wr::mcollective': }
   -> class { 'puppet':

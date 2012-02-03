@@ -1,6 +1,6 @@
 # The site file for the puppet master server
 $extlookup_datadir = "/etc/puppet/environments/${environment}/extdata/"
-$extlookup_precedence = [ '@{fqdn}', 'package', 'common']
+$extlookup_precedence = [ '%{fqdn}', 'package', 'common']
 
 #set the default path for all exec resources
 Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
