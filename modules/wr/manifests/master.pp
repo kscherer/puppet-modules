@@ -5,19 +5,20 @@ class wr::master {
   Class['redhat']
   -> Class['mysql']
   -> Class['mysql::ruby']
-  -> Class['wr::mcollective']
   -> Class['wr::master']
 
+  $puppet_server = $::hostname ? {
+    /^ala.*$/ => 'ala-lpd-puppet.wrs.com',
+    /^pek.*$/ => 'pek-lpd-puppet.wrs.com',
+    /^yow.*$/ => 'yow-lpd-puppet.ottawa.wrs.com',
+  }
+
   class {
-    puppet:
+    'puppet':
       agent                       => true,
+      puppet_server               => $puppet_server,
       puppet_agent_ensure         => 'present',
       puppet_agent_service_enable => false,
-      puppet_server => $::hostname ? {
-        /^ala.*$/                 => 'ala-lpd-puppet.wrs.com',
-        /^pek.*$/                 => 'pek-lpd-puppet.wrs.com',
-        /^yow.*$/                 => 'yow-lpd-puppet.ottawa.wrs.com',
-      },
       master                      => true,
       autosign                    => true,
       manifest                    => '$confdir/environments/$environment/manifests/site.pp',
@@ -39,24 +40,23 @@ class wr::master {
       activerecord_provider       => 'yum',
       activerecord_package        => 'rubygem-activerecord',
       activerecord_ensure         => '3.0.11-1',
-      require                     => [ Yumrepo['puppetlabs-rh6'],
-                                       Yumrepo['passenger-rh6']],
+      require                     => [ Yumrepo['puppetlabs-rh6'],Yumrepo['passenger-rh6']],
   }
 
   cron {
     'report_clean':
       command => '/usr/bin/find /var/lib/puppet/reports -ctime +7 -name \'*.yaml\' -exec rm {} \; &> /dev/null',
-      user => 'puppet',
-      minute => '0',
-      hour => '2';
+      user    => 'puppet',
+      minute  => '0',
+      hour    => '2';
     'clean_dashboard':
       command => 'cd /usr/share/puppet-dashboard; rake RAILS_ENV=production reports:prune upto=1 unit=wk &> /dev/null',
-      minute => '0',
-      hour => '2';
+      minute  => '0',
+      hour    => '2';
     'optimize_dashboard':
       command => 'cd /usr/share/puppet-dashboard; rake RAILS_ENV=production db:raw:optimize &> /dev/null',
-      minute => '0',
-      hour => '3',
+      minute  => '0',
+      hour    => '3',
       weekday => '0';
   }
 }

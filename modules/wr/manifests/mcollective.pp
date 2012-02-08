@@ -27,8 +27,7 @@ class wr::mcollective(
       client                => $client,
       manage_plugins        => true,
       fact_source           => 'yaml',
-      yaml_facter_source    => '/etc/mcollective/provisioned.yaml:
-                                /etc/mcollective/facter.yaml',
+      yaml_facter_source    => '/etc/mcollective/facter.yaml',
       mc_security_provider  => 'psk',
       mc_security_psk       => 'H5FFD^B*S0yc7JCp',
       main_collective       => 'mcollective',

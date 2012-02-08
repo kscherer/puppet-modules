@@ -25,6 +25,7 @@ node 'yow-lpd-puppet.ottawa.wrs.com' {
   class { 'redhat': }
   -> class { 'nrpe': }
   -> class { 'ntp': servers => ['yow-lpgbld-master.ottawa.wrs.com'] }
+  -> class { 'collectd::client': }
   -> class { 'wr::mcollective': }
   -> class { 'wr::master': }
 }
@@ -42,9 +43,18 @@ node 'yow-lpg-amqp.ottawa.windriver.com' {
     broker_name   => 'yow-broker',
     server_config => template('wr/yow-activemq.xml.erb')
   }
+  -> class { 'collectd::client': }
   -> class { 'wr::mcollective': }
 }
 
 node 'yow-blade1.wrs.com' {
   class { 'wr::yow-blades': }
+}
+
+node 'yow-lpd-monitor.ottawa.wrs.com' {
+  class { 'redhat': }
+  -> class { 'nrpe': }
+  -> class { 'ntp': servers => ['yow-lpgbld-master.ottawa.wrs.com'] }
+  -> class { 'collectd::client': }
+  -> class { 'wr::mcollective': }
 }

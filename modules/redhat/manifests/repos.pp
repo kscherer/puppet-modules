@@ -35,17 +35,17 @@ class redhat::repos {
   $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
 
   #this exists solely to stop yum complaining about missing name
-  define redhat::named_yumrepo( $redhat::baseurl ){
+  define redhat::named_yumrepo( $baseurl ){
     @yumrepo {
       $name:
-        baseurl => $redhat::baseurl,
+        baseurl => $baseurl,
         descr   => $name,
     }
   }
 
   #declare all the repos virtually and realize the correct ones on
   #relevant platforms
-  named_yumrepo {
+  redhat::named_yumrepo {
     'puppet-el4':
       baseurl => "${yow_mirror}/puppet/4";
     'puppet-el5':
@@ -64,9 +64,11 @@ class redhat::repos {
       #This is a link to the latest CentOS DVD release
       baseurl => "$yow_master_mirror/centos-6-${::architecture}";
     'fedora-updates':
-      baseurl => "${yow_mirror}/fedora/updates/${::operatingsystemrelease}/${::architecture}";
+      baseurl =>
+        "${yow_mirror}/fedora/updates/${::operatingsystemrelease}/${::architecture}";
     'fedora-everything':
-      baseurl => "${yow_mirror}/fedora/releases/${::operatingsystemrelease}/Everything/${::architecture}/os/Packages";
+      baseurl =>
+        "${yow_mirror}/fedora/releases/${::operatingsystemrelease}/Everything/${::architecture}/os/Packages";
     'mcollective':
       baseurl => "${yow_mirror}/mcollective";
     'rhel6-optional':
