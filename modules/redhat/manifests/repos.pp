@@ -81,6 +81,8 @@ class redhat::repos {
       baseurl => "${yow_mrepo_mirror}/centos5-${::architecture}/RPMS.updates";
     'centos6-updates':
       baseurl => "${yow_mrepo_mirror}/centos6-${::architecture}/RPMS.updates";
+    'puppetlabs-rh5':
+      baseurl => "${redhat::repos::yow_mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.all";
     'puppetlabs-rh6':
       baseurl => "${redhat::repos::yow_mrepo_mirror}/puppetlabs-rh6-${::architecture}/RPMS.all";
     'passenger-rh6':
@@ -101,9 +103,8 @@ class redhat::repos {
       realize( Yumrepo['centos-dvd'] )
       realize( Yumrepo["epel-el${major_release}-${::architecture}"] )
       realize( Yumrepo["centos${major_release}-updates"] )
-      realize( Yumrepo["puppet-el${major_release}"] )
+      realize( Yumrepo["puppetlabs-rh${major_release}"] )
       if ( $major_release == '6' ) {
-        realize( Yumrepo["puppetlabs-rh${major_release}"] )
         realize( Yumrepo["passenger-rh${major_release}"] )
       }
     }
