@@ -57,4 +57,5 @@ node 'yow-lpd-monitor.ottawa.windriver.com' {
   -> class { 'ntp': servers => ['yow-lpgbld-master.ottawa.wrs.com'] }
   -> class { 'collectd::client': }
   -> class { 'wr::mcollective': }
+  -> class { 'nagios': }
 }

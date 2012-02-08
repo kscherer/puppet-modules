@@ -16,6 +16,7 @@ class wr::yow-blades inherits wr::common {
   -> class { 'wrlinux': }
   -> class { 'collectd::client': }
   -> class { 'nx': }
+  -> class { 'nagios::target': }
 
   user {
     'root':
