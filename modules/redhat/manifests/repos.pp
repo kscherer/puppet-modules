@@ -82,9 +82,9 @@ class redhat::repos {
     'centos6-updates':
       baseurl => "${yow_mrepo_mirror}/centos6-${::architecture}/RPMS.updates";
     'puppetlabs-rh5':
-      baseurl => "${redhat::repos::yow_mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.all";
+      baseurl => "${redhat::repos::yow_mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.both";
     'puppetlabs-rh6':
-      baseurl => "${redhat::repos::yow_mrepo_mirror}/puppetlabs-rh6-${::architecture}/RPMS.all";
+      baseurl => "${redhat::repos::yow_mrepo_mirror}/puppetlabs-rh6-${::architecture}/RPMS.both";
     'passenger-rh6':
       baseurl => "${redhat::repos::yow_mrepo_mirror}/passenger-rh6-${::architecture}/RPMS.all";
   }
