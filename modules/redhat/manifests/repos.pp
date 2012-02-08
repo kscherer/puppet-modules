@@ -61,8 +61,10 @@ class redhat::repos {
     'redhat-dvd':
       baseurl => "${yow_master_mirror}/${redhat_dvd_repo}";
     'centos-dvd':
-      #This is a link to the latest CentOS DVD release
-      baseurl => "$yow_master_mirror/centos-6-${::architecture}";
+      #This is a link to the latest CentOS DVD release for 6
+      #and 5.5 for CentOS 5 as later versions of Redhat are
+      #officially not supported by wrlinux
+      baseurl => "$yow_master_mirror/centos-${::lsbmajdistrelease}-${::architecture}";
     'fedora-updates':
       baseurl =>
         "${yow_mirror}/fedora/updates/${::operatingsystemrelease}/${::architecture}";
