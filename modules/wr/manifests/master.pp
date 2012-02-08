@@ -17,7 +17,8 @@ class wr::master {
     'puppet':
       agent                       => true,
       puppet_server               => $puppet_server,
-      puppet_agent_ensure         => 'present',
+      puppet_server_ensure        => 'latest',
+      puppet_agent_ensure         => 'latest',
       puppet_agent_service_enable => false,
       master                      => true,
       autosign                    => true,
