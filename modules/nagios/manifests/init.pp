@@ -24,4 +24,9 @@ class nagios {
     notify => Service['nagios'],
   }
 
+  file {
+    [ '/etc/nagios/nagios_host.cfg','/etc/nagios/nagios_hostextinfo.cfg',
+      '/etc/nagios/nagios_service.cfg']:
+        mode => '0644',
+  }
 }
