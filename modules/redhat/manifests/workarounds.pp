@@ -15,7 +15,8 @@ class redhat::workarounds {
   #building wrlinux under Xen.
   #From https://bugzilla.redhat.com/show_bug.cgi?id=550724
   #this is the workaround.
-  if $::is_virtual == 'true' and $::operatingsystem == 'RedHat' and $::operatingsystemrelease == '6.0' {
+  if ($::is_virtual == true and $::operatingsystem == 'RedHat' and
+      $::operatingsystemrelease == '6.0') {
     service {
       'irqbalance':
         ensure => stopped,
@@ -24,7 +25,8 @@ class redhat::workarounds {
   }
 
   #Another bug on Fedora systems where facter 1.6.2 reports is_virtual=false
-  if $::is_virtual == 'true' and $::operatingsystem == 'Fedora' and $::facterversion == '1.6.2' {
+  if ($::is_virtual == true and $::operatingsystem == 'Fedora' and
+      $::facterversion == '1.6.2') {
     file_line {
       'facter_xen_detect_workaround':
         path   => '/etc/fstab',

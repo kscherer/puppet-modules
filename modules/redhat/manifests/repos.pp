@@ -2,29 +2,29 @@
 class redhat::repos {
 
   #by cleaning the metadata the next yum command will refresh the database
-  exec { "yum_reload":
-    command => "/usr/bin/yum clean metadata",
+  exec { 'yum_reload':
+    command     => '/usr/bin/yum clean metadata',
     refreshonly => true
   }
 
   #defaults for all yum repos
   Yumrepo {
-    enabled => 1,
+    enabled  => 1,
     gpgcheck => 0,
-    notify => Exec[ "yum_reload" ],
+    notify   => Exec[ 'yum_reload' ],
   }
 
-  define delete_repo() {
+  define redhat::delete_repo() {
     file {
-      "$name":
-        path => "/etc/yum.repos.d/${name}",
+      $name:
         ensure => absent,
-        notify => Exec[ "yum_reload" ],
+        path   => "/etc/yum.repos.d/$name",
+        notify => Exec[ 'yum_reload' ],
     }
   }
 
   #make sure all other repos are gone
-  delete_repo {
+  redhat::delete_repo {
     [ 'fedora.repo', 'fedora-updates-testing.repo', 'cobbler-config.repo',
       'CentOS-Base.repo','CentOS-Debuginfo.repo', 'CentOS-Media.repo' ] :
   }
@@ -32,66 +32,70 @@ class redhat::repos {
   $yow_mirror = 'http://yow-mirror.ottawa.wrs.com/mirror'
   $yow_mrepo_mirror = "${yow_mirror}/mrepo/repos"
   $yow_master_mirror = 'http://yow-lpgbld-master.ottawa.windriver.com/repos'
+  $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
 
   #this exists solely to stop yum complaining about missing name
-  define named_yumrepo( $baseurl ){
+  define redhat::named_yumrepo( $redhat::baseurl ){
     @yumrepo {
-      "$name":
-        baseurl => "$baseurl",
-        descr => "$name",
+      $name:
+        baseurl => $redhat::baseurl,
+        descr   => $name,
     }
   }
 
-  #declare all the repos virtually and realize the correct ones on relevant platforms
+  #declare all the repos virtually and realize the correct ones on
+  #relevant platforms
   named_yumrepo {
-    "puppet-el4":
+    'puppet-el4':
       baseurl => "${yow_mirror}/puppet/4";
-    "puppet-el5":
+    'puppet-el5':
       baseurl => "${yow_mirror}/puppet/5";
-    "puppet-el6":
+    'puppet-el6':
       baseurl => "${yow_mirror}/puppet/6";
-    "epel-el4-i386":
+    'epel-el4-i386':
       baseurl => 'http://mirror.csclub.uwaterloo.ca/fedora/epel/4WS/i386/';
-    "epel-el5-${architecture}":
-      baseurl => "${yow_mrepo_mirror}/rhel5c-${architecture}/RPMS.epel";
-    "epel-el6-${architecture}":
-      baseurl => "${yow_mrepo_mirror}/rhel6ws-${architecture}/RPMS.epel";
+    "epel-el5-$::architecture":
+      baseurl => "${yow_mrepo_mirror}/rhel5c-${::architecture}/RPMS.epel";
+    "epel-el6-${::architecture}":
+      baseurl => "${yow_mrepo_mirror}/rhel6ws-${::architecture}/RPMS.epel";
     'redhat-dvd':
-      baseurl => "$yow_master_mirror/redhat-${operatingsystemrelease}-${architecture}-repo";
+      baseurl => "${yow_master_mirror}/${redhat_dvd_repo}";
     'centos-dvd':
-      baseurl => "$yow_master_mirror/centos-${operatingsystemrelease}-${architecture}";
+      #This is a link to the latest CentOS DVD release
+      baseurl => "$yow_master_mirror/centos-6-${::architecture}";
     'fedora-updates':
-      baseurl => "${yow_mirror}/fedora/updates/${operatingsystemrelease}/${architecture}";
-    "fedora-everything":
-      baseurl => "${yow_mirror}/fedora/releases/${operatingsystemrelease}/Everything/${architecture}/os/Packages";
-    "mcollective":
+      baseurl => "${yow_mirror}/fedora/updates/${::operatingsystemrelease}/${::architecture}";
+    'fedora-everything':
+      baseurl => "${yow_mirror}/fedora/releases/${::operatingsystemrelease}/Everything/${::architecture}/os/Packages";
+    'mcollective':
       baseurl => "${yow_mirror}/mcollective";
-    "rhel6-optional":
-      baseurl => "${yow_mrepo_mirror}/rhel6ws-${architecture}/RPMS.optional";
-    "rhel6-updates":
-      baseurl => "${yow_mrepo_mirror}/rhel6ws-${architecture}/RPMS.updates";
-    "centos5-updates":
-      baseurl => "${yow_mrepo_mirror}/centos5-${architecture}/RPMS.updates";
-    "centos6-updates":
-      baseurl => "${yow_mrepo_mirror}/centos6-${architecture}/RPMS.updates";
+    'rhel6-optional':
+      baseurl => "${yow_mrepo_mirror}/rhel6ws-${::architecture}/RPMS.optional";
+    'rhel6-updates':
+      baseurl => "${yow_mrepo_mirror}/rhel6ws-${::architecture}/RPMS.updates";
+    'centos5-updates':
+      baseurl => "${yow_mrepo_mirror}/centos5-${::architecture}/RPMS.updates";
+    'centos6-updates':
+      baseurl => "${yow_mrepo_mirror}/centos6-${::architecture}/RPMS.updates";
     'puppetlabs-rh6':
-      baseurl => "${redhat::repos::yow_mrepo_mirror}/puppetlabs-rh6-${architecture}/RPMS.all";
+      baseurl => "${redhat::repos::yow_mrepo_mirror}/puppetlabs-rh6-${::architecture}/RPMS.all";
     'passenger-rh6':
-      baseurl => "${redhat::repos::yow_mrepo_mirror}/passenger-rh6-${architecture}/RPMS.all";
+      baseurl => "${redhat::repos::yow_mrepo_mirror}/passenger-rh6-${::architecture}/RPMS.all";
   }
 
-  case $operatingsystemrelease {
+  case $::operatingsystemrelease {
     /^4.*$/: { $major_release=4 }
     /^5.*$/: { $major_release=5 }
     /^6.*$/: { $major_release=6 }
+    default: { fail("Unknown release of Redhat: $::operatingsystemrelease")}
   }
 
   #setup repos depending on which flavour of redhat
   realize( Yumrepo['mcollective'] )
-  case $operatingsystem {
+  case $::operatingsystem {
     CentOS: {
       realize( Yumrepo['centos-dvd'] )
-      realize( Yumrepo["epel-el${major_release}-${architecture}"] )
+      realize( Yumrepo["epel-el${major_release}-${::architecture}"] )
       realize( Yumrepo["centos${major_release}-updates"] )
       realize( Yumrepo["puppet-el${major_release}"] )
       if ( $major_release == '6' ) {
@@ -104,7 +108,7 @@ class redhat::repos {
     }
     RedHat: {
       realize( Yumrepo['redhat-dvd'] )
-      realize( Yumrepo["epel-el${major_release}-${architecture}"] )
+      realize( Yumrepo["epel-el${major_release}-${::architecture}"] )
       realize( Yumrepo["puppet-el${major_release}"] )
       if ( $major_release == '6' ) {
         realize( Yumrepo["rhel${major_release}-updates"] )
