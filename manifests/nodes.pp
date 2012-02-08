@@ -51,7 +51,7 @@ node 'yow-blade1.wrs.com' {
   class { 'wr::yow-blades': }
 }
 
-node 'yow-lpd-monitor.ottawa.wrs.com' {
+node 'yow-lpd-monitor.ottawa.windriver.com' {
   class { 'redhat': }
   -> class { 'nrpe': }
   -> class { 'ntp': servers => ['yow-lpgbld-master.ottawa.wrs.com'] }
