@@ -22,7 +22,7 @@ class nagios::target {
     "check_ssh_${::hostname}":
       use                 => 'generic-service',
       check_command       => 'check_ssh',
-      service_description => 'SSH Service',
+      service_description => 'SSH',
       host_name           => $::fqdn,
   }
 
