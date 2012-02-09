@@ -42,19 +42,19 @@ class nagios(
       recurse => true,
       purge   => true,
       mode    => '0755';
-    '/etc/nagios/objects':
+    "${nagios_dir}/objects":
       ensure => directory,
       mode   => '0755';
-    "${nagios_conf}/nagios.cfg":
+    "${nagios_dir}/nagios.cfg":
       source => 'puppet:///nagios/nagios.cfg',
       notify => Service['nagios'],
       mode   => '0644';
-    "${nagios_conf}/cgi.cfg":
+    "${nagios_dir}/cgi.cfg":
       source => 'puppet:///nagios/cgi.cfg',
       notify => Service['httpd'],
       mode   => '0644';
     'nagios_htpasswd':
-      path   => "${nagios_conf}/passwd",
+      path   => "${nagios_dir}/passwd",
       notify => Service['httpd'],
       source => 'puppet:///nagios/passwd',
       mode   => '0640', owner => root, group => apache;
