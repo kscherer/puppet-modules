@@ -78,12 +78,12 @@ class dashboard (
     Class['mysql']
     -> Class['mysql::ruby']
     -> Class['mysql::server']
-    -> Package[$dashboard_package]
-    -> Mysql::DB["${dashboard_db}"]
+    -> Package[$dashboard::params::dashboard_package]
+    -> Mysql::DB[$dashboard_db]
     -> File["${dashboard::params::dashboard_root}/config/database.yml"]
     -> Exec['db-migrate']
     -> Class['dashboard::passenger']
-    -> Service[$dashboard_workers]
+    -> Service[$dashboard::params::dashboard_workers]
 
     class { 'dashboard::passenger':
       dashboard_site     => $dashboard_site,
@@ -97,14 +97,14 @@ class dashboard (
     Class['mysql']
     -> Class['mysql::ruby']
     -> Class['mysql::server']
-    -> Package[$dashboard_package]
-    -> Mysql::DB["${dashboard_db}"]
+    -> Package[$dashboard::params::dashboard_package]
+    -> Mysql::DB[$dashboard_db]
     -> File["${dashboard::params::dashboard_root}/config/database.yml"]
     -> Exec['db-migrate']
-    -> Service[$dashboard_service]
-    -> Service[$dashboard_workers]
+    -> Service[$dashboard::params::dashboard_service]
+    -> Service[$dashboard::params::dashboard_workers]
 
-    service { $dashboard_service:
+    service { $dashboard::params::dashboard_service:
       ensure     => running,
       enable     => true,
       hasrestart => true,
@@ -113,11 +113,11 @@ class dashboard (
     }
   }
 
-  package { $dashboard_package:
+  package { $dashboard::params::dashboard_package:
     ensure => $dashboard_ensure,
   }
 
-  case $operatingsystem {
+  case $::operatingsystem {
     'centos','redhat','oel': {
       $dashboard_defaults_name = '/etc/sysconfig/puppet-dashboard'
       $dashboard_defaults_content = 'dashboard/puppet-dashboard-sysconfig'
@@ -126,23 +126,25 @@ class dashboard (
       $dashboard_defaults_name = '/etc/default/puppet-dashboard'
       $dashboard_defaults_content = 'dashboard/puppet-dashboard-default.erb'
     }
+    default: { }
   }
 
   file { 'dashboard-defaults' :
-    path => "$dashboard_defaults_name",
     ensure  => present,
-    content => template("$dashboard_defaults_content"),
+    path    => $dashboard_defaults_name,
+    content => template('$dashboard_defaults_content'),
     owner   => '0',
     group   => '0',
     mode    => '0644',
-    require => [ Package[$dashboard_package], User[$dashboard_user] ],
+    require => [Package[$dashboard::params::dashboard_package],
+               User[$dashboard_user] ],
     before  => $passenger ? {
       false => Service[$dashboard_service],
       default => undef,
     }
   }
 
-  service { $dashboard_workers:
+  service { $dashboard::params::dashboard_workers:
     ensure     => running,
     enable     => true,
     hasrestart => true,
@@ -150,7 +152,7 @@ class dashboard (
   }
 
   File {
-    require => Package[$dashboard_package],
+    require => Package[$dashboard::params::dashboard_package],
     mode    => '0755',
     owner   => $dashboard_user,
     group   => $dashboard_group,
@@ -186,28 +188,31 @@ class dashboard (
   }
 
   exec { 'db-migrate':
-    command   => "rake RAILS_ENV=production db:migrate",
-    cwd       => "${dashboard::params::dashboard_root}",
-    path      => "/usr/bin/:/usr/local/bin/",
+    command   => 'rake RAILS_ENV=production db:migrate',
+    cwd       => $dashboard::params::dashboard_root,
+    path      => '/usr/bin/:/usr/local/bin/',
     creates   => "/var/lib/mysql/${dashboard_db}/nodes.frm",
   }
 
-  mysql::db { "${dashboard_db}":
-    user     => $dashboard_user,
-    password => $dashboard_password,
-    charset  => $dashboard_charset,
+  mysql::db {
+    $dashboard_db:
+      user     => $dashboard_user,
+      password => $dashboard_password,
+      charset  => $dashboard_charset,
   }
 
-  user { $dashboard_user:
-      comment    => 'Puppet Dashboard',
-      gid        => "${dashboard_group}",
+  user {
+    $dashboard_user:
       ensure     => 'present',
+      comment    => 'Puppet Dashboard',
+      gid        => $dashboard_group,
       shell      => '/sbin/nologin',
       managehome => true,
       home       => "/home/${dashboard_user}",
   }
 
-  group { $dashboard_group:
+  group {
+    $dashboard_group:
       ensure => 'present',
   }
 

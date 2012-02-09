@@ -8,18 +8,20 @@ class nagios::target {
       use                => 'linux-server',
   }
 
+  $os = downcase($::operatingsystem)
+
   @@nagios_hostextinfo {
     $::fqdn:
       ensure          => present,
       icon_image_alt  => $::operatingsystem,
-      icon_image      => "base/${::operatingsystem}.png",
-      statusmap_image => "base/${::operatingsystem}.gd2",
+      icon_image      => "${os}.png",
+      statusmap_image => "${os}.gd2",
   }
 
   @@nagios_service {
     "check_ssh_${::hostname}":
       use                 => 'generic-service',
-      check_command       => 'check-ssh',
+      check_command       => 'check_ssh',
       service_description => 'SSH Service',
       host_name           => $::fqdn,
   }
