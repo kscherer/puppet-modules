@@ -11,6 +11,7 @@ class nagios(
   service {
     'nagios':
       ensure     => 'running',
+      enable     => true,
       hasstatus  => true,
       hasrestart => true,
       require    => Package['nagios'],
