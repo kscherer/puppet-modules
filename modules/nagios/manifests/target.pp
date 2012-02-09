@@ -2,19 +2,10 @@ class nagios::target {
 
   @@nagios_host {
     $::fqdn:
-      ensure  => present,
-      alias   => $::hostname,
-      address => $::ipaddress,
-      use     => 'generic-host',
-  }
-
-  @@nagios_service {
-    "check_ping_${::hostname}":
-      check_command       => 'check_ping!100.0,20%!500.0,60%',
-      use                 => 'generic-service',
-      host_name           => $::fqdn,
-      notification_period => '24x7',
-      service_description => "${::hostname}_check_ping"
+      ensure             => present,
+      alias              => $::hostname,
+      address            => $::ipaddress,
+      use                => 'linux-server',
   }
 
   @@nagios_hostextinfo {
@@ -23,6 +14,14 @@ class nagios::target {
       icon_image_alt  => $::operatingsystem,
       icon_image      => "base/${::operatingsystem}.png",
       statusmap_image => "base/${::operatingsystem}.gd2",
+  }
+
+  @@nagios_service {
+    "check_ssh_${::hostname}":
+      use                 => 'generic-service',
+      check_command       => 'check-ssh',
+      service_description => 'SSH Service',
+      host_name           => $::fqdn,
   }
 
 }

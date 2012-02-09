@@ -1,7 +1,7 @@
 #
 class nagios {
   package {
-    ['nagios', 'nagios-plugins-all']:
+    ['nagios', 'nagios-plugins-all', 'php']:
       ensure => 'latest';
   }
 
