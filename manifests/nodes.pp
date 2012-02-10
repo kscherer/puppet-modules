@@ -57,6 +57,9 @@ node 'yow-lpd-monitor.ottawa.windriver.com' {
   -> class { 'ntp': servers => ['yow-lpgbld-master.ottawa.wrs.com'] }
   -> class { 'collectd::client': }
   -> class { 'wr::mcollective': }
-  -> class { 'apache': }
   -> class { 'nagios': }
+
+  #nagios class notifies httpd service so -> relationship creates cycles
+  class { 'apache': }
+
 }

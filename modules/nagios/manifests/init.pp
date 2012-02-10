@@ -14,7 +14,8 @@ class nagios(
       enable     => true,
       hasstatus  => true,
       hasrestart => true,
-      require    => Package['nagios'],
+      subscribe  => Package['nagios'],
+      require    => [ File['nagios_conf'], Package['nagios']],
   }
 
   # collect resources and populate /etc/nagios/nagios_*.cfg
@@ -42,27 +43,34 @@ class nagios(
       ensure  => directory,
       recurse => true,
       purge   => true,
+      require => Package['nagios'],
       mode    => '0755';
     "${nagios_dir}/objects":
-      ensure => directory,
-      mode   => '0755';
-    "${nagios_dir}/nagios.cfg":
-      source => 'puppet:///nagios/nagios.cfg',
-      notify => Service['nagios'],
-      mode   => '0644';
-    "${nagios_dir}/cgi.cfg":
-      source => 'puppet:///nagios/cgi.cfg',
-      notify => Service['httpd'],
-      mode   => '0644';
+      ensure  => directory,
+      require => Package['nagios'],
+      mode    => '0755';
+    'nagios_conf':
+      path    => "${nagios_dir}/nagios.cfg",
+      source  => 'puppet:///nagios/nagios.cfg',
+      notify  => Service['nagios'],
+      require => Package['nagios'],
+      mode    => '0644';
+    'cgi_conf':
+      path    => "${nagios_dir}/cgi.cfg",
+      source  => 'puppet:///nagios/cgi.cfg',
+      notify  => Service['httpd'],
+      require => Package['nagios'],
+      mode    => '0644';
     'nagios_htpasswd':
-      path   => "${nagios_dir}/passwd",
-      notify => Service['httpd'],
-      source => 'puppet:///nagios/passwd',
-      mode   => '0640', owner => root, group => apache;
+      path    => "${nagios_dir}/passwd",
+      source  => 'puppet:///nagios/passwd',
+      require => Package['nagios'],
+      mode    => '0640', owner => root, group => apache;
     [ "${nagios_conf}/nagios_hostextinfo.cfg",
       "${nagios_conf}/nagios_host.cfg",
       "${nagios_conf}/nagios_service.cfg"]:
         notify  => Service['nagios'],
+        require => Package['nagios'],
         mode    => '0644';
   }
 }
