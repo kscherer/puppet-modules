@@ -3,6 +3,7 @@ class nagios(
   $nagios_dir  = $nagios::params::nagios_dir,
   $nagios_confdir = $nagios::params::nagios_confdir
   ) inherits nagios::params {
+
   package {
     ['nagios', 'nagios-plugins-all', 'php']:
       ensure => 'latest';
@@ -18,37 +19,18 @@ class nagios(
       require    => [ File['nagios_conf'], Package['nagios']],
   }
 
-  $host_cfg = "${nagios_confdir}/nagios_host.cfg"
-  # collect resources and populate /etc/nagios/nagios_*.cfg
-  Nagios_host <<||>> {
-    target  => $host_cfg,
-    notify  => Service['nagios'],
-    require => File[$nagios_confdir],
-    before  => File[$host_cfg],
-  }
-
-  $service_cfg = "${nagios_confdir}/nagios_service.cfg"
-  Nagios_service <<||>> {
-    target  => $service_cfg,
-    notify  => Service['nagios'],
-    require => File[$nagios_confdir],
-    before  => File[$service_cfg],
-  }
-
-  $hostext_cfg = "${nagios_confdir}/nagios_hostextinfo.cfg"
-  Nagios_hostextinfo <<||>> {
-    target  => $hostext_cfg,
-    notify  => Service['nagios'],
-    require => File[$nagios_confdir],
-    before  => File[$hostext_cfg],
-  }
-
   File {
     require => Package['nagios'],
     owner   => 'root',
     group   => 'nagios',
     mode    => '0664',
   }
+
+  include nagios::command
+  include nagios::contact
+  include nagios::host
+  include nagios::service
+  include nagios::timeperiod
 
   file {
     #make sure all files in /etc/nagios/conf.d have world read permissions
@@ -73,8 +55,5 @@ class nagios(
       source  => 'puppet:///nagios/passwd',
       notify  => Service['httpd'],
       mode    => '0640', owner => root, group => apache;
-    [ $host_cfg, $hostext_cfg, $service_cfg ]:
-        notify  => Service['nagios'],
-        require => File[$nagios_confdir];
   }
 }

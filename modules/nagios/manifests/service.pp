@@ -1,0 +1,48 @@
+#Puppetize standard nagios definitions
+class nagios::service(
+  $nagios_confdir = $nagios::params::nagios_confdir
+  ) inherits nagios::params {
+
+  @@nagios_service {
+    'generic-service':
+      active_checks_enabled        => '1',
+      passive_checks_enabled       => '1',
+      parallelize_check            => '1',
+      obsess_over_service          => '1',
+      check_freshness              => '0',
+      notifications_enabled        => '1',
+      event_handler_enabled        => '1',
+      flap_detection_enabled       => '1',
+      failure_prediction_enabled   => '1',
+      process_perf_data            => '1',
+      retain_status_information    => '1',
+      retain_nonstatus_information => '1',
+      is_volatile                  => '0',
+      check_period                 => '24x7',
+      max_check_attempts           => '3',
+      normal_check_interval        => '10',
+      retry_check_interval         => '2',
+      contact_groups               => 'admins',
+      notification_options         => 'w,u,c,r',
+      notification_interval        => '60',
+      notification_period          => '24x7',
+      register                     => '0',
+  }
+
+  $service_cfg = "${nagios_confdir}/nagios_service.cfg"
+  Nagios_service <<||>> {
+    target  => $service_cfg,
+    notify  => Service['nagios'],
+    require => File[$nagios_confdir],
+    before  => File[$service_cfg],
+  }
+
+  file {
+    $service_cfg:
+      notify  => Service['nagios'],
+      require => Package['nagios'],
+      owner   => 'root',
+      group   => 'nagios',
+      mode    => '0664',
+  }
+}
