@@ -58,7 +58,8 @@ node 'yow-lpd-monitor.ottawa.windriver.com' {
   -> class { 'collectd::client': }
   -> class { 'wr::mcollective': client => true }
   -> class { 'nagios': }
-  -> class { 'nagios::test': }
+
+  class { 'nagios::target': }
 
   #nagios class notifies httpd service so -> relationship creates cycles
   class { 'apache': }

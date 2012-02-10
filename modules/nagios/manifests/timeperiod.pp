@@ -4,7 +4,7 @@ class nagios::timeperiod(
   ) inherits nagios::params {
 
   @@nagios_timeperiod {
-    '24X7':
+    '24x7':
       alias     => '24 Hours A Day, 7 Days A Week',
       sunday    => '00:00-24:00',
       monday    => '00:00-24:00',

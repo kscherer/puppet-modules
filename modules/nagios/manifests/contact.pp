@@ -27,7 +27,7 @@ class nagios::contact(
   $contact_cfg = "${nagios_confdir}/nagios_contact.cfg"
   Nagios_contact <<||>> {
     target  => $contact_cfg,
-    notify  => Contact['nagios'],
+    notify  => Service['nagios'],
     require => File[$nagios_confdir],
     before  => File[$contact_cfg],
   }
@@ -35,7 +35,7 @@ class nagios::contact(
   $contactgroup_cfg = "${nagios_confdir}/nagios_contactgroup.cfg"
   Nagios_contactgroup <<||>> {
     target  => $contactgroup_cfg,
-    notify  => Contact['nagios'],
+    notify  => Service['nagios'],
     require => File[$nagios_confdir],
     before  => File[$contactgroup_cfg],
   }
