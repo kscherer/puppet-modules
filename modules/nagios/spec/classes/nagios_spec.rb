@@ -9,6 +9,7 @@ describe 'nagios', :type => :class do
 
     it { should contain_package('nagios').with_ensure('latest') }
     it { should contain_service('nagios').with_ensure('running').with_enable(true) }
+    it { should contain_file('/etc/nagios/conf.d/nagios_host.cfg').with_mode('0664') }
   end
 
 end

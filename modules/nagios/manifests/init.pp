@@ -1,7 +1,7 @@
 #
 class nagios(
   $nagios_dir  = $nagios::params::nagios_dir,
-  $nagios_conf = $nagios::params::nagios_conf
+  $nagios_confdir = $nagios::params::nagios_confdir
   ) inherits nagios::params {
   package {
     ['nagios', 'nagios-plugins-all', 'php']:
@@ -18,59 +18,63 @@ class nagios(
       require    => [ File['nagios_conf'], Package['nagios']],
   }
 
+  $host_cfg = "${nagios_confdir}/nagios_host.cfg"
   # collect resources and populate /etc/nagios/nagios_*.cfg
   Nagios_host <<||>> {
-    target  => "${nagios_conf}/nagios_host.cfg",
+    target  => $host_cfg,
     notify  => Service['nagios'],
-    require => File[$nagios_conf],
+    require => File[$nagios_confdir],
+    before  => File[$host_cfg],
   }
 
+  $service_cfg = "${nagios_confdir}/nagios_service.cfg"
   Nagios_service <<||>> {
-    target  => "${nagios_conf}/nagios_service.cfg",
+    target  => $service_cfg,
     notify  => Service['nagios'],
-    require => File[$nagios_conf],
+    require => File[$nagios_confdir],
+    before  => File[$service_cfg],
   }
 
+  $hostext_cfg = "${nagios_confdir}/nagios_hostextinfo.cfg"
   Nagios_hostextinfo <<||>> {
-    target  => "${nagios_conf}/nagios_hostextinfo.cfg",
+    target  => $hostext_cfg,
     notify  => Service['nagios'],
-    require => File[$nagios_conf],
+    require => File[$nagios_confdir],
+    before  => File[$hostext_cfg],
+  }
+
+  File {
+    require => Package['nagios'],
+    owner   => 'root',
+    group   => 'nagios',
+    mode    => '0664',
   }
 
   file {
     #make sure all files in /etc/nagios/conf.d have world read permissions
-    $nagios_conf:
+    $nagios_confdir:
       ensure  => directory,
       recurse => true,
       purge   => true,
-      require => Package['nagios'],
       mode    => '0755';
     "${nagios_dir}/objects":
       ensure  => directory,
-      require => Package['nagios'],
       mode    => '0755';
     'nagios_conf':
       path    => "${nagios_dir}/nagios.cfg",
       source  => 'puppet:///nagios/nagios.cfg',
-      notify  => Service['nagios'],
-      require => Package['nagios'],
-      mode    => '0644';
+      notify  => Service['nagios'];
     'cgi_conf':
       path    => "${nagios_dir}/cgi.cfg",
       source  => 'puppet:///nagios/cgi.cfg',
-      notify  => Service['httpd'],
-      require => Package['nagios'],
-      mode    => '0644';
+      notify  => Service['httpd'];
     'nagios_htpasswd':
       path    => "${nagios_dir}/passwd",
       source  => 'puppet:///nagios/passwd',
-      require => Package['nagios'],
+      notify  => Service['httpd'],
       mode    => '0640', owner => root, group => apache;
-    [ "${nagios_conf}/nagios_hostextinfo.cfg",
-      "${nagios_conf}/nagios_host.cfg",
-      "${nagios_conf}/nagios_service.cfg"]:
+    [ $host_cfg, $hostext_cfg, $service_cfg ]:
         notify  => Service['nagios'],
-        require => Package['nagios'],
-        mode    => '0644';
+        require => File[$nagios_confdir];
   }
 }
