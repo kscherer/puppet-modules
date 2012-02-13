@@ -28,9 +28,9 @@ define nrpe_command ($command, $parameters='', $cplugdir='auto', $ensure='presen
         "${nrpe::nrpe_dir}/${name}.cfg":
           owner   => root,
           group   => root,
-          mode    => 644,
+          mode    => '0644',
           content => template('nrpe/nrpe-config.erb'),
-          require => File["$nrpe::nrpe_dir"],
+          require => File[$nrpe::nrpe_dir],
       }
     }
   }
@@ -45,7 +45,7 @@ class nrpe {
   }
 
   file {
-    ['/etc/nagios',"${nrpe_dir}"]:
+    ['/etc/nagios',$nrpe_dir]:
       ensure => directory;
   }
 
@@ -84,7 +84,7 @@ class nrpe {
     CentOS,RedHat: { include nrpe::redhat }
     Fedora:        { include nrpe::fedora }
     OpenSuSE,SLED: { include nrpe::opensuse }
-    default:       { fail("Unknown distro") }
+    default:       { fail('Unknown distro') }
   }
 
   nrpe_command {
@@ -98,6 +98,9 @@ class nrpe {
     'check_nx':
       command    => 'check_file_age',
       parameters => '-w 21600  -c 43200 -f /home/buildadmin/log/nx.log';
+    'check_nx_instance':
+      command    => 'check_nx_instance.sh',
+      parameters => '';
     #make sure puppet has successully run on system recently
     'check_puppet':
       command    => 'check_file_age',

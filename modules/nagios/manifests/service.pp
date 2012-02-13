@@ -41,6 +41,13 @@ class nagios::service(
       check_command       => 'check_mc_nrpe!ntp!yow!check_ntp',
       notification_period => 'workhours',
       contact_groups      => 'admins';
+    'yow-blades_nx_check':
+      use                 => 'generic-service',
+      host_name           => 'yow-lpd-monitor.ottawa.windriver.com',
+      service_description => 'mc_nx_blades_run',
+      check_command       => 'check_mc_nrpe!nx::yow-blades!yow!check_nx_instance',
+      notification_period => 'workhours',
+      contact_groups      => 'admins';
   }
 
   $service_cfg = "${nagios_confdir}/nagios_service.cfg"

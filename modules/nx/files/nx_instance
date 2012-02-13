@@ -145,7 +145,14 @@ nx_status(){
     #The return codes are from LSB:
     #http://refspecs.linuxbase.org/LSB_3.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html
 
+    #support this function being called from outside this script
+    local nx_builddir=$nx_builddir
+    if [ -n "$1" ]; then
+        nx_builddir=$1
+    fi
+
     #assume no pidfile means that nx is stopped
+    local pidfile="${nx_builddir}/.nx.lock"
     if [ ! -f $pidfile ]; then
         nx_status_string="No pidfile found. Assuming nx instance $instance is stopped"
         RETVAL=3
