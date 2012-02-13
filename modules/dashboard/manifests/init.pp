@@ -132,7 +132,7 @@ class dashboard (
   file { 'dashboard-defaults' :
     ensure  => present,
     path    => $dashboard_defaults_name,
-    content => template('$dashboard_defaults_content'),
+    content => template($dashboard_defaults_content),
     owner   => '0',
     group   => '0',
     mode    => '0644',

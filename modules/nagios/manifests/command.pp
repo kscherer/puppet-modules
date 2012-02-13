@@ -18,7 +18,7 @@ class nagios::command(
   'check_http':
     command_line => '$USER1$/check_http -I $HOSTADDRESS$ $ARG1$';
   'check_mc_nrpe':
-    command_line => "/usr/sbin/check-mc-nrpe --config ${nagios_confdir}/client.cfg -W $ARG1$ $ARG2$"
+    command_line => "/usr/sbin/check-mc-nrpe --config ${nagios_confdir}/client.cfg -W $ARG1$ -T $ARG2$ $ARG3$";
   }
 
   $command_cfg = "${nagios_confdir}/nagios_command.cfg"

@@ -26,7 +26,21 @@ class nagios::service(
       notification_options         => 'w,u,c,r',
       notification_interval        => '60',
       notification_period          => '24x7',
-      register                     => '0',
+      register                     => '0';
+    'puppet':
+      use                 => 'generic-service',
+      host_name           => 'yow-lpd-monitor',
+      service_description => 'mc_puppet_run',
+      check_command       => 'check_mc_nrpe!puppet!yow!check_puppet',
+      notification_period => 'awakehours',
+      contact_groups      => 'admins';
+    'clock_check':
+      use                 => 'generic-service',
+      host_name           => 'yow-lpd-monitor',
+      service_description => 'mc_ntp_run',
+      check_command       => 'check_mc_nrpe!ntp!yow!check_ntp',
+      notification_period => 'awakehours',
+      contact_groups      => 'admins';
   }
 
   $service_cfg = "${nagios_confdir}/nagios_service.cfg"
