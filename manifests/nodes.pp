@@ -28,6 +28,7 @@ node 'yow-lpd-puppet.ottawa.wrs.com' {
   -> class { 'collectd::client': }
   -> class { 'wr::mcollective': }
   -> class { 'wr::master': }
+  -> class { 'nagios::target': }
 }
 
 node 'yow-lpg-amqp.ottawa.windriver.com' {
@@ -45,6 +46,7 @@ node 'yow-lpg-amqp.ottawa.windriver.com' {
   }
   -> class { 'collectd::client': }
   -> class { 'wr::mcollective': }
+  -> class { 'nagios::target': }
 }
 
 node 'yow-blade1.wrs.com' {
