@@ -29,17 +29,17 @@ class nagios::service(
       register                     => '0';
     'puppet':
       use                 => 'generic-service',
-      host_name           => 'yow-lpd-monitor',
+      host_name           => 'yow-lpd-monitor.ottawa.windriver.com',
       service_description => 'mc_puppet_run',
       check_command       => 'check_mc_nrpe!puppet!yow!check_puppet',
-      notification_period => 'awakehours',
+      notification_period => 'workhours',
       contact_groups      => 'admins';
     'clock_check':
       use                 => 'generic-service',
-      host_name           => 'yow-lpd-monitor',
+      host_name           => 'yow-lpd-monitor.ottawa.windriver.com',
       service_description => 'mc_ntp_run',
       check_command       => 'check_mc_nrpe!ntp!yow!check_ntp',
-      notification_period => 'awakehours',
+      notification_period => 'workhours',
       contact_groups      => 'admins';
   }
 
