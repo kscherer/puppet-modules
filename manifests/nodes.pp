@@ -49,7 +49,7 @@ node 'yow-lpg-amqp.ottawa.windriver.com' {
   -> class { 'nagios::target': }
 }
 
-node /yow-blade*.wrs.com/ {
+node /yow-blade.*.wrs.com/ {
   class { 'wr::yow-blades': }
 }
 
