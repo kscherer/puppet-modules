@@ -1,18 +1,11 @@
 
 #
-define nrpe_command ($command, $parameters='', $cplugdir='auto', $ensure='present') {
-
-  # find out the default nagios paths for plugins
-  if $::osfamily == 'RedHat' and $::architecture == 'x86_64' {
-    $defaultdir = '/usr/lib64/nagios/plugins'
-  } else {
-    $defaultdir = '/usr/lib/nagios/plugins'
-  }
+define nrpe::command ($command, $parameters='', $cplugdir='auto', $ensure='present') {
 
   # if we overrode cplugdir then use that, else go with the nagios default
   # for this architecture
   case $cplugdir {
-    auto:    { $plugdir = $defaultdir }
+    auto:    { $plugdir = $nrpe::defaultdir }
     default: { $plugdir = $cplugdir }
   }
 
@@ -26,8 +19,9 @@ define nrpe_command ($command, $parameters='', $cplugdir='auto', $ensure='presen
     default:    {
       file {
         "${nrpe::nrpe_dir}/${name}.cfg":
-          owner   => root,
-          group   => root,
+          ensure  => 'present',
+          owner   => 'root',
+          group   => 'root',
           mode    => '0644',
           content => template('nrpe/nrpe-config.erb'),
           require => File[$nrpe::nrpe_dir],
@@ -44,9 +38,21 @@ class nrpe {
       default                            => '/etc/nagios/nrpe.d',
   }
 
+  # find out the default nagios paths for plugins
+  if $::osfamily == 'RedHat' and $::architecture == 'x86_64' {
+    $defaultdir = '/usr/lib64/nagios/plugins'
+  } else {
+    $defaultdir = '/usr/lib/nagios/plugins'
+  }
+
   file {
     ['/etc/nagios',$nrpe_dir]:
       ensure => directory;
+    'check_nx_instance':
+      ensure => 'present',
+      path   => "${defaultdir}/check_nx_instance.sh",
+      source => 'puppet:///nrpe/check_nx_instance.sh',
+      mode   => '0755';
   }
 
   class debian {
@@ -87,7 +93,7 @@ class nrpe {
     default:       { fail('Unknown distro') }
   }
 
-  nrpe_command {
+  nrpe::command {
     'check_disks':
       command    => 'check_disk',
       parameters => '--warning=10% --critical=5% --path=/ --local --units GB';
