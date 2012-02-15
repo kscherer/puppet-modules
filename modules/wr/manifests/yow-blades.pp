@@ -22,4 +22,11 @@ class wr::yow-blades inherits wr::common {
     'root':
       password => '$1$5VSxF7IZ$.yx57bNrz.RCFQRnz3KYV0';
   }
+
+  Ssh_authorized_key['kscherer_windriver'] {
+    user +> 'nxadm'
+  }
+  Ssh_authorized_key['kscherer_home'] {
+    user +> 'nxadm'
+  }
 }
