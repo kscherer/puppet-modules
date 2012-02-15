@@ -7,7 +7,6 @@ node 'ala-lpd-puppet.wrs.com' {
   -> class { 'ntp': servers          => ['ntp-1.wrs.com','ntp-2.wrs.com'] }
   -> class { 'java':    distribution => 'java-1.6.0-openjdk' }
   -> class { 'activemq': broker_name => 'ala-broker' }
-  -> class { 'wr::mcollective': }
   -> class { 'wr::master': }
 }
 
@@ -17,7 +16,6 @@ node 'pek-lpd-puppet.wrs.com' {
   -> class { 'ntp': servers          => ['ntp-1.wrs.com','ntp-2.wrs.com'] }
   -> class { 'java':    distribution => 'java-1.6.0-openjdk' }
   -> class { 'activemq': broker_name => 'ala-broker' }
-  -> class { 'wr::mcollective': }
   -> class { 'wr::master': }
 }
 
@@ -26,7 +24,6 @@ node 'yow-lpd-puppet.ottawa.wrs.com' {
   -> class { 'nrpe': }
   -> class { 'ntp': servers => ['yow-lpgbld-master.ottawa.wrs.com'] }
   -> class { 'collectd::client': }
-  -> class { 'wr::mcollective': }
   -> class { 'wr::master': }
   -> class { 'nagios::target': }
 }

@@ -1,7 +1,7 @@
 # A class to hold common mcollective params for mcollective
-class wr::mcollective(
+class wr::mcollective (
   $client = false
-  ) {
+  ) inherits wr::common {
 
   $collective = $::hostname ? {
     /^ala.*$/ => 'ala',

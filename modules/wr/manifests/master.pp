@@ -1,6 +1,6 @@
 # Define the default puppet master setup for WindRiver
 
-class wr::master {
+class wr::master inherits wr::mcollective {
 
   Class['redhat']
   -> Class['mysql']

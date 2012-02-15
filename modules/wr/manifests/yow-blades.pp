@@ -1,5 +1,5 @@
 #
-class wr::yow-blades inherits wr::common {
+class wr::yow-blades {
   class { 'redhat': }
   -> class { 'ntp':
     servers    => ['ntp-1.wrs.com','ntp-2.wrs.com'],
