@@ -10,9 +10,9 @@ class nx::yow-blades {
 
   mount {
     '/mnt/yow-blades':
-      ensure   => unmounted,
+      ensure   => mounted,
       atboot   => true,
-      device   => 'yow-lpgnas2:/vol/vol5',
+      device   => 'yow-lpgnas2:/vol/vol1',
       fstype   => nfs,
       options  => 'rw,_netdev',
       require  => File['/mnt/yow-blades'],

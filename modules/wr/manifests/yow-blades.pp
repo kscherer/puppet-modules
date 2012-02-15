@@ -1,10 +1,9 @@
 #
-class wr::yow-blades {
+class wr::yow-blades inherits wr::mcollective {
   class { 'redhat': }
   -> class { 'ntp':
     servers    => ['ntp-1.wrs.com','ntp-2.wrs.com'],
   }
-  -> class { 'wr::mcollective': }
   -> class { 'puppet':
     puppet_server               => 'yow-lpd-puppet.ottawa.wrs.com',
     puppet_agent_ensure         => 'latest',
