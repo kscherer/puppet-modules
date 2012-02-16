@@ -59,7 +59,7 @@ class multipath(
       owner  => root, group => root;
   }
 
-  mpath_mount {
+  multipath::mount {
     '/ba1':
       device => '/dev/mapper/ba1p1';
     '/ba2':
