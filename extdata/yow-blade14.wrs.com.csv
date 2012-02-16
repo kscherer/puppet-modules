@@ -2,6 +2,7 @@ eth0_broadcast,128.224.137.255
 eth0_netmask,255.255.255.0
 eth0_ip,128.224.137.34
 eth0_mac,00:23:AE:FD:65:EC
+eth0_gateway,128.224.137.1
 eth2_broadcast,172.17.137.255
 eth2_ip,172.17.137.34
 eth2_netmask,255.255.255.0
