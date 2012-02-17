@@ -2,10 +2,12 @@
 class nx::yow-blades {
 
   file {
-    ['/mnt/yow-blades','/mnt/rpm_cache']:
+    '/mnt/yow-blades':
       ensure => directory,
       owner  => root,
       group  => root;
+    '/mnt/rpm_cache':
+      ensure => directory;
   }
 
   mount {
