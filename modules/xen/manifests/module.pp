@@ -9,7 +9,7 @@ define xen::module(){
 
   file_line {
     "load_${name}_on_boot":
-      file => '/etc/modules',
+      path => '/etc/modules',
       line => $name;
   }
 }
