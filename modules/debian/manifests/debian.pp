@@ -46,7 +46,7 @@ class debian::debian {
     '01puppet':
       owner  => 'root', group => 'root', mode => '0644',
       path   => '/etc/apt/preferences.d/01puppet',
-      source => 'puppet:///modules/master/01puppet';
+      source => 'puppet:///debian/01puppet';
     #manual script to run on new dell servers
     '/root/partition_drives.sh':
       owner  => 'root', group => 'root', mode => '0700',
