@@ -30,8 +30,8 @@ class nx::yow-hostel {
       device   => 'yow-lpggp1:/yow-lpggp15/prebuilt_cache/',
       name     => '/mnt/prebuilt_cache',
       fstype   => 'nfs',
-      options  => 'ro,soft,auto,nolock',
-      require  => File[ '/mnt/prebuilt_cache' ],
+      options  => 'ro,soft,auto,nolock,_netdev',
+      require  => File['/mnt/prebuilt_cache'],
       remounts => false;
   }
 }

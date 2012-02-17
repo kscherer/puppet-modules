@@ -50,6 +50,10 @@ node /yow-blade.*.wrs.com/ {
   class { 'wr::yow-blades': }
 }
 
+node /yow-lpgbld-[0-5][0-9].*/ {
+  class { 'wr::xenserver': }
+}
+
 node 'yow-lpd-monitor.ottawa.windriver.com' {
   class { 'redhat': }
   -> class { 'nrpe': }

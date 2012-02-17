@@ -1,7 +1,0 @@
-###### Ubuntu Main Repos
-deb http://yow-mirror.ottawa.windriver.com//mirror/ubuntu.com/ubuntu/ <%= lsbdistcodename -%> main restricted universe
-
-###### Ubuntu Update Repos
-deb http://yow-mirror.ottawa.windriver.com//mirror/ubuntu.com/ubuntu/ <%= lsbdistcodename -%>-security main restricted universe
-deb http://yow-mirror.ottawa.windriver.com//mirror/ubuntu.com/ubuntu/ <%= lsbdistcodename -%>-updates main restricted universe
-
