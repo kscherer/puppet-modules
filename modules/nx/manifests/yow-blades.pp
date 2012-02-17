@@ -7,7 +7,9 @@ class nx::yow-blades {
       owner  => root,
       group  => root;
     '/mnt/rpm_cache':
-      ensure => directory;
+      ensure => directory,
+      owner  => '8023',
+      group  => '100';
   }
 
   mount {
