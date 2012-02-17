@@ -7,7 +7,7 @@ define xen::module(){
       unless  => "lsmod | grep -q $name";
   }
 
-  line {
+  file_line {
     "load_${name}_on_boot":
       file => '/etc/modules',
       line => $name;
