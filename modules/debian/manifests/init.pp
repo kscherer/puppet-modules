@@ -18,7 +18,7 @@ class debian {
   file {
     '/etc/apt/apt.conf.d/90aptitude':
       ensure  => file,
-      content => 'Aptitude ""
+      content => 'Aptitude "";
 Aptitude::CmdLine "";
 Aptitude::CmdLine::Show-Versions "true";
 Aptitude::CmdLine::Package-Display-Format "%c%a%M %p# - %d%V#";';
