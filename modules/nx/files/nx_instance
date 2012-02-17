@@ -160,7 +160,7 @@ nx_status(){
     fi
 
     local pid=$(cat $pidfile)
-    local five_min=300 #5 * 60 seconds
+    local ten_min=600 #10 * 60 seconds
     local thirty_min=1800 #30 * 60 seconds
     local nx_log="${nx_builddir}/nx.log"
     #When nx is building is makes a link to the current build
@@ -173,10 +173,10 @@ nx_status(){
         if [ -f $wrbuildlog ]; then
             local wrbuildlog_age=$(($now - $(stat -c '%Y' "$wrbuildlog")))
             #If the 00-wrbuild.log was modified recently then build is not hung
-            if [ $wrbuildlog_age -lt $five_min ]; then
+            if [ $wrbuildlog_age -lt $ten_min ]; then
                 nx_status_string="Nx instance $instance is running"
                 RETVAL=0
-            elif [ $nxlog_age -lt $five_min ]; then
+            elif [ $nxlog_age -lt $ten_min ]; then
                 nx_status_string="Nx instance $instance is running"
                 RETVAL=0
             elif [ -d ${nx_builddir}/current_build/build ]; then
@@ -185,7 +185,7 @@ nx_status(){
                 #This will detect if build progress is actually being made
                 local newest_buildlog=$(ls -t1 ${nx_builddir}/current_build/build/*.log | head -n 1)
                 local newest_buildlog_age=$(($now - $(stat -c '%Y' "$newest_buildlog")))
-                if [ $newest_buildlog_age -lt $five_min ]; then
+                if [ $newest_buildlog_age -lt $ten_min ]; then
                     nx_status_string="Nx instance $instance is running"
                     RETVAL=0
                 else
@@ -215,7 +215,7 @@ nx_status(){
             nx_status_string="I have no idea what nx is doing: $(tail ${nx_log})"
             RETVAL=4 # Unknown state
         fi
-    elif [ $nxlog_age -lt $five_min ]; then
+    elif [ $nxlog_age -lt $ten_min ]; then
         #it is possible that the pidfile is out of date
         nx_status_string="Nx instance $instance is running"
         RETVAL=0
