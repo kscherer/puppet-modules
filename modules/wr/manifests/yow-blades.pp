@@ -23,12 +23,12 @@ class wr::yow-blades inherits wr::mcollective {
   }
 
   ssh_authorized_key {
-    'kscherer_windriver':
+    'kscherer_windriver_nxadm':
       ensure => 'present',
       user   => 'nxadm',
       key    => $wr::common::kscherer_windriver_pubkey,
       type   => 'ssh-dss';
-    'kscherer_home':
+    'kscherer_home_nxadm':
       ensure => 'present',
       user   => 'nxadm',
       key    => $wr::common::kscherer_home_pubkey,
