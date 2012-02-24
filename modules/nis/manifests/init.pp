@@ -42,7 +42,7 @@ class nis {
       enable     => true,
       hasrestart => true,
       hasstatus  => true,
-      require    => [ File['/etc/yp.conf'], File['/etc/nsswitch.conf'],
+      subscribe  => [ File['/etc/yp.conf'], File['/etc/nsswitch.conf'],
                       File_line['nisdomain'], Package['ypbind']];
   }
 
@@ -52,7 +52,7 @@ class nis {
       enable     => true,
       hasrestart => true,
       hasstatus  => true,
-      require    => [ File['/etc/auto.master'], Package['autofs'],
+      subscribe  => [ File['/etc/auto.master'], Package['autofs'],
                       File['/folk']];
   }
 }
