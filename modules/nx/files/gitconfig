@@ -1,0 +1,18 @@
+[user]
+	name = Konrad Scherer
+	email = konrad.scherer@windriver.com
+[sendemail]
+	suppresscc = all
+	smtpserver = prod-webmail.wrs.com
+	chainreplyto = true
+[color]
+	interactive = true
+	diff        = true
+	pager       = true
+	status      = true
+
+[core]
+	editor = vi
+[wrgit]
+	username = buildadmin
+    autoupdate = true

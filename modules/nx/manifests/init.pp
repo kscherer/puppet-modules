@@ -43,6 +43,9 @@ class nx {
       owner   => 'root',
       group   => 'root',
       source  => 'puppet:///nx/nx_instance';
+    '/home/nxadm/.gitconfig':
+      mode    => '0644',
+      source  => 'puppet:///nx/gitconfig';
   }
 
   define nx::script() {

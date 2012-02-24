@@ -168,11 +168,11 @@ nx_status(){
     #When nx is building is makes a link to the current build
     local wrbuildlog="${nx_builddir}/current_build/00-wrbuild.log"
     local now=$(date +%s)
-    local nxlog_age=$(($now - $(stat -c '%Y' "$nx_log")))
 
     #check if pid in pidfile is valid
     if [ -d /proc/$pid ]; then
         if [ -f $wrbuildlog ]; then
+            local nxlog_age=$(($now - $(stat -c '%Y' "$nx_log")))
             local wrbuildlog_age=$(($now - $(stat -c '%Y' "$wrbuildlog")))
             #If the 00-wrbuild.log was modified recently then build is not hung
             if [ $wrbuildlog_age -lt $ten_min ]; then
@@ -217,7 +217,7 @@ nx_status(){
             nx_status_string="I have no idea what nx is doing: $(tail ${nx_log})"
             RETVAL=4 # Unknown state
         fi
-    elif [ $nxlog_age -lt $ten_min ]; then
+    elif [ -f "$nx_log" ] && [ $(($now - $(stat -c '%Y' "$nx_log"))) -lt $ten_min ]; then
         #it is possible that the pidfile is out of date
         nx_status_string="Nx instance $instance is running"
         RETVAL=0
