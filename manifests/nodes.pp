@@ -69,10 +69,10 @@ node 'yow-lpd-monitor.ottawa.windriver.com' {
 
 }
 
-node /yow-lpgbld-vm.*ottawa.wrs.com$/ {
+node /yow-lpgbld-vm\d+\.ottawa\.w(rs|indriver)\.com$/ {
   class { 'wr::yow-hostel': }
 }
 
-node /yow-lpgbuild-.*ottawa.wrs.com$/ {
+node /yow-lpgbuild-\d+\.ottawa\.w(rs|indriver)\.com$/ {
   class { 'wr::yow-lpgbuild': }
 }

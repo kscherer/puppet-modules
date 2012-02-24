@@ -9,8 +9,8 @@ class nx::yow-hostel {
   file {
     '/mnt/prebuilt_cache':
       ensure => directory,
-      owner  => 'root',
-      group  => 'root';
+      owner  => '8023',
+      group  => '100';
     '/home/nxadm/nx':
       ensure  => directory;
     "/home/nxadm/nx/${::hostname}.1":
