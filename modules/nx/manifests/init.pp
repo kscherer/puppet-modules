@@ -46,6 +46,17 @@ class nx {
     '/home/nxadm/.gitconfig':
       mode    => '0644',
       source  => 'puppet:///nx/gitconfig';
+    '/home/nxadm/.ssh/':
+      ensure => directory,
+      mode   => '0600';
+    '/home/nxadm/.ssh/id_dsa.pub':
+      ensure => present,
+      source => 'puppet:///nx/id_dsa.pub',
+      mode   => '0600';
+    '/home/nxadm/.ssh/id_dsa':
+      ensure => present,
+      source => 'puppet:///nx/id_dsa',
+      mode   => '0600';
   }
 
   define nx::script() {
