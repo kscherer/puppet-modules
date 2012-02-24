@@ -68,3 +68,7 @@ node 'yow-lpd-monitor.ottawa.windriver.com' {
   class { 'apache': }
 
 }
+
+node /yow-lpgbld-vm.*ottawa.wrs.com$/ {
+  class { 'wr::yow-hostel': }
+}
