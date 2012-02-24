@@ -22,10 +22,16 @@ class wr::yow-blades inherits wr::mcollective {
       password => '$1$5VSxF7IZ$.yx57bNrz.RCFQRnz3KYV0';
   }
 
-  Ssh_authorized_key['kscherer_windriver'] {
-    user +> 'nxadm'
-  }
-  Ssh_authorized_key['kscherer_home'] {
-    user +> 'nxadm'
+  ssh_authorized_key {
+    'kscherer_windriver':
+      ensure => 'present',
+      user   => 'nxadm',
+      key    => $wr::common::kscherer_windriver_pubkey,
+      type   => 'ssh-dss';
+    'kscherer_home':
+      ensure => 'present',
+      user   => 'nxadm',
+      key    => $wr::common::kscherer_home_pubkey,
+      type   => 'ssh-rsa';
   }
 }

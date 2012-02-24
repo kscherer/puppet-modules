@@ -29,10 +29,16 @@ class wr::yow-hostel inherits wr::mcollective {
       password => '$6$p6ikdyj/GHN7Uno3$VDlbq91Mp5osT0yLxVTbtDhhidFYTK7r/2xM5426g6bbesNzfhaXditRBSieRwsgpNJIbYEQhA7SZcXdf.VcZ0';
   }
 
-  Ssh_authorized_key['kscherer_windriver'] {
-    user +> 'nxadm'
-  }
-  Ssh_authorized_key['kscherer_home'] {
-    user +> 'nxadm'
+  ssh_authorized_key {
+    'kscherer_windriver':
+      ensure => 'present',
+      user   => 'nxadm',
+      key    => $wr::common::kscherer_windriver_pubkey,
+      type   => 'ssh-dss';
+    'kscherer_home':
+      ensure => 'present',
+      user   => 'nxadm',
+      key    => $wr::common::kscherer_home_pubkey,
+      type   => 'ssh-rsa';
   }
 }

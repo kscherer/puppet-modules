@@ -171,8 +171,8 @@ nx_status(){
 
     #check if pid in pidfile is valid
     if [ -d /proc/$pid ]; then
+        local nxlog_age=$(($now - $(stat -c '%Y' "$nx_log")))
         if [ -f $wrbuildlog ]; then
-            local nxlog_age=$(($now - $(stat -c '%Y' "$nx_log")))
             local wrbuildlog_age=$(($now - $(stat -c '%Y' "$wrbuildlog")))
             #If the 00-wrbuild.log was modified recently then build is not hung
             if [ $wrbuildlog_age -lt $ten_min ]; then
