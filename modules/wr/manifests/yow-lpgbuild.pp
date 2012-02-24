@@ -1,15 +1,8 @@
 #
-class wr::yow-hostel inherits wr::mcollective {
-
-  case $::operatingsystem {
-    Debian,Ubuntu: { $base_class='debian' }
-    CentOS,RedHat,Fedora: { $base_class='redhat' }
-    default: { fail("Unsupported OS: $::operatingsystem")}
-  }
-
-  class { $base_class: }
+class wr::yow-lpgbuild inherits wr::mcollective {
+  class { 'redhat': }
   -> class { 'ntp':
-    servers    => ['yow-lpgbld-master.ottawa.wrs.com'],
+    servers    => ['ntp-1.wrs.com','ntp-2.wrs.com'],
   }
   -> class { 'puppet':
     puppet_server               => 'yow-lpd-puppet.ottawa.wrs.com',
