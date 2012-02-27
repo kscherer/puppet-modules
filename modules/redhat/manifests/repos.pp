@@ -115,7 +115,7 @@ class redhat::repos {
     RedHat: {
       realize( Yumrepo['redhat-dvd'] )
       realize( Yumrepo["epel-el${major_release}-${::architecture}"] )
-      realize( Yumrepo["puppetlabs-el${major_release}"] )
+      realize( Yumrepo["puppetlabs-rh${major_release}"] )
       if ( $major_release == '6' ) {
         realize( Yumrepo["rhel${major_release}-updates"] )
         realize( Yumrepo["rhel${major_release}-optional"] )
