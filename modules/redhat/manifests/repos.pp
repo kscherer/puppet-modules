@@ -110,11 +110,12 @@ class redhat::repos {
     }
     Fedora: {
       realize( Yumrepo['fedora_updates'], Yumrepo['fedora_everything'] )
+      realize( Yumrepo["puppetlabs-el${major_release}"] )
     }
     RedHat: {
       realize( Yumrepo['redhat-dvd'] )
       realize( Yumrepo["epel-el${major_release}-${::architecture}"] )
-      realize( Yumrepo["puppet-el${major_release}"] )
+      realize( Yumrepo["puppetlabs-el${major_release}"] )
       if ( $major_release == '6' ) {
         realize( Yumrepo["rhel${major_release}-updates"] )
         realize( Yumrepo["rhel${major_release}-optional"] )
