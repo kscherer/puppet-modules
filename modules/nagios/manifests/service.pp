@@ -48,6 +48,13 @@ class nagios::service(
       check_command       => 'check_mc_nrpe!nx::yow-blades!yow!check_nx_instance',
       notification_period => 'workhours',
       contact_groups      => 'admins';
+    'yow-lpgbuild_nx_check':
+      use                 => 'generic-service',
+      host_name           => 'yow-lpd-monitor.ottawa.windriver.com',
+      service_description => 'mc_nx_lpgbuild_run',
+      check_command       => 'check_mc_nrpe!nx::yow-lpgbuild!yow!check_nx_instance',
+      notification_period => 'workhours',
+      contact_groups      => 'admins';
     'yow_puppet_check':
       use                 => 'generic-service',
       host_name           => 'yow-lpd-monitor.ottawa.windriver.com',
