@@ -57,6 +57,10 @@ class nx {
       ensure => present,
       source => 'puppet:///nx/id_dsa',
       mode   => '0600';
+    '/home/nxadm/.ssh/config':
+      ensure => present,
+      mode   => '0600',
+      source => 'puppet:///nx/ssh_config';
   }
 
   define nx::script() {
