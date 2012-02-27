@@ -24,9 +24,8 @@ class redhat::workarounds {
     }
   }
 
-  #Another bug on Fedora systems where facter 1.6.2 reports is_virtual=false
-  if ($::is_virtual == true and $::operatingsystem == 'Fedora' and
-      $::facterversion == '1.6.2') {
+  #Another bug on some systems where is_virtual=false
+  if ($::is_virtual == false and $::hostname =~ /^yow-lpgbld-vm.*/ ) {
     file_line {
       'facter_xen_detect_workaround':
         path   => '/etc/fstab',
