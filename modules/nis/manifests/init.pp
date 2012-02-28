@@ -36,6 +36,18 @@ class nis {
       notify  => Service['autofs'];
   }
 
+  #On Redhat 5.x the portmap service is needed
+  if $::operatingsystem =~ /(RedHat|CentOS)/ and $::operatingsystemrelease =~ /5.*/ {
+    service {
+      'portmap':
+        ensure     => running,
+        enable     => true,
+        hasrestart => true,
+        hasstatus  => true,
+        before     => Service['ypbind'],
+    }
+  }
+
   service {
     'ypbind':
       ensure     => running,
