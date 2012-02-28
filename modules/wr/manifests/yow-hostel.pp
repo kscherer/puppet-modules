@@ -20,7 +20,6 @@ class wr::yow-hostel inherits wr::mcollective {
   -> class { 'nrpe': }
   -> class { 'nis': }
   -> class { 'wrlinux': }
-  -> class { 'collectd::client': }
   -> class { 'nx': }
   -> class { 'nagios::target': }
 

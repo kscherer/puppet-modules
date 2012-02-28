@@ -28,7 +28,8 @@ class redhat::repos {
     [ 'fedora.repo', 'fedora-updates-testing.repo', 'cobbler-config.repo',
       'CentOS-Base.repo','CentOS-Debuginfo.repo', 'CentOS-Media.repo',
       'puppet.repo', 'redhat_dvd.repo', 'rhel-source.repo',
-      'puppet-el6.repo', 'puppet-el5.repo', 'epel.repo', 'redhat.repo' ]:
+      'puppet-el6.repo', 'puppet-el5.repo', 'epel.repo', 'redhat.repo',
+      'redhat-el5.repo', 'rhel-debuginfo.repo' ]:
   }
 
   $yow_mirror = 'http://yow-mirror.ottawa.wrs.com/mirror'
