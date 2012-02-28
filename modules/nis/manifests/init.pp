@@ -42,6 +42,7 @@ class nis {
       enable     => true,
       hasrestart => true,
       hasstatus  => true,
+      before     => Service['autofs'],
       subscribe  => [ File['/etc/yp.conf'], File['/etc/nsswitch.conf'],
                       File_line['nisdomain'], Package['ypbind']];
   }

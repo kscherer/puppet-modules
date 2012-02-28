@@ -11,11 +11,14 @@ class redhat::workarounds {
       line => 'multilib_policy=best';
   }
 
+  #boolean variables from facter may be strings
+  $is_virtual_bool = any2bool($::is_virtual)
+
   #A bug in some RedHat versions (I saw it on 6.0) causes lockups when
   #building wrlinux under Xen.
   #From https://bugzilla.redhat.com/show_bug.cgi?id=550724
   #this is the workaround.
-  if ($::is_virtual == true and $::operatingsystem == 'RedHat' and
+  if ($::is_virtual_bool == true and $::operatingsystem == 'RedHat' and
       $::operatingsystemrelease == '6.0') {
     service {
       'irqbalance':
@@ -25,7 +28,7 @@ class redhat::workarounds {
   }
 
   #Another bug on some systems where is_virtual=false
-  if ($::is_virtual == false and $::hostname =~ /^yow-lpgbld-vm.*/ ) {
+  if $::is_virtual_bool == false and $::hostname =~ /^yow-lpgbld-vm\d\d/ {
     file_line {
       'facter_xen_detect_workaround':
         path   => '/etc/fstab',
