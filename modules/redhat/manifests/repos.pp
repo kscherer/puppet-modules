@@ -27,7 +27,7 @@ class redhat::repos {
   redhat::delete_repo {
     [ 'fedora.repo', 'fedora-updates-testing.repo', 'cobbler-config.repo',
       'CentOS-Base.repo','CentOS-Debuginfo.repo', 'CentOS-Media.repo',
-      'puppet.repo', 'redhat_dvd.repo', 'rhel6-source.repo',
+      'puppet.repo', 'redhat_dvd.repo', 'rhel-source.repo',
       'puppet-el6.repo', 'puppet-el5.repo', 'epel.repo', 'redhat.repo' ]:
   }
 

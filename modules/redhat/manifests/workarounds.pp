@@ -18,7 +18,7 @@ class redhat::workarounds {
   #building wrlinux under Xen.
   #From https://bugzilla.redhat.com/show_bug.cgi?id=550724
   #this is the workaround.
-  if ($::is_virtual_bool == true and $::operatingsystem == 'RedHat' and
+  if ($is_virtual_bool == true and $::operatingsystem == 'RedHat' and
       $::operatingsystemrelease == '6.0') {
     service {
       'irqbalance':
@@ -28,7 +28,7 @@ class redhat::workarounds {
   }
 
   #Another bug on some systems where is_virtual=false
-  if $::is_virtual_bool == false and $::hostname =~ /^yow-lpgbld-vm\d\d/ {
+  if $is_virtual_bool == false and $::hostname =~ /^yow-lpgbld-vm\d\d/ {
     file_line {
       'facter_xen_detect_workaround':
         path   => '/etc/fstab',
