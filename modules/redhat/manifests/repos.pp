@@ -26,7 +26,9 @@ class redhat::repos {
   #make sure all other repos are gone
   redhat::delete_repo {
     [ 'fedora.repo', 'fedora-updates-testing.repo', 'cobbler-config.repo',
-      'CentOS-Base.repo','CentOS-Debuginfo.repo', 'CentOS-Media.repo' ] :
+      'CentOS-Base.repo','CentOS-Debuginfo.repo', 'CentOS-Media.repo',
+      'puppet.repo', 'redhat_dvd.repo', 'rhel6-source.repo',
+      'puppet-el6.repo', 'puppet-el5.repo', 'epel.repo', 'redhat.repo' ]:
   }
 
   $yow_mirror = 'http://yow-mirror.ottawa.wrs.com/mirror'
