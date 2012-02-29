@@ -96,7 +96,7 @@ class redhat::repos {
     /^4.*$/: { $major_release=4 }
     /^5.*$/: { $major_release=5 }
     /^6.*$/: { $major_release=6 }
-    default: { }
+    default: {  }
   }
 
   #setup repos depending on which flavour of redhat
@@ -113,7 +113,7 @@ class redhat::repos {
     }
     Fedora: {
       realize( Yumrepo['fedora_updates'], Yumrepo['fedora_everything'] )
-      realize( Yumrepo["puppetlabs-el${major_release}"] )
+      realize( Yumrepo['puppetlabs-el6'] )
     }
     RedHat: {
       realize( Yumrepo['redhat-dvd'] )
