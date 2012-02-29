@@ -96,7 +96,7 @@ class redhat::repos {
     /^4.*$/: { $major_release=4 }
     /^5.*$/: { $major_release=5 }
     /^6.*$/: { $major_release=6 }
-    default: { fail("Unknown release of Redhat: $::operatingsystemrelease")}
+    default: { }
   }
 
   #setup repos depending on which flavour of redhat
