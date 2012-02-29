@@ -112,8 +112,8 @@ class redhat::repos {
       }
     }
     Fedora: {
-      realize( Yumrepo['fedora_updates'], Yumrepo['fedora_everything'] )
-      realize( Yumrepo['puppetlabs-el6'] )
+      realize( Yumrepo['fedora-updates'], Yumrepo['fedora-everything'] )
+      realize( Yumrepo['puppetlabs-rh6'] )
     }
     RedHat: {
       realize( Yumrepo['redhat-dvd'] )
