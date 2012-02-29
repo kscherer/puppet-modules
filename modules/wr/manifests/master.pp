@@ -60,4 +60,16 @@ class wr::master inherits wr::mcollective {
       hour    => '3',
       weekday => '0';
   }
+
+  #this key is needed so that buildadmin can push from ala-git to
+  #to wr-puppet-modules repo on each puppet master
+  $buildadmin_alagit_pubkey = 'AAAAB3NzaC1yc2EAAAABIwAAAIEA2RJtUqokJQiWPZ2U3emC3GQ2njXBdCFDgtfYKkEzAGeJPljx90olrmwgfL/c4He7OB+1WjvyGsIG2Pk9bim7A6ArIYysh4hYge2Ye8D3hxUTLlrtDSIxTgGK6iWhYVBd8KMfD87X/EXrK9GZnyGk0EDIUR8nvm5O4aLp3TfZ5/s='
+
+  ssh_authorized_key {
+    'buildadmin@ala-git':
+      ensure => 'present',
+      user   => 'puppet',
+      key    => $buildadmin_alagit_pubkey,
+      type   => 'ssh-rsa';
+  }
 }
