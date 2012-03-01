@@ -1,8 +1,13 @@
 # Setup up NIS and autofs
 class nis {
 
+  case $::operatingsystem {
+    /(Debian|Ubuntu)/: { $nis = 'nis' }
+    default: { $nis = 'ypbind' }
+  }
+
   package {
-    ['ypbind','autofs']:
+    [$nis, 'autofs']:
       ensure => installed;
   }
 
@@ -50,14 +55,10 @@ class nis {
     }
   }
 
-  case $::operatingsystem {
-    /(Debian|Ubuntu)/: { $nis_service = 'nis' }
-    default: { $nis_service = 'ypbind' }
-  }
-
   service {
-    $nis_service:
+    'nis':
       ensure     => running,
+      name       => $nis,
       enable     => true,
       hasrestart => true,
       hasstatus  => true,
