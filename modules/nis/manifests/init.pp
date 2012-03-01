@@ -17,15 +17,28 @@ class nis {
   #needed so that network service can be restarted
   include network
 
-  if $::osfamily == 'RedHat' {
-    file_line {
-      'nisdomain':
-        ensure => present,
-        path   => '/etc/sysconfig/network',
-        line   => 'NISDOMAIN=swamp',
-        notify => Service['network'];
+  case $::osfamily {
+    'RedHat': {
+      file_line {
+        'nisdomain':
+          ensure => present,
+          path   => '/etc/sysconfig/network',
+          line   => 'NISDOMAIN=swamp',
+          notify => Service['network'];
+      }
+      File_line['nisdomain'] -> Service['nis']
     }
-    File_line['nisdomain'] -> Service['nis']
+    'Debian': {
+      file {
+        '/etc/defaultdomain':
+          ensure  => present,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0644',
+          content => 'swamp';
+      }
+    }
+    default: {}
   }
 
   file {

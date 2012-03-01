@@ -26,4 +26,10 @@ class wr::common {
       key    => $kscherer_home_pubkey,
       type   => 'ssh-rsa';
   }
+
+  #The puppet package get handled by puppet module, but not facter
+  package {
+    'facter':
+      ensure => latest;
+  }
 }
