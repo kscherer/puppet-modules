@@ -26,6 +26,8 @@ class debian::ubuntu {
       location    => 'http://apt.puppetlabs.com/',
       release     => $::lsbdistcodename,
       include_src => false,
+      key         => '4BD6EC30',
+      key_server  => 'keys.gnupg.net',
       repos       => 'main';
   }
 
