@@ -22,26 +22,26 @@ class mcollective::params {
   $mc_security_provider = 'psk'
   $mc_security_psk      = 'changemeplease'
 
-  $nrpe_dir_real = $operatingsystem ? {
+  $nrpe_dir_real = $::operatingsystem ? {
     /(?i-mx:centos|fedora|redhat|oel)/ => '/etc/nrpe.d',
     default                            => '/etc/nagios/nrpe.d',
   }
-  $mc_service_name = $operatingsystem ? {
+  $mc_service_name = $::operatingsystem ? {
     /(?i-mx:darwin)/ => 'com.puppetlabs.mcollective',
     default          => 'mcollective',
   }
 
-  $mc_libdir = $operatingsystem ? {
+  $mc_libdir = $::operatingsystem ? {
     /(?i-mx:ubuntu|debian)/        => '/usr/share/mcollective/plugins',
     /(?i-mx:centos|fedora|redhat)/ => '/usr/libexec/mcollective',
   }
 
-  $mc_service_start = $operatingsystem ? {
+  $mc_service_start = $::operatingsystem ? {
     /(?i-mx:ubuntu|debian)/        => '/etc/init.d/mcollective start',
     /(?i-mx:centos|fedora|redhat)/ => '/sbin/service mcollective start',
   }
 
-  $mc_service_stop = $operatingsystem ? {
+  $mc_service_stop = $::operatingsystem ? {
     /(?i-mx:ubuntu|debian)/        => '/etc/init.d/mcollective stop',
     /(?i-mx:centos|fedora|redhat)/ => '/sbin/service mcollective stop',
   }

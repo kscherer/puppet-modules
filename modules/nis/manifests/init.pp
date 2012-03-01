@@ -35,7 +35,8 @@ class nis {
           owner   => 'root',
           group   => 'root',
           mode    => '0644',
-          content => 'swamp';
+          content => 'swamp',
+          notify => Service['nis'];
       }
     }
     default: {}

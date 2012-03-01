@@ -7,7 +7,10 @@
 #              of Wind River Linux
 
 # Source function library.
-. /etc/init.d/functions
+if [ ! -f /etc/debian_version ]; then
+    . /etc/init.d/functions
+fi
+. /lib/lsb/init-functions
 
 scriptname=$(basename $0)
 #This script expects to be called through links of the format:
@@ -57,7 +60,6 @@ if ! [ -f $nx ]; then
     exit 1
 fi
 
-daemonopts="--pidfile=${pidfile} --user=${nx_user}"
 nxopts="--rcfile ${nx_builddir}/nxrc_files/$hostname.${instance} autorestart >> ${nx_builddir}/nx.log 2>&1 &"
 
 #just to be safe make sure nxrc_files has latest configs
@@ -101,7 +103,12 @@ start() {
     fi
 
     #This will start each nx instance in its own process group
-    daemon ${daemonopts} ${nx_command}
+    if [ -f /etc/debian_version ]; then
+        /sbin/start-stop-daemon --start --pidfile ${pidfile} --chuid ${nx_user} \
+            --exec /bin/bash -- -l -c "${nx_command}"
+    else
+        daemon --pidfile ${pidfile} --user ${nx_user} ${nx_command}
+    fi
     RETVAL=$?
     echo
     return $RETVAL
@@ -161,10 +168,17 @@ nx_status(){
         return $RETVAL
     fi
 
+    #assume no log file means nx is stopped
+    local nx_log="${nx_builddir}/nx.log"
+    if [ ! -f $nx_log ]; then
+        nx_status_string="No nx log file found. Assuming nx instance $instance is stopped"
+        RETVAL=3
+        return $RETVAL
+    fi
+
     local pid=$(cat $pidfile)
     local fifteen_min=900 #15 * 60 seconds
     local thirty_min=1800 #30 * 60 seconds
-    local nx_log="${nx_builddir}/nx.log"
     #When nx is building is makes a link to the current build
     local wrbuildlog="${nx_builddir}/current_build/00-wrbuild.log"
     local now=$(date +%s)
