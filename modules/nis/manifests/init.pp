@@ -17,6 +17,7 @@ class nis {
         line   => 'NISDOMAIN=swamp',
         notify => Service['network'];
     }
+    File_line['nisdomain'] -> Service['ypbind']
   }
 
   file {
@@ -57,7 +58,7 @@ class nis {
       hasstatus  => true,
       before     => Service['autofs'],
       subscribe  => [ File['/etc/yp.conf'], File['/etc/nsswitch.conf'],
-                      File_line['nisdomain'], Package['ypbind']];
+                      Package['ypbind']];
   }
 
   service {
