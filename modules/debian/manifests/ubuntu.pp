@@ -19,7 +19,12 @@ class debian::ubuntu {
       include_src => false;
     'yow_apt_ubuntu_mirror':
       location    => 'http://yow-lpgbld-master.ottawa.windriver.com/apt/',
-      release     => 'lucid',
+      release     => $::lsbdistcodename,
+      include_src => false,
+      repos       => 'main';
+    'puppetlabs_apt_mirror':
+      location    => 'http://apt.puppetlabs.com/',
+      release     => $::lsbdistcodename,
       include_src => false,
       repos       => 'main';
   }
