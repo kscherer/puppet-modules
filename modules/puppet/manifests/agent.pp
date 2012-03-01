@@ -93,10 +93,13 @@ class puppet::agent(
           onlyif    => "/bin/ps -ef | grep -v grep | /bin/grep 'puppet agent'",
       }
     } else {
+      #make sure the puppet agent service stays stopped after
+      #package upgrade
       service { $puppet_agent_service:
         ensure    => stopped,
         enable    => false,
         hasstatus => true,
+        subscribe => Package[$puppet_agent_name],
       }
     }
   }

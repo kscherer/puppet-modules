@@ -56,6 +56,7 @@ class dashboard (
   $dashboard_charset        = $dashboard::params::dashboard_charset,
   $dashboard_site           = $dashboard::params::dashboard_site,
   $dashboard_port           = $dashboard::params::dashboard_port,
+  $dashboard_service        = $dashboard::params::dashboard_service,
   $mysql_root_pw            = $dashboard::params::mysql_root_pw,
   $passenger                = $dashboard::params::passenger,
   $passenger_ensure         = undef,
@@ -130,16 +131,16 @@ class dashboard (
   }
 
   file { 'dashboard-defaults' :
-    ensure  => present,
-    path    => $dashboard_defaults_name,
-    content => template($dashboard_defaults_content),
-    owner   => '0',
-    group   => '0',
-    mode    => '0644',
-    require => [Package[$dashboard::params::dashboard_package],
-               User[$dashboard_user] ],
-    before  => $passenger ? {
-      false => Service[$dashboard_service],
+    ensure    => present,
+    path      => $dashboard_defaults_name,
+    content   => template($dashboard_defaults_content),
+    owner     => '0',
+    group     => '0',
+    mode      => '0644',
+    require   => [Package[$dashboard::params::dashboard_package],
+                User[$dashboard_user] ],
+    before    => $passenger ? {
+      false   => Service[$dashboard_service],
       default => undef,
     }
   }
