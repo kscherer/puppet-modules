@@ -50,8 +50,13 @@ class nis {
     }
   }
 
+  case $::operatingsystem {
+    /(Debian|Ubuntu)/: { $nis_service = 'nis' }
+    default: { $nis_service = 'ypbind' }
+  }
+
   service {
-    'ypbind':
+    $nis_service:
       ensure     => running,
       enable     => true,
       hasrestart => true,
