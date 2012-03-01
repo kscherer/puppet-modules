@@ -7,7 +7,10 @@ class nis {
   }
 
   package {
-    [$nis, 'autofs']:
+    'nis':
+      ensure => installed,
+      name   => $nis;
+    'autofs':
       ensure => installed;
   }
 
@@ -22,18 +25,18 @@ class nis {
         line   => 'NISDOMAIN=swamp',
         notify => Service['network'];
     }
-    File_line['nisdomain'] -> Service['ypbind']
+    File_line['nisdomain'] -> Service['nis']
   }
 
   file {
     '/etc/yp.conf':
       content => 'domain swamp server 128.224.144.20',
       owner   => root, group => root, mode => '0644',
-      require => Package['ypbind'];
+      require => Package['nis'];
     '/etc/nsswitch.conf':
       source  => 'puppet:///modules/nis/nsswitch.conf',
       owner   => root, group => root, mode => '0644',
-      require => Package['ypbind'];
+      require => Package['nis'];
     '/etc/auto.master':
       source  => 'puppet:///modules/nis/auto.master',
       owner   => root, group => root, mode => '0644',
@@ -51,7 +54,7 @@ class nis {
         enable     => true,
         hasrestart => true,
         hasstatus  => true,
-        before     => Service['ypbind'],
+        before     => Service['nis'],
     }
   }
 
@@ -64,7 +67,7 @@ class nis {
       hasstatus  => true,
       before     => Service['autofs'],
       subscribe  => [ File['/etc/yp.conf'], File['/etc/nsswitch.conf'],
-                      Package['ypbind']];
+                      Package['nis']];
   }
 
   service {
