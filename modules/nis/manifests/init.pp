@@ -9,13 +9,14 @@ class nis {
   #needed so that network service can be restarted
   include network
 
-  #Note this is for redhat machines only
-  file_line {
-    'nisdomain':
-      ensure => present,
-      path   => '/etc/sysconfig/network',
-      line   => 'NISDOMAIN=swamp',
-      notify => Service['network'];
+  if $::osfamily == 'RedHat' {
+    file_line {
+      'nisdomain':
+        ensure => present,
+        path   => '/etc/sysconfig/network',
+        line   => 'NISDOMAIN=swamp',
+        notify => Service['network'];
+    }
   }
 
   file {
