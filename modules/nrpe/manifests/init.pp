@@ -51,7 +51,7 @@ class nrpe {
     'check_nx_instance':
       ensure => 'present',
       path   => "${defaultdir}/check_nx_instance.sh",
-      source => 'puppet:///nrpe/check_nx_instance.sh',
+      source => 'puppet:///modules/nrpe/check_nx_instance.sh',
       mode   => '0755';
   }
 

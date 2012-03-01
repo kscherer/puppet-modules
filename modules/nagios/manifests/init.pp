@@ -44,15 +44,15 @@ class nagios(
       mode    => '0755';
     'nagios_conf':
       path    => "${nagios_dir}/nagios.cfg",
-      source  => 'puppet:///nagios/nagios.cfg',
+      source  => 'puppet:///modules/nagios/nagios.cfg',
       notify  => Service['nagios'];
     'cgi_conf':
       path    => "${nagios_dir}/cgi.cfg",
-      source  => 'puppet:///nagios/cgi.cfg',
+      source  => 'puppet:///modules/nagios/cgi.cfg',
       notify  => Service['httpd'];
     'nagios_htpasswd':
       path    => "${nagios_dir}/passwd",
-      source  => 'puppet:///nagios/passwd',
+      source  => 'puppet:///modules/nagios/passwd',
       notify  => Service['httpd'],
       mode    => '0640', owner => root, group => apache;
   }

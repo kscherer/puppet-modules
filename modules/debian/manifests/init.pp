@@ -32,11 +32,11 @@ Aptitude::CmdLine::Package-Display-Format "%c%a%M %p# - %d%V#";';
   file {
     #setup for unattended upgrades
     '/etc/apt/apt.conf.d/02periodic':
-      source => 'puppet:///debian/02periodic';
+      source => 'puppet:///modules/debian/02periodic';
     '/etc/apt/apt.conf.d/50unattended-upgrades':
-      source => 'puppet:///debian/50unattended-upgrades';
+      source => 'puppet:///modules/debian/50unattended-upgrades';
     '/etc/apt/public.key':
-      source => 'puppet:///debian/public.key';
+      source => 'puppet:///modules/debian/public.key';
   }
 
   #This is for the key that signs the windriver internal reprepro apt repo

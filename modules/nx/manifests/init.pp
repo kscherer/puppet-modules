@@ -42,25 +42,25 @@ class nx {
     '/etc/init.d/nx_instance':
       owner   => 'root',
       group   => 'root',
-      source  => 'puppet:///nx/nx_instance';
+      source  => 'puppet:///modules/nx/nx_instance';
     '/home/nxadm/.gitconfig':
       mode    => '0644',
-      source  => 'puppet:///nx/gitconfig';
+      source  => 'puppet:///modules/nx/gitconfig';
     '/home/nxadm/.ssh/':
       ensure => directory,
       mode   => '0600';
     '/home/nxadm/.ssh/id_dsa.pub':
       ensure => present,
-      source => 'puppet:///nx/id_dsa.pub',
+      source => 'puppet:///modules/nx/id_dsa.pub',
       mode   => '0600';
     '/home/nxadm/.ssh/id_dsa':
       ensure => present,
-      source => 'puppet:///nx/id_dsa',
+      source => 'puppet:///modules/nx/id_dsa',
       mode   => '0600';
     '/home/nxadm/.ssh/config':
       ensure => present,
       mode   => '0600',
-      source => 'puppet:///nx/ssh_config';
+      source => 'puppet:///modules/nx/ssh_config';
   }
 
   define nx::script() {
@@ -68,7 +68,7 @@ class nx {
       $name:
         path    => "/home/nxadm/bin/$name",
         mode    => '0755',
-        source  => "puppet:///nx/$name",
+        source  => "puppet:///modules/nx/$name",
         require => File['/home/nxadm/bin'];
     }
   }

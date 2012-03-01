@@ -38,7 +38,7 @@ class nagios::command(
   file {
     'check-mc-nrpe':
       path   => '/usr/sbin/check-mc-nrpe',
-      source => 'puppet:///nagios/check-mc-nrpe';
+      source => 'puppet:///modules/nagios/check-mc-nrpe';
     'mc-nrpe_cfg':
       path    => "${nagios_dir}/client.cfg",
       require => Exec['mc_client_cfg_copy'],
