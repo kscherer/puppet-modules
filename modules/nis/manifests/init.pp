@@ -76,6 +76,7 @@ class nis {
         enable     => true,
         hasrestart => true,
         hasstatus  => true,
+        require    => Package['portmap'],
         before     => Service['nis'],
     }
   }

@@ -30,6 +30,10 @@ class wr::common {
   #The puppet package get handled by puppet module, but not facter
   package {
     'facter':
-      ensure => latest;
+      provider => $::operatingsystem ? {
+        /(OpenSuSE|SLED)/ => 'gem',
+        default           => undef,
+      },
+      ensure   => latest;
   }
 }
