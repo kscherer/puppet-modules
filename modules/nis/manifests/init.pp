@@ -65,14 +65,21 @@ class nis {
   $isSuse = ($::operatingsystem =~ /(OpenSuSE|SLED|SLES)/)
 
   if $isRedHat5 or $isSuse {
+    $portmap_name = isRedHat5 ?{
+      true  => 'portmap',
+      false => 'rpcbind',
+    }
+
     package {
       'portmap':
+        name   => $portmap_name,
         ensure => installed;
     }
 
     service {
       'portmap':
         ensure     => running,
+        name       => $portmap_name,
         enable     => true,
         hasrestart => true,
         hasstatus  => true,
