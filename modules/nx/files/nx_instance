@@ -7,7 +7,7 @@
 #              of Wind River Linux
 
 # Source function library.
-if [ ! -f /etc/debian_version ]; then
+if [ -f /etc/init.d/functions ]; then
     . /etc/init.d/functions
 fi
 . /lib/lsb/init-functions
@@ -106,6 +106,8 @@ start() {
     if [ -f /etc/debian_version ]; then
         /sbin/start-stop-daemon --start --pidfile ${pidfile} --chuid ${nx_user} \
             --exec /bin/bash -- -l -c "${nx_command}"
+    elif [ -f /sbin/startproc ]; then
+        HOME=${nx_userhome} /sbin/startproc -u ${nx_user} /bin/bash -c -l "${nx_command}"
     else
         daemon --pidfile ${pidfile} --user ${nx_user} ${nx_command}
     fi

@@ -9,6 +9,7 @@ define nx::setup {
     cwd     => $nx_builddir,
     require => User['nxadm'],
     user    => 'nxadm',
+    group   => 'nxadm',
   }
 
   #clone all the needed repos to run nx
