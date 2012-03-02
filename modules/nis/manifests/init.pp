@@ -65,7 +65,7 @@ class nis {
   $isSuse = ($::operatingsystem =~ /(OpenSuSE|SLED|SLES)/)
 
   if $isRedHat5 or $isSuse {
-    $portmap_name = isRedHat5 ?{
+    $portmap_name = $isRedHat5 ?{
       true  => 'portmap',
       false => 'rpcbind',
     }
