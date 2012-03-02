@@ -17,13 +17,20 @@ class nx {
       ensure => present,
   }
 
+  #Suse does not support MD5 password hash
+  if $::operatingsystem =~ /(OpenSuSE|SLED)/ {
+    $nxadm_password_hash = '$2a$10$Fmxo9G5eGHoqgn4X4z1IZuMrOOfVVnPgNT24kVQebDZi106w65vR2'
+  } else {
+    $nxadm_password_hash = '$1$NLcnHXhT$JF7LPuL7Er8lGAxRiS/gc0'
+  }
+
   user {
     'nxadm':
       ensure     => present,
       gid        => 'nxadm',
       managehome => true,
       home       => '/home/nxadm',
-      password   => '$1$NLcnHXhT$JF7LPuL7Er8lGAxRiS/gc0',
+      password   => $nxadm_password_hash,
       require    => Group [ 'nxadm' ];
   }
 

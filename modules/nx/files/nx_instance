@@ -6,12 +6,6 @@
 # description: Nx is a simple shell script used to do coverage testing
 #              of Wind River Linux
 
-# Source function library.
-if [ -f /etc/init.d/functions ]; then
-    . /etc/init.d/functions
-fi
-. /lib/lsb/init-functions
-
 scriptname=$(basename $0)
 #This script expects to be called through links of the format:
 #nx_instance.1 for the first instance. Otherwise default is to 1
@@ -103,16 +97,8 @@ start() {
     fi
 
     #This will start each nx instance in its own process group
-    if [ -f /etc/debian_version ]; then
-        /sbin/start-stop-daemon --start --pidfile ${pidfile} --chuid ${nx_user} \
-            --exec /bin/bash -- -l -c "${nx_command}"
-    elif [ -f /sbin/startproc ]; then
-        #for suse, the home env needs to be set because the -u doesn't seem to
-        #get applied early enough
-        HOME=${nx_userhome} /sbin/startproc -u ${nx_user} /bin/bash -l -c "${nx_command}"
-    else
-        daemon --pidfile ${pidfile} --user ${nx_user} ${nx_command}
-    fi
+    su nxadm /bin/bash -l -c "${nx_command}"
+
     RETVAL=$?
     echo
     return $RETVAL
@@ -141,7 +127,6 @@ stop() {
     else
         echo -n "pid $pid already dead"
     fi
-    success
     echo
     return 0
 }
@@ -181,6 +166,7 @@ nx_status(){
     fi
 
     local pid=$(cat $pidfile)
+    local thirty_sec=30
     local fifteen_min=900 #15 * 60 seconds
     local thirty_min=1800 #30 * 60 seconds
     #When nx is building is makes a link to the current build
@@ -238,8 +224,8 @@ nx_status(){
             nx_status_string="I have no idea what nx is doing: $(tail ${nx_log})"
             RETVAL=4 # Unknown state
         fi
-    elif [ -f "$nx_log" ] && [ $(($now - $(stat -c '%Y' "$nx_log"))) -lt $fifteen_min ]; then
-        #it is possible that the pidfile is out of date
+    elif [ -f "$nx_log" ] && [ $(($now - $(stat -c '%Y' "$nx_log"))) -lt $thirty_sec ]; then
+        #it is possible that the pidfile is out of date as it auto restarts
         nx_status_string="Nx instance $instance is running"
         RETVAL=0
     else
