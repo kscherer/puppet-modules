@@ -183,4 +183,17 @@ describe 'puppet', :type => :class do
     it { should_not contain_package('activerecord') }
   end
 
+  describe "agent with running service on OpenSuSE" do
+    let(:params) { { :agent => true } }
+    let(:facts) { {:operatingsystem => 'OpenSuSE' } }
+
+    it { should contain_package('puppet').with_ensure('present').with_provider('gem') }
+    it { should contain_exec('puppet_agent_start') }
+    it { should contain_concat('/etc/puppet/puppet.conf').with_mode('0644') }
+    it { should contain_file('/etc/puppet').with_ensure('directory') }
+    it { should contain_concat('/etc/puppet/puppet.conf')\
+        .with_notify('Exec[puppet_agent_start]')\
+        .with_require('Package[puppet]') }
+  end
+
 end

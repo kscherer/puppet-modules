@@ -125,9 +125,15 @@ class nx::netapp_iscsi_setup {
 
     $iscsi_uuid = extlookup('iscsi_uuid')
 
-    $fstype = $::hostname ? {
-      yow-blade7 => 'ext4',
-      default    => 'ext3',
+    case $::hostname  {
+      yow-blade7: {
+        $fstype = 'ext4'
+        $options = 'noatime,nodiratime,data=writeback,_netdev,commit=100'
+      }
+      default: {
+        $fstype = 'ext3'
+        $options = 'noatime,nodiratime,data=writeback,_netdev,reservation,commit=100'
+      }
     }
 
     mount {
@@ -136,7 +142,7 @@ class nx::netapp_iscsi_setup {
       atboot   => true,
       device   => "UUID=$iscsi_uuid",
       fstype   => $fstype,
-      options  => 'noatime,nodiratime,data=writeback,_netdev,reservation,commit=100',
+      options  => $options,
       require  => [ File['/buildarea'], Iscsi::Connection['iface0']],
       remounts => true;
   }
