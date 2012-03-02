@@ -28,7 +28,7 @@ class nis {
       }
       File_line['nisdomain'] -> Service['nis']
     }
-    'Debian': {
+    'Debian','SLED','OpenSuSE': {
       file {
         '/etc/defaultdomain':
           ensure  => present,
@@ -60,8 +60,16 @@ class nis {
       notify  => Service['autofs'];
   }
 
-  #On Redhat 5.x the portmap service is needed
-  if $::operatingsystem =~ /(RedHat|CentOS)/ and $::operatingsystemrelease =~ /5.*/ {
+  #On Redhat 5.x and Suse the portmap service is needed
+  $isRedHat5 = ($::operatingsystem =~ /(RedHat|CentOS)/ and $::operatingsystemrelease =~ /5.*/)
+  $isSuse = ($::operatingsystem =~ /(OpenSuSE|SLED|SLES)/)
+
+  if $isRedHat5 or $isSuse {
+    package {
+      'portmap':
+        ensure => installed;
+    }
+
     service {
       'portmap':
         ensure     => running,
