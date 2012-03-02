@@ -4,6 +4,7 @@ class wr::yow-hostel inherits wr::mcollective {
   case $::operatingsystem {
     Debian,Ubuntu: { $base_class='debian' }
     CentOS,RedHat,Fedora: { $base_class='redhat' }
+    OpenSuSE,SLED: { $base_class='suse'}
     default: { fail("Unsupported OS: $::operatingsystem")}
   }
 

@@ -15,11 +15,11 @@ class nagios::timeperiod(
       saturday  => '00:00-24:00';
     'workhours':
       alias     => 'Normal Work Hours',
-      monday    => '09:00-17:00',
-      tuesday   => '09:00-17:00',
-      wednesday => '09:00-17:00',
-      thursday  => '09:00-17:00',
-      friday    => '09:00-17:00';
+      monday    => '08:00-17:00',
+      tuesday   => '08:00-17:00',
+      wednesday => '08:00-17:00',
+      thursday  => '08:00-17:00',
+      friday    => '08:00-17:00';
   }
 
   $timeperiod_cfg = "${nagios_confdir}/nagios_timeperiod.cfg"

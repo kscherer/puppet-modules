@@ -114,22 +114,28 @@ class nx::netapp_iscsi_setup {
       ensure  => link,
       target  => '/buildarea/nxadm/nx',
       replace => false;
-    ["/buildarea/nxadm/nx/${::hostname}.1",
+    [ "/buildarea/nxadm/nx/${::hostname}.1",
       "/buildarea/nxadm/nx/${::hostname}.2",
       "/buildarea/nxadm/nx/${::hostname}.3",
       "/buildarea/nxadm/nx/${::hostname}.4"]:
         ensure  => directory,
-        mode    => '0755';
+        mode    => '0755',
+        replace => false;
     }
 
     $iscsi_uuid = extlookup('iscsi_uuid')
+
+    $fstype = $::hostname ? {
+      yow-blade7 => 'ext4',
+      default    => 'ext3',
+    }
 
     mount {
     '/buildarea':
       ensure   => mounted,
       atboot   => true,
       device   => "UUID=$iscsi_uuid",
-      fstype   => ext3,
+      fstype   => $fstype,
       options  => 'noatime,nodiratime,data=writeback,_netdev,reservation,commit=100',
       require  => [ File['/buildarea'], Iscsi::Connection['iface0']],
       remounts => true;
