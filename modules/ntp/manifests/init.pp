@@ -80,7 +80,10 @@ class ntp($servers='UNSET',
     }
     opensuse, sled, sles: {
       $supported  = true
-      $pkg_name   = [ 'ntp' ]
+      $pkg_name   = $::operatingsystemrelease ? {
+        '10.2'  => ['xntp'],
+        default => ['ntp'],
+      }
       $svc_name   = 'ntp'
       $config     = '/etc/ntp.conf'
       $config_tpl = 'ntp.conf.el.erb'

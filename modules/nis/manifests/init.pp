@@ -28,7 +28,7 @@ class nis {
       }
       File_line['nisdomain'] -> Service['nis']
     }
-    'Debian','SLED','OpenSuSE': {
+    'Debian','Suse': {
       file {
         '/etc/defaultdomain':
           ensure  => present,
