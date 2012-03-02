@@ -36,7 +36,7 @@ class nis {
           group   => 'root',
           mode    => '0644',
           content => 'swamp',
-          notify => Service['nis'];
+          notify  => Service['nis'];
       }
     }
     default: {}
@@ -63,11 +63,12 @@ class nis {
   #On Redhat 5.x and Suse the portmap service is needed
   $isRedHat5 = ($::operatingsystem =~ /(RedHat|CentOS)/ and $::operatingsystemrelease =~ /5.*/)
   $isSuse = ($::operatingsystem =~ /(OpenSuSE|SLED|SLES)/)
+  $isSuse11 = ($isSuse and $::operatingsystemrelease =~ /11/ )
 
   if $isRedHat5 or $isSuse {
-    $portmap_name = $isRedHat5 ?{
-      true  => 'portmap',
-      false => 'rpcbind',
+    $portmap_name = $isSuse11 ?{
+      true  => 'rpcbind',
+      false => 'portmap',
     }
 
     package {
