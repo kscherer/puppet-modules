@@ -31,8 +31,9 @@ class wr::common {
   package {
     'facter':
       provider => $::operatingsystem ? {
-        /(OpenSuSE|SLED)/ => 'gem',
-        default           => undef,
+        /(OpenSuSE|SLED)/        => 'gem',
+        /(RedHat|Fedora|CentOS)/ => 'yum',
+        default                  => undef,
       },
       ensure   => latest;
   }
