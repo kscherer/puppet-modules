@@ -49,12 +49,6 @@ class redhat::repos {
   #declare all the repos virtually and realize the correct ones on
   #relevant platforms
   redhat::named_yumrepo {
-    'puppet-el4':
-      baseurl => "${yow_mirror}/puppet/4";
-    'puppet-el5':
-      baseurl => "${yow_mirror}/puppet/5";
-    'puppet-el6':
-      baseurl => "${yow_mirror}/puppet/6";
     'epel-el4-i386':
       baseurl => 'http://mirror.csclub.uwaterloo.ca/fedora/epel/4WS/i386/';
     "epel-el5-$::architecture":
@@ -84,6 +78,8 @@ class redhat::repos {
       baseurl => "${yow_mrepo_mirror}/centos5-${::architecture}/RPMS.updates";
     'centos6-updates':
       baseurl => "${yow_mrepo_mirror}/centos6-${::architecture}/RPMS.updates";
+    'puppetlabs-rh4':
+      baseurl => "${redhat::repos::yow_mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.both";
     'puppetlabs-rh5':
       baseurl => "${redhat::repos::yow_mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.both";
     'puppetlabs-rh6':
