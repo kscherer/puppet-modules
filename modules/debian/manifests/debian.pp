@@ -38,6 +38,11 @@ class debian::debian {
       release     => 'squeeze',
       include_src => false,
       repos       => 'main';
+    'yow_puppetlabs_mirror':
+      location    => 'http://yow-lpgbld-master.ottawa.windriver.com/puppetlabs/',
+      release     => 'squeeze',
+      include_src => false,
+      repos       => 'main';
   }
 
   file {
