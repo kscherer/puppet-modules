@@ -49,6 +49,7 @@ class debian::debian {
     #brings testing packages into squeeze
     #TODO consider backports repo
     '01puppet':
+      ensure => absent,
       owner  => 'root', group => 'root', mode => '0644',
       path   => '/etc/apt/preferences.d/01puppet',
       source => 'puppet:///modules/debian/01puppet';
