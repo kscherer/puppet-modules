@@ -68,6 +68,9 @@ class nx {
       ensure => present,
       mode   => '0600',
       source => 'puppet:///modules/nx/ssh_config';
+    '/etc/facter/facts.d/nx.txt':
+      ensure  => present,
+      content => 'branch=master';
   }
 
   define nx::script() {
