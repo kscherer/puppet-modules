@@ -71,6 +71,10 @@ class nx {
     '/etc/facter/facts.d/nx.txt':
       ensure  => present,
       content => 'branch=master';
+    #make sure the build dirs are not indexed
+    '/etc/updatedb.conf':
+      ensure => present,
+      source => 'puppet:///modules/nx/updatedb.conf';
   }
 
   define nx::script() {
