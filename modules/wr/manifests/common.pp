@@ -52,4 +52,22 @@ class wr::common {
     '/etc/facter/facts.d/':
       ensure => directory;
   }
+
+  #boolean variables from facter may be strings
+  $is_virtual_bool = any2bool($::is_virtual)
+
+  #Another bug on some systems where is_virtual=false
+  if $is_virtual_bool == false and $::hostname =~ /^yow-lpgbld-vm\d\d/ {
+    file_line {
+      'facter_xen_detect_workaround':
+        path   => '/etc/fstab',
+        line   => 'xenfs /proc/xen xenfs defaults 0 0',
+        notify => Exec['remount_all'];
+    }
+    exec {
+      'remount_all':
+        command     => '/bin/mount -a',
+        refreshonly => true
+    }
+  }
 }

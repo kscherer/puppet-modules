@@ -27,21 +27,6 @@ class redhat::workarounds {
     }
   }
 
-  #Another bug on some systems where is_virtual=false
-  if $is_virtual_bool == false and $::hostname =~ /^yow-lpgbld-vm\d\d/ {
-    file_line {
-      'facter_xen_detect_workaround':
-        path   => '/etc/fstab',
-        line   => 'xenfs /proc/xen xenfs defaults 0 0',
-        notify => Exec['remount_all'];
-    }
-    exec {
-      'remount_all':
-        command     => '/bin/mount -a',
-        refreshonly => true
-    }
-  }
-
   #make sure the firewall is disabled
   service {
     ['iptables','ip6tables']:
