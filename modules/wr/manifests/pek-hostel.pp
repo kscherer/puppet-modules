@@ -1,5 +1,5 @@
 #
-class wr::yow-hostel inherits wr::mcollective {
+class wr::pek-hostel inherits wr::mcollective {
 
   case $::operatingsystem {
     Debian,Ubuntu: { $base_class='debian' }
@@ -22,12 +22,6 @@ class wr::yow-hostel inherits wr::mcollective {
   -> class { 'nis': }
   -> class { 'wrlinux': }
   -> class { 'nx': }
-  -> class { 'nagios::target': }
-
-  user {
-    'root':
-      password => '$6$p6ikdyj/GHN7Uno3$VDlbq91Mp5osT0yLxVTbtDhhidFYTK7r/2xM5426g6bbesNzfhaXditRBSieRwsgpNJIbYEQhA7SZcXdf.VcZ0';
-  }
 
   ssh_authorized_key {
     'kscherer_windriver_nxadm':

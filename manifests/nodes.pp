@@ -15,7 +15,7 @@ node 'pek-lpd-puppet.wrs.com' {
   -> class { 'nrpe': }
   -> class { 'ntp': servers          => ['ntp-1.wrs.com','ntp-2.wrs.com'] }
   -> class { 'java':    distribution => 'java-1.6.0-openjdk' }
-  -> class { 'activemq': broker_name => 'ala-broker' }
+  -> class { 'activemq': broker_name => 'pek-broker' }
   -> class { 'wr::master': }
 }
 
@@ -52,6 +52,10 @@ node /yow-blade.*.wrs.com/ {
 
 node /yow-lpgbld-[0-5][0-9].*/ {
   class { 'wr::xenserver': }
+}
+
+node /pek-hostel-deb0[1-6]\.wrs\.com/ {
+  class { 'wr::pek-xenserver': }
 }
 
 node 'yow-lpd-monitor.ottawa.windriver.com' {

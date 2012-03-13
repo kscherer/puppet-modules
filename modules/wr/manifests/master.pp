@@ -7,16 +7,10 @@ class wr::master inherits wr::mcollective {
   -> Class['mysql::ruby']
   -> Class['wr::master']
 
-  $puppet_server = $::hostname ? {
-    /^ala.*$/ => 'ala-lpd-puppet.wrs.com',
-    /^pek.*$/ => 'pek-lpd-puppet.wrs.com',
-    /^yow.*$/ => 'yow-lpd-puppet.ottawa.wrs.com',
-  }
-
   class {
     'puppet':
       agent                       => true,
-      puppet_server               => $puppet_server,
+      puppet_server               => $wr::common::puppet_server,
       puppet_master_ensure        => 'latest',
       puppet_agent_ensure         => 'latest',
       puppet_agent_service_enable => false,

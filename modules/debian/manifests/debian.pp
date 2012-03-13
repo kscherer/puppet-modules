@@ -14,22 +14,29 @@ class debian::debian {
     default: { class { 'apt::release' : release_id => 'stable' } }
   }
 
+  $mirror_base = $::hostname ? {
+    /^yow.*/ => 'http://yow-mirror.ottawa.wrs.com/mirror',
+    /^pek.*/ => 'http://pek-mirror.wrs.com/',
+  }
+
   apt::source {
-    'yow-mirror_squeeze':
-      location          => 'http://yow-mirror.ottawa.windriver.com/mirror/debian/',
-      release           => 'squeeze',
+    ['yow-mirror_squeeze', 'yow-mirror_testing','yow-mirror_unstable']:
+      ensure => absent;
+    'debian_mirror_stable':
+      location          => "$mirror_base/debian",
+      release           => 'stable',
       repos             => 'main contrib non-free',
       include_src       => false,
       required_packages => 'debian-keyring debian-archive-keyring',
       key               => '55BE302B',
       key_server        => 'subkeys.pgp.net';
-    'yow-mirror_testing':
-      location    => 'http://yow-mirror.ottawa.windriver.com/mirror/debian/',
+    'debian_mirror_testing':
+      location    =>  "$mirror_base/debian",
       release     => 'testing',
       include_src => false,
       repos       => 'main contrib non-free';
-    'yow-mirror_unstable':
-      location    => 'http://yow-mirror.ottawa.windriver.com/mirror/debian/',
+    'debian_mirror_unstable':
+      location    =>  "$mirror_base/debian",
       release     => 'unstable',
       include_src => false,
       repos       => 'main contrib non-free';
@@ -46,13 +53,6 @@ class debian::debian {
   }
 
   file {
-    #brings testing packages into squeeze
-    #TODO consider backports repo
-    '01puppet':
-      ensure => absent,
-      owner  => 'root', group => 'root', mode => '0644',
-      path   => '/etc/apt/preferences.d/01puppet',
-      source => 'puppet:///modules/debian/01puppet';
     #manual script to run on new dell servers
     '/root/partition_drives.sh':
       owner  => 'root', group => 'root', mode => '0700',
