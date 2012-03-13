@@ -4,7 +4,7 @@ class wr::pek-xenserver inherits wr::mcollective {
   class { 'apt': }
   -> class { 'debian': }
   -> class { 'ntp':
-    servers    => $wr::commom::ntp_servers,
+    servers    => $wr::common::ntp_servers,
   }
   -> class { 'puppet':
     puppet_server               => $wr::common::puppet_server,
