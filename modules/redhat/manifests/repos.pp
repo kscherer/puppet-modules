@@ -32,9 +32,9 @@ class redhat::repos {
       'redhat-el5.repo', 'rhel-debuginfo.repo' ]:
   }
 
-  $yow_mirror = 'http://yow-mirror.ottawa.wrs.com/mirror'
+  $yow_mirror = 'http://yow-mirror.wrs.com/mirror'
   $yow_mrepo_mirror = "${yow_mirror}/mrepo/repos"
-  $yow_master_mirror = 'http://yow-lpgbld-master.ottawa.windriver.com/repos'
+  $yow_master_mirror = 'http://yow-lpgbld-master.wrs.com/repos'
   $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
 
   #this exists solely to stop yum complaining about missing name

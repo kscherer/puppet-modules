@@ -19,23 +19,23 @@ node 'pek-lpd-puppet.wrs.com' {
   -> class { 'wr::master': }
 }
 
-node 'yow-lpd-puppet.ottawa.wrs.com' {
+node 'yow-lpd-puppet.wrs.com' {
   class { 'redhat': }
   -> class { 'nrpe': }
-  -> class { 'ntp': servers => ['yow-lpgbld-master.ottawa.wrs.com'] }
+  -> class { 'ntp': servers => ['yow-lpgbld-master.wrs.com'] }
   -> class { 'collectd::client': }
   -> class { 'wr::master': }
   -> class { 'nagios::target': }
 }
 
-node 'yow-lpg-amqp.ottawa.windriver.com' {
+node 'yow-lpg-amqp.windriver.com' {
   #need to define these here due to template declared here
   #will move when I fix the activemq class
   $broker_name = 'yow-broker'
   $webconsole_real = true
   class { 'redhat': }
   -> class { 'nrpe': }
-  -> class { 'ntp': servers       => ['yow-lpgbld-master.ottawa.wrs.com'] }
+  -> class { 'ntp': servers       => ['yow-lpgbld-master.wrs.com'] }
   -> class { 'java': distribution => 'java-1.6.0-openjdk' }
   -> class { 'activemq':
     broker_name   => 'yow-broker',
@@ -58,10 +58,10 @@ node /pek-hostel-deb0[1-6]\.wrs\.com/ {
   class { 'wr::pek-xenserver': }
 }
 
-node 'yow-lpd-monitor.ottawa.windriver.com' {
+node 'yow-lpd-monitor.wrs.com' {
   class { 'redhat': }
   -> class { 'nrpe': }
-  -> class { 'ntp': servers => ['yow-lpgbld-master.ottawa.wrs.com'] }
+  -> class { 'ntp': servers => ['yow-lpgbld-master.wrs.com'] }
   -> class { 'collectd::client': }
   -> class { 'wr::mcollective': client => true }
   -> class { 'nagios': }
@@ -73,10 +73,10 @@ node 'yow-lpd-monitor.ottawa.windriver.com' {
 
 }
 
-node /yow-lpgbld-vm\d+\.ottawa\.w(rs|indriver)\.com$/ {
+node /yow-lpgbld-vm\d+\.wrs\.com$/ {
   class { 'wr::yow-hostel': }
 }
 
-node /yow-lpgbuild-\d+\.ottawa\.w(rs|indriver)\.com$/ {
+node /yow-lpgbuild-\d+\.wrs\.com$/ {
   class { 'wr::yow-lpgbuild': }
 }

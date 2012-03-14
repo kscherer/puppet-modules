@@ -5,7 +5,7 @@ class wr::yow-lpgbuild inherits wr::mcollective {
     servers    => ['ntp-1.wrs.com','ntp-2.wrs.com'],
   }
   -> class { 'puppet':
-    puppet_server               => 'yow-lpd-puppet.ottawa.wrs.com',
+    puppet_server               => $wr::common::puppet_server,
     puppet_agent_ensure         => 'latest',
     puppet_agent_service_enable => false,
     agent                       => true,

@@ -18,11 +18,11 @@ class exim4 {
 
   file {
     'update-exim4.conf.conf' :
-      path   => '/etc/exim4/update-exim4.conf.conf',
-      source => 'puppet:///modules/exim4/update-exim4.conf.conf',
-      mode   => '0644',
-      owner  => root,
-      group  => root
+      path    => '/etc/exim4/update-exim4.conf.conf',
+      content => template('exim4/update-exim4.conf.conf.erb'),
+      mode    => '0644',
+      owner   => root,
+      group   => root
   }
 
   exec {

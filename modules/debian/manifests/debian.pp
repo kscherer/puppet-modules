@@ -15,7 +15,7 @@ class debian::debian {
   }
 
   $mirror_base = $::hostname ? {
-    /^yow.*/ => 'http://yow-mirror.ottawa.wrs.com/mirror',
+    /^yow.*/ => 'http://yow-mirror.wrs.com/mirror',
     /^pek.*/ => 'http://pek-mirror.wrs.com/',
   }
 
@@ -41,12 +41,12 @@ class debian::debian {
       include_src => false,
       repos       => 'main contrib non-free';
     'yow_apt_mirror':
-      location    => 'http://yow-lpgbld-master.ottawa.windriver.com/apt/',
+      location    => 'http://yow-lpgbld-master.wrs.com/apt/',
       release     => 'squeeze',
       include_src => false,
       repos       => 'main';
     'yow_puppetlabs_mirror':
-      location    => 'http://yow-lpgbld-master.ottawa.windriver.com/puppetlabs/',
+      location    => 'http://yow-lpgbld-master.wrs.com/puppetlabs/',
       release     => 'squeeze',
       include_src => false,
       repos       => 'main';

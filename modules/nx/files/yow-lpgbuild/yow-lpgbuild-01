@@ -1,2 +1,0 @@
-ppc_7400-glibc_cgl --enable-cpu=ppc_7400 --enable-rootfs=glibc_cgl 
-

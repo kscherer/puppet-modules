@@ -3,22 +3,22 @@ class debian::ubuntu {
 
   apt::source {
     'yow-mirror_ubuntu':
-      location    => 'http://yow-mirror.ottawa.windriver.com/mirror/ubuntu.com/ubuntu/',
+      location    => 'http://yow-mirror.wrs.com/mirror/ubuntu.com/ubuntu/',
       release     => $::lsbdistcodename,
       repos       => 'main restricted universe',
       include_src => false;
     'yow-mirror_ubuntu_security':
-      location    => 'http://yow-mirror.ottawa.windriver.com/mirror/ubuntu.com/ubuntu/',
+      location    => 'http://yow-mirror.wrs.com/mirror/ubuntu.com/ubuntu/',
       release     => "${::lsbdistcodename}-security",
       repos       => 'main restricted universe',
       include_src => false;
     'yow-mirror_ubuntu_updates':
-      location    => 'http://yow-mirror.ottawa.windriver.com/mirror/ubuntu.com/ubuntu/',
+      location    => 'http://yow-mirror.wrs.com/mirror/ubuntu.com/ubuntu/',
       release     => "${::lsbdistcodename}-updates",
       repos       => 'main restricted universe',
       include_src => false;
     'yow_apt_ubuntu_mirror':
-      location    => 'http://yow-lpgbld-master.ottawa.windriver.com/apt/',
+      location    => 'http://yow-lpgbld-master.wrs.com/apt/',
       release     => $::lsbdistcodename,
       include_src => false,
       repos       => 'main';

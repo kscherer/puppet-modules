@@ -75,11 +75,11 @@ class wr::common {
   $puppet_server = $::hostname ? {
     /^ala.*$/ => 'ala-lpd-puppet.wrs.com',
     /^pek.*$/ => 'pek-lpd-puppet.wrs.com',
-    /^yow.*$/ => 'yow-lpd-puppet.ottawa.wrs.com',
+    /^yow.*$/ => 'yow-lpd-puppet.wrs.com',
   }
 
   $ntp_servers = $::hostname ? {
-    /^yow-lpgbld-.*/ => ['yow-lpgbld-master.ottawa.wrs.com'],
+    /^yow-lpgbld-.*/ => ['yow-lpgbld-master.wrs.com'],
     default          => ['ntp-1.wrs.com','ntp-2.wrs.com'],
   }
 }

@@ -1,2 +1,0 @@
-mips64_octeon-glibc_cgl --enable-cpu=mips64_octeon --enable-rootfs=glibc_cgl
-

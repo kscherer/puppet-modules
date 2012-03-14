@@ -12,7 +12,7 @@ class wr::mcollective (
   $amqp_server = $::hostname ? {
     /^ala.*$/ => 'ala-lpd-puppet.wrs.com',
     /^pek.*$/ => 'pek-lpd-puppet.wrs.com',
-    /^yow.*$/ => 'yow-lpg-amqp.ottawa.wrs.com',
+    /^yow.*$/ => 'yow-lpg-amqp.wrs.com',
   }
 
   $stomp_server = {

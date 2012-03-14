@@ -1,3 +1,0 @@
-wrs_sbc8548-pne_lsb --enable-board=wrs_sbc8548 --enable-profile=pne_lsb
-x86_32-glibc_cgl --enable-cpu=x86_32 --enable-rootfs=glibc_cgl
-

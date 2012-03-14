@@ -1,3 +1,0 @@
-emer_atca7101-cgl --enable-board=emer_atca7101 --enable-kernel=cgl
-wrs_sbc8548-cgl --enable-board=wrs_sbc8548 --enable-kernel=cgl
-x86_64-glibc_cgl --enable-cpu=x86_64 --enable-rootfs=glibc_cgl

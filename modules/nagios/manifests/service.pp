@@ -29,35 +29,35 @@ class nagios::service(
       register                     => '0';
     'puppet':
       use                 => 'generic-service',
-      host_name           => 'yow-lpd-monitor.ottawa.windriver.com',
+      host_name           => 'yow-lpd-monitor.wrs.com',
       service_description => 'mc_puppet_run',
       check_command       => 'check_mc_nrpe!puppet!yow!check_puppet',
       notification_period => 'workhours',
       contact_groups      => 'admins';
     'clock_check':
       use                 => 'generic-service',
-      host_name           => 'yow-lpd-monitor.ottawa.windriver.com',
+      host_name           => 'yow-lpd-monitor.wrs.com',
       service_description => 'mc_ntp_run',
       check_command       => 'check_mc_nrpe!ntp!yow!check_ntp',
       notification_period => 'workhours',
       contact_groups      => 'admins';
     'yow-blades_nx_check':
       use                 => 'generic-service',
-      host_name           => 'yow-lpd-monitor.ottawa.windriver.com',
+      host_name           => 'yow-lpd-monitor.wrs.com',
       service_description => 'mc_nx_blades_run',
       check_command       => 'check_mc_nrpe!nx::yow-blades!yow!check_nx_instance',
       notification_period => 'workhours',
       contact_groups      => 'admins';
     'yow-lpgbuild_nx_check':
       use                 => 'generic-service',
-      host_name           => 'yow-lpd-monitor.ottawa.windriver.com',
+      host_name           => 'yow-lpd-monitor.wrs.com',
       service_description => 'mc_nx_lpgbuild_run',
       check_command       => 'check_mc_nrpe!nx::yow-lpgbuild!yow!check_nx_instance',
       notification_period => 'workhours',
       contact_groups      => 'admins';
     'yow_puppet_check':
       use                 => 'generic-service',
-      host_name           => 'yow-lpd-monitor.ottawa.windriver.com',
+      host_name           => 'yow-lpd-monitor.wrs.com',
       service_description => 'yow_puppet_check',
       #this command uses SSL to connect to puppet, but returns "Bad Request"
       #which is all that we need to confirm service is actually running

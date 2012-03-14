@@ -1,2 +1,0 @@
-mips64_xlr-glibc_cgl --enable-cpu=mips64_xlr --enable-rootfs=glibc_cgl
-

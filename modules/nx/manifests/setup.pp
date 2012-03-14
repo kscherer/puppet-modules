@@ -15,7 +15,7 @@ define nx::setup {
   #clone all the needed repos to run nx
   exec {
     "clone_bin_repo_$name":
-      command => 'git clone git://yow-git.ottawa.wrs.com/bin',
+      command => 'git clone git://yow-git.wrs.com/bin',
       unless  => "test -d $nx_builddir/bin";
     "clone_nxrc_repo_$name":
       command => 'git clone git://ala-git.wrs.com/users/buildadmin/nxrc_files',

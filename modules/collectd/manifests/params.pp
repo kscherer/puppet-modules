@@ -12,8 +12,8 @@
 #
 class collectd::params {
 
-  $collectd_server = 'yow-lpgbld-master.ottawa.wrs.com'
-  $carbon_host = 'yow-lpgbld-master.ottawa.wrs.com'
+  $collectd_server = 'yow-lpgbld-master.wrs.com'
+  $carbon_host = 'yow-lpgbld-master.wrs.com'
   $carbon_line_receiver_port = '2003'
 
 }
