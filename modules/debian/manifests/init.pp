@@ -37,6 +37,8 @@ Aptitude::CmdLine::Package-Display-Format "%c%a%M %p# - %d%V#";';
       source => 'puppet:///modules/debian/50unattended-upgrades';
     '/etc/apt/public.key':
       source => 'puppet:///modules/debian/public.key';
+    '/etc/apt/wenzong.public.key':
+      source => 'puppet:///modules/debian/wenzong.public.key';
   }
 
   #This is for the key that signs the windriver internal reprepro apt repo
@@ -44,6 +46,10 @@ Aptitude::CmdLine::Package-Display-Format "%c%a%M %p# - %d%V#";';
     'install-key':
       command => '/usr/bin/apt-key add /etc/apt/public.key',
       require => File['/etc/apt/public.key'],
-      unless  => '/usr/bin/apt-key list | /bin/grep -q \'Konrad.Scherer\'';
+      unless  => '/usr/bin/apt-key list | /bin/grep -q \'Konrad Scherer\'';
+    'install-wenzong-key':
+      command => '/usr/bin/apt-key add /etc/apt/wenzong.public.key',
+      require => File['/etc/apt/wenzong.public.key'],
+      unless  => '/usr/bin/apt-key list | /bin/grep -q \'Wenzong Fan\'';
   }
 }
