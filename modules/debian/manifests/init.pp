@@ -5,12 +5,10 @@ class debian {
   case $::operatingsystem {
     'Ubuntu': {
       include debian::ubuntu
-      Class['debian'] -> Class['debian::ubuntu']
       $repo=yow-mirror_ubuntu
     }
     'Debian': {
       include debian::debian
-      Class['debian'] -> Class['debian::debian']
       $repo=debian_mirror_stable
     }
     default: { fail("Unsupported OS $::operatingsystem") }
@@ -50,10 +48,12 @@ Aptitude::CmdLine::Package-Display-Format "%c%a%M %p# - %d%V#";';
     'install-key':
       command => '/usr/bin/apt-key add /etc/apt/public.key',
       require => File['/etc/apt/public.key'],
+      before  => Apt::Source[$repo],
       unless  => '/usr/bin/apt-key list | /bin/grep -q \'Konrad Scherer\'';
     'install-wenzong-key':
       command => '/usr/bin/apt-key add /etc/apt/wenzong.public.key',
       require => File['/etc/apt/wenzong.public.key'],
+      before  => Apt::Source[$repo],
       unless  => '/usr/bin/apt-key list | /bin/grep -q \'Wenzong Fan\'';
   }
 }
