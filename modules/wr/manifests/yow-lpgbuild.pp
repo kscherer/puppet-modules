@@ -34,4 +34,11 @@ class wr::yow-lpgbuild inherits wr::mcollective {
       key    => $wr::common::kscherer_home_pubkey,
       type   => 'ssh-rsa';
   }
+
+  file {
+    '/etc/resolv.conf':
+      ensure  => present,
+      mode    => '0644',
+      content => 'domain wrs.com\n search wrs.com\nnameserver 128.224.144.28';
+  }
 }
