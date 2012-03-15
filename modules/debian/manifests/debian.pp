@@ -20,8 +20,6 @@ class debian::debian {
   }
 
   apt::source {
-    ['yow-mirror_squeeze', 'yow-mirror_testing','yow-mirror_unstable']:
-      ensure => absent;
     'debian_mirror_stable':
       location          => "$mirror_base/debian",
       release           => 'stable',
@@ -30,16 +28,6 @@ class debian::debian {
       required_packages => 'debian-keyring debian-archive-keyring',
       key               => '55BE302B',
       key_server        => 'subkeys.pgp.net';
-    'debian_mirror_testing':
-      location    =>  "$mirror_base/debian",
-      release     => 'testing',
-      include_src => false,
-      repos       => 'main contrib non-free';
-    'debian_mirror_unstable':
-      location    =>  "$mirror_base/debian",
-      release     => 'unstable',
-      include_src => false,
-      repos       => 'main contrib non-free';
     'yow_apt_mirror':
       location    => 'http://yow-lpgbld-master.wrs.com/apt/',
       release     => 'squeeze',
@@ -50,6 +38,22 @@ class debian::debian {
       release     => 'squeeze',
       include_src => false,
       repos       => 'main';
+  }
+
+  #pek mirror has only debian squeeze
+  if $::hostname =~ /^yow.*/ {
+    apt::source {
+    'debian_mirror_testing':
+      location    =>  "$mirror_base/debian",
+      release     => 'testing',
+      include_src => false,
+      repos       => 'main contrib non-free';
+    'debian_mirror_unstable':
+      location    =>  "$mirror_base/debian",
+      release     => 'unstable',
+      include_src => false,
+      repos       => 'main contrib non-free';
+    }
   }
 
   file {
