@@ -53,6 +53,11 @@ class nrpe {
       path   => "${defaultdir}/check_nx_instance.sh",
       source => 'puppet:///modules/nrpe/check_nx_instance.sh',
       mode   => '0755';
+    'check_puppet':
+      ensure => 'present',
+      path   => "${defaultdir}/check_puppet.rb",
+      source => 'puppet:///modules/nrpe/check_puppet.rb',
+      mode   => '0755';
   }
 
   class debian {
@@ -107,10 +112,14 @@ class nrpe {
     'check_nx_instance':
       command    => 'check_nx_instance.sh',
       parameters => '';
-    #make sure puppet has successully run on system recently
+    #Check when the last time puppet was run
     'check_puppet':
-      command    => 'check_file_age',
-      parameters => '-w 7200  -c 14400 -f /var/lib/puppet/state/state.yaml';
+      command    => 'check_puppet.rb',
+      parameters => '--only-enabled --warning 7200 --critical 14400';
+    #Uses the same script but checks if there have been any failures recently
+    'check_puppet_failures':
+      command    => 'check_puppet.rb',
+      parameters => '--only-enabled --check-failures --warning 0 --critical 0';
     #check whether there is an nx process running on the machine
     'check_nx_proc':
       command    => 'check_procs',
