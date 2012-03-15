@@ -4,7 +4,8 @@ class debian::debian {
   #koan needs the following packages
   package {
     [ 'yum', 'python-simplejson', 'parted' ]:
-      ensure => installed;
+      ensure  => installed,
+      require => Apt::Source['debian_mirror_stable'];
   }
 
   #Due to experiments with 3.x kernel with xen dom0 support, some

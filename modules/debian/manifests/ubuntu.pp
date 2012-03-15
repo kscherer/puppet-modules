@@ -22,13 +22,13 @@ class debian::ubuntu {
       release     => $::lsbdistcodename,
       include_src => false,
       repos       => 'main';
-    'puppetlabs_apt_mirror':
-      location    => 'http://apt.puppetlabs.com/',
+    'yow_puppetlabs_mirror':
+      location    => 'http://yow-lpgbld-master.wrs.com/puppetlabs/',
       release     => $::lsbdistcodename,
       include_src => false,
-      key         => '4BD6EC30',
-      key_server  => 'keys.gnupg.net',
       repos       => 'main';
+    'puppetlabs_apt_mirror':
+      ensure => absent;
   }
 
   #force the default shell to be bash

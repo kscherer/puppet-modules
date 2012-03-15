@@ -3,15 +3,24 @@ class debian {
   include exim4
 
   case $::operatingsystem {
-    'Ubuntu': { include debian::ubuntu }
-    'Debian': { include debian::debian }
+    'Ubuntu': {
+      include debian::ubuntu
+      Class['debian'] -> Class['debian::ubuntu']
+      $repo=yow-mirror_ubuntu
+    }
+    'Debian': {
+      include debian::debian
+      Class['debian'] -> Class['debian::debian']
+      $repo=debian_mirror_stable
+    }
     default: { fail("Unsupported OS $::operatingsystem") }
   }
 
   #needed to allow puppet to set passwords
   package {
-    'libshadow-ruby1.8':
-      ensure => installed;
+    ['libshadow-ruby1.8','unattended-upgrades']:
+      ensure  => latest,
+      require => Apt::Source[$repo];
   }
 
   #show versions when searching for packages with aptitude
@@ -22,11 +31,6 @@ class debian {
 Aptitude::CmdLine "";
 Aptitude::CmdLine::Show-Versions "true";
 Aptitude::CmdLine::Package-Display-Format "%c%a%M %p# - %d%V#";';
-  }
-
-  package {
-    'unattended-upgrades':
-      ensure => latest;
   }
 
   file {
