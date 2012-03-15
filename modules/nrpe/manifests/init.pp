@@ -46,7 +46,7 @@ class nrpe {
   }
 
   file {
-    ['/etc/nagios',$nrpe_dir]:
+    ['/etc/nagios',$nrpe_dir,$defaultdir]:
       ensure => directory;
     'check_nx_instance':
       ensure => 'present',
