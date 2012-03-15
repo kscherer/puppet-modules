@@ -115,11 +115,11 @@ class nrpe {
     #Check when the last time puppet was run
     'check_puppet':
       command    => 'check_puppet.rb',
-      parameters => '--only-enabled --warning 7200 --critical 14400';
+      parameters => '--only-enabled --warn 7200 --critical 14400';
     #Uses the same script but checks if there have been any failures recently
     'check_puppet_failures':
       command    => 'check_puppet.rb',
-      parameters => '--only-enabled --check-failures --warning 0 --critical 0';
+      parameters => '--only-enabled --check-failures --warn 1 --critical 1';
     #check whether there is an nx process running on the machine
     'check_nx_proc':
       command    => 'check_procs',
