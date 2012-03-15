@@ -39,6 +39,6 @@ class wr::yow-lpgbuild inherits wr::mcollective {
     '/etc/resolv.conf':
       ensure  => present,
       mode    => '0644',
-      content => "domain wrs.com\nsearch wrs.com\nnameserver 128.224.144.28";
+      content => "domain wrs.com\nsearch wrs.com\nnameserver 128.224.144.28\n";
   }
 }
