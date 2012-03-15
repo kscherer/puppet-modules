@@ -24,6 +24,12 @@ class nagios::contact(
       members => 'nagiosadmin';
   }
 
+  #make sure that entries no longer in storedconfigs are cleaned out
+  resources {
+    ['nagios_contact','nagios_contactgroup']:
+      purge => true;
+  }
+
   $contact_cfg = "${nagios_confdir}/nagios_contact.cfg"
   Nagios_contact <<||>> {
     target  => $contact_cfg,

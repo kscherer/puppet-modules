@@ -66,6 +66,12 @@ class nagios::service(
       contact_groups      => 'admins';
   }
 
+  #make sure that entries no longer in storedconfigs are cleaned out
+  resources {
+    'nagios_service':
+      purge => true;
+  }
+
   $service_cfg = "${nagios_confdir}/nagios_service.cfg"
   Nagios_service <<||>> {
     target  => $service_cfg,

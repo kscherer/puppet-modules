@@ -21,6 +21,12 @@ class nagios::command(
     command_line => "/usr/sbin/check-mc-nrpe --config ${nagios_dir}/client.cfg -W \$ARG1\$ -T \$ARG2\$ \$ARG3\$";
   }
 
+  #make sure that entries no longer in storedconfigs are cleaned out
+  resources {
+    'nagios_command':
+      purge => true;
+  }
+
   $command_cfg = "${nagios_confdir}/nagios_command.cfg"
   Nagios_command <<||>> {
     target  => $command_cfg,
@@ -38,6 +44,7 @@ class nagios::command(
   file {
     'check-mc-nrpe':
       path   => '/usr/sbin/check-mc-nrpe',
+      mode   => '0755',
       source => 'puppet:///modules/nagios/check-mc-nrpe';
     'mc-nrpe_cfg':
       path    => "${nagios_dir}/client.cfg",

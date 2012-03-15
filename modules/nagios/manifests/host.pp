@@ -27,6 +27,12 @@ class nagios::host(
       register              => '0';
   }
 
+  #make sure that entries no longer in storedconfigs are cleaned out
+  resources {
+    ['nagios_host','nagios_hostextinfo']:
+      purge => true;
+  }
+
   $host_cfg = "${nagios_confdir}/nagios_host.cfg"
   # collect resources and populate /etc/nagios/nagios_*.cfg
   Nagios_host <<||>> {

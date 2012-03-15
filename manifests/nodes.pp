@@ -28,7 +28,7 @@ node 'yow-lpd-puppet.wrs.com' {
   -> class { 'nagios::target': }
 }
 
-node 'yow-lpg-amqp.windriver.com' {
+node 'yow-lpg-amqp.wrs.com' {
   #need to define these here due to template declared here
   #will move when I fix the activemq class
   $broker_name = 'yow-broker'

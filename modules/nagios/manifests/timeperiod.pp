@@ -21,6 +21,11 @@ class nagios::timeperiod(
       thursday  => '08:00-17:00',
       friday    => '08:00-17:00';
   }
+  #make sure that entries no longer in storedconfigs are cleaned out
+  resources {
+    'nagios_timeperiod':
+      purge => true;
+  }
 
   $timeperiod_cfg = "${nagios_confdir}/nagios_timeperiod.cfg"
   Nagios_timeperiod <<||>> {
