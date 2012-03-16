@@ -100,7 +100,7 @@ class mcollective(
   $collectives          = 'mcollective',
   $connector            = 'stomp',
   $classesfile          = '/var/lib/puppet/state/classes.txt',
-  $stomp_pool           = {},
+  $stomp_pool           = 'UNSET',
   $stomp_server         = $mcollective::params::stomp_server,
   $stomp_port           = $mcollective::params::stomp_port,
   $stomp_user           = $mcollective::params::stomp_user,
@@ -113,6 +113,7 @@ class mcollective(
 ) inherits mcollective::params
 {
   $v_bool = [ '^true$', '^false$' ]
+  $v_alphanum = '^[._0-9a-zA-Z:-]+$'
   validate_bool($manage_packages)
   validate_bool($enterprise)
   validate_bool($manage_plugins)
@@ -120,7 +121,7 @@ class mcollective(
   validate_re($client_config_file, '^/')
   validate_re("$server", $v_bool)
   validate_re("$client", $v_bool)
-  validate_re($version, '^[._0-9a-zA-Z:-]+$')
+  validate_re($version, $v_alphanum)
   validate_re($mc_security_provider, '^[a-zA-Z0-9_]+$')
   validate_re($mc_security_psk, '^[^ \t]+$')
   validate_re($fact_source, '^facter$|^yaml$')
@@ -149,17 +150,16 @@ class mcollective(
 
   # if no pool hash is provided, create a single pool using defaults
   if $stomp_pool == 'UNSET' {
-    $stomp_pool_real = {
-      pool1 => { host1 => $stomp_server, port1 => $stomp_port, user1 => $stomp_user,
-                 passwd1 => $stomp_passwd  }
-    }
-  }
-  else {
+    validate_re($stomp_server, $v_alphanum)
+    validate_re($stomp_port, '^[0-9]+$')
+    validate_re($stomp_user, $v_alphanum)
+    validate_re($stomp_passwd, $v_alphanum)
+  } else {
     validate_hash( $stomp_pool )
     validate_hash( $stomp_pool['pool1'] )
     $stomp_pool_real = $stomp_pool
+    $stomp_pool_size = size(keys($stomp_pool_real))
   }
-  $stomp_pool_size = size(keys($stomp_pool_real))
 
   if $client_config == 'UNSET' {
     $client_config_real = template('mcollective/client.cfg.erb')

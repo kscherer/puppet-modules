@@ -15,13 +15,6 @@ class wr::mcollective (
     /^yow.*$/ => 'yow-lpg-amqp.wrs.com',
   }
 
-  $stomp_server = {
-    host1       => $amqp_server,
-    port1       => '6163',
-    user1       => 'mcollective',
-    password1   => 'marionette'
-  }
-
   class {
     '::mcollective':
       client                => $client,
@@ -32,7 +25,10 @@ class wr::mcollective (
       mc_security_psk       => 'H5FFD^B*S0yc7JCp',
       main_collective       => 'mcollective',
       collectives           => "mcollective,$collective",
-      stomp_pool            => { pool1 => $stomp_server },
+      stomp_server          => $amqp_server,
+      stomp_port            => '6163',
+      stomp_user            => 'mcollective',
+      stomp_passwd          => 'marionette',
       plugin_params         => {
         'puppetd.puppetd'   => '/usr/bin/puppet agent',
         'provision.puppetd' => '/usr/bin/puppet agent',
