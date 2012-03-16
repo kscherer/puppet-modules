@@ -36,6 +36,12 @@ node 'yow-lpg-amqp.wrs.com' {
   class { 'redhat': }
   -> class { 'nrpe': }
   -> class { 'ntp': servers       => ['yow-lpgbld-master.wrs.com'] }
+  -> class { 'puppet':
+    puppet_server               => $wr::common::puppet_server,
+    puppet_agent_ensure         => 'latest',
+    puppet_agent_service_enable => false,
+    agent                       => true,
+  }
   -> class { 'java': distribution => 'java-1.6.0-openjdk' }
   -> class { 'activemq':
     broker_name   => 'yow-broker',
@@ -66,6 +72,12 @@ node 'yow-lpd-monitor.wrs.com' {
   class { 'redhat': }
   -> class { 'nrpe': }
   -> class { 'ntp': servers => ['yow-lpgbld-master.wrs.com'] }
+  -> class { 'puppet':
+    puppet_server               => $wr::common::puppet_server,
+    puppet_agent_ensure         => 'latest',
+    puppet_agent_service_enable => false,
+    agent                       => true,
+  }
   -> class { 'collectd::client': }
   -> class { 'wr::mcollective': client => true }
   -> class { 'nagios': }
