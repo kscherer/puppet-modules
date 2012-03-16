@@ -37,7 +37,7 @@ node 'yow-lpg-amqp.wrs.com' {
   -> class { 'nrpe': }
   -> class { 'ntp': servers       => ['yow-lpgbld-master.wrs.com'] }
   -> class { 'puppet':
-    puppet_server               => $wr::common::puppet_server,
+    puppet_server               => 'yow-lpd-puppet.wrs.com',
     puppet_agent_ensure         => 'latest',
     puppet_agent_service_enable => false,
     agent                       => true,
@@ -73,7 +73,7 @@ node 'yow-lpd-monitor.wrs.com' {
   -> class { 'nrpe': }
   -> class { 'ntp': servers => ['yow-lpgbld-master.wrs.com'] }
   -> class { 'puppet':
-    puppet_server               => $wr::common::puppet_server,
+    puppet_server               => 'yow-lpd-puppet.wrs.com',
     puppet_agent_ensure         => 'latest',
     puppet_agent_service_enable => false,
     agent                       => true,
