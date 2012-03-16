@@ -54,6 +54,10 @@ node /yow-lpgbld-[0-5][0-9].*/ {
   class { 'wr::xenserver': }
 }
 
+node 'yow-lpgbld-master.wrs.com' {
+  class { 'wr::xenserver': }
+}
+
 node /pek-hostel-deb0[1-6]\.wrs\.com/ {
   class { 'wr::pek-xenserver': }
 }
