@@ -1,7 +1,7 @@
 #
 class wr::xenserver inherits wr::mcollective {
 
-  class { 'apt': }
+  class { 'apt': purge_sources_list => true }
   -> class { 'debian': }
   -> class { 'ntp':
     servers    => $wr::common::ntp_servers,
