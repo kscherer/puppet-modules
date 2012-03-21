@@ -40,13 +40,14 @@ class nrpe {
 
   # find out the default nagios paths for plugins
   if $::osfamily == 'RedHat' and $::architecture == 'x86_64' {
-    $defaultdir = '/usr/lib64/nagios/plugins'
+    $nagios_plugin_base = '/usr/lib64/nagios'
   } else {
-    $defaultdir = '/usr/lib/nagios/plugins'
+    $nagios_plugin_base = '/usr/lib/nagios'
   }
+  $defaultdir = "${nagios_plugin_base}/plugins"
 
   file {
-    ['/etc/nagios',$nrpe_dir,$defaultdir]:
+    ['/etc/nagios', $nrpe_dir, $nagios_plugin_base, $defaultdir]:
       ensure => directory;
     'check_nx_instance':
       ensure => 'present',
