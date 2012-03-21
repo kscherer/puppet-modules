@@ -41,8 +41,8 @@ class debian::debian {
       repos       => 'main';
   }
 
-  #pek mirror has only debian squeeze
-  if $::hostname =~ /^yow.*/ {
+  #don't enable testing and unstable on squeeze
+  if $::kernelmajversion =~ /^3.*/ {
     apt::source {
     'debian_mirror_testing':
       location    =>  "$mirror_base/debian",
