@@ -22,13 +22,10 @@ class debian::debian {
 
   apt::source {
     'debian_mirror_stable':
-      location          => "$mirror_base/debian",
-      release           => 'stable',
-      repos             => 'main contrib non-free',
-      include_src       => false,
-      required_packages => 'debian-keyring debian-archive-keyring',
-      key               => '55BE302B',
-      key_server        => 'subkeys.pgp.net';
+      location    => "$mirror_base/debian",
+      release     => 'stable',
+      repos       => 'main contrib non-free',
+      include_src => false;
     'yow_apt_mirror':
       location    => 'http://yow-lpgbld-master.wrs.com/apt/',
       release     => 'squeeze',
