@@ -49,19 +49,17 @@ class redhat::repos {
   #declare all the repos virtually and realize the correct ones on
   #relevant platforms
   redhat::named_yumrepo {
-    'epel-el4-i386':
-      baseurl => 'http://mirror.csclub.uwaterloo.ca/fedora/epel/4WS/i386/';
     "epel-el5-$::architecture":
       baseurl => "${yow_mrepo_mirror}/rhel5c-${::architecture}/RPMS.epel";
     "epel-el6-${::architecture}":
       baseurl => "${yow_mrepo_mirror}/rhel6ws-${::architecture}/RPMS.epel";
     'redhat-dvd':
-      baseurl => "${yow_master_mirror}/${redhat_dvd_repo}";
+      baseurl => "${yow_mirror}/repos/${redhat_dvd_repo}";
     'centos-dvd':
       #This is a link to the latest CentOS DVD release for 6
       #and 5.5 for CentOS 5 as later versions of Redhat are
       #officially not supported by wrlinux
-      baseurl => "$yow_master_mirror/centos-${::lsbmajdistrelease}-${::architecture}";
+      baseurl => "$yow_mirror/repos/centos-${::lsbmajdistrelease}-${::architecture}";
     'fedora-updates':
       baseurl =>
         "${yow_mirror}/fedora/updates/${::operatingsystemrelease}/${::architecture}";
