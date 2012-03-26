@@ -48,6 +48,8 @@ class redhat::repos {
   #declare all the repos virtually and realize the correct ones on
   #relevant platforms
   redhat::named_yumrepo {
+    "epel-el4-$::architecture":
+      baseurl => "${yow_mrepo_mirror}/rhel5c-${::architecture}/RPMS.epel";
     "epel-el5-$::architecture":
       baseurl => "${yow_mrepo_mirror}/rhel5c-${::architecture}/RPMS.epel";
     "epel-el6-${::architecture}":
