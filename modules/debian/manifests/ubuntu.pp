@@ -27,8 +27,6 @@ class debian::ubuntu {
       release     => $::lsbdistcodename,
       include_src => false,
       repos       => 'main';
-    'puppetlabs_apt_mirror':
-      ensure => absent;
   }
 
   #force the default shell to be bash
