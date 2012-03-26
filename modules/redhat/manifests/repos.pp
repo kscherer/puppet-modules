@@ -18,23 +18,22 @@ class redhat::repos {
     file {
       $name:
         ensure => absent,
-        path   => "/etc/yum.repos.d/$name",
+        path   => "/etc/yum.repos.d/${name}.repo",
         notify => Exec[ 'yum_reload' ],
     }
   }
 
   #make sure all other repos are gone
   redhat::delete_repo {
-    [ 'fedora.repo', 'fedora-updates-testing.repo', 'cobbler-config.repo',
-      'CentOS-Base.repo','CentOS-Debuginfo.repo', 'CentOS-Media.repo',
-      'puppet.repo', 'redhat_dvd.repo', 'rhel-source.repo',
-      'puppet-el6.repo', 'puppet-el5.repo', 'epel.repo', 'redhat.repo',
-      'redhat-el5.repo', 'rhel-debuginfo.repo' ]:
+    [ 'fedora', 'fedora-updates-testing', 'cobbler-config',
+      'CentOS-Base','CentOS-Debuginfo', 'CentOS-Media',
+      'puppet', 'redhat_dvd', 'rhel-source',
+      'puppet-el6', 'puppet-el5', 'epel', 'redhat',
+      'redhat-el5', 'rhel-debuginfo', 'centos_dvd' ]:
   }
 
   $yow_mirror = 'http://yow-mirror.wrs.com/mirror'
   $yow_mrepo_mirror = "${yow_mirror}/mrepo/repos"
-  $yow_master_mirror = 'http://yow-lpgbld-master.wrs.com/repos'
   $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
 
   #this exists solely to stop yum complaining about missing name
