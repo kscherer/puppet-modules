@@ -19,7 +19,7 @@ class nagios::service(
       retain_nonstatus_information => '1',
       is_volatile                  => '0',
       check_period                 => '24x7',
-      max_check_attempts           => '3',
+      max_check_attempts           => '1',
       normal_check_interval        => '10',
       retry_check_interval         => '2',
       contact_groups               => 'admins',
