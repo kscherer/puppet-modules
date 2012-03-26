@@ -52,7 +52,7 @@ class nagios::service(
       use                 => 'generic-service',
       host_name           => 'yow-lpd-monitor.wrs.com',
       service_description => 'mc_yow_disk_check_run',
-      check_command       => 'check_mc_nrpe!settings!yow!check_disk',
+      check_command       => 'check_mc_nrpe!settings!yow!check_disks',
       notification_period => 'workhours',
       contact_groups      => 'admins';
     'yow-blades_nx_check':
