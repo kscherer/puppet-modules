@@ -37,7 +37,7 @@ class nagios::service(
     'puppet_failures':
       use                 => 'generic-service',
       host_name           => 'yow-lpd-monitor.wrs.com',
-      service_description => 'mc_puppet_run',
+      service_description => 'mc_puppet_failures_run',
       check_command       => 'check_mc_nrpe!puppet!yow!check_puppet_failures',
       notification_period => 'workhours',
       contact_groups      => 'admins';
