@@ -80,6 +80,7 @@ node 'yow-lpd-monitor.wrs.com' {
   }
   -> class { 'collectd::client': }
   -> class { 'wr::mcollective': client => true }
+  -> class { 'wr::puppetcommander': }
   -> class { 'nagios': }
 
   class { 'nagios::target': }
