@@ -67,7 +67,7 @@ class puppet::agent(
         'puppet_agent_start':
           command   => '/usr/bin/nohup puppet agent &',
           refresh   => '/usr/bin/pkill puppet && /usr/bin/nohup puppet agent &',
-          unless    => "/bin/ps -ef | grep -v grep | /bin/grep 'puppet agent'",
+          unless    => '/bin/ps -ef | grep -v grep | /bin/grep \'puppet agent\'',
           require   => File['/etc/puppet/puppet.conf'],
           subscribe => Package[$puppet_agent_name],
       }
@@ -82,7 +82,7 @@ class puppet::agent(
         subscribe => Package[$puppet_agent_name],
       }
     }
-  } elsif $puppet_agent_service_enable == false and $puppet_agent_ensure == 'present' {
+  } elsif $puppet_agent_service_enable == false and $puppet_agent_ensure =~ /(present|installed|latest)/ {
 
     #if puppet agent is run using cron or puppet commander, the service
     #remains disabled
@@ -90,7 +90,7 @@ class puppet::agent(
       exec {
         'puppet_agent_stop':
           command   => '/usr/bin/pkill puppet',
-          onlyif    => "/bin/ps -ef | grep -v grep | /bin/grep 'puppet agent'",
+          onlyif    => '/bin/ps -ef | grep -v grep | /bin/grep \'puppet agent\'',
       }
     } else {
       #make sure the puppet agent service stays stopped after
