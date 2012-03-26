@@ -102,7 +102,7 @@ class nrpe {
   nrpe::command {
     'check_disks':
       command    => 'check_disk',
-      parameters => '--warning=10% --critical=5% --path=/ --local --units GB';
+      parameters => '--warning=10% --critical=5% --all --ignore-eregi-path=\'(shm|boot|prebuilt_cache)\' --units GB';
     'check_ntp':
       command    => 'check_ntp_time',
       parameters => '-H 147.11.100.50 -w 0.5 -c 1';

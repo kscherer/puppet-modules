@@ -48,6 +48,13 @@ class nagios::service(
       check_command       => 'check_mc_nrpe!ntp!yow!check_ntp',
       notification_period => 'workhours',
       contact_groups      => 'admins';
+    'yow_disk_check':
+      use                 => 'generic-service',
+      host_name           => 'yow-lpd-monitor.wrs.com',
+      service_description => 'mc_yow_disk_check_run',
+      check_command       => 'check_mc_nrpe!settings!yow!check_disk',
+      notification_period => 'workhours',
+      contact_groups      => 'admins';
     'yow-blades_nx_check':
       use                 => 'generic-service',
       host_name           => 'yow-lpd-monitor.wrs.com',
