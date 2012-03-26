@@ -27,9 +27,9 @@ class redhat::workarounds {
     }
   }
 
-  #make sure the firewall is disabled
+  #make sure the firewall and other unnecessary services are disabled
   service {
-    ['iptables','ip6tables']:
+    ['iptables','ip6tables','yum-updatesd','sendmail']:
       ensure => stopped,
       enable => false,
   }
