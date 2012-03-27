@@ -20,6 +20,10 @@ class wr::puppetcommander {
       group  => 'root',
       mode   => '0755',
       source => 'puppet:///modules/wr/puppetcommander.init';
+    '/var/lib/puppet/log':
+      ensure => directory,
+      owner  => 'puppet',
+      group  => 'puppet';
   }
 
   service {
@@ -28,7 +32,8 @@ class wr::puppetcommander {
       enable  => true,
       require => [File['/etc/puppetcommander.cfg'],
                   File['/usr/sbin/puppetcommanderd'],
-                  File['/etc/init.d/puppetcommanderd'] ];
+                  File['/etc/init.d/puppetcommanderd'],
+                  File['/var/lib/puppet/log'] ];
   }
 
 }
