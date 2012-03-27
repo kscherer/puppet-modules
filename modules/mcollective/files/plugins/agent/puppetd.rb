@@ -155,7 +155,7 @@ module MCollective
             pid = File.read(@lockfile)
             begin
               ::Process.kill(0, Integer(pid)) # check that pid is alive
-              reply[:output] = "Currently running; can't remove lock"
+              reply.fail "Currently running; can't remove lock"
             rescue Errno::ESRCH => e
               # PID is invalid, remove lock file
               File.unlink(@lockfile)
