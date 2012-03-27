@@ -183,6 +183,7 @@ module MCollective
               # PID is invalid, lock file is stale
               reply.fail("Puppet already disabled by state lock file")
             end
+          end
         else
           begin
             File.open(@lockfile, "w") { |file| }
