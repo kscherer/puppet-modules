@@ -19,6 +19,8 @@ class nagios::command(
     command_line => '$USER1$/check_http -I $HOSTADDRESS$ $ARG1$';
   'check_mc_nrpe':
     command_line => "/usr/sbin/check-mc-nrpe --config ${nagios_dir}/client.cfg -W \$ARG1\$ -T \$ARG2\$ \$ARG3\$";
+  'check_mcollective':
+    command_line => '/usr/sbin/check_mcollective.rb -v';
   }
 
   #make sure that entries no longer in storedconfigs are cleaned out
@@ -46,6 +48,10 @@ class nagios::command(
       path   => '/usr/sbin/check-mc-nrpe',
       mode   => '0755',
       source => 'puppet:///modules/nagios/check-mc-nrpe';
+    'check_mcollective':
+      path   => '/usr/sbin/check_mcollective.rb',
+      mode   => '0755',
+      source => 'puppet:///modules/nagios/check_mcollective.rb';
     'mc-nrpe_cfg':
       path    => "${nagios_dir}/client.cfg",
       require => Exec['mc_client_cfg_copy'],

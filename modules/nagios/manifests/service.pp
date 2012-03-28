@@ -78,6 +78,13 @@ class nagios::service(
       check_command       => 'check_http!-I 128.224.194.14 -S -p 8140 -e HTTP',
       notification_period => 'workhours',
       contact_groups      => 'admins';
+    'check_mcollective':
+      use                 => 'generic-service',
+      host_name           => 'yow-lpd-monitor.wrs.com',
+      service_description => 'check_mcollective_registration',
+      check_command       => 'check_mcollective',
+      notification_period => 'workhours',
+      contact_groups      => 'admins';
   }
 
   #make sure that entries no longer in storedconfigs are cleaned out
