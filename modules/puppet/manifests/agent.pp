@@ -90,7 +90,7 @@ class puppet::agent(
       exec {
         'puppet_agent_stop':
           command   => '/usr/bin/pkill puppet',
-          onlyif    => '/bin/ps -ef | grep -v grep | /bin/grep \'puppet agent\'',
+          onlyif    => '/bin/ps -ef | grep -v grep | /bin/grep \'.*puppet agent$\'',
       }
     } else {
       #make sure the puppet agent service stays stopped after package
