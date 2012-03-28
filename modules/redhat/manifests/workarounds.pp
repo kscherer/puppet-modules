@@ -31,7 +31,6 @@ class redhat::workarounds {
   service {
     ['iptables','ip6tables','yum-updatesd','sendmail']:
       ensure    => stopped,
-      hasstatus => false,
       enable    => false,
   }
 
