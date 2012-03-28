@@ -71,6 +71,18 @@ class wr::common {
     }
   }
 
+  #if vm is using older version of xen, give each vm its own independent clock.
+  #in later versions of xen, this is the default so just assume each machine
+  #will be running ntp
+  if $is_virtual_bool == true {
+    exec {
+      'xen_independent_clock':
+        command  => 'echo 1 > /proc/sys/xen/independent_wallclock',
+        path     => '/usr/bin:/usr/sbin/:/bin',
+        onlyif   => 'test `cat /proc/sys/xen/independent_wallclock` = \'0\'';
+    }
+  }
+
   #set the puppet server based on hostname
   $puppet_server = $::hostname ? {
     /^ala.*$/ => 'ala-lpd-puppet.wrs.com',
