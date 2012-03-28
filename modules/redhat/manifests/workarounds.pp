@@ -30,8 +30,9 @@ class redhat::workarounds {
   #make sure the firewall and other unnecessary services are disabled
   service {
     ['iptables','ip6tables','yum-updatesd','sendmail']:
-      ensure => stopped,
-      enable => false,
+      ensure    => stopped,
+      hasstatus => false,
+      enable    => false,
   }
 
   if $::operatingsystem =~ /(RedHat|CentOS)/ {
