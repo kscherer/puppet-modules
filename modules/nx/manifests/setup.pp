@@ -46,7 +46,6 @@ define nx::setup {
       enable     => true,
       hasstatus  => true,
       hasrestart => true,
-      loglevel   => debug,
       require    => [ Exec["clone_bin_repo_$name"],
                       Exec["clone_nxrc_repo_$name"],
                       Exec["clone_nxconfigs_repo_$name"],
