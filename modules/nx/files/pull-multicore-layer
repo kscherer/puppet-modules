@@ -2,4 +2,12 @@ if [ ! -d $1/wrlinux-x/layers/wrll-multicore ]; then
     cd $1/wrlinux-x/layers/
     git clone git://yow-git/layers/wrll-multicore
 fi
-cd $1/wrlinux-x/layers/wrll-multicore ; git pull ; git checkout $2
+cd $1/wrlinux-x/layers/wrll-multicore
+git pull
+git branch | grep -q $2
+if [ $? = 0 ]; then
+	git checkout $2
+else
+	git checkout -b $2 origin/$2
+fi
+git pull
