@@ -73,7 +73,7 @@ class nagios::service(
       use                 => 'generic-service',
       host_name           => 'yow-lpd-monitor.wrs.com',
       service_description => 'mc_nx_hostel_run',
-      check_command       => 'check_mc_nrpe!wr::hostel!yow!check_nx_instance',
+      check_command       => 'check_mc_nrpe!wr::yow-hostel!yow!check_nx_instance',
       notification_period => 'workhours',
       contact_groups      => 'admins';
     'yow_puppet_check':
