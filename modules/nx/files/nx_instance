@@ -136,7 +136,7 @@ restart() {
     start
 }
 
-status_logfile=/root/nx_instance.${instance}.log
+status_logfile=/tmp/nx_instance.${instance}.log
 
 nx_status(){
     #Monitoring nx is a little tricky. Here are the possible states:
