@@ -27,11 +27,21 @@ class redhat::workarounds {
     }
   }
 
+  if $::operatingsystemrelease < '5.2' {
+    $yum_updatesd_hasstatus = false
+  } else {
+    $yum_updatesd_hasstatus = true
+  }
+
   #make sure the firewall and other unnecessary services are disabled
   service {
-    ['iptables','ip6tables','yum-updatesd','sendmail']:
+    ['iptables','ip6tables','sendmail']:
+      ensure => stopped,
+      enable => false;
+    'yum-updatesd':
       ensure    => stopped,
       enable    => false,
+      hasstatus => $yum_updatesd_hasstatus;
   }
 
   if $::operatingsystem =~ /(RedHat|CentOS)/ {
