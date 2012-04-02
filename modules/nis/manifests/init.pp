@@ -2,8 +2,15 @@
 class nis {
 
   case $::operatingsystem {
-    /(Debian|Ubuntu)/: { $nis = 'nis' }
-    default: { $nis = 'ypbind' }
+    /(Debian|Ubuntu)/: {
+      $nis = 'nis'
+      $nis_hasstatus = false
+      $nis_status = 'ypbind'
+    }
+    default: {
+      $nis = 'ypbind'
+      $nis_hasstatus = true
+    }
   }
 
   package {
@@ -73,8 +80,8 @@ class nis {
 
     package {
       'portmap':
-        name   => $portmap_name,
-        ensure => installed;
+        ensure => installed,
+        name   => $portmap_name;
     }
 
     service {
@@ -95,7 +102,8 @@ class nis {
       name       => $nis,
       enable     => true,
       hasrestart => true,
-      hasstatus  => true,
+      hasstatus  => $nis_hasstatus,
+      status     => $nis_status,
       before     => Service['autofs'],
       subscribe  => [ File['/etc/yp.conf'], File['/etc/nsswitch.conf'],
                       Package['nis']];
