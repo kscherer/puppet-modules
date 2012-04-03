@@ -1,0 +1,430 @@
+# -*-sh-*-
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# don't put duplicate lines in the history. See bash(1) for more options
+# ... or force ignoredups and ignorespace
+export HISTCONTROL=ignorespace:erasedups
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+export HISTSIZE=5000
+export HISTFILESIZE=2000
+export HISTIGNORE="ls:ll:[bf]g:exit:history*:hg*:cd:push*:pop*:reset:a:z:q:l:reset"
+export HISTTIMEFORMAT="%d/%m/%y %T "
+
+#fix up spelling mistakes
+shopt -s cdspell
+
+#check if dirspell is supported
+if shopt | grep -q "dirspell"
+then
+    shopt -s dirspell
+fi
+
+#don't try to complete when nothing is typed
+shopt -s no_empty_cmd_completion
+shopt -s histreedit
+
+#attempt to force write of history on shell exit
+trap 'history -w' EXIT
+
+if [ ! -e $HOME/.history  ]; then
+    mkdir -p $HOME/.history
+fi
+
+#make a history file for each tty
+this_tty=`tty`
+this_tty=`basename $this_tty`
+export HISTFILE=~/.history/bash_history.$HOSTNAME.$this_tty
+
+#make sure the history file exists
+if [ ! -e $HISTFILE  ]; then
+    touch $HISTFILE
+fi
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi
+
+# Find a file with a pattern in name:
+function ff() { find . -type f -iname '*'$*'*' -print ; }
+
+#find a directory with a pattern in name:
+function fd() { find . -type d -iname '*'$*'*' -print ; }
+
+# Find a file with pattern $1 in name and Execute $2 on it:
+function fe()
+{ find . -type f -iname '*'${1:-}'*' -exec ${2:-file} {} \;  ; }
+
+function extract()      # Handy Extract Program.
+{
+     if [ -f $1 ] ; then
+         case $1 in
+             *.tar.bz2)   tar xvjf $1     ;;
+             *.tar.gz)    tar xvzf $1     ;;
+             *.bz2)       bunzip2 $1      ;;
+             *.rar)       unrar x $1      ;;
+             *.gz)        gunzip $1       ;;
+             *.tar)       tar xvf $1      ;;
+             *.tbz2)      tar xvjf $1     ;;
+             *.tgz)       tar xvzf $1     ;;
+             *.zip)       unzip $1        ;;
+             *.Z)         uncompress $1   ;;
+             *.7z)        7z x $1         ;;
+             *)           echo "'$1' cannot be extracted via >extract<" ;;
+         esac
+     else
+         echo "'$1' is not a valid file"
+     fi
+}
+
+#-------------------------------------------------------------
+# Process/system related functions:
+#-------------------------------------------------------------
+
+function my_ps() { ps $@ -u $USER -o pid,command ; }
+function pp() { my_ps f | awk '!/awk/ && $0~var' var=${1:-".*"} ; }
+
+function killps()                 # Kill by process name.
+{
+    local pid pname sig="-TERM"   # Default signal.
+    if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+        echo "Usage: killps [-SIGNAL] pattern"
+        return;
+    fi
+    if [ $# = 2 ]; then sig=$1 ; fi
+    for pid in $(my_ps| awk '!/awk/ && $0~pat { print $1 }' pat=${!#} ) ; do
+        pname=$(my_ps | awk '$1~var { print $5 }' var=$pid )
+        if ask "Kill process $pid <$pname> with signal $sig?"
+            then kill $sig $pid
+        fi
+    done
+}
+
+#-------------------------------------------------------------
+# Misc utilities:
+#-------------------------------------------------------------
+
+#edit the supplied file on the other end of the ssh connection
+#on a server enabled emacs
+function edit()
+{
+    local FILE=$(readlink -f $1)
+    if [ -n "$SSH_CONNECTION" ]; then
+        local REMOTEUSER=kscherer
+        local REMOTEIP=$(echo ${SSH_CONNECTION} | cut -d" " -f 1)
+        local LOCALIP=$(echo ${SSH_CONNECTION} | cut -d" " -f 3)
+
+        echo "Connecting to $REMOTEUSER@$REMOTEIP as $USER@LOCALIP"
+        ssh -l $REMOTEUSER $REMOTEIP emacsclient -n /$USER@$LOCALIP:$FILE
+    elif [ -n "$EMACS_SERVER" ]; then
+        local IP=$(/sbin/ifconfig | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}')
+        local ME=$USER@$IP
+        echo "Connecting to $EMACS_SERVER as $ME"
+        ssh $EMACS_SERVER emacsclient -n /$ME:$FILE
+    else
+        echo '$EMACS_SERVER is not set'
+    fi
+}
+
+function repeat()       # Repeat n times command.
+{
+    local i max
+    max=$1; shift;
+    for ((i=1; i <= max ; i++)); do  # --> C-like syntax
+        eval "$@";
+    done
+}
+
+function ask()          # See 'killps' for example of use.
+{
+    echo -n "$@" '[y/n] ' ; read ans
+    case "$ans" in
+        y*|Y*) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+# from http://n00bsys0p.wordpress.com/2011/02/10/how-to-download-flash-10-2-video-streams-in-linux/
+# after a flash video has been streamed, copy it, this handles multiple flash videos
+# downloaded in different tabs
+function cpflashvideo()
+{
+    for FILE in $(lsof -n|grep .tmp.Flash | awk '{print "/proc/" $2 "/fd/" $4}' | sed 's/.$//');
+    do
+        cp -v $FILE $(mktemp -u --suffix=.flv --tmpdir=$HOME/Videos/)
+    done
+}
+
+#function to test whether the supplied name is a function
+function fn_exists()
+{
+    declare -f $1 &> /dev/null;
+}
+
+#search through all the per tty history files
+function hg() { grep $1 ~/.history/*; }
+
+#delete the offending line from the known hosts file
+function sshhostrm()
+{
+    for arg in $*
+    do
+        ssh-keygen -f "$HOME/.ssh/known_hosts" -R $arg
+    done
+}
+
+# A shortcut function that simplifies usage of xsel
+# - Accepts input from either stdin (pipe), or params.
+# - If the input is a filename that exists, then it
+#   uses the contents of that file.
+# ------------------------------------------------
+cb() {
+    local _scs_col="\e[0;32m"; local _wrn_col='\e[1;31m'; local _trn_col='\e[0;33m'
+    # Check that xsel is installed.
+    if ! type xsel > /dev/null 2>&1; then
+        echo -e "$_wrn_col""You must have the 'xsel' program installed.\e[0m"
+    # Check user is not root (root doesn't have access to user xorg server)
+    elif [[ "$USER" == "root" ]]; then
+        echo -e "$_wrn_col""Must be regular user (not root) to copy a file to the clipboard.\e[0m"
+    else
+        # If no tty, data should be available on stdin
+        if ! [[ "$( tty )" == /dev/* ]]; then
+            input="$(< /dev/stdin)"
+        # Else, fetch input from params
+        else
+            input="$*"
+        fi
+        if [ -z "$input" ]; then  # If no input, print usage message.
+            echo "Copies a string or the contents of a file to the clipboard."
+            echo "Usage: cb <string or file>"
+            echo "       echo <string or file> | cb"
+        else
+            # If the input is a filename that exists, then use the contents of that file.
+            if [ -f "$input" ]; then input="$(cat $input)"; fi
+
+            # Copy input to clipboard
+            echo -n "$input" | xsel -ib
+
+            # Truncate text for status
+            if [ ${#input} -gt 80 ]; then input="$(echo $input | cut -c1-80)$_trn_col...\e[0m"; fi
+
+            # Print status.
+            echo -e "$_scs_col""Copied to clipboard:\e[0m $input"
+        fi
+    fi
+}
+
+# used to refresh ssh connection for tmux
+# http://justinchouinard.com/blog/2010/04/10/fix-stale-ssh-environment-variables-in-gnu-screen-and-tmux/
+function r() {
+    if [[ -n $TMUX ]]; then
+        NEW_SSH_AUTH_SOCK=`tmux showenv|grep ^SSH_AUTH_SOCK|cut -d = -f 2`
+        if [[ -n $NEW_SSH_AUTH_SOCK ]] && [[ -S $NEW_SSH_AUTH_SOCK ]]; then
+            SSH_AUTH_SOCK=$NEW_SSH_AUTH_SOCK
+        fi
+    fi
+}
+
+#prompt related functionality
+function setTruncatedPwd(){
+    # append the last command to the history file
+    history -a
+    #   How many characters of the $PWD should be kept
+    local pwdmaxlen=70
+    #   Indicator that there has been directory truncation:
+    local trunc_symbol="..."
+    if [ ${#PWD} -gt $pwdmaxlen ]
+    then
+        local pwdoffset=$(( ${#PWD} - $pwdmaxlen ))
+        newPWD="${trunc_symbol}${PWD:$pwdoffset:$pwdmaxlen}"
+    else
+        newPWD=${PWD}
+    fi
+}
+
+function selectColor() {
+    if [[ $1 == "0" ]]; then
+        printf "$2"
+    else
+        printf "$3"
+    fi
+    return "$1"
+}
+
+function setPrompt() {
+
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+
+        local BLA='\[\033[0;30m\]' # BLACK
+        local DGR='\[\033[1;30m\]' # DGRAY
+        local RED='\[\033[0;31m\]' # RED
+        local LRE='\[\033[1;31m\]' # LRED
+        local GRE='\[\033[0;32m\]' # GREEN
+        local LGR='\[\033[1;32m\]' # LGREEN
+        local BRO='\[\033[0;33m\]' # BROWN
+        local YEL='\[\033[1;33m\]' # YELLOW
+        local BLU='\[\033[0;34m\]' # BLUE
+        local LBL='\[\033[1;34m\]' # LBLUE
+        local PUR='\[\033[0;35m\]' # PURPLE
+        local LPU='\[\033[1;35m\]' # LPURPLE
+        local CYA='\[\033[0;36m\]' # CYAN
+        local LCY='\[\033[1;36m\]' # LCYAN
+        local LGY='\[\033[0;37m\]' # LGRAY
+        local WHI='\[\033[1;37m\]' # WHITE
+        local NOR='\[\033[0m\]'    # NORMAL
+    fi
+
+    local TIME="$BRO[\A]"
+    local PATH_WITH_ERRORCODE="\$(selectColor \$? '$LBL' '$RED')\$newPWD"
+
+    if fn_exists __git_ps1; then
+        export GIT_PS1_SHOWDIRTYSTATE=true
+        local GIT_BRANCH="\$(__git_ps1 ' ${LCY}%s')"
+    fi
+
+    local USER="\$(selectColor '$UID' '$RED' '$GRE')\u"
+
+    PS1="$TIME ${PATH_WITH_ERRORCODE}${GIT_BRANCH}$NOR\n$USER$GRE@\h> $NOR"
+}
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    source /etc/bash_completion
+fi
+
+#source a local git completion file if it exists and git completion is
+#not already installed
+fn_exists __git_ps1
+if [ "$?" != "0" ] && [ -f ~/.git_completion.sh ]; then
+    source ~/.git_completion.sh
+fi
+
+# following ssh related functions taken from http://superuser.com/a/141241
+# Used to "attach" to ssh agent running on remote computer
+function sshagent_findsockets {
+    find /tmp -uid $(id -u) -type s -name agent.\* 2>/dev/null
+}
+
+function sshagent_testsocket {
+    if [ ! -x "$(which ssh-add)" ] ; then
+        echo "ssh-add is not available; agent testing aborted"
+        return 1
+    fi
+
+    if [ X"$1" != X ] ; then
+        export SSH_AUTH_SOCK=$1
+    fi
+
+    if [ X"$SSH_AUTH_SOCK" = X ] ; then
+        return 2
+    fi
+
+    if [ -S $SSH_AUTH_SOCK ] ; then
+        ssh-add -l > /dev/null
+        if [ $? = 2 ] ; then
+            echo "Socket $SSH_AUTH_SOCK is dead!  Deleting!"
+            rm -f $SSH_AUTH_SOCK
+            return 4
+        else
+            echo "Found ssh-agent $SSH_AUTH_SOCK"
+            return 0
+        fi
+    else
+        echo "$SSH_AUTH_SOCK is not a socket!"
+        return 3
+    fi
+}
+
+function sshagent_init {
+    # ssh agent sockets can be attached to a ssh daemon process or an
+    # ssh-agent process.
+
+    AGENTFOUND=0
+
+    # Attempt to find and use the ssh-agent in the current environment
+    if sshagent_testsocket ; then AGENTFOUND=1 ; fi
+
+    # If there is no agent in the environment, search /tmp for
+    # possible agents to reuse before starting a fresh ssh-agent
+    # process.
+    if [ $AGENTFOUND = 0 ] ; then
+        for agentsocket in $(sshagent_findsockets) ; do
+            if [ $AGENTFOUND != 0 ] ; then break ; fi
+            if sshagent_testsocket $agentsocket ; then AGENTFOUND=1 ; fi
+        done
+    fi
+
+    # If at this point we still haven't located an agent, it's time to
+    # start a new one
+    if [ $AGENTFOUND = 0 ] ; then
+        eval `ssh-agent`
+    fi
+
+    # Clean up
+    unset AGENTFOUND
+    unset agentsocket
+
+    # Finally, show what keys are currently in the agent
+    ssh-add -l
+}
+
+alias sagent="sshagent_init"
+
+[ -f ~/.aliases ] && source ~/.aliases
+[ -f ~/.local-env ] && source ~/.local-env
+
+if [ $TERM = eterm-color ]; then
+    #Emacs ansi-term directory tracking
+    # track directory, username, and cwd for remote logons
+    function eterm-set-cwd {
+        $@
+        echo -e "\033AnSiTc" $(pwd)
+    }
+
+    # set hostname, user, and cwd
+    function eterm-reset {
+        echo -e "\033AnSiTu" $(whoami)
+        echo -e "\033AnSiTc" $(pwd)
+        echo -e "\033AnSiTh" $(hostname)
+    }
+
+    for temp in cd pushd popd; do
+        alias $temp="eterm-set-cwd $temp"
+    done
+
+    # set hostname, user, and cwd now
+    eterm-reset
+elif [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+
+    # Enable 256 color support if the terminfo is installed
+    if [ -e /lib/terminfo/x/xterm-256color ]; then
+        export TERM=xterm-256color
+    fi
+fi
+
+export PROMPT_COMMAND=setTruncatedPwd
+setPrompt
+
+if [[ ! "${PATH}" =~ "$HOME/bin" ]]; then
+    export PATH="$HOME/bin:${PATH}"
+fi

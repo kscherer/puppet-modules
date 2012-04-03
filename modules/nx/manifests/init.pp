@@ -75,6 +75,21 @@ class nx {
     '/etc/updatedb.conf':
       ensure => present,
       source => 'puppet:///modules/nx/updatedb.conf';
+    '/home/nxadm/.bashrc':
+      ensure => present,
+      owner  => 'nxadm',
+      group  => 'nxadm',
+      mode   => '0755',
+      source => 'puppet:///modules/wr/bashrc';
+    '/home/nxadm/.aliases':
+      ensure => present,
+      owner  => 'nxadm',
+      group  => 'nxadm',
+      mode   => '0755',
+      source => 'puppet:///modules/wr/aliases';
+    '/home/nxadm/.bash_profile':
+      ensure  => present,
+      content => 'if [ -f $HOME/.bashrc ]; then source $HOME/.bashrc; fi';
   }
 
   define nx::script() {

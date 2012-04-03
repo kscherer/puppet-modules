@@ -95,4 +95,24 @@ class wr::common {
     /^yow-lpgbld-.*/  => ['yow-lpgbld-master.wrs.com'],
     default           => ['ntp-1.wrs.com','ntp-2.wrs.com'],
   }
+
+  #add my configs to all machines
+  file {
+    '/root/.bashrc':
+      ensure => present,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0755',
+      source => 'puppet:///modules/wr/bashrc';
+    '/root/.aliases':
+      ensure => present,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0755',
+      source => 'puppet:///modules/wr/aliases';
+    '/root/.bash_profile':
+      ensure  => present,
+      content => 'if [ -f $HOME/.bashrc ]; then source $HOME/.bashrc; fi';
+  }
+
 }

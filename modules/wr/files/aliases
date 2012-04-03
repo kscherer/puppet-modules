@@ -1,0 +1,54 @@
+# -*-sh-*-
+
+alias ..='cd ..'
+alias cd2='cd ../..'
+alias cd3='cd ../../..'
+alias cd4='cd ../../../..'
+alias cd5='cd ../../../../..'
+
+if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+   alias ll='ls -halF --color=auto'
+   alias ls='ls -hF --color=auto'
+   alias l='ls -hF --color=auto'
+else
+   alias ll='ls -halF'
+   alias ls='ls -hF'
+   alias l='ls -hF'
+fi
+alias a='popd > /dev/null'
+alias z='pushd `pwd` > /dev/null ; cd ..'
+alias q='pwd'
+alias m='make'
+alias gs='git status'
+alias gl='git log -3'
+alias gd='git diff'
+alias gc='git commit'
+alias ga='git add -A'
+alias gg='git grep'
+alias gdc='git diff --cached'
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+# -> Prevents accidentally clobbering files.
+alias mkdir='mkdir -p'
+
+alias h='history'
+alias j='jobs -l'
+alias path='echo -e ${PATH//:/\\n}'
+alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
+alias du='du -kh'       # Makes a more readable output.
+alias df='df -kTh'
+alias pg='ps -eao pid,command -u $USER | grep'
+alias pag='ps -eao pid,command | grep '
+alias ec='emacsclient --no-wait'
+
+alias ack='ack-grep'
+
+alias svi='sudo vi'
+alias xm='sudo xm'
+
+## Ottawa git
+alias yow-git-init='if [ ! -d bin ] ; then git clone git://yow-git.ottawa.wrs.com/git/bin ; fi ; (cd bin ; ./wrgit pull) ; export PATH=`pwd`/bin:$PATH;'
+alias yow-git-clone='wrgit clone git://yow-git.ottawa.wrs.com/git/wrlinux-x'
+alias et="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
