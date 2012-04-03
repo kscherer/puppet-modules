@@ -28,7 +28,7 @@ class redhat::repos {
     [ 'fedora', 'fedora-updates-testing', 'cobbler-config',
       'CentOS-Base','CentOS-Debuginfo', 'CentOS-Media',
       'puppet', 'redhat_dvd', 'rhel-source',
-      'puppet-el6', 'puppet-el5', 'epel', 'redhat',
+      'puppet-el6', 'puppet-el5', 'epel',
       'redhat-el5', 'rhel-debuginfo', 'centos_dvd' ]:
   }
 
