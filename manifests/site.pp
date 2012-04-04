@@ -21,4 +21,3 @@ if $::operatingsystem == 'RedHat' and $::operatingsystemrelease == '4' {
 
 # define nodes
 import 'nodes.pp'
-
