@@ -17,14 +17,9 @@ class debian::ubuntu {
       release     => "${::lsbdistcodename}-updates",
       repos       => 'main restricted universe',
       include_src => false;
-    'yow_apt_ubuntu_mirror':
-      location    => 'http://yow-lpgbld-master.wrs.com/apt/',
-      release     => $::lsbdistcodename,
-      include_src => false,
-      repos       => 'main';
     'yow_puppetlabs_mirror':
       location    => 'http://yow-lpgbld-master.wrs.com/puppetlabs/',
-      release     => $::lsbdistcodename,
+      release     => 'squeeze',
       include_src => false,
       repos       => 'main';
   }
