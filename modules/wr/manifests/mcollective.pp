@@ -15,6 +15,13 @@ class wr::mcollective (
     /^yow.*$/ => 'yow-lpg-amqp.wrs.com',
   }
 
+  #12.04 has its own packaging which uses upstart and does not handle daemonize
+  if $::operatingsystem == 'Ubuntu' and $::lsbdistrelease == '12.04' {
+    $mc_daemonize = '0'
+  } else {
+    $mc_daemonize = '1'
+  }
+
   class {
     '::mcollective':
       client                => $client,
@@ -23,6 +30,7 @@ class wr::mcollective (
       yaml_facter_source    => '/etc/mcollective/facter.yaml',
       mc_security_provider  => 'psk',
       mc_security_psk       => 'H5FFD^B*S0yc7JCp',
+      mc_daemonize          => $mc_daemonize,
       main_collective       => 'mcollective',
       collectives           => "mcollective,$collective",
       stomp_server          => $amqp_server,

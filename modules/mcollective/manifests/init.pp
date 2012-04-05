@@ -107,6 +107,7 @@ class mcollective(
   $stomp_passwd         = $mcollective::params::stomp_passwd,
   $mc_security_provider = $mcollective::params::mc_security_provider,
   $mc_security_psk      = $mcollective::params::mc_security_psk,
+  $mc_daemonize         = $mcollective::params::mc_daemonize,
   $fact_source          = 'facter',
   $yaml_facter_source   = '/etc/mcollective/facts.yaml',
   $plugin_params        = {}
@@ -124,6 +125,7 @@ class mcollective(
   validate_re($version, $v_alphanum)
   validate_re($mc_security_provider, '^[a-zA-Z0-9_]+$')
   validate_re($mc_security_psk, '^[^ \t]+$')
+  validate_re($mc_daemonize, '^[0-1]$')
   validate_re($fact_source, '^facter$|^yaml$')
   validate_re($connector, '^stomp$|^activemq$')
   validate_hash($plugin_params)
@@ -135,6 +137,7 @@ class mcollective(
   $stomp_server_real         = $stomp_server
   $mc_security_provider_real = $mc_security_provider
   $mc_security_psk_real      = $mc_security_psk
+  $mc_daemonize_real         = $mc_daemonize
 
   # Service Name:
   $service_name = $enterprise ? {
