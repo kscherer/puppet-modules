@@ -52,7 +52,7 @@ class wr::mcollective (
     content  => inline_template("<%= scope.to_hash.reject {
       |k,v| !k.is_a?(String) || !v.is_a?(String) ||
       k.to_s =~ /(uptime|timestamp|free|path|rubysitedir|pubkey|ssh)/ }
-      .to_yaml(SortKeys => true) %>")
+      .to_yaml(:SortKeys => true) %>")
   }
 }
 
