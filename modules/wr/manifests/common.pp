@@ -42,7 +42,7 @@ class wr::common {
         /(RedHat|Fedora|CentOS)/ => 'yum',
         default                  => undef,
       },
-      ensure   => installed;
+      ensure   => latest;
   }
 
   #This path is used for stdlib facter_dot_d module
