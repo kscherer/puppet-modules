@@ -33,9 +33,19 @@ class redhat::workarounds {
     $yum_updatesd_hasstatus = true
   }
 
+  if $::operatingsystem == 'Fedora' {
+    $iptables_hasstatus = false
+  } else {
+    $iptables_hasstatus = true
+  }
+
   #make sure the firewall and other unnecessary services are disabled
   service {
-    ['iptables','ip6tables','sendmail']:
+    ['iptables','ip6tables']:
+      ensure    => stopped,
+      hasstatus => $iptables_hasstatus,
+      enable    => false;
+    'sendmail':
       ensure => stopped,
       enable => false;
     'yum-updatesd':
