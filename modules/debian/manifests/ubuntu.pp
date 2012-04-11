@@ -1,24 +1,26 @@
 #
 class debian::ubuntu {
 
+  $ubuntu_mirror = "$debian::mirror_base/ubuntu.com/ubuntu"
+
   apt::source {
     'yow-mirror_ubuntu':
-      location    => 'http://yow-mirror.wrs.com/mirror/ubuntu.com/ubuntu/',
+      location    => $ubuntu_mirror,
       release     => $::lsbdistcodename,
       repos       => 'main restricted universe',
       include_src => false;
     'yow-mirror_ubuntu_security':
-      location    => 'http://yow-mirror.wrs.com/mirror/ubuntu.com/ubuntu/',
+      location    => $ubuntu_mirror,
       release     => "${::lsbdistcodename}-security",
       repos       => 'main restricted universe',
       include_src => false;
     'yow-mirror_ubuntu_updates':
-      location    => 'http://yow-mirror.wrs.com/mirror/ubuntu.com/ubuntu/',
+      location    => $ubuntu_mirror,
       release     => "${::lsbdistcodename}-updates",
       repos       => 'main restricted universe',
       include_src => false;
     'yow_puppetlabs_mirror':
-      location    => 'http://yow-lpgbld-master.wrs.com/puppetlabs/',
+      location    => "$debian::mirror_base/puppetlabs",
       release     => 'squeeze',
       include_src => false,
       repos       => 'main';

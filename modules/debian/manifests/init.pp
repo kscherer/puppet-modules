@@ -2,6 +2,11 @@
 class debian {
   include exim4
 
+  $mirror_base = $::hostname ? {
+    /^yow.*/ => 'http://yow-mirror.wrs.com/mirror',
+    /^pek.*/ => 'http://pek-mirror.wrs.com/',
+  }
+
   case $::operatingsystem {
     'Ubuntu': {
       include debian::ubuntu
