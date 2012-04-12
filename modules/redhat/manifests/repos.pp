@@ -35,6 +35,7 @@ class redhat::repos {
   $yow_mirror = 'http://yow-mirror.wrs.com/mirror'
   $yow_mrepo_mirror = "${yow_mirror}/mrepo/repos"
   $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
+  $fedora_repo_base = "${yow_mrepo_mirror}/fedora${::operatingsystemrelease}-${::architecture}"
 
   #this exists solely to stop yum complaining about missing name
   define redhat::named_yumrepo( $baseurl ){
@@ -62,11 +63,9 @@ class redhat::repos {
       #officially not supported by wrlinux
       baseurl => "$yow_mirror/repos/centos-${::lsbmajdistrelease}-${::architecture}";
     'fedora-updates':
-      baseurl =>
-        "${yow_mirror}/fedora/updates/${::operatingsystemrelease}/${::architecture}";
+      baseurl => "${fedora_repo_base}/RPMS.updates";
     'fedora-everything':
-      baseurl =>
-        "${yow_mirror}/fedora/releases/${::operatingsystemrelease}/Everything/${::architecture}/os/Packages";
+      baseurl => "${fedora_repo_base}/RPMS.everything";
     'mcollective':
       baseurl => "${yow_mirror}/mcollective";
     'rhel6-optional':
@@ -78,13 +77,16 @@ class redhat::repos {
     'centos6-updates':
       baseurl => "${yow_mrepo_mirror}/centos6-${::architecture}/RPMS.updates";
     'puppetlabs-rh4':
-      baseurl => "${redhat::repos::yow_mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.both";
+      baseurl => "${yow_mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.both";
     'puppetlabs-rh5':
-      baseurl => "${redhat::repos::yow_mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.both";
+      baseurl => "${yow_mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.both";
+    'puppetlabs-fedora':
+      baseurl =>
+        "${yow_mrepo_mirror}/puppetlabs-f${::operatingsystemrelease}-${::architecture}/RPMS.both";
     'puppetlabs-rh6':
-      baseurl => "${redhat::repos::yow_mrepo_mirror}/puppetlabs-rh6-${::architecture}/RPMS.both";
+      baseurl => "${yow_mrepo_mirror}/puppetlabs-rh6-${::architecture}/RPMS.both";
     'passenger-rh6':
-      baseurl => "${redhat::repos::yow_mrepo_mirror}/passenger-rh6-${::architecture}/RPMS.all";
+      baseurl => "${yow_mrepo_mirror}/passenger-rh6-${::architecture}/RPMS.all";
   }
 
   case $::operatingsystemrelease {
@@ -108,7 +110,11 @@ class redhat::repos {
     }
     Fedora: {
       realize( Yumrepo['fedora-updates'], Yumrepo['fedora-everything'] )
-      realize( Yumrepo['puppetlabs-rh6'] )
+      if $::operatingsystemrelease >= 16 {
+        realize( Yumrepo['puppetlabs-fedora'] )
+      } else {
+        realize( Yumrepo['puppetlabs-rh6'] )
+      }
     }
     RedHat: {
       realize( Yumrepo['redhat-dvd'] )
