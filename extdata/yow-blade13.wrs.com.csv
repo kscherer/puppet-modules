@@ -18,4 +18,4 @@ iscsi_node_iface0_port1,172.17.137.114
 iscsi_node_iface1_port0,172.17.136.113
 iscsi_node_iface1_port1,172.17.136.114
 wwid_disk1,360024e80005e0d4b000013e94e9ea6d2
-wwid_disk2,360024e80005e0d4b0000130e4e8062f0
+wwid_disk2,360024e80005e0d4b000014964f87ef2d
