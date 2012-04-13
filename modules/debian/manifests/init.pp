@@ -4,7 +4,7 @@ class debian {
 
   $mirror_base = $::hostname ? {
     /^yow.*/ => 'http://yow-mirror.wrs.com/mirror',
-    /^pek.*/ => 'http://pek-mirror.wrs.com/',
+    /^pek.*/ => 'http://pek-mirror.wrs.com/mirror',
   }
 
   case $::operatingsystem {
