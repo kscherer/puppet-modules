@@ -23,7 +23,8 @@ class wr::pek-hostel inherits wr::common {
     'test':
       ensure     => present,
       managehome => true,
-      password   => sha1('windriver');
+      #sha-256 salted password windriver as requested by test team
+      password   => '$5$j5Wrmm4w$nsn03xSKYNSsUo1BmJqJZ3S1plhVZEMWzv7FajdZ7.B';
   }
 
   group {
