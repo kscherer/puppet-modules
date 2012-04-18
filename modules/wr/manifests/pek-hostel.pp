@@ -19,6 +19,14 @@ class wr::pek-hostel inherits wr::common {
     agent                       => true,
   }
 
+  ssh_authorized_key {
+    'wenzong':
+      ensure => 'present',
+      user   => 'root',
+      key    => $wr::common::wenzong_pubkey,
+      type   => 'ssh-dss';
+  }
+
   user {
     'test':
       ensure     => present,

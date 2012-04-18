@@ -18,4 +18,13 @@ class wr::pek-xenserver inherits wr::mcollective {
   #make sure mcollective package does not try to install packages until
   #sources have been installed
   Class['debian'] -> Class['mcollective']
+
+  ssh_authorized_key {
+    'wenzong':
+      ensure => 'present',
+      user   => 'root',
+      key    => $wr::common::wenzong_pubkey,
+      type   => 'ssh-dss';
+  }
+
 }
