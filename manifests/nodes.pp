@@ -97,3 +97,7 @@ node /yow-lpgbld-vm\d+\.wrs\.com$/ {
 node /yow-lpgbuild-\d+\.wrs\.com$/ {
   class { 'wr::yow-lpgbuild': }
 }
+
+node /pek-hostel-vm\d+\.wrs\.com$/ {
+  class { 'wr::pek-hostel': }
+}
