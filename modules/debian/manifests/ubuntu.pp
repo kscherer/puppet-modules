@@ -1,7 +1,7 @@
 #
-class debian::ubuntu {
+class debian::ubuntu ( $mirror_base ) {
 
-  $ubuntu_mirror = "${debian::mirror_base}/ubuntu.com/ubuntu"
+  $ubuntu_mirror = "${mirror_base}/ubuntu.com/ubuntu"
 
   apt::source {
     'yow-mirror_ubuntu':
@@ -20,7 +20,7 @@ class debian::ubuntu {
       repos       => 'main restricted universe',
       include_src => false;
     'yow_puppetlabs_mirror':
-      location    => "${debian::mirror_base}/puppetlabs",
+      location    => "${mirror_base}/puppetlabs",
       release     => 'squeeze',
       include_src => false,
       repos       => 'main';

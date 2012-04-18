@@ -9,11 +9,11 @@ class debian {
 
   case $::operatingsystem {
     'Ubuntu': {
-      include debian::ubuntu
+      class { 'debian::ubuntu' : mirror_base => $mirror_base }
       $repo=yow-mirror_ubuntu
     }
     'Debian': {
-      include debian::debian
+      class { 'debian::debian' : mirror_base => $mirror_base }
       $repo=debian_mirror_stable
     }
     default: { fail("Unsupported OS $::operatingsystem") }

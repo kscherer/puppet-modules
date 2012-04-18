@@ -1,5 +1,5 @@
 #
-class debian::debian {
+class debian::debian( $mirror_base ) {
 
   #koan needs the following packages
   package {
@@ -17,17 +17,17 @@ class debian::debian {
 
   apt::source {
     'debian_mirror_stable':
-      location    => "${debian::mirror_base}/debian",
+      location    => "${mirror_base}/debian",
       release     => 'stable',
       repos       => 'main contrib non-free',
       include_src => false;
     'yow_apt_mirror':
-      location    => "${debian::mirror_base}/apt",
+      location    => "${mirror_base}/apt",
       release     => 'squeeze',
       include_src => false,
       repos       => 'main';
     'yow_puppetlabs_mirror':
-      location    => "${debian::mirror_base}/puppetlabs",
+      location    => "${mirror_base}/puppetlabs",
       release     => 'squeeze',
       include_src => false,
       repos       => 'main';
@@ -37,12 +37,12 @@ class debian::debian {
   if $::kernelmajversion =~ /^3.*/ {
     apt::source {
     'debian_mirror_testing':
-      location    =>  "${debian::mirror_base}/debian",
+      location    =>  "${mirror_base}/debian",
       release     => 'testing',
       include_src => false,
       repos       => 'main contrib non-free';
     'debian_mirror_unstable':
-      location    =>  "${debian::mirror_base}/debian",
+      location    =>  "${mirror_base}/debian",
       release     => 'unstable',
       include_src => false,
       repos       => 'main contrib non-free';
