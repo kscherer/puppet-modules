@@ -92,7 +92,7 @@ node 'yow-lpd-monitor.wrs.com' {
 
 #test nodes for buildbot slaves
 node /yow-lpgbld-vm1[2-9].wrs.com/ {
-  class { 'wr::yow-buildbot': }
+  class { 'wr::yow-buildbot-slave': }
 }
 
 node /yow-lpgbld-vm\d+\.wrs\.com$/ {
