@@ -3,7 +3,20 @@
 class buildbot::slave(
   $master     = 'yow-lpgbld-master.wrs.com:9989',
   $slave_name = $::hostname
-  ) {
+  )
+{
+  if $::operatingsystem == 'CentOS' {
+    yumrepo {
+      'buildbot':
+        baseurl  => 'http://yow-mirror.wrs.com/mirror/buildbot',
+        descr    => 'YOW Buildbot repo',
+        enabled  => 1,
+        gpgcheck => 0,
+        before   => Package['buildbot-slave'],
+        notify   => Exec['yum-reload'];
+    }
+  }
+
   package {
     'buildbot-slave':
       ensure  => latest;
@@ -24,12 +37,12 @@ class buildbot::slave(
     'kscherer_windriver_buildbot':
       ensure => 'present',
       user   => 'buildbot',
-      key    => $wr::common::kscherer_windriver_pubkey,
+      key    => extdata('kscherer@yow-kscherer-l1'),
       type   => 'ssh-dss';
     'kscherer_home_buildbot':
       ensure => 'present',
       user   => 'buildbot',
-      key    => $wr::common::kscherer_home_pubkey,
+      key    => extdata('kscherer@helix'),
       type   => 'ssh-rsa';
   }
 

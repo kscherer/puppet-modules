@@ -23,7 +23,7 @@ class wr::pek-xenserver inherits wr::mcollective {
     'wenzong':
       ensure => 'present',
       user   => 'root',
-      key    => $wr::common::wenzong_pubkey,
+      key    => extdata('wfan@pek-wenzong-fan'),
       type   => 'ssh-dss';
   }
 
