@@ -61,7 +61,7 @@ class wr::master inherits wr::mcollective {
     'buildadmin@ala-git':
       ensure => 'present',
       user   => 'puppet',
-      key    => extdata('buildadmin@ala-git'),
+      key    => extlookup('buildadmin@ala-git'),
       type   => 'ssh-rsa';
   }
 }

@@ -37,12 +37,12 @@ class buildbot::slave(
     'kscherer_windriver_buildbot':
       ensure => 'present',
       user   => 'buildbot',
-      key    => extdata('kscherer@yow-kscherer-l1'),
+      key    => extlookup('kscherer@yow-kscherer-l1'),
       type   => 'ssh-dss';
     'kscherer_home_buildbot':
       ensure => 'present',
       user   => 'buildbot',
-      key    => extdata('kscherer@helix'),
+      key    => extlookup('kscherer@helix'),
       type   => 'ssh-rsa';
   }
 

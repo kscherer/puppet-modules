@@ -34,12 +34,12 @@ class wr::yow-hostel inherits wr::mcollective {
     'kscherer_windriver_nxadm':
       ensure => 'present',
       user   => 'nxadm',
-      key    => extdata('kscherer@yow-kscherer-l1'),
+      key    => extlookup('kscherer@yow-kscherer-l1'),
       type   => 'ssh-dss';
     'kscherer_home_nxadm':
       ensure => 'present',
       user   => 'nxadm',
-      key    => extdata('kscherer@helix'),
+      key    => extlookup('kscherer@helix'),
       type   => 'ssh-rsa';
   }
 }

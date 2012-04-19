@@ -14,17 +14,17 @@ class wr::common {
     'kscherer_windriver':
       ensure => 'present',
       user   => 'root',
-      key    => extdata('kscherer@yow-kscherer-l1'),
+      key    => extlookup('kscherer@yow-kscherer-l1'),
       type   => 'ssh-dss';
     'kscherer_home':
       ensure => 'present',
       user   => 'root',
-      key    => extdata('kscherer@helix'),
+      key    => extlookup('kscherer@helix'),
       type   => 'ssh-rsa';
     'cobbler_admin':
       ensure => 'present',
       user   => 'root',
-      key    => extdata('bldadmin@yow-lpgbld-master'),
+      key    => extlookup('bldadmin@yow-lpgbld-master'),
       type   => 'ssh-dss';
   }
 
