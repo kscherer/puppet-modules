@@ -77,7 +77,7 @@ class buildbot::slave(
       cwd     => $bb_base,
       user    => 'buildbot',
       group   => 'buildbot',
-      creates => '$bb_base/slave/buildbot.tac';
+      creates => "$bb_base/slave/buildbot.tac";
     'start-buildbot-slave':
       require => [ File["$bb_base/slave"],
                   Package['buildbot-slave'], Exec['create-buildbot-slave']],
