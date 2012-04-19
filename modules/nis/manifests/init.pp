@@ -53,9 +53,14 @@ class nis {
     default: {}
   }
 
+  $nis_server = $::hostname ? {
+    /^pek.*$/ => '128.224.160.17',
+    /^yow.*$/ => '128.224.144.20',
+  }
+
   file {
     '/etc/yp.conf':
-      content => 'domain swamp server 128.224.144.20',
+      content => "domain swamp server $nis_server",
       owner   => root, group => root, mode => '0644',
       require => Package['nis'];
     '/etc/nsswitch.conf':

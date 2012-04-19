@@ -45,6 +45,9 @@ class wr::common {
       ensure => directory;
     '/etc/facter/facts.d/':
       ensure => directory;
+    '/etc/facter/facts.d/location.txt':
+      ensure  => present,
+      content => inline_template( 'location=<%= hostname[0..2] %>' );
   }
 
   #boolean variables from facter may be strings
