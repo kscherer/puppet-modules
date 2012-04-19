@@ -1,19 +1,26 @@
 # Setup up NIS and autofs
 class nis {
 
-  if $::operatingsystem == 'Ubuntu' and $::lsbdistrelease == '10.04' {
-    $nis = 'nis'
-    $nis_hasstatus = false
-    $nis_status = 'ypbind'
+  if $::operatingsystem == 'Ubuntu' {
+    $nis_package = 'nis'
+    if $::lsbdistrelease == '10.04' {
+      $nis_hasstatus = false
+      $nis_service = 'nis'
+      $nis_status = 'ypbind'
+    } else {
+      $nis_service = 'ypbind'
+      $nis_hasstatus = true
+    }
   } else {
-    $nis = 'ypbind'
+    $nis_package = 'ypbind'
+    $nis_service = 'ypbind'
     $nis_hasstatus = true
   }
 
   package {
     'nis':
       ensure => installed,
-      name   => $nis;
+      name   => $nis_package;
     'autofs':
       ensure => installed;
   }
@@ -96,7 +103,7 @@ class nis {
   service {
     'nis':
       ensure     => running,
-      name       => $nis,
+      name       => $nis_service,
       enable     => true,
       hasrestart => true,
       hasstatus  => $nis_hasstatus,
