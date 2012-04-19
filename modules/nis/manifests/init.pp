@@ -1,16 +1,13 @@
 # Setup up NIS and autofs
 class nis {
 
-  case $::operatingsystem {
-    /(Debian|Ubuntu)/: {
-      $nis = 'nis'
-      $nis_hasstatus = false
-      $nis_status = 'ypbind'
-    }
-    default: {
-      $nis = 'ypbind'
-      $nis_hasstatus = true
-    }
+  if $::operatingsystem == 'Ubuntu' and $::lsbdistrelease == '10.04' {
+    $nis = 'nis'
+    $nis_hasstatus = false
+    $nis_status = 'ypbind'
+  } else {
+    $nis = 'ypbind'
+    $nis_hasstatus = true
   }
 
   package {
