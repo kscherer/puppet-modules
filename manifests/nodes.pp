@@ -90,6 +90,11 @@ node 'yow-lpd-monitor.wrs.com' {
 
 }
 
+#test nodes for buildbot slaves
+node /yow-lpgbld-vm1[2-9].wrs.com/ {
+  class { 'wr::yow-buildbot': }
+}
+
 node /yow-lpgbld-vm\d+\.wrs\.com$/ {
   class { 'wr::yow-hostel': }
 }
@@ -100,9 +105,4 @@ node /yow-lpgbuild-\d+\.wrs\.com$/ {
 
 node /pek-hostel-vm\d+\.wrs\.com$/ {
   class { 'wr::pek-hostel': }
-}
-
-#test nodes for buildbot slaves
-node /yow-lpgbld-vm1[2-9].wrs.com/ {
-  class { 'wr::yow-buildbot': }
 }
