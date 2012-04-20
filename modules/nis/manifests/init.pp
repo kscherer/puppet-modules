@@ -68,7 +68,7 @@ class nis {
       owner   => root, group => root, mode => '0644',
       require => Package['nis'];
     '/etc/auto.master':
-      source  => 'puppet:///modules/nis/auto.master',
+      content => template('nis/auto.master.erb'),
       owner   => root, group => root, mode => '0644',
       require => Package['autofs'];
     ['/net','/folk']:
