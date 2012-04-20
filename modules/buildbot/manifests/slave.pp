@@ -87,6 +87,6 @@ class buildbot::slave(
       user    => 'buildbot',
       group   => 'buildbot',
       #check if buildbot slave is running by checking for pid
-      unless  => 'test ! -e slave/twistd.pid || test ! -d /proc/$(cat slave/twistd.pid)';
+      onlyif  => ['test -e slave/twistd.pid', 'test -d /proc/$(cat slave/twistd.pid)'];
   }
 }
