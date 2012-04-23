@@ -94,7 +94,7 @@ class buildbot::slave(
   #this could create thundering herd on git servers
   cron {
     'pull_wrlinux':
-      command => 'cd /home/buildbot/wrlinux; /home/buildbot/bin/wrgit pull',
+      command => 'cd /home/buildbot/wrlinux-x; /home/buildbot/bin/wrgit pull',
       minute  => '0',
       user    => 'buildbot';
   }
