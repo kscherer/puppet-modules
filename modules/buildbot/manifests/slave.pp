@@ -89,4 +89,19 @@ class buildbot::slave(
       #check if buildbot slave is running by checking for pid
       unless  => 'test -e slave/twistd.pid && test -d /proc/$(cat slave/twistd.pid)';
   }
+
+  #update local wrlinux repo used for reference cloning
+  #this could create thundering herd on git servers
+  cron {
+    'pull_wrlinux':
+      command => 'cd /home/buildbot/wrlinux; /home/buildbot/bin/wrgit pull',
+      minute  => '0',
+      user    => 'buildbot';
+  }
+
+  #buildbot needs some packages not part of wrlinux required files
+  package {
+    ['texi2html','chrpath','diffstat','subversion']:
+      ensure => installed;
+  }
 }
