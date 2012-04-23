@@ -72,7 +72,7 @@ class buildbot::slave(
   exec {
     'create-buildbot-slave':
       require => [ File["$bb_base/slave"], Package['buildbot-slave']],
-      command => "buildslave create-slave slave $master $slave_name pass",
+      command => "buildslave create-slave slave --umask=022 $master $slave_name pass",
       path    => '/bin:/usr/bin:/sbin/',
       cwd     => $bb_base,
       user    => 'buildbot',
@@ -94,7 +94,7 @@ class buildbot::slave(
   #this could create thundering herd on git servers
   cron {
     'pull_wrlinux':
-      command => 'cd /home/buildbot/wrlinux-x; /home/buildbot/bin/wrgit pull',
+      command => 'cd /home/buildbot/wrlinux-x; /home/buildbot/bin/wrgit pull &> /dev/null',
       minute  => '0',
       user    => 'buildbot';
   }
