@@ -79,15 +79,16 @@ class buildbot::slave(
       group   => 'buildbot',
       creates => "$bb_base/slave/buildbot.tac";
     'start-buildbot-slave':
-      require => [ File["$bb_base/slave"], Package['buildbot-slave'],
-                  Exec['create-buildbot-slave']],
-      command => 'buildslave start slave',
-      path    => '/bin:/usr/bin:/sbin/',
-      cwd     => $bb_base,
-      user    => 'buildbot',
-      group   => 'buildbot',
+      require     => [ File["$bb_base/slave"], Package['buildbot-slave'],
+                      Exec['create-buildbot-slave']],
+      command     => 'buildslave start slave',
+      path        => '/bin:/usr/bin:/sbin/',
+      environment => ['HOME=/home/buildbot'],
+      cwd         => $bb_base,
+      user        => 'buildbot',
+      group       => 'buildbot',
       #check if buildbot slave is running by checking for pid
-      unless  => 'test -e slave/twistd.pid && test -d /proc/$(cat slave/twistd.pid)';
+      unless      => 'test -e slave/twistd.pid && test -d /proc/$(cat slave/twistd.pid)';
   }
 
   #update local wrlinux repo used for reference cloning
