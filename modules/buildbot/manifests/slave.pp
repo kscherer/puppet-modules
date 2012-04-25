@@ -72,7 +72,7 @@ class buildbot::slave(
   exec {
     'create-buildbot-slave':
       require => [ File["$bb_base/slave"], Package['buildbot-slave']],
-      command => "buildslave create-slave slave --umask=022 $master $slave_name pass",
+      command => "buildslave create-slave --umask=022 slave $master $slave_name pass",
       path    => '/bin:/usr/bin:/sbin/',
       cwd     => $bb_base,
       user    => 'buildbot',
