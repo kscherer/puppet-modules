@@ -71,26 +71,34 @@ class buildbot::slave(
       ensure => present,
       mode   => '0755',
       source => 'puppet:///modules/buildbot/prep.sh';
+    '/home/buildbot/.gitconfig':
+      mode    => '0644',
+      source  => 'puppet:///modules/nx/gitconfig';
+  }
+
+  Exec {
+    path    => '/bin:/usr/bin:/sbin/',
+    cwd     => $bb_base,
+    require => User['buildbot'],
+    user    => 'buildbot',
+    group   => 'buildbot',
   }
 
   exec {
+    'clone_bin_repo':
+      command => 'git clone git://yow-git.wrs.com/bin',
+      cwd     => '/home/buildbot',
+      unless  => 'test -d /home/buildbot/bin';
     'create-buildbot-slave':
-      require => [ File["$bb_base/slave"], Package['buildbot-slave']],
+      require => [ File["$bb_base/slave"], Package['buildbot-slave'],
+                  Exec['clone_bin_repo']],
       command => "buildslave create-slave --umask=022 slave $master $slave_name pass",
-      path    => '/bin:/usr/bin:/sbin/',
-      cwd     => $bb_base,
-      user    => 'buildbot',
-      group   => 'buildbot',
       creates => "$bb_base/slave/buildbot.tac";
     'start-buildbot-slave':
       require     => [ File["$bb_base/slave"], Package['buildbot-slave'],
                       Exec['create-buildbot-slave']],
       command     => 'buildslave start slave',
-      path        => '/bin:/usr/bin:/sbin/',
       environment => ['HOME=/home/buildbot'],
-      cwd         => $bb_base,
-      user        => 'buildbot',
-      group       => 'buildbot',
       #check if buildbot slave is running by checking for pid
       unless      => 'test -e slave/twistd.pid && test -d /proc/$(cat slave/twistd.pid)';
   }
@@ -101,6 +109,10 @@ class buildbot::slave(
     'pull_wrlinux':
       command => 'cd /home/buildbot/wrlinux-x; /home/buildbot/bin/wrgit pull &> /dev/null',
       minute  => '0',
+      user    => 'buildbot';
+    'pull_bin':
+      command => 'cd /home/buildbot/bin; /usr/bin/git pull &> /dev/null',
+      minute  => '30',
       user    => 'buildbot';
   }
 
