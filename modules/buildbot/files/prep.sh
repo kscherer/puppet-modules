@@ -30,7 +30,14 @@ done
 
 set -x
 
-# Clone wrlinux if it does not exist
+#make sure initial clone is created
+if [ ! -d $HOME/wrlinux-x ]; then
+    pushd $HOME
+    $HOME/bin/wrgit clone $opt_repo
+    popd
+fi
+
+# Reference clone wrlinux if it does not exist
 if [ ! -d wrlinux-x ]; then
     $HOME/bin/wrgit clone --reference $HOME/wrlinux-x --branch $opt_branch $opt_repo
 fi
