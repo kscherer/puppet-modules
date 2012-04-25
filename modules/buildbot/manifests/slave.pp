@@ -46,27 +46,31 @@ class buildbot::slave(
       type   => 'ssh-rsa';
   }
 
+  File {
+    owner  => buildbot,
+    group  => buildbot
+  }
+
   $bb_base = '/home/buildbot/build'
   file {
     [$bb_base,"$bb_base/slave"]:
-      ensure => directory,
-      owner  => buildbot,
-      group  => buildbot;
+      ensure => directory;
     '/home/buildbot/.bashrc':
       ensure => present,
-      owner  => 'buildbot',
-      group  => 'buildbot',
       mode   => '0755',
       source => 'puppet:///modules/wr/bashrc';
     '/home/buildbot/.aliases':
       ensure => present,
-      owner  => 'buildbot',
-      group  => 'buildbot',
       mode   => '0755',
       source => 'puppet:///modules/wr/aliases';
     '/home/buildbot/.bash_profile':
       ensure  => present,
+      mode    => '0755',
       content => 'if [ -f $HOME/.bashrc ]; then source $HOME/.bashrc; fi';
+    '/home/buildbot/prep.sh':
+      ensure => present,
+      mode   => '0755',
+      source => 'puppet:///modules/buildbot/prep.sh';
   }
 
   exec {

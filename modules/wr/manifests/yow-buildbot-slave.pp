@@ -19,7 +19,6 @@ class wr::yow-buildbot-slave inherits wr::mcollective {
     agent                       => true,
   }
   -> class { 'nrpe': }
-  -> class { 'nis': }
   -> class { 'wrlinux': }
   -> class { 'buildbot::slave': }
   -> class { 'nagios::target': }
