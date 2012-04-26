@@ -20,6 +20,7 @@ class wr::yow-buildbot-slave inherits wr::mcollective {
   }
   -> class { 'nrpe': }
   -> class { 'wrlinux': }
+  -> class { 'yocto': }
   -> class { 'buildbot::slave': }
   -> class { 'nagios::target': }
 
