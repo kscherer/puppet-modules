@@ -211,7 +211,7 @@ nx_status(){
             fi
         elif [ -f "/var/tmp/STFU" ]; then
             nx_status_string="STFU deployed. Nx waiting"
-            RETVAL=150 # Reserved for application return code
+            RETVAL=0
         elif [ ! -f ${nx_builddir}/nx.log ]; then
             nx_status_string="Nx instance $instance is stopped"
             RETVAL=3
