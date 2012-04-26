@@ -74,6 +74,16 @@ class buildbot::slave(
     '/home/buildbot/.gitconfig':
       mode    => '0644',
       source  => 'puppet:///modules/nx/gitconfig';
+    "${bb_base}/slave/info/admin":
+      ensure  => present,
+      require => [ File["$bb_base/slave"], Package['buildbot-slave'],
+                  Exec['create-buildbot-slave']],
+      content => 'Konrad Scherer <Konrad.Scherer@windriver.com>';
+    "${bb_base}/slave/info/admin":
+      ensure  => present,
+      require => [ File["$bb_base/slave"], Package['buildbot-slave'],
+                  Exec['create-buildbot-slave']],
+      content => "OS: $::operatingsystem\nRelease: $::operatingsystemrelease\n";
   }
 
   Exec {
