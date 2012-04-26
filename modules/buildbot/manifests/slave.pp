@@ -79,7 +79,7 @@ class buildbot::slave(
       require => [ File["$bb_base/slave"], Package['buildbot-slave'],
                   Exec['create-buildbot-slave']],
       content => 'Konrad Scherer <Konrad.Scherer@windriver.com>';
-    "${bb_base}/slave/info/admin":
+    "${bb_base}/slave/info/host":
       ensure  => present,
       require => [ File["$bb_base/slave"], Package['buildbot-slave'],
                   Exec['create-buildbot-slave']],
