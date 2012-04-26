@@ -86,7 +86,7 @@ start() {
         echo "Nx is hung, restarting..."
         stop
     elif [ "$RETVAL" -eq "150" ]; then
-        echo "Warning: SFTU deployed. Start request ignored."
+        echo "Warning: STFU deployed. Start request ignored."
         return 0
     elif [ "$RETVAL" -eq "151" ]; then
         echo "Warning: Nx is experiencing external glitches. Start request ignored ."
@@ -141,7 +141,7 @@ status_logfile=/tmp/nx_instance.${instance}.log
 nx_status(){
     #Monitoring nx is a little tricky. Here are the possible states:
     #Stopped, Building, Hung, Waiting for commits or to retry git pulls
-    #SFTU deployed
+    #STFU deployed
     #The return codes are from LSB:
     #http://refspecs.linuxbase.org/LSB_3.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html
     echo "Status called $(date)" >> $status_logfile
@@ -209,8 +209,8 @@ nx_status(){
                     RETVAL=1
                 fi
             fi
-        elif [ -f "/var/tmp/SFTU" ]; then
-            nx_status_string="SFTU deployed. Nx waiting"
+        elif [ -f "/var/tmp/STFU" ]; then
+            nx_status_string="STFU deployed. Nx waiting"
             RETVAL=150 # Reserved for application return code
         elif [ ! -f ${nx_builddir}/nx.log ]; then
             nx_status_string="Nx instance $instance is stopped"
