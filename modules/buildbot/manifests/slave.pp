@@ -108,7 +108,8 @@ class buildbot::slave(
       require     => [ File["$bb_base/slave"], Package['buildbot-slave'],
                       Exec['create-buildbot-slave']],
       command     => 'buildslave start slave',
-      environment => ['HOME=/home/buildbot'],
+      environment => ['HOME=/home/buildbot','PATH=/bin:/usr/bin:/sbin:/home/buildbot/bin',
+                      'USER=buildbot'],
       #check if buildbot slave is running by checking for pid
       unless      => 'test -e slave/twistd.pid && test -d /proc/$(cat slave/twistd.pid)';
   }
