@@ -37,10 +37,13 @@ if [ ! -d $HOME/wrlinux-x ]; then
     popd
 fi
 
-# Reference clone wrlinux if it does not exist
+#clean up any previous wrlinux repo
 if [ ! -d wrlinux-x ]; then
-    $HOME/bin/wrgit clone --reference $HOME/wrlinux-x --branch $opt_branch $opt_repo
+    rm -rf wrlinux-x
 fi
+
+# Reference clone wrlinux
+$HOME/bin/wrgit clone --reference $HOME/wrlinux-x --branch $opt_branch $opt_repo
 
 #clean out any previous builds
 if [ -d $opt_buildername ]; then
@@ -50,5 +53,5 @@ fi
 #Update builder with latest commits
 #make sure branch is correct
 cd wrlinux-x
-wrgit checkout $opt_branch
-wrgit pull
+$HOME/bin/wrgit checkout $opt_branch
+$HOME/bin/wrgit pull
