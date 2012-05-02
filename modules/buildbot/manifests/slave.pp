@@ -18,7 +18,7 @@ class buildbot::slave(
   }
 
   package {
-    'buildbot-slave':
+    ['buildbot-slave','python-twisted-core']:
       ensure  => latest;
   }
 
@@ -83,7 +83,7 @@ class buildbot::slave(
       ensure  => present,
       require => [ File["$bb_base/slave"], Package['buildbot-slave'],
                   Exec['create-buildbot-slave']],
-      content => "OS: $::operatingsystem\nRelease: $::operatingsystemrelease\n";
+      content => "OS: $::operatingsystem\nRelease: $::operatingsystemrelease\nArch: $::architecture";
   }
 
   Exec {
