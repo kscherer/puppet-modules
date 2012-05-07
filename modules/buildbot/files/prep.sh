@@ -38,7 +38,7 @@ if [ ! -d $HOME/wrlinux-x ]; then
 fi
 
 #clean up any previous wrlinux repo
-if [ ! -d wrlinux-x ]; then
+if [ -d wrlinux-x ]; then
     rm -rf wrlinux-x
 fi
 
