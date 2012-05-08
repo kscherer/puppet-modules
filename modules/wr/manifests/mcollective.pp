@@ -24,6 +24,7 @@ class wr::mcollective (
 
   class {
     '::mcollective':
+      version               => 'latest',
       client                => $client,
       manage_plugins        => true,
       fact_source           => 'yaml',
