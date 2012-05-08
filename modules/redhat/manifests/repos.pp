@@ -79,16 +79,16 @@ class redhat::repos {
     'centos6-updates':
       baseurl => "${mrepo_mirror}/centos6-${::architecture}/RPMS.updates";
     'puppetlabs-rh4':
-      baseurl => "${mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.both";
+      baseurl => "${mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.all";
     'puppetlabs-rh5':
-      baseurl => "${mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.both";
+      baseurl => "${mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.all";
     'puppetlabs-fedora':
       baseurl =>
-        "${mrepo_mirror}/puppetlabs-f${::operatingsystemrelease}-${::architecture}/RPMS.both";
+        "${mrepo_mirror}/puppetlabs-f${::operatingsystemrelease}-${::architecture}/RPMS.all";
     'puppetlabs-rh6':
-      baseurl => "${mrepo_mirror}/puppetlabs-rh6-${::architecture}/RPMS.both";
+      baseurl => "${mrepo_mirror}/puppetlabs-rh6-${::architecture}/RPMS.all";
     'passenger-rh6':
-      baseurl => "${mrepo_mirror}/passenger-rh6-${::architecture}/RPMS.all";
+      baseurl => "${mrepo_mirror}/passenger-rh6-${::architecture}/RPMS.main";
   }
 
   case $::operatingsystemrelease {
