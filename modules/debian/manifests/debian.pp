@@ -11,7 +11,7 @@ class debian::debian( $mirror_base ) {
   #Due to experiments with 3.x kernel with xen dom0 support, some
   #hosts are debian unstable
   case $::kernelmajversion {
-    /^3.*/:  { class { 'apt::release' : release_id => 'unstable' } }
+    /^3.*/:  { file { '/etc/apt/apt.conf.d/01release': ensure => absent; } }
     default: { class { 'apt::release' : release_id => 'stable' } }
   }
 
