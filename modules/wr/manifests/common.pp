@@ -38,7 +38,7 @@ class wr::common {
       $facter_provider = 'yum'
       #newer versions of facter need dmidecode
       if $::operatingsystemrelease == '4' {
-        $facter_version = '1.6.6'
+        $facter_version = '1.6.6-1.el5'
       } else {
         $facter_version = 'latest'
       }
