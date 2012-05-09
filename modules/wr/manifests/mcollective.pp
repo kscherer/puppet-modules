@@ -15,12 +15,8 @@ class wr::mcollective (
     /^yow.*$/ => 'yow-lpg-amqp.wrs.com',
   }
 
-  #12.04 has its own packaging which uses upstart and does not handle daemonize
-  if $::operatingsystem == 'Ubuntu' and $::lsbdistrelease == '12.04' {
-    $mc_daemonize = '0'
-  } else {
-    $mc_daemonize = '1'
-  }
+  #Previous bug with 12.04 and upstart has been fixed
+  $mc_daemonize = '1'
 
   class {
     '::mcollective':
