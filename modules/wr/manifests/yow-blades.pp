@@ -12,7 +12,7 @@ class wr::yow-blades inherits wr::mcollective {
   }
   -> class { 'nrpe': }
   -> class { 'nis': }
-  -> class { 'wrlinux': }
+  -> class { 'yocto': }
   -> class { 'collectd::client': }
   -> class { 'nx': }
   -> class { 'nagios::target': }
