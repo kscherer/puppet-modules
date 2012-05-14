@@ -34,7 +34,7 @@ class nx::yow-blades {
 
   #create four nx instances
   nx::setup {
-    [ '1','2','3','4' ]:
+    '1':
   }
 
   case $::hostname {
