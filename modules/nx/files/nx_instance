@@ -136,15 +136,12 @@ restart() {
     start
 }
 
-status_logfile=/tmp/nx_instance.${instance}.log
-
 nx_status(){
     #Monitoring nx is a little tricky. Here are the possible states:
     #Stopped, Building, Hung, Waiting for commits or to retry git pulls
     #STFU deployed
     #The return codes are from LSB:
     #http://refspecs.linuxbase.org/LSB_3.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html
-    echo "Status called $(date)" >> $status_logfile
 
     #support this function being called from outside this script
     local nx_builddir=$nx_builddir
@@ -176,17 +173,12 @@ nx_status(){
     local wrbuildlog="${nx_builddir}/current_build/00-wrbuild.log"
     local now=$(date +%s)
 
-    echo "Pidfile contains $pid" >> $status_logfile
-    echo "Last line of nx.log is $(tail -n 1 $nx_log)" >> $status_logfile
-
     #check if pid in pidfile is valid
     if [ -d /proc/$pid ]; then
         local nxlog_age=$(($now - $(stat -c '%Y' "$nx_log")))
-        echo "Pid valid. Nx log is $nxlog_age seconds old." >> $status_logfile
 
         if [ -f $wrbuildlog ]; then
             local wrbuildlog_age=$(($now - $(stat -c '%Y' "$wrbuildlog")))
-            echo "Build log is $wrbuildlog_age seconds old." >> $status_logfile
             #If the 00-wrbuild.log was modified recently then build is not hung
             if [ $wrbuildlog_age -lt $fifteen_min ]; then
                 nx_status_string="Nx instance $instance is running"
@@ -200,7 +192,6 @@ nx_status(){
                 #This will detect if build progress is actually being made
                 local newest_buildlog=$(ls -t1 ${nx_builddir}/current_build/build/*.log | head -n 1)
                 local newest_buildlog_age=$(($now - $(stat -c '%Y' "$newest_buildlog")))
-                echo "Newest build log is $newest_buildlog_age seconds old." >> $status_logfile
                 if [ $newest_buildlog_age -lt $fifteen_min ]; then
                     nx_status_string="Nx instance $instance is running"
                     RETVAL=0
@@ -259,7 +250,6 @@ case "$1" in
     status)
         nx_status
         echo $nx_status_string
-        echo "Exiting status call with $RETVAL and $nx_status_string." >> $status_logfile
         ;;
     *)
         echo "Usage: nx_instance {start|stop|restart|status}"
