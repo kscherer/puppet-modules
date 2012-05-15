@@ -104,7 +104,7 @@ start() {
         stop
     fi
 
-    real_start()
+    real_start
 
     echo
     return $RETVAL
