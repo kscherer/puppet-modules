@@ -67,6 +67,14 @@ ${nx_builddir}/notxylo/nx ${nxopts}"
 RETVAL=0
 nx_status_string=""
 
+real_start() {
+    #This will start each nx instance in its own process group
+    su nxadm /bin/bash -l -c "${nx_command}"
+
+    RETVAL=$?
+    return $RETVAL
+}
+
 start() {
     echo -n "Starting nx instance ${instance}"
 
@@ -96,10 +104,8 @@ start() {
         stop
     fi
 
-    #This will start each nx instance in its own process group
-    su nxadm /bin/bash -l -c "${nx_command}"
+    real_start()
 
-    RETVAL=$?
     echo
     return $RETVAL
 }
@@ -133,7 +139,7 @@ stop() {
 
 restart() {
     stop
-    start
+    real_start
 }
 
 nx_status(){
@@ -166,7 +172,7 @@ nx_status(){
     fi
 
     local pid=$(cat $pidfile)
-    local thirty_sec=30
+    local fifteen_sec=15
     local fifteen_min=900 #15 * 60 seconds
     local thirty_min=1800 #30 * 60 seconds
     #When nx is building is makes a link to the current build
@@ -225,7 +231,10 @@ nx_status(){
             nx_status_string="I have no idea what nx is doing: $(tail ${nx_log})"
             RETVAL=4 # Unknown state
         fi
-    elif [ -f "$nx_log" ] && [ $(($now - $(stat -c '%Y' "$nx_log"))) -lt $thirty_sec ]; then
+    elif [ $(tail -n 1 $nx_log | grep -q "Goodbye Cruel World") ]; then
+        nx_status_string="Nx instance $instance is stopped"
+        RETVAL=3
+    elif [ -f "$nx_log" ] && [ $(($now - $(stat -c '%Y' "$nx_log"))) -lt $fifteen_sec ]; then
         #it is possible that the pidfile is out of date as it auto restarts
         nx_status_string="Nx instance $instance is running"
         RETVAL=0
