@@ -2,7 +2,7 @@
 class wr::yow-blades inherits wr::mcollective {
   class { 'redhat': }
   -> class { 'ntp':
-    servers    => ['ntp-1.wrs.com','ntp-2.wrs.com'],
+    servers => $wr::common::ntp_servers,
   }
   -> class { 'puppet':
     puppet_server               => $wr::common::puppet_server,

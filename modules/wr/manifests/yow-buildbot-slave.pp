@@ -10,7 +10,7 @@ class wr::yow-buildbot-slave inherits wr::mcollective {
 
   class { $base_class: }
   -> class { 'ntp':
-    servers    => $wr::common::ntp_servers,
+    servers => $wr::common::ntp_servers,
   }
   -> class { 'puppet':
     puppet_server               => $wr::common::puppet_server,
