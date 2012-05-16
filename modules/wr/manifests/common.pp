@@ -105,7 +105,7 @@ class wr::common {
 
   $ntp_servers = $::hostname ? {
     yow-lpgbld-master => ['ntp-1.wrs.com','ntp-2.wrs.com'],
-    /^yow-lpgbld-.*/  => ['yow-lpgbld-master.wrs.com'],
+    /^yow.*/          => ['yow-lpgbld-master.wrs.com'],
     default           => ['ntp-1.wrs.com','ntp-2.wrs.com'],
   }
 
