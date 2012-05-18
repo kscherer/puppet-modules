@@ -105,7 +105,9 @@ class wr::common {
 
   $ntp_servers = $::hostname ? {
     yow-lpgbld-master => ['ntp-1.wrs.com','ntp-2.wrs.com'],
+    pek-lpd-puppet    => ['ntp-1.wrs.com','ntp-2.wrs.com'],
     /^yow.*/          => ['yow-lpgbld-master.wrs.com'],
+    /^pek.*/          => ['pek-lpd-puppet.wrs.com'],
     default           => ['ntp-1.wrs.com','ntp-2.wrs.com'],
   }
 
