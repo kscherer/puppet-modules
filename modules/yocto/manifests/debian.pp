@@ -3,7 +3,7 @@ class yocto::debian {
   #glibc_std in yocto requires OpenGL
   package {
     [ 'texi2html', 'chrpath','diffstat','subversion','libgl1-mesa-dev', 'libglu1-mesa-dev',
-      'libsdl1.2-dev', 'texinfo', 'gawk']:
+      'libsdl1.2-dev', 'texinfo', 'gawk', 'gcc']:
         ensure => installed;
   }
 
