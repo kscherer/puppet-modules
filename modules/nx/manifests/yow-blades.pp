@@ -128,7 +128,7 @@ class nx::netapp_iscsi_setup {
     case $::hostname  {
       yow-blade7: {
         $fstype = 'ext4'
-        $options = 'noatime,nodiratime,data=writeback,_netdev,commit=100'
+        $options = 'noatime,nodiratime,_netdev'
       }
       default: {
         $fstype = 'ext3'
