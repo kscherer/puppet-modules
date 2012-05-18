@@ -59,6 +59,9 @@ node /yow-blade.*.wrs.com/ {
 node 'yow-lpgbld-09.wrs.com' {
   class { 'wr::yow-buildbot-slave': }
 }
+node 'yow-lpgbld-10.wrs.com' {
+  class { 'wr::yow-buildbot-slave': }
+}
 
 node /yow-lpgbld-[1-5][0-9].*/ {
   class { 'wr::xenserver': }
