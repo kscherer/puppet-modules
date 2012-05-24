@@ -6,5 +6,4 @@ class yocto::redhat {
       'SDL-devel', 'texinfo', 'gawk', 'gcc', 'gcc-c++', 'help2man']:
         ensure => installed;
   }
-
 }
