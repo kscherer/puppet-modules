@@ -32,12 +32,6 @@ class nagios(
   include nagios::timeperiod
 
   file {
-    #make sure all files in /etc/nagios/ have world read permissions
-    $nagios_dir:
-      ensure  => directory,
-      recurse => true,
-      purge   => true,
-      mode    => '0755';
     "${nagios_dir}/objects":
       ensure  => directory,
       mode    => '0755';
