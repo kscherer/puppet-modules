@@ -1,7 +1,6 @@
 #Puppetize standard nagios definitions
 class nagios::command(
   $nagios_dir  = $nagios::params::nagios_dir,
-  $nagios_confdir = $nagios::params::nagios_confdir
   ) inherits nagios::params {
 
   @@nagios_command {
@@ -29,11 +28,10 @@ class nagios::command(
       purge => true;
   }
 
-  $command_cfg = "${nagios_confdir}/nagios_command.cfg"
+  $command_cfg = "${nagios_dir}/nagios_command.cfg"
   Nagios_command <<||>> {
     target  => $command_cfg,
     notify  => Service['nagios'],
-    require => File[$nagios_confdir],
     before  => File[$command_cfg],
   }
 

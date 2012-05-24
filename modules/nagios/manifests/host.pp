@@ -1,6 +1,6 @@
 #Puppetize standard nagios definitions
 class nagios::host(
-  $nagios_confdir = $nagios::params::nagios_confdir
+  $nagios_dir = $nagios::params::nagios_dir
   ) inherits nagios::params {
 
   @@nagios_host {
@@ -33,20 +33,17 @@ class nagios::host(
       purge => true;
   }
 
-  $host_cfg = "${nagios_confdir}/nagios_host.cfg"
+  $host_cfg = "${nagios_dir}/nagios_host.cfg"
   # collect resources and populate /etc/nagios/nagios_*.cfg
   Nagios_host <<||>> {
-    target  => $host_cfg,
     notify  => Service['nagios'],
-    require => File[$nagios_confdir],
     before  => File[$host_cfg],
   }
 
-  $hostext_cfg = "${nagios_confdir}/nagios_hostextinfo.cfg"
+  $hostext_cfg = "${nagios_dir}/nagios_hostextinfo.cfg"
   Nagios_hostextinfo <<||>> {
-    target  => $hostext_cfg,
     notify  => Service['nagios'],
-    require => File[$nagios_confdir],
+    require => File[$nagios_dir],
     before  => File[$hostext_cfg],
   }
 

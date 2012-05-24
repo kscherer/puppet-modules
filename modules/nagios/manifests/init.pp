@@ -1,7 +1,6 @@
 #
 class nagios(
   $nagios_dir  = $nagios::params::nagios_dir,
-  $nagios_confdir = $nagios::params::nagios_confdir
   ) inherits nagios::params {
 
   package {
@@ -33,8 +32,8 @@ class nagios(
   include nagios::timeperiod
 
   file {
-    #make sure all files in /etc/nagios/conf.d have world read permissions
-    $nagios_confdir:
+    #make sure all files in /etc/nagios/ have world read permissions
+    $nagios_dir:
       ensure  => directory,
       recurse => true,
       purge   => true,

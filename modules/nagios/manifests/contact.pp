@@ -1,6 +1,6 @@
 #Puppetize standard nagios definitions
 class nagios::contact(
-  $nagios_confdir = $nagios::params::nagios_confdir
+  $nagios_dir = $nagios::params::nagios_dir
   ) inherits nagios::params {
 
   @@nagios_contact {
@@ -30,19 +30,17 @@ class nagios::contact(
       purge => true;
   }
 
-  $contact_cfg = "${nagios_confdir}/nagios_contact.cfg"
+  $contact_cfg = "${nagios_dir}/nagios_contact.cfg"
   Nagios_contact <<||>> {
-    target  => $contact_cfg,
     notify  => Service['nagios'],
-    require => File[$nagios_confdir],
+    require => File[$nagios_dir],
     before  => File[$contact_cfg],
   }
 
-  $contactgroup_cfg = "${nagios_confdir}/nagios_contactgroup.cfg"
+  $contactgroup_cfg = "${nagios_dir}/nagios_contactgroup.cfg"
   Nagios_contactgroup <<||>> {
-    target  => $contactgroup_cfg,
     notify  => Service['nagios'],
-    require => File[$nagios_confdir],
+    require => File[$nagios_dir],
     before  => File[$contactgroup_cfg],
   }
 

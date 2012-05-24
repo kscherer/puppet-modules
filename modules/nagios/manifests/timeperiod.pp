@@ -1,6 +1,6 @@
 #Puppetize standard nagios definitions
 class nagios::timeperiod(
-  $nagios_confdir = $nagios::params::nagios_confdir
+  $nagios_dir = $nagios::params::nagios_dir
   ) inherits nagios::params {
 
   @@nagios_timeperiod {
@@ -27,11 +27,10 @@ class nagios::timeperiod(
       purge => true;
   }
 
-  $timeperiod_cfg = "${nagios_confdir}/nagios_timeperiod.cfg"
+  $timeperiod_cfg = "${nagios_dir}/nagios_timeperiod.cfg"
   Nagios_timeperiod <<||>> {
-    target  => $timeperiod_cfg,
     notify  => Service['nagios'],
-    require => File[$nagios_confdir],
+    require => File[$nagios_dir],
     before  => File[$timeperiod_cfg],
   }
 
