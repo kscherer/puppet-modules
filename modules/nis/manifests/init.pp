@@ -79,10 +79,10 @@ class nis {
   #On Redhat 5.x and Suse the portmap service is needed
   $isRedHat5 = ($::operatingsystem =~ /(RedHat|CentOS)/ and $::operatingsystemrelease =~ /5.*/)
   $isSuse = ($::operatingsystem =~ /(OpenSuSE|SLED|SLES)/)
-  $isSuse11 = ($isSuse and $::operatingsystemrelease =~ /11/ )
+  $isSuse11plus = ($isSuse and $::operatingsystemrelease > 10 )
 
   if $isRedHat5 or $isSuse {
-    $portmap_name = $isSuse11 ?{
+    $portmap_name = $isSuse11plus ?{
       true  => 'rpcbind',
       false => 'portmap',
     }
