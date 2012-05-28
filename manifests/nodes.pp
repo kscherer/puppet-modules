@@ -59,7 +59,10 @@ node /yow-blade.*.wrs.com/ {
 node 'yow-lpgbld-09.wrs.com' {
   class { 'wr::yow-buildbot-slave': }
 }
-node /yow-lpgbld-1[0-4].wrs.com/ {
+node /yow-lpgbld-1[0-5].wrs.com/ {
+  class { 'wr::yow-buildbot-slave': }
+}
+node /yow-lpgbld-2[3-4].wrs.com/ {
   class { 'wr::yow-buildbot-slave': }
 }
 
