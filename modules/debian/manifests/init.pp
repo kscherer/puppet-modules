@@ -2,6 +2,11 @@
 class debian {
   include exim4
 
+  File {
+    owner => 'root',
+    group => 'root',
+  }
+
   $mirror_base = $::hostname ? {
     /^yow.*/ => 'http://yow-mirror.wrs.com/mirror',
     /^pek.*/ => 'http://pek-mirror.wrs.com/mirror',
@@ -26,14 +31,18 @@ class debian {
       require => Apt::Source[$repo];
   }
 
-  #show versions when searching for packages with aptitude
   file {
+    #show versions when searching for packages with aptitude
     '/etc/apt/apt.conf.d/90aptitude':
       ensure  => file,
       content => 'Aptitude "";
 Aptitude::CmdLine "";
 Aptitude::CmdLine::Show-Versions "true";
 Aptitude::CmdLine::Package-Display-Format "%c%a%M %p# - %d%V#";';
+      #Prefer package from puppetlabs
+    '/etc/apt/preferences.d/01puppetlabs':
+      ensure  => file,
+      content => 'Package: *\nPin: release l=PuppetLabs\nPin-Priority: 900';
   }
 
   file {
