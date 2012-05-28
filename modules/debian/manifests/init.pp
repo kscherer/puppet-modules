@@ -43,7 +43,7 @@ Aptitude::CmdLine::Package-Display-Format "%c%a%M %p# - %d%V#";';
     '/etc/apt/preferences.d/01puppetlabs':
       ensure  => file,
       content => 'Package: *
-Pin: release l=Puppet
+Pin: release l=PuppetLabs
 Pin-Priority: 900';
   }
 
