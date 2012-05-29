@@ -74,8 +74,8 @@ class puppet::params {
       $puppet_logdir                = '/var/log/puppet'
       $puppet_vardir                = '/var/lib/puppet'
       $puppet_ssldir                = '/var/lib/puppet/ssl'
-      $package_provider             = 'gem'
-      $mysql_package_provider       = 'gem'
+      $package_provider             = 'zypper'
+      $mysql_package_provider       = 'zypper'
       $ruby_mysql_package           = 'mysql'
     }
     'freebsd': {
