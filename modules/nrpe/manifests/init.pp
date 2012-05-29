@@ -105,7 +105,7 @@ class nrpe {
       parameters => '--warning=10% --critical=5% --all --ignore-eregi-path=\'(shm|boot|prebuilt_cache)\' --units GB';
     'check_ntp':
       command    => 'check_ntp_time',
-      parameters => '-H 147.11.100.50 -w 0.5 -c 1';
+      parameters => "-H $wr::common::ntp_servers[0] -w 0.5 -c 1";
     #make sure the nx log file has been updated recently. Checks if nx is hung
     'check_nx':
       command    => 'check_file_age',
