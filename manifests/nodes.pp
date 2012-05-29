@@ -56,17 +56,12 @@ node /yow-blade.*.wrs.com/ {
   class { 'wr::yow-blades': }
 }
 
-node 'yow-lpgbld-09.wrs.com' {
-  class { 'wr::yow-buildbot-slave': }
-}
-node /yow-lpgbld-1[0-5].wrs.com/ {
-  class { 'wr::yow-buildbot-slave': }
-}
-node /yow-lpgbld-2[3-4].wrs.com/ {
+#test buildbot cluster
+node /yow-lpgbld-[0-2][0-9]\.wrs\.com/ {
   class { 'wr::yow-buildbot-slave': }
 }
 
-node /yow-lpgbld-[1-5][0-9].*/ {
+node /yow-lpgbld-[3-5][0-9]\.wrs\.com/ {
   class { 'wr::xenserver': }
 }
 
@@ -98,14 +93,6 @@ node 'yow-lpd-monitor.wrs.com' {
   #nagios class notifies httpd service so -> relationship creates cycles
   class { 'apache': }
 
-}
-
-#test nodes for buildbot slaves
-node /yow-lpgbld-vm1[0-9].wrs.com/ {
-  class { 'wr::yow-buildbot-slave': }
-}
-node /yow-lpgbld-vm2[0-9].wrs.com/ {
-  class { 'wr::yow-buildbot-slave': }
 }
 
 node /yow-lpgbld-vm\d+\.wrs\.com$/ {
