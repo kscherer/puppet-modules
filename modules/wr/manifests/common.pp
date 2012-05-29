@@ -29,30 +29,9 @@ class wr::common {
   }
 
   #The puppet package get handled by puppet module, but not facter
-  case $::operatingsystem {
-    /(OpenSuSE|SLED)/: {
-      $facter_provider = 'gem'
-      $facter_version = 'latest'
-    }
-    /(RedHat|Fedora|CentOS)/: {
-      $facter_provider = 'yum'
-      #newer versions of facter need dmidecode
-      if $::operatingsystemrelease == '4' {
-        $facter_version = '1.6.6-1.el5'
-      } else {
-        $facter_version = 'latest'
-      }
-    }
-    default: {
-      $facter_provider = undef
-      $facter_version = 'latest'
-    }
-  }
-
   package {
     'facter':
-      ensure   => $facter_version,
-      provider => $facter_provider;
+      ensure   => 'latest';
   }
 
   #This path is used for stdlib facter_dot_d module
