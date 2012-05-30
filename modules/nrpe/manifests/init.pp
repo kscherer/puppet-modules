@@ -91,11 +91,20 @@ class nrpe {
     }
   }
 
+  class sled {
+    package {
+      [ 'nagios-plugins-disk', 'nagios-plugins-file_age', 'nagios-plugins-ntp_time',
+        'nagios-plugins-procs']:
+          ensure => present;
+    }
+  }
+
   case $::operatingsystem {
     Debian,Ubuntu: { include nrpe::debian }
     CentOS,RedHat: { include nrpe::redhat }
     Fedora:        { include nrpe::fedora }
-    OpenSuSE,SLED: { include nrpe::opensuse }
+    OpenSuSE:      { include nrpe::opensuse }
+    SLED:          { include nrpe::sled }
     default:       { fail('Unknown distro') }
   }
 
