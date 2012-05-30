@@ -99,13 +99,15 @@ class nrpe {
     default:       { fail('Unknown distro') }
   }
 
+  $first_ntp_server = $wr::common::ntp_servers[0]
+
   nrpe::command {
     'check_disks':
       command    => 'check_disk',
       parameters => '--warning=10% --critical=5% --all --ignore-eregi-path=\'(shm|boot|prebuilt_cache)\' --units GB';
     'check_ntp':
       command    => 'check_ntp_time',
-      parameters => "-H $wr::common::ntp_servers[0] -w 0.5 -c 1";
+      parameters => "-H $first_ntp_server -w 0.5 -c 1";
     #make sure the nx log file has been updated recently. Checks if nx is hung
     'check_nx':
       command    => 'check_file_age',
