@@ -75,7 +75,6 @@ node /pek-hostel-deb0[1-6]\.wrs\.com/ {
 
 node 'yow-lpd-monitor.wrs.com' {
   class { 'redhat': }
-  -> class { 'nrpe': }
   -> class { 'ntp': servers => ['yow-lpgbld-master.wrs.com'] }
   -> class { 'puppet':
     puppet_server               => 'yow-lpd-puppet.wrs.com',
@@ -86,6 +85,7 @@ node 'yow-lpd-monitor.wrs.com' {
   -> class { 'collectd::client': }
   -> class { 'wr::mcollective': client => true }
   -> class { 'wr::puppetcommander': }
+  -> class { 'nrpe': }
   -> class { 'nagios': }
 
   class { 'nagios::target': }
