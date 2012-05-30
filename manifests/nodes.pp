@@ -3,28 +3,28 @@ node default {
 
 node 'ala-lpd-puppet.wrs.com' {
   class { 'redhat': }
-  -> class { 'nrpe': }
   -> class { 'ntp': servers          => ['ntp-1.wrs.com','ntp-2.wrs.com'] }
   -> class { 'java':    distribution => 'java-1.6.0-openjdk' }
   -> class { 'activemq': broker_name => 'ala-broker' }
   -> class { 'wr::master': }
+  -> class { 'nrpe': }
 }
 
 node 'pek-lpd-puppet.wrs.com' {
   class { 'redhat': }
-  -> class { 'nrpe': }
   -> class { 'ntp': servers          => ['ntp-1.wrs.com','ntp-2.wrs.com'] }
   -> class { 'java':    distribution => 'java-1.6.0-openjdk' }
   -> class { 'activemq': broker_name => 'pek-broker' }
   -> class { 'wr::master': }
+  -> class { 'nrpe': }
 }
 
 node 'yow-lpd-puppet.wrs.com' {
   class { 'redhat': }
-  -> class { 'nrpe': }
   -> class { 'ntp': servers => ['yow-lpgbld-master.wrs.com'] }
   -> class { 'collectd::client': }
   -> class { 'wr::master': }
+  -> class { 'nrpe': }
   -> class { 'nagios::target': }
 }
 
@@ -34,7 +34,6 @@ node 'yow-lpg-amqp.wrs.com' {
   $broker_name = 'yow-broker'
   $webconsole_real = true
   class { 'redhat': }
-  -> class { 'nrpe': }
   -> class { 'ntp': servers       => ['yow-lpgbld-master.wrs.com'] }
   -> class { 'puppet':
     puppet_server               => 'yow-lpd-puppet.wrs.com',
@@ -49,6 +48,7 @@ node 'yow-lpg-amqp.wrs.com' {
   }
   -> class { 'collectd::client': }
   -> class { 'wr::mcollective': }
+  -> class { 'nrpe': }
   -> class { 'nagios::target': }
 }
 
