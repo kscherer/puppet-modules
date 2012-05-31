@@ -10,4 +10,4 @@ p3p1_mac,00:10:18:3B:D5:44
 iscsi_initiator_name,iqn.1994-05.com.redhat:fd39b92b5fc8
 iscsi_target_name,iqn.1992-08.com.netapp:sn.135094594
 iscsi_node_iface0_port0,172.17.137.101
-iscsi_uuid,3e3286b1-c9ac-48cf-b4a7-ee09961d4cf8
+iscsi_uuid,22eb73b5-4718-4eae-babd-97d9bff50697
