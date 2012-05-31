@@ -66,7 +66,7 @@ class redhat::repos {
       #This is a link to the latest CentOS DVD release for 6
       #and 5.5 for CentOS 5 as later versions of Redhat are
       #officially not supported by wrlinux
-      baseurl => "$mirror/repos/centos-${::lsbmajdistrelease}-${::architecture}";
+      baseurl => "${mirror}/repos/centos-${::lsbmajdistrelease}-${::architecture}";
     'fedora-updates':
       baseurl => "${fedora_repo_base}/RPMS.updates";
     'fedora-everything':

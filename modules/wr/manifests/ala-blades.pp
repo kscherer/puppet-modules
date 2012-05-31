@@ -20,10 +20,25 @@ class wr::ala-blades inherits wr::mcollective {
   }
 
   ssh_authorized_key {
+    'root@ala-blade9':
+      ensure => 'present',
+      user   => 'root',
+      key    => extlookup('root@ala-blade9'),
+      type   => 'ssh-rsa';
+    'root@ala-blade14':
+      ensure => 'present',
+      user   => 'root',
+      key    => extlookup('root@ala-blade14'),
+      type   => 'ssh-dsa';
     'root@ala-blade17':
       ensure => 'present',
       user   => 'root',
       key    => extlookup('root@ala-blade17'),
+      type   => 'ssh-rsa';
+    'root@ala-blade25':
+      ensure => 'present',
+      user   => 'root',
+      key    => extlookup('root@ala-blade25'),
       type   => 'ssh-rsa';
   }
 
