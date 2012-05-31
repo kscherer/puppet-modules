@@ -34,6 +34,7 @@ class redhat::repos {
 
   $mirror = $::hostname ? {
     /^pek.*$/ => 'http://pek-mirror.wrs.com/mirror',
+    /^ala.*$/ => 'http://ala-mirror.wrs.com/mirror',
     default   => 'http://yow-mirror.wrs.com/mirror',
   }
 
