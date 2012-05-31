@@ -21,5 +21,7 @@
 # same will not be seen as the first read key seen takes
 # precedence.
 #
+<% if hostname[0..2] != "ala" -%>
 /folk   yp:auto.<%= hostname[0..2] %>
+<% endif -%>
 +auto.master
