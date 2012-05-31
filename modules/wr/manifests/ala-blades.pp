@@ -29,7 +29,7 @@ class wr::ala-blades inherits wr::mcollective {
       ensure => 'present',
       user   => 'root',
       key    => extlookup('root@ala-blade14'),
-      type   => 'ssh-dsa';
+      type   => 'ssh-dss';
     'root@ala-blade17':
       ensure => 'present',
       user   => 'root',
