@@ -8,5 +8,10 @@ class yocto::suse {
         'patch']:
           ensure => installed;
     }
+  } elsif $::operatingsystem == 'SLED' {
+    package {
+      [ 'make', 'texinfo', 'gawk', 'gcc', 'gcc-c++', 'patch']:
+          ensure => installed;
+    }
   }
 }
