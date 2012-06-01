@@ -118,3 +118,7 @@ node /ala-lpggp\d+\.wrs\.com/ {
 node /ala-lp.*\.wrs\.com/ {
   class { 'wr::ala-common': }
 }
+
+node 'ala-irc.wrs.com' {
+  class { 'wr::ala-common': }
+}
