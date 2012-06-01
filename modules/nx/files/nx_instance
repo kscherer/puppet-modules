@@ -121,14 +121,14 @@ stop() {
 
         #first try gentle kill using kill program, not builtin kill which does not
         #support process group kill
-        /bin/kill -- "-${pgid## }"
+        kill -15 "-${pgid## }"
 
         #wait and check if process is actually dead
         sleep 5
         if ps -U ${nx_user} -o pgid= | grep -q $pgid
         then
             #echo "TERM failed. Killing instance ${instance} with pid $pid and pgid $pgid"
-            /bin/kill -s 9 -- "-${pgid## }"
+            kill -9 "-${pgid## }"
         fi
     else
         echo -n "pid $pid already dead"
