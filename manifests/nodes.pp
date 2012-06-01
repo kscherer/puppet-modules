@@ -110,3 +110,7 @@ node /pek-hostel-vm\d+\.wrs\.com$/ {
 node /ala-blade\d+\.wrs\.com/ {
   class { 'wr::ala-blades': }
 }
+
+node /ala-lpggp\d+\.wrs\.com/ {
+  class { 'wr::ala-lpggp': }
+}
