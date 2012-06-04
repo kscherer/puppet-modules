@@ -76,9 +76,9 @@ class redhat::repos {
     'rhel6-updates':
       baseurl => "${mrepo_mirror}/rhel6ws-${::architecture}/RPMS.updates";
     'centos5-updates':
-      baseurl => "${mrepo_mirror}/centos5-${::architecture}/RPMS.updates";
+      baseurl => "${mrepo_mirror}/centos5-${::architecture}/RPMS.all";
     'centos6-updates':
-      baseurl => "${mrepo_mirror}/centos6-${::architecture}/RPMS.updates";
+      baseurl => "${mrepo_mirror}/centos6-${::architecture}/RPMS.all";
     'puppetlabs-rh4':
       baseurl => "${mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.all";
     'puppetlabs-rh5':
