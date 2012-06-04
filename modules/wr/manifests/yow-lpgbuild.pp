@@ -1,21 +1,10 @@
 #
-class wr::yow-lpgbuild inherits wr::mcollective {
-  class { 'redhat': }
-  -> class { 'ntp':
-    servers => $wr::common::ntp_servers,
-  }
-  -> class { 'puppet':
-    puppet_server               => $wr::common::puppet_server,
-    puppet_agent_ensure         => 'latest',
-    puppet_agent_service_enable => false,
-    agent                       => true,
-  }
-  -> class { 'nrpe': }
-  -> class { 'nis': }
-  -> class { 'yocto': }
-  -> class { 'collectd::client': }
+class wr::yow-lpgbuild inherits wr::yow-common {
+
+  Class['redhat'] -> Class['yocto']
+
+  class { 'yocto': }
   -> class { 'nx': }
-  -> class { 'nagios::target': }
 
   user {
     'root':
@@ -38,12 +27,5 @@ class wr::yow-lpgbuild inherits wr::mcollective {
       user   => 'nxadm',
       key    => extlookup('jwessel@splat'),
       type   => 'ssh-rsa';
-  }
-
-  file {
-    '/etc/resolv.conf':
-      ensure  => present,
-      mode    => '0644',
-      content => "domain wrs.com\nsearch wrs.com\nnameserver 128.224.144.28\n";
   }
 }
