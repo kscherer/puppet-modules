@@ -102,7 +102,6 @@ class redhat::repos {
   #setup repos depending on which flavour of redhat
   case $::operatingsystem {
     CentOS: {
-      realize( Yumrepo['centos-dvd'] )
       realize( Yumrepo["epel-el${major_release}-${::architecture}"] )
       realize( Yumrepo["centos${major_release}-updates"] )
       realize( Yumrepo["puppetlabs-rh${major_release}"] )
