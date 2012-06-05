@@ -29,7 +29,7 @@ class redhat::repos {
       'CentOS-Base','CentOS-Debuginfo', 'CentOS-Media',
       'puppet', 'redhat_dvd', 'rhel-source',
       'puppet-el6', 'puppet-el5', 'epel',
-      'redhat-el5', 'rhel-debuginfo', 'centos_dvd' ]:
+      'redhat-el5', 'rhel-debuginfo', 'centos_dvd', 'centos-dvd' ]:
   }
 
   $mirror = $::hostname ? {
@@ -62,11 +62,6 @@ class redhat::repos {
       baseurl => "${mrepo_mirror}/rhel6ws-${::architecture}/RPMS.epel";
     'redhat-dvd':
       baseurl => "${mirror}/repos/${redhat_dvd_repo}";
-    'centos-dvd':
-      #This is a link to the latest CentOS DVD release for 6
-      #and 5.5 for CentOS 5 as later versions of Redhat are
-      #officially not supported by wrlinux
-      baseurl => "${mirror}/repos/centos-${::lsbmajdistrelease}-${::architecture}";
     'fedora-updates':
       baseurl => "${fedora_repo_base}/RPMS.updates";
     'fedora-everything':

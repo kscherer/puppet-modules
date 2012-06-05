@@ -22,4 +22,11 @@ class wr::yow-common inherits wr::mcollective {
       content => "domain wrs.com\nsearch wrs.com windriver.com corp.ad.wrs.com\nnameserver 128.224.144.28 \nnameserver 147.11.57.128\n";
   }
 
+  #enable auto update using cron
+  package {
+    'yum-cron':
+      ensure => installed;
+    'yum-updatesd':
+      ensure => absent;
+  }
 }
