@@ -46,10 +46,14 @@ class wr::mcollective (
     ensure   => file,
     backup   => false,
     replace  => true,
+    #grab all puppet vars from current scope, filter out invalid
+    #or frequently changing values, make a yaml hash and then
+    #sort the lines reverse alphabetically. Reverse so that --- stays
+    #at the top of the file
     content  => inline_template("<%= scope.to_hash.reject {
       |k,v| !k.is_a?(String) || !v.is_a?(String) ||
       k.to_s =~ /(uptime|timestamp|free|path|rubysitedir|pubkey|ssh)/
-      }.to_yaml(:SortKeys => true) %>")
+      }.to_yaml().split('\n').sort{ |x,y| y <=> x }.join('\n') %>")
   }
 }
 
