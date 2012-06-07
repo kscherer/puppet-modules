@@ -11,7 +11,7 @@ class yocto::suse {
   } elsif $::operatingsystem == 'SLED' {
     package {
       [ 'make', 'texinfo', 'gawk', 'gcc', 'gcc-c++', 'patch', 'diffstat',
-        'subversion', 'chrpath', 'Mesa']:
+        'subversion', 'chrpath', 'Mesa-devel', 'SDL-devel']:
           ensure => installed;
     }
   }
