@@ -127,3 +127,7 @@ node /ala-lp.*\.wrs\.com/ {
 node 'ala-irc.wrs.com' {
   class { 'wr::ala-common': }
 }
+
+node 'yow-irc.wrs.com' {
+  class { 'wr::irc': }
+}
