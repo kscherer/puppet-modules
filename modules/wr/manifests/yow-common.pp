@@ -24,7 +24,7 @@ class wr::yow-common inherits wr::mcollective {
 
   #enable auto update using cron
   package {
-    'yum-cron':
+    ['yum-cron', 'bash-completion']:
       ensure => installed;
     'yum-updatesd':
       ensure => absent;
