@@ -41,5 +41,10 @@ class wr::yow-hostel inherits wr::mcollective {
       user   => 'nxadm',
       key    => extlookup('kscherer@helix'),
       type   => 'ssh-rsa';
+    'jwessel_nxadm':
+      ensure => 'present',
+      user   => 'nxadm',
+      key    => extlookup('jwessel@splat'),
+      type   => 'ssh-rsa';
   }
 }
