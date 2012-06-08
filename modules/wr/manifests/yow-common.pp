@@ -29,4 +29,11 @@ class wr::yow-common inherits wr::mcollective {
     'yum-updatesd':
       ensure => absent;
   }
+
+  service {
+    'yum-cron':
+      ensure    => running,
+      enable    => true,
+      hasstatus => true;
+  }
 }
