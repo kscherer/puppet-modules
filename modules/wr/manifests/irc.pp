@@ -61,6 +61,6 @@ class wr::irc inherits wr::mcollective {
     'ircd':
       ensure  => running,
       enable  => true,
-      require => ['ircd.conf','ircd.motd','m_opme.so'];
+      require => [File['ircd.conf'],File['ircd.motd'],File['m_opme.so']];
   }
 }
