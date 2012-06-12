@@ -22,4 +22,45 @@ class wr::irc inherits wr::mcollective {
     'yum-updatesd':
       ensure => absent;
   }
+
+  $operators = {
+    polk     => { user => 'polk@*', password => '$1$eJKPOkVT$H.rKsMSbJvSuDD6xgh2V70' },
+    jrw      => { user => 'jrwessel@*', password => '$1$o.VeV/A/$1sfUSAcxp1HHQYgqRm0Av0' },
+    jch      => { user => '*', password => '$1$Zr9XRyXP$pg1b5LR1vHG1/Ztqz720a.' },
+    wenzong  => { user => '*', password => '$1$orTTJ7Sl$sS1IaP3l5/0Zjz/ezi3XJ1' },
+    kscherer => { user => 'kscherer@*', password => '$1$VEE83k5M$SWeOgnc2YrMkjMip0kAU./' },
+  }
+
+  file {
+    'ircd.conf':
+      ensure  => file,
+      path    => '/etc/ircd/ircd.conf',
+      user    => 'ircd',
+      group   => 'ircd',
+      mode    => '0640',
+      content => template('wr/ircd.conf.erb');
+    'ircd.motd':
+      ensure  => file,
+      path    => '/etc/ircd/ircd.motd',
+      user    => 'ircd',
+      group   => 'ircd',
+      mode    => '0640',
+      content => template('wr/ircd.motd.erb');
+    '/usr/lib64/ircd/':
+      ensure => directory;
+    '/usr/lib64/ircd/modules/':
+      ensure => directory;
+    'm_opme.so':
+      ensure => file,
+      path   => '/usr/lib64/ircd/modules/m_opme.so',
+      mode   => '0755',
+      source => 'puppet:///modules/wr/ircd/m_opme.so';
+  }
+
+  service {
+    'ircd':
+      ensure  => running,
+      enable  => true,
+      require => ['ircd.conf','ircd.motd','m_opme.so'];
+  }
 }
