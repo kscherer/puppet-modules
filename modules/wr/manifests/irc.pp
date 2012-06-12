@@ -35,14 +35,14 @@ class wr::irc inherits wr::mcollective {
     'ircd.conf':
       ensure  => file,
       path    => '/etc/ircd/ircd.conf',
-      user    => 'ircd',
+      owner   => 'ircd',
       group   => 'ircd',
       mode    => '0640',
       content => template('wr/ircd.conf.erb');
     'ircd.motd':
       ensure  => file,
       path    => '/etc/ircd/ircd.motd',
-      user    => 'ircd',
+      owner   => 'ircd',
       group   => 'ircd',
       mode    => '0640',
       content => template('wr/ircd.motd.erb');
