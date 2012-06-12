@@ -4,7 +4,7 @@ metadata    :name        => "SimpleRPC Agent For NRPE Commands",
             :license     => "Apache 2",
             :version     => "1.3",
             :url         => "http://projects.puppetlabs.com/projects/mcollective-plugins/wiki",
-            :timeout     => 5
+            :timeout     => 45
 
 
 action "runcommand", :description => "Run a NRPE command" do
