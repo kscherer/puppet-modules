@@ -28,7 +28,6 @@ class wr::irc inherits wr::mcollective {
     jrw      => { user => 'jrwessel@*', password => '$1$o.VeV/A/$1sfUSAcxp1HHQYgqRm0Av0' },
     jch      => { user => '*', password => '$1$Zr9XRyXP$pg1b5LR1vHG1/Ztqz720a.' },
     wenzong  => { user => '*', password => '$1$orTTJ7Sl$sS1IaP3l5/0Zjz/ezi3XJ1' },
-    kscherer => { user => 'kscherer@*', password => '$1$VEE83k5M$SWeOgnc2YrMkjMip0kAU./' },
   }
 
   file {
@@ -38,6 +37,7 @@ class wr::irc inherits wr::mcollective {
       owner   => 'ircd',
       group   => 'ircd',
       mode    => '0640',
+      notify  => Service['ircd'],
       content => template('wr/ircd.conf.erb');
     'ircd.motd':
       ensure  => file,
@@ -45,6 +45,7 @@ class wr::irc inherits wr::mcollective {
       owner   => 'ircd',
       group   => 'ircd',
       mode    => '0640',
+      notify  => Service['ircd'],
       content => template('wr/ircd.motd.erb');
     '/usr/lib64/ircd/':
       ensure => directory;
@@ -61,6 +62,7 @@ class wr::irc inherits wr::mcollective {
     'ircd':
       ensure  => running,
       enable  => true,
+      restart => '/etc/init.d/ircd reload',
       require => [File['ircd.conf'],File['ircd.motd'],File['m_opme.so']];
   }
 }
