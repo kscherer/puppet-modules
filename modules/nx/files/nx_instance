@@ -116,8 +116,8 @@ stop() {
 
     #check if pid in pidfile is valid
     if [ -d /proc/$pid ]; then
-        local pgid=$(ps -p $pid -o pgid=)
-        #echo "Send TERM signal to instance ${instance} with pid $pid and pgid $pgid"
+        local pgid=$(ps -p $pid -o pgid= | tr -d ' ' | tr -d '\n')
+        echo "Send TERM signal to instance ${instance} with pid $pid and pgid $pgid"
 
         #first try gentle kill using kill program, not builtin kill which does not
         #support process group kill
