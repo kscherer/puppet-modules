@@ -1,244 +1,244 @@
 
 serverinfo {
-	name = "<%= fqdn -%>";
-	sid = "0<%= hostname[0..1].upcase -%>";
-	description = "Wind River IRC";
-	network_name = "WRS";
-	network_desc = "Wind River Internal";
-	hub = yes;
-	vhost = "*";
-	max_clients = 4096;
+    name = "<%= fqdn -%>";
+    sid = "0<%= hostname[0..1].upcase -%>";
+    description = "Wind River IRC";
+    network_name = "WRS";
+    network_desc = "Wind River Internal";
+    hub = yes;
+    vhost = "*";
+    max_clients = 4096;
 };
 
 admin {
-	name = "Infrastructure group";
-	description = "Stuckee";
-	email = "<lpd-eng-infrastructure@wrs.com>";
+    name = "Infrastructure group";
+    description = "Stuckee";
+    email = "<lpd-eng-infrastructure@wrs.com>";
 };
 
 log {
-	use_logging = yes;
-	fname_userlog = "/var/log/ircd/userlog";
-	fname_operlog = "/var/log/ircd/operlog";
-	fname_killlog = "/var/log/ircd/kill";
-	fname_klinelog = "/var/log/ircd/kline";
-	fname_glinelog = "/var/log/ircd/gline";
-	log_level = L_DEBUG;
+    use_logging = yes;
+    fname_userlog = "/var/log/ircd/userlog";
+    fname_operlog = "/var/log/ircd/operlog";
+    fname_killlog = "/var/log/ircd/kill";
+    fname_klinelog = "/var/log/ircd/kline";
+    fname_glinelog = "/var/log/ircd/gline";
+    log_level = L_DEBUG;
 };
 
 class {
-	name = "users";
-	ping_time = 90 seconds;
-	number_per_ip = 2048;
-	max_number = 4096;
-	cidr_bitlen_ipv4 = 24;
-	cidr_bitlen_ipv6 = 120;
-	number_per_cidr = 2048;
-	sendq = 100 kbytes;
+    name = "users";
+    ping_time = 90 seconds;
+    number_per_ip = 2048;
+    max_number = 4096;
+    cidr_bitlen_ipv4 = 24;
+    cidr_bitlen_ipv6 = 120;
+    number_per_cidr = 2048;
+    sendq = 100 kbytes;
 };
 
 class {
-	name = "opers";
-	ping_time = 90 seconds;
-	number_per_ip = 10;
-	max_number = 2048;
-	sendq = 100kbytes;
+    name = "opers";
+    ping_time = 90 seconds;
+    number_per_ip = 10;
+    max_number = 2048;
+    sendq = 100kbytes;
 };
 
 class {
-	name = "server";
-	ping_time = 90 seconds;
-	ping_warning = 15 seconds;
-	connectfreq = 5 minutes;
-	max_number = 5;
-	sendq = 2 megabytes;
+    name = "server";
+    ping_time = 90 seconds;
+    ping_warning = 15 seconds;
+    connectfreq = 5 minutes;
+    max_number = 5;
+    sendq = 2 megabytes;
 };
 
 listen {
-	port = 6666 .. 6667;
+    port = 6666 .. 6667;
 };
 
 auth {
-	user = "*@*";
-	class = "users";
+    user = "*@*";
+    class = "users";
 };
 
 <% operators.each do |name,params| -%>
 operator {
-	name = "<%= name -%>";
-	user = "<%= params['user'] -%>";
-	password = "<%= params['password'] -%>";
-	encrypted = yes;
-	class = "opers";
-	flags = global_kill, remote, kline, unkline, xline,
-		die, rehash, nick_changes, admin, operwall;
+    name = "<%= name -%>";
+    user = "<%= params['user'] -%>";
+    password = "<%= params['password'] -%>";
+    encrypted = yes;
+    class = "opers";
+    flags = global_kill, remote, kline, unkline, xline,
+        die, rehash, nick_changes, admin, operwall;
 };
 <% end -%>
 
 channel {
-	disable_fake_channels = yes;
-	restrict_channels = no;
-	disable_local_channels = no;
-	use_invex = yes;
-	use_except = yes;
-	use_knock = yes;
-	knock_delay = 1 minutes;
-	knock_delay_channel = 1 minute;
-	burst_topicwho = yes;
-	max_chans_per_user = 25;
-	quiet_on_ban = yes;
-	max_bans = 25;
-	join_flood_count = 16;
-	join_flood_time = 8 seconds;
-	default_split_user_count = 0;
-	default_split_server_count = 0;
-	no_create_on_split = yes;
-	no_join_on_split = no;
+    disable_fake_channels = yes;
+    restrict_channels = no;
+    disable_local_channels = no;
+    use_invex = yes;
+    use_except = yes;
+    use_knock = yes;
+    knock_delay = 1 minutes;
+    knock_delay_channel = 1 minute;
+    burst_topicwho = yes;
+    max_chans_per_user = 25;
+    quiet_on_ban = yes;
+    max_bans = 25;
+    join_flood_count = 16;
+    join_flood_time = 8 seconds;
+    default_split_user_count = 0;
+    default_split_server_count = 0;
+    no_create_on_split = yes;
+    no_join_on_split = no;
 };
 
 general {
-	gline_min_cidr = 16;
-	gline_min_cidr6 = 48;
-	invisible_on_connect = no;
-	burst_away = no;
-	use_whois_actually = yes;
-	kill_chase_time_limit = 90;
-	hide_spoof_ips = yes;
-	ignore_bogus_ts = no;
-	disable_auth = yes;
-	disable_remote_commands = no;
-	tkline_expire_notices = no;
-	default_floodcount = 10;
-	failed_oper_notice = yes;
-	dots_in_ident = 2;
-	dot_in_ip6_addr = no;
-	min_nonwildcard = 4;
-	min_nonwildcard_simple = 3;
-	max_accept = 20;
-	anti_nick_flood = yes;
-	max_nick_time = 20 seconds;
-	max_nick_changes = 5;
-	anti_spam_exit_message_time = 5 minutes;
-	ts_warn_delta = 30 seconds;
-	ts_max_delta = 5 minutes;
-	kline_with_reason = yes;
-	kline_reason = "Connection closed";
-	reject_hold_time = 0;
-	warn_no_nline = yes;
-	stats_e_disabled = no;
-	stats_o_oper_only = yes;
-	stats_P_oper_only = yes;
-	stats_i_oper_only = yes;
-	stats_k_oper_only = yes;
-	caller_id_wait = 1 minute;
-	opers_bypass_callerid = no;
-	pace_wait_simple = 1 second;
-	pace_wait = 10 seconds;
-	short_motd = no;
-	ping_cookie = no;
-	no_oper_flood = yes;
-	true_no_oper_flood = yes;
-	oper_pass_resv = yes;
-	idletime = 0;
-	max_targets = 4;
-	client_flood = 2560 bytes;
-	message_locale = "standard";
+    gline_min_cidr = 16;
+    gline_min_cidr6 = 48;
+    invisible_on_connect = no;
+    burst_away = no;
+    use_whois_actually = yes;
+    kill_chase_time_limit = 90;
+    hide_spoof_ips = yes;
+    ignore_bogus_ts = no;
+    disable_auth = yes;
+    disable_remote_commands = no;
+    tkline_expire_notices = no;
+    default_floodcount = 10;
+    failed_oper_notice = yes;
+    dots_in_ident = 2;
+    dot_in_ip6_addr = no;
+    min_nonwildcard = 4;
+    min_nonwildcard_simple = 3;
+    max_accept = 20;
+    anti_nick_flood = yes;
+    max_nick_time = 20 seconds;
+    max_nick_changes = 5;
+    anti_spam_exit_message_time = 5 minutes;
+    ts_warn_delta = 30 seconds;
+    ts_max_delta = 5 minutes;
+    kline_with_reason = yes;
+    kline_reason = "Connection closed";
+    reject_hold_time = 0;
+    warn_no_nline = yes;
+    stats_e_disabled = no;
+    stats_o_oper_only = yes;
+    stats_P_oper_only = yes;
+    stats_i_oper_only = yes;
+    stats_k_oper_only = yes;
+    caller_id_wait = 1 minute;
+    opers_bypass_callerid = no;
+    pace_wait_simple = 1 second;
+    pace_wait = 10 seconds;
+    short_motd = no;
+    ping_cookie = no;
+    no_oper_flood = yes;
+    true_no_oper_flood = yes;
+    oper_pass_resv = yes;
+    idletime = 0;
+    max_targets = 4;
+    client_flood = 2560 bytes;
+    message_locale = "standard";
 
-	/* oper_only_umodes: usermodes only opers may set */
-	oper_only_umodes = bots, cconn, debug, full, skill, nchange, 
-			   rej, spy, external, operwall, locops, unauth;
+    /* oper_only_umodes: usermodes only opers may set */
+    oper_only_umodes = bots, cconn, debug, full, skill, nchange, 
+               rej, spy, external, operwall, locops, unauth;
 
-	/* oper_umodes: default usermodes opers get when they /oper */
-	oper_umodes = bots, locops, servnotice, operwall, wallop;
+    /* oper_umodes: default usermodes opers get when they /oper */
+    oper_umodes = bots, locops, servnotice, operwall, wallop;
 
-	throttle_time = 10;
+    throttle_time = 10;
 };
 
 glines {
-	/* enable: enable glines, network wide temp klines */
-	enable = yes;
+    /* enable: enable glines, network wide temp klines */
+    enable = yes;
 
-	/*
-	 * duration: the amount of time a gline will remain on your
-	 * server before expiring
-	 */
-	duration = 1 day;
+    /*
+     * duration: the amount of time a gline will remain on your
+     * server before expiring
+     */
+    duration = 1 day;
 
-	/*
-	 * logging: which types of rules you want to log when triggered
-	 * (choose reject or block)
-	 */
-	logging = reject, block;
+    /*
+     * logging: which types of rules you want to log when triggered
+     * (choose reject or block)
+     */
+    logging = reject, block;
 
-	/*
-	 * NOTE: gline ACLs can cause a desync of glines throughout the
-	 * network, meaning some servers may have a gline triggered, and
-	 * others may not. Also, you only need insert rules for glines
-	 * that you want to block and/or reject. If you want to accept and
-	 * propagate the gline, do NOT put a rule for it.
-	 */
+    /*
+     * NOTE: gline ACLs can cause a desync of glines throughout the
+     * network, meaning some servers may have a gline triggered, and
+     * others may not. Also, you only need insert rules for glines
+     * that you want to block and/or reject. If you want to accept and
+     * propagate the gline, do NOT put a rule for it.
+     */
 
-	/* user@host for rule to apply to */
-	user = "god@I.still.hate.packets";
-	/* server for rule to apply to */
-	name = "hades.arpa";
+    /* user@host for rule to apply to */
+    user = "god@I.still.hate.packets";
+    /* server for rule to apply to */
+    name = "hades.arpa";
 
-	/*
-	 * action: action to take when a matching gline is found. options are:
-	 *  reject	- do not apply the gline locally
-	 *  block	- do not propagate the gline
-	 */
-	action = reject, block;
+    /*
+     * action: action to take when a matching gline is found. options are:
+     *  reject  - do not apply the gline locally
+     *  block   - do not propagate the gline
+     */
+    action = reject, block;
 
-	user = "god@*";
-	name = "*";
-	action = block;
+    user = "god@*";
+    name = "*";
+    action = block;
 };
 
 <% if hostname != 'yow-irc' -%>
 connect "yow-irc.wrs.com" {
-	host = "128.224.195.111";
-	send_password = "password";
-	accept_password = "password";
-	port = 6666;
-	class = "server";
-	flags = autoconn;
+    host = "128.224.195.111";
+    send_password = "password";
+    accept_password = "password";
+    port = 6666;
+    class = "server";
+    flags = autoconn;
     hub_mask = "*";
 };
 <% end -%>
 
 <% if hostname != 'pek-irc' -%>
 connect "pek-irc.wrs.com" {
-	host = "128.224.153.44";
-	send_password = "password";
-	accept_password = "password";
-	port = 6666;
-	class = "server";
-	flags = autoconn;
+    host = "128.224.153.44";
+    send_password = "password";
+    accept_password = "password";
+    port = 6666;
+    class = "server";
+    flags = autoconn;
     hub_mask = "*";
 };
 <% end -%>
 
 <% if hostname != 'ala-irc' -%>
 connect "ala-irc.wrs.com" {
-	host = "147.11.146.102";
-	send_password = "password";
-	accept_password = "password";
-	port = 6666;
-	class = "server";
-	flags = autoconn;
+    host = "147.11.146.102";
+    send_password = "password";
+    accept_password = "password";
+    port = 6666;
+    class = "server";
+    flags = autoconn;
     hub_mask = "*";
 };
 <% end -%>
 
 modules {
-	/*
-	 * module path: other paths to search for modules specified below
-	 * and in /modload.
-	 */
-	path = "/usr/lib64/ircd/modules";
-	path = "/usr/lib64/ircd/modules/autoload";
+    /*
+     * module path: other paths to search for modules specified below
+     * and in /modload.
+     */
+    path = "/usr/lib64/ircd/modules";
+    path = "/usr/lib64/ircd/modules/autoload";
 
-	/* module: the name of a module to load on startup/rehash */
-	module = "m_opme.so";
+    /* module: the name of a module to load on startup/rehash */
+    module = "m_opme.so";
 };
