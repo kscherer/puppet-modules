@@ -116,8 +116,7 @@ node /ala-lpggp\d+\.wrs\.com/ {
 }
 
 node /yow-lpggp\d+\.wrs\.com/ {
-  class { 'wr::yow-common': }
-  -> class { 'yocto': }
+  class { 'wr::yow-lpggp': }
 }
 
 node /ala-lp.*\.wrs\.com/ {
