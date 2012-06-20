@@ -1,0 +1,15 @@
+Welcome to <%= hostname %>
+<%= operatingsystem %> <%= operatingsystemrelease %> <% if has_variable?("architecture") then %><%= architecture %><% end %>
+
+FQDN: <%= fqdn %>
+IP:   <%= ipaddress %>
+<% if has_variable?("processor0") then -%>
+Processor: <%= processor0 %>
+<% end -%>
+<% if has_variable?("memorysize") then -%>
+Memory:    <%= memorysize %>
+<% end -%>
+
+This is a puppet managed machine. Please contact Konrad Scherer at
+Konrad.Scherer@windriver.com if you have any questions or proposed
+configuration changes.
