@@ -82,12 +82,14 @@ class wr::common {
     /^yow.*$/ => 'yow-lpd-puppet.wrs.com',
   }
 
+  $ala_ntp_servers = ['ntp-1.wrs.com','ntp-2.wrs.com','ntp-3.wrs.com']
+
   $ntp_servers = $::hostname ? {
-    yow-lpgbld-master => ['ntp-1.wrs.com','ntp-2.wrs.com'],
-    pek-lpd-puppet    => ['ntp-1.wrs.com','ntp-2.wrs.com'],
+    yow-lpgbld-master => $ala_ntp_servers,
+    pek-lpd-puppet    => $ala_ntp_servers,
     /^yow.*/          => ['yow-lpgbld-master.wrs.com'],
     /^pek.*/          => ['pek-lpd-puppet.wrs.com'],
-    default           => ['ntp-1.wrs.com','ntp-2.wrs.com'],
+    default           => $ala_ntp_servers,
   }
 
   #add my configs to all machines
