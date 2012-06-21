@@ -1,7 +1,12 @@
 # class to setup basic motd, include on all nodes
 class motd {
   include concat::setup
-  $motd = '/etc/motd'
+
+  case $::operatingsystem {
+    'Ubuntu' : { $motd = '/etc/update-motd.d/50windriver' }
+    'Debian' : { $motd = '/etc/motd.tail' }
+    default  : { $motd = '/etc/motd' }
+  }
 
   concat{$motd:
     owner => root,
@@ -13,13 +18,5 @@ class motd {
     target  => $motd,
     content => template('motd/motd.erb'),
     order   => 01,
-  }
-
-  # local users on the machine can append to motd by just creating
-  # /etc/motd.local
-  concat::fragment{'motd_local':
-    ensure  => '/etc/motd.local',
-    target  => $motd,
-    order   => 15
   }
 }
