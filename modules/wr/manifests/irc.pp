@@ -65,4 +65,10 @@ class wr::irc inherits wr::mcollective {
       restart => '/etc/init.d/ircd reload',
       require => [File['ircd.conf'],File['ircd.motd'],File['m_opme.so']];
   }
+
+  motd::register{
+    'irc':
+      content => 'This machine is reserved for the internal Wind River IRC network.';
+  }
+
 }

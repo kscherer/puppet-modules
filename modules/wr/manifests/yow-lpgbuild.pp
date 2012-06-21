@@ -28,4 +28,8 @@ class wr::yow-lpgbuild inherits wr::yow-common {
       key    => extlookup('jwessel@splat'),
       type   => 'ssh-rsa';
   }
+  motd::register{
+    'yow-lpgbuild':
+      content => 'This machine is reserved for WR Linux coverage builds.';
+  }
 }

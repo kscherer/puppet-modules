@@ -31,4 +31,9 @@ class wr::ala-blades inherits wr::ala-common {
       key    => extlookup('root@ala-blade25'),
       type   => 'ssh-rsa';
   }
+
+  motd::register{
+    'ala-blade':
+      content => 'This machine is reserved for WR Linux release and coverage builds.';
+  }
 }

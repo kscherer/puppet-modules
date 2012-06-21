@@ -29,11 +29,8 @@ class wr::yow-blades inherits wr::yow-common {
       type   => 'ssh-rsa';
   }
 
-  #Create standard base motd
-  include motd
-
   motd::register{
     'yow-blade':
-      content => 'This machine is reserved for coverage builds.';
+      content => 'This machine is reserved for WR Linux coverage builds.';
   }
 }

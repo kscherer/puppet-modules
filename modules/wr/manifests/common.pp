@@ -1,5 +1,9 @@
 #
 class wr::common {
+
+  #Create standard base motd
+  include motd
+
   #Make sure that the machine is in the hosts file
   host {
     $::fqdn:

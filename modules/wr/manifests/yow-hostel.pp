@@ -47,4 +47,9 @@ class wr::yow-hostel inherits wr::mcollective {
       key    => extlookup('jwessel@splat'),
       type   => 'ssh-rsa';
   }
+
+  motd::register{
+    'yow-hostel':
+      content => 'This machine is reserved for the Ottawa Host Test Lab.';
+  }
 }
