@@ -3,9 +3,9 @@
 # Configures an apache vhost that will only proxy requests
 #
 # Parameters:
-# * $port: 
+# * $port:
 #     The port on which the vhost will respond
-# * $dest: 
+# * $dest:
 #     URI that the requests will be proxied for
 # - $priority
 # - $template -- the template to use for the vhost
@@ -22,7 +22,7 @@ define apache::vhost::proxy (
     $port,
     $dest,
     $priority      = '10',
-    $template      = "apache/vhost-proxy.conf.erb",
+    $template      = 'apache/vhost-proxy.conf.erb',
     $servername    = '',
     $serveraliases = '',
     $ssl           = false,
@@ -31,20 +31,21 @@ define apache::vhost::proxy (
 
   include apache
 
+  $apache_name = $apache::params::apache_name
+  $ssl_path = $apache::params::ssl_path
   $srvname = $name
 
   if $ssl == true {
     include apache::ssl
   }
 
-  file {"${apache::params::vdir}/${priority}-${name}":
+  file { "${priority}-${name}":
+    path    => "${apache::params::vdir}/${priority}-${name}",
     content => template($template),
     owner   => 'root',
     group   => 'root',
-    mode    => '755',
+    mode    => '0755',
     require => Package['httpd'],
     notify  => Service['httpd'],
   }
-
-
 }

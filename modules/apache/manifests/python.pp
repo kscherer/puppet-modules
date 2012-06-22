@@ -13,12 +13,12 @@
 # Sample Usage:
 #
 class apache::python {
-	include apache::params
-	include apache
+  include apache::params
+  include apache
 
-  package { $apache::params::python_package:
+  package { 'apache_python_package':
     ensure => present,
+    name   => $apache::params::python_package,
   }
-	a2mod { "python": ensure => present, }
-
+  a2mod { 'python': ensure => present, }
 }
