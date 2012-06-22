@@ -36,10 +36,11 @@ class dashboard::passenger (
   }
 
   apache::vhost { "dashboard-$dashboard_site":
-    port     => $dashboard_port,
-    priority => '50',
-    docroot  => '/usr/share/puppet-dashboard/public',
-    template => 'dashboard/puppet-dashboard-passenger-vhost.erb',
+    port        => $dashboard_port,
+    priority    => '50',
+    docroot     => '/usr/share/puppet-dashboard/public',
+    template    => 'dashboard/puppet-dashboard-passenger-vhost.erb',
+    serveradmin => 'Konrad.Scherer@windriver.com',
   }
 
 }
