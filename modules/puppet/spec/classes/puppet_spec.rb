@@ -187,12 +187,12 @@ describe 'puppet', :type => :class do
     let(:params) { { :agent => true } }
     let(:facts) { {:operatingsystem => 'OpenSuSE' } }
 
-    it { should contain_package('puppet').with_ensure('present').with_provider('gem') }
-    it { should contain_exec('puppet_agent_start') }
+    it { should contain_package('puppet').with_ensure('present').with_provider('zypper') }
+    it { should contain_service('puppet').with_ensure('running').with_enable(true) }
     it { should contain_concat('/etc/puppet/puppet.conf').with_mode('0644') }
     it { should contain_file('/etc/puppet').with_ensure('directory') }
     it { should contain_concat('/etc/puppet/puppet.conf')\
-        .with_notify('Exec[puppet_agent_start]')\
+        .with_notify('Service[puppet]')\
         .with_require('Package[puppet]') }
   end
 
