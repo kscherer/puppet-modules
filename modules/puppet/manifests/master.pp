@@ -178,11 +178,6 @@ class puppet::master (
       serveradmin => 'Konrad.Scherer@windriver.com',
     }
 
-    file { ['/etc/puppet/rack', '/etc/puppet/rack/public']:
-      ensure => directory,
-      mode   => '0755',
-    }
-
     file { '/etc/puppet/rack/config.ru':
       ensure => present,
       source => 'puppet:///modules/puppet/config.ru',
