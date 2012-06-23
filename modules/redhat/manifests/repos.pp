@@ -79,8 +79,7 @@ class redhat::repos {
     'puppetlabs-rh5':
       baseurl => "${mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.all";
     'puppetlabs-fedora':
-      baseurl =>
-        "${mrepo_mirror}/puppetlabs-f${::operatingsystemrelease}-${::architecture}/RPMS.all";
+      baseurl => "${mrepo_mirror}/puppetlabs-f${::operatingsystemrelease}-${::architecture}/RPMS.all";
     'puppetlabs-rh6':
       baseurl => "${mrepo_mirror}/puppetlabs-rh6-${::architecture}/RPMS.all";
     'passenger-rh6':

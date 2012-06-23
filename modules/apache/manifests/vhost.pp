@@ -71,15 +71,17 @@ define apache::vhost(
     }
   }
 
-  file {"${apache::params::vdir}/${priority}-${name}-$docroot":
-    path => $docroot,
+  @file {"${apache::params::vdir}/${priority}-${name}-$docroot":
     ensure => directory,
+    path   => $docroot,
   }
+  realize("${apache::params::vdir}/${priority}-${name}-$docroot")
 
-  file {"${apache::params::vdir}/${priority}-${name}-$logroot":
-    path => $logroot,
+  @file {"${apache::params::vdir}/${priority}-${name}-$logroot":
     ensure => directory,
+    path   => $logroot,
   }
+  realize("${apache::params::vdir}/${priority}-${name}-$logroot")
 
   file { "${priority}-${name}.conf":
       path    => "${apache::params::vdir}/${priority}-${name}.conf",
