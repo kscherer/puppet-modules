@@ -71,11 +71,19 @@ define apache::vhost(
     }
   }
 
-  @file {
-    [$docroot, $logroot]:
-      ensure => directory,
+  if ! defined(File[$docroot]) {
+    file {
+      $docroot:
+        ensure => directory,
+    }
   }
-  realize( File[$docroot], File[$logroot])
+
+  if ! defined(File[$logroot]) {
+    file {
+      $logroot:
+        ensure => directory,
+    }
+  }
 
   file { "${priority}-${name}.conf":
       path    => "${apache::params::vdir}/${priority}-${name}.conf",
@@ -85,8 +93,8 @@ define apache::vhost(
       mode    => '0755',
       require => [
           Package['httpd'],
-          File["${apache::params::vdir}/${priority}-${name}-$docroot"],
-          File["${apache::params::vdir}/${priority}-${name}-$logroot"],
+          File[$docroot],
+          File[$logroot],
       ],
       notify  => Service['httpd'],
   }
