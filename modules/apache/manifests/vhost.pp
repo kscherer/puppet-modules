@@ -72,10 +72,10 @@ define apache::vhost(
   }
 
   @file {
-    [$docroot,$logroot]:
+    [$docroot, $logroot]:
       ensure => directory,
   }
-  realize($docroot,$logroot)
+  realize( File[$docroot], File[$logroot])
 
   file { "${priority}-${name}.conf":
       path    => "${apache::params::vdir}/${priority}-${name}.conf",
