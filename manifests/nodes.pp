@@ -29,7 +29,7 @@ node 'yow-lpd-puppet.wrs.com' {
 }
 
 node 'yow-lpg-amqp.wrs.com' {
-  class { 'wr:yow-amqp': }
+  class { 'wr::yow-amqp': }
 }
 
 node /yow-blade.*.wrs.com/ {
