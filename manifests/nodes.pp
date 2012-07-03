@@ -29,27 +29,7 @@ node 'yow-lpd-puppet.wrs.com' {
 }
 
 node 'yow-lpg-amqp.wrs.com' {
-  #need to define these here due to template declared here
-  #will move when I fix the activemq class
-  $broker_name = 'yow-broker'
-  $webconsole_real = true
-  class { 'redhat': }
-  -> class { 'ntp': servers       => ['yow-lpgbld-master.wrs.com'] }
-  -> class { 'puppet':
-    puppet_server               => 'yow-lpd-puppet.wrs.com',
-    puppet_agent_ensure         => 'latest',
-    puppet_agent_service_enable => false,
-    agent                       => true,
-  }
-  -> class { 'java': distribution => 'java-1.6.0-openjdk' }
-  -> class { 'activemq':
-    broker_name   => 'yow-broker',
-    server_config => template('wr/yow-activemq.xml.erb')
-  }
-  -> class { 'collectd::client': }
-  -> class { 'wr::mcollective': }
-  -> class { 'nrpe': }
-  -> class { 'nagios::target': }
+  class { 'wr:yow-amqp': }
 }
 
 node /yow-blade.*.wrs.com/ {
