@@ -6,4 +6,11 @@ class yocto::redhat {
       'SDL-devel', 'texinfo', 'gawk', 'gcc', 'gcc-c++', 'help2man']:
         ensure => installed;
   }
+
+  if $::architecture == 'x86_64' {
+    package {
+      'glibc.i686':
+        ensure => installed;
+    }
+  }
 }
