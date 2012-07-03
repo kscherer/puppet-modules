@@ -7,7 +7,7 @@ class yocto::debian {
         ensure => installed;
   }
 
-  if $::architecture == 'x86_64' {
+  if $::architecture =~ /(x86_64|amd64)/ {
     package {
       'libc6:i386':
         ensure => installed;
