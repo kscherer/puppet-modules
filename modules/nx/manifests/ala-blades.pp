@@ -16,7 +16,6 @@ class nx::ala-blades {
       mode   => '0755';
     "${local_builddir}/nxadm":
       ensure  => directory,
-      require => Mount[$local_builddir],
       mode    => '0755';
     "${local_builddir}/nxadm/nx":
       ensure  => directory,
