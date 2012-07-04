@@ -90,7 +90,6 @@ node /pek-hostel-vm\d+\.wrs\.com$/ {
 node 'ala-blade25.wrs.com' {
   class { 'wr::ala-blades': }
   -> class { 'nx': }
-  -> class { 'nx::ala-blades': }
 }
 
 node /ala-blade\d+\.wrs\.com/ {

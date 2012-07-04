@@ -110,6 +110,7 @@ class nx {
     /^yow-lpgbuild-*/: { include nx::yow-lpgbuild }
     /^yow-lpgbld-vm*/: { include nx::yow-hostel }
     /^yow-blade*/:     { include nx::yow-blades }
+    /^ala-blade*/:     { include nx::ala-blades }
     default:           { fail("Unsupported nx configuration for $::hostname") }
   }
 
