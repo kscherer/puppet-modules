@@ -32,7 +32,7 @@ class nx::yow-blades {
       remounts => false;
   }
 
-  #create four nx instances
+  #create nx instances
   nx::setup {
     [ '1', '2' ]:
   }
