@@ -11,7 +11,6 @@ class iscsi::netapp inherits iscsi {
 
   iscsi::net_config { $iscsi::san_port1: mtu => 9000; }
 
-  #make two iscsi connections, one for each iface
   iscsi::connection {
     'iface0':
       iscsi_connection_device => $iscsi::san_port1,

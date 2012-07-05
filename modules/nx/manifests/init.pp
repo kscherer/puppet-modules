@@ -34,6 +34,24 @@ class nx {
       require    => Group [ 'nxadm' ];
   }
 
+  ssh_authorized_key {
+    'kscherer_windriver_nxadm':
+      ensure => 'present',
+      user   => 'nxadm',
+      key    => extlookup('kscherer@yow-kscherer-l1'),
+      type   => 'ssh-dss';
+    'kscherer_home_nxadm':
+      ensure => 'present',
+      user   => 'nxadm',
+      key    => extlookup('kscherer@helix'),
+      type   => 'ssh-rsa';
+    'jwessel_nxadm':
+      ensure => 'present',
+      user   => 'nxadm',
+      key    => extlookup('jwessel@splat'),
+      type   => 'ssh-rsa';
+  }
+
   File {
     owner   => 'nxadm',
     group   => 'nxadm',
