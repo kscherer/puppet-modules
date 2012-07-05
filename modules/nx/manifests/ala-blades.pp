@@ -35,7 +35,6 @@ class nx::ala-blades {
       device   => 'ala-lpgnas2-nfs:/vol/stored_builds_25',
       fstype   => 'nfs',
       options  => $options,
-      require  => Iscsi::Connection['iface0'],
       remounts => true;
   }
 }
