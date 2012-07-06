@@ -10,4 +10,4 @@ eth2_mac,00:10:18:9D:98:F8
 iscsi_initiator_name,iqn.1994-05.com.redhat:ed2a5bece85e
 iscsi_target_name,iqn.1992-08.com.netapp:sn.135083930
 iscsi_node_iface0_port0,172.17.136.110
-iscsi_uuid,
+iscsi_uuid,71ad2f69-c2a9-4d45-8cfb-41d730d5a896
