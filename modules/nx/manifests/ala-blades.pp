@@ -2,17 +2,13 @@
 class nx::ala-blades {
 
   case $::hostname {
-    ala-blade25: {
+    /ala-blade2[5-9]/: {
       include nx::netapp_iscsi_setup
       nx::setup {['1','2']:}
     }
-    /ala-blade2[6-9]/: {
-      include nx::ala_local_build
-      nx::setup {'1':}
-    }
     /ala-blade3[0-2]/: {
-      include nx::ala_local_build
-      nx::setup {'1':}
+      include nx::netapp_iscsi_setup
+      nx::setup {['1','2']:}
     }
     default: { fail("Do not know how to configure nx for $::hostname")}
   }
