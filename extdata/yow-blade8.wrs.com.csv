@@ -9,5 +9,5 @@ eth2_netmask,255.255.255.0
 eth2_mac,00:10:18:3B:D5:88
 iscsi_initiator_name,iqn.1994-05.com.redhat:6082831c9cd6
 iscsi_target_name,iqn.1992-08.com.netapp:sn.135094594
-iscsi_node_iface0_port0,172.17.137.101
+iscsi_node_iface0_port0,172.17.137.12
 iscsi_uuid,442f48cd-5cc2-4f1e-8ade-76548133c639
