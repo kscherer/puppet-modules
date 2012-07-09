@@ -173,8 +173,8 @@ nx_status(){
 
     local pid=$(cat $pidfile)
     local fifteen_sec=15
-    local fifteen_min=900 #15 * 60 seconds
     local thirty_min=1800 #30 * 60 seconds
+    local one_hour=3600 #60 * 60 seconds
     #When nx is building is makes a link to the current build
     local wrbuildlog="${nx_builddir}/current_build/00-wrbuild.log"
     local now=$(date +%s)
@@ -186,10 +186,10 @@ nx_status(){
         if [ -f $wrbuildlog ]; then
             local wrbuildlog_age=$(($now - $(stat -c '%Y' "$wrbuildlog")))
             #If the 00-wrbuild.log was modified recently then build is not hung
-            if [ $wrbuildlog_age -lt $fifteen_min ]; then
+            if [ $wrbuildlog_age -lt $one_hour ]; then
                 nx_status_string="Nx instance $instance is running"
                 RETVAL=0
-            elif [ $nxlog_age -lt $fifteen_min ]; then
+            elif [ $nxlog_age -lt $one_hour ]; then
                 nx_status_string="Nx instance $instance is running"
                 RETVAL=0
             else
