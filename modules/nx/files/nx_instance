@@ -69,7 +69,12 @@ nx_status_string=""
 
 real_start() {
     #This will start each nx instance in its own process group
-    su nxadm /bin/bash -l -c "${nx_command}"
+    full_command=/bin/bash -l -c "${nx_command}"
+    if [ "x$USER" == 'xnxadm' ]; then
+        $full_command
+    elif
+        su nxadm $full_command
+    fi
 
     RETVAL=$?
     return $RETVAL
