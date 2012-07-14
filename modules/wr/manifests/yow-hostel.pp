@@ -30,24 +30,6 @@ class wr::yow-hostel inherits wr::mcollective {
         '$6$vEbdCo3ZF/z2cq9$MawClitGcpDau8b26qI.r/VRFCmJM.MrA41vRimQr69.XPgOac7A.Vc7oNoNb4wELuUtWzcDtWlmsNKbnxXSX0';
   }
 
-  ssh_authorized_key {
-    'kscherer_windriver_nxadm':
-      ensure => 'present',
-      user   => 'nxadm',
-      key    => extlookup('kscherer@yow-kscherer-l1'),
-      type   => 'ssh-dss';
-    'kscherer_home_nxadm':
-      ensure => 'present',
-      user   => 'nxadm',
-      key    => extlookup('kscherer@helix'),
-      type   => 'ssh-rsa';
-    'jwessel_nxadm':
-      ensure => 'present',
-      user   => 'nxadm',
-      key    => extlookup('jwessel@splat'),
-      type   => 'ssh-rsa';
-  }
-
   motd::register{
     'yow-hostel':
       content => 'This machine is reserved for the Ottawa Host Test Lab.';
