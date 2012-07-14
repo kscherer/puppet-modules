@@ -71,7 +71,7 @@ real_start() {
     #This will start each nx instance in its own process group
     if [ "x$USER" == 'xnxadm' ]; then
         /bin/bash -l -c "${nx_command}"
-    elif
+    else
         su nxadm /bin/bash -l -c "${nx_command}"
     fi
 
