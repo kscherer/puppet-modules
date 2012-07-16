@@ -1,17 +1,29 @@
 # Setup up NIS and autofs
 class nis {
 
+  #needed so that network service can be restarted
+  include network
+
+  $nis_server = $::hostname ? {
+    /^pek.*$/ => '128.224.160.17',
+    /^ala.*$/ => '147.11.49.57',
+    /^yow.*$/ => '128.224.144.20',
+  }
+
   if $::operatingsystem == 'Ubuntu' {
     $nis_package = 'nis'
     if $::lsbdistrelease == '10.04' {
+      $ypconf = "domain swamp server $nis_server"
       $nis_hasstatus = false
       $nis_service = 'nis'
       $nis_status = 'ypbind'
     } else {
+      $ypconf = "ypserver $nis_server"
       $nis_service = 'ypbind'
       $nis_hasstatus = true
     }
   } else {
+    $ypconf = "domain swamp server $nis_server"
     $nis_package = 'ypbind'
     $nis_service = 'ypbind'
     $nis_hasstatus = true
@@ -24,9 +36,6 @@ class nis {
     'autofs':
       ensure => installed;
   }
-
-  #needed so that network service can be restarted
-  include network
 
   case $::osfamily {
     'RedHat': {
@@ -53,15 +62,9 @@ class nis {
     default: {}
   }
 
-  $nis_server = $::hostname ? {
-    /^pek.*$/ => '128.224.160.17',
-    /^ala.*$/ => '147.11.49.57',
-    /^yow.*$/ => '128.224.144.20',
-  }
-
   file {
     '/etc/yp.conf':
-      content => "domain swamp server $nis_server",
+      content => $ypconf,
       owner   => root, group => root, mode => '0644',
       require => Package['nis'];
     '/etc/nsswitch.conf':
