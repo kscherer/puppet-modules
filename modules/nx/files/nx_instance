@@ -61,6 +61,9 @@ nx_command="cd ${nx_builddir};\
 pushd nxrc_files > /dev/null 2>&1;\
 if [ -d .git ]; then git pull > /dev/null 2>&1; fi;\
 popd > /dev/null 2>&1;\
+pushd configs > /dev/null 2>&1;\
+if [ -d .git ]; then git pull > /dev/null 2>&1; fi;\
+popd > /dev/null 2>&1;\
 ulimit -u 5000;\
 ${nx_builddir}/notxylo/nx ${nxopts}"
 
