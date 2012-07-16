@@ -119,10 +119,16 @@ start() {
 
 stop() {
     echo -n "Shutting down nx instance ${instance} ..."
+
+    if [ ! -f $pidfile ]; then
+        echo "Pidfile not found. Assuming nx is stopped"
+        return 0
+    fi
+
     local pid=$(cat $pidfile)
 
     #check if pid in pidfile is valid
-    if [ -d /proc/$pid ]; then
+    if [ -n "$pid" ] && [ -d "/proc/$pid" ]; then
         local pgid=$(ps -p $pid -o pgid= | tr -d ' ' | tr -d '\n')
         echo "Send TERM signal to instance ${instance} with pid $pid and pgid $pgid"
 
