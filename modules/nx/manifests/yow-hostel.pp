@@ -7,10 +7,6 @@ class nx::yow-hostel {
   -> Anchor['nx::end']
 
   file {
-    '/mnt/prebuilt_cache':
-      ensure => directory,
-      owner  => '8023',
-      group  => '100';
     '/home/nxadm/nx':
       ensure  => directory;
     "/home/nxadm/nx/${::hostname}.1":
