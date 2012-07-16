@@ -18,7 +18,7 @@ class nis {
       $nis_service = 'nis'
       $nis_status = 'ypbind'
     } else {
-      $ypconf = "ypserver $nis_server"
+      $ypconf = "ypserver $nis_server\n"
       $nis_service = 'ypbind'
       $nis_hasstatus = true
     }
