@@ -21,17 +21,4 @@ class nx::yow-hostel {
     '1':
       require => File['/home/nxadm/nx'];
   }
-
-  #make sure the prebuilt cache is mounted
-  mount {
-    'nfs_prebuilt_cache':
-      ensure   => mounted,
-      atboot   => true,
-      device   => 'yow-lpggp1:/yow-lpggp15/prebuilt_cache/',
-      name     => '/mnt/prebuilt_cache',
-      fstype   => 'nfs',
-      options  => 'ro,soft,auto,nolock,_netdev',
-      require  => File['/mnt/prebuilt_cache'],
-      remounts => false;
-  }
 }

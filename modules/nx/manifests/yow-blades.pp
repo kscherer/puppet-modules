@@ -6,10 +6,6 @@ class nx::yow-blades {
       ensure => directory,
       owner  => root,
       group  => root;
-    '/mnt/rpm_cache':
-      ensure => directory,
-      owner  => '8023',
-      group  => '100';
   }
 
   mount {
@@ -21,15 +17,6 @@ class nx::yow-blades {
       options  => 'rw,_netdev',
       require  => File['/mnt/yow-blades'],
       remounts => true;
-    'rpm_cache':
-      ensure   => mounted,
-      atboot   => true,
-      device   => 'yow-lpggp1:/yow-lpggp15/prebuilt_cache/',
-      name     => '/mnt/rpm_cache',
-      fstype   => 'nfs',
-      options  => 'ro,soft,auto,nolock,_netdev',
-      require  => File['/mnt/rpm_cache'],
-      remounts => false;
   }
 
   #create nx instances
