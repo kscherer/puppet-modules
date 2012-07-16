@@ -11,8 +11,8 @@ class nagios::contact(
       host_notification_options     => 'd,u,r,f,s',
       service_notification_commands => 'notify-service-by-email',
       host_notification_commands    => 'notify-host-by-email',
-      host_notifications_enabled    => '0',
-      service_notifications_enabled => '0',
+      host_notifications_enabled    => '1',
+      service_notifications_enabled => '1',
       register                      => '0';
     'nagiosadmin':
       use   => 'generic-contact',
