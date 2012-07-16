@@ -8,10 +8,16 @@ class yocto::debian {
   }
 
   if $::architecture =~ /(x86_64|amd64)/ {
-    package {
-      'libc6:i386':
-        ensure => installed;
+    if $::operatingsystemrelease == '10.04' {
+      package {
+        'libc6-i386':
+          ensure => installed;
+      }
+    } else {
+      package {
+        'libc6:i386':
+          ensure => installed;
+      }
     }
   }
-
 }
