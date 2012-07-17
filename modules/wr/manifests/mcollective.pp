@@ -55,5 +55,11 @@ class wr::mcollective (
       k.to_s =~ /(uptime|timestamp|free|path|rubysitedir|pubkey|ssh)/
       }.to_yaml().split('\n').sort{ |x,y| y <=> x }.join('\n') %>")
   }
+
+  cron {
+    'restart_mcollective':
+      command => 'service mcollective restart &> /dev/null',
+      hour    => '0';
+  }
 }
 
