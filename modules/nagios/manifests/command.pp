@@ -9,7 +9,7 @@ class nagios::command(
   'notify-service-by-email':
     command_line => '/usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: $NOTIFICATIONTYPE$\n\nService: $SERVICEDESC$\nHost: $HOSTALIAS$\nAddress: $HOSTADDRESS$\nState: $SERVICESTATE$\n\nDate/Time: $LONGDATETIME$\n\nAdditional Info:\n\n$LONGSERVICEOUTPUT$\n" | /bin/mail -s "** $NOTIFICATIONTYPE$ Service Alert: $HOSTALIAS$/$SERVICEDESC$ is $SERVICESTATE$ **" $CONTACTEMAIL$';
   'check_host_alive':
-    command_line => '$USER1$/check_ping -H $HOSTADDRESS$ -w 3000.0,80% -c 5000.0,100% -p 5';
+    command_line => '$USER1$/check_ping -H $HOSTADDRESS$ -w 10000.0,80% -c 15000.0,100% -p 5';
   'check_ssh':
     command_line => '$USER1$/check_ssh $ARG1$ $HOSTADDRESS$';
   'check_snmp':
