@@ -193,10 +193,11 @@ nx_status(){
     local now=$(date +%s)
 
     #check if pid in pidfile is valid
-    if [ -d /proc/$pid ]; then
+    if [ "${#pid}" -gt "2" ] && [ -d "/proc/$pid" ]; then
         local nxlog_age=$(($now - $(stat -c '%Y' "$nx_log")))
 
-        if [ -f $wrbuildlog ]; then
+        #disable hang check for ala-blades
+        if [ "${HOSTNAME:0:3}" != "ala" ] && [ -f $wrbuildlog ]; then
             local wrbuildlog_age=$(($now - $(stat -c '%Y' "$wrbuildlog")))
             #If the 00-wrbuild.log was modified recently then build is not hung
             if [ $wrbuildlog_age -lt $one_hour ]; then
