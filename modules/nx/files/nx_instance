@@ -128,7 +128,7 @@ stop() {
     local pid=$(cat $pidfile)
 
     #check if pid in pidfile is valid
-    if [ "$pid" -gt "0" ] && [ -d "/proc/$pid" ]; then
+    if [ "${#pid}" -gt "2" ] && [ -d "/proc/$pid" ]; then
         local pgid=$(ps -p $pid -o pgid= | tr -d ' ' | tr -d '\n')
         echo "Send TERM signal to instance ${instance} with pid $pid and pgid $pgid"
 
