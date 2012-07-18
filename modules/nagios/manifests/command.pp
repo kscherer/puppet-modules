@@ -11,7 +11,7 @@ class nagios::command(
   'check_host_alive':
     command_line => '$USER1$/check_ping -H $HOSTADDRESS$ -w 10000.0,80% -c 15000.0,100% -p 5';
   'check_ssh':
-    command_line => '$USER1$/check_ssh $ARG1$ $HOSTADDRESS$';
+    command_line => '$USER1$/check_ssh --timeout=20 $ARG1$ $HOSTADDRESS$';
   'check_snmp':
     command_line => '$USER1$/check_snmp -H $HOSTADDRESS$ $ARG1$';
   'check_http':
