@@ -57,11 +57,9 @@ class nx::ala_local_build {
       mode    => '0755';
     '/home/nxadm/nx':
       ensure  => link,
-      target  => "${local_builddir}/nxadm/nx",
-      replace => false;
+      target  => "${local_builddir}/nxadm/nx";
     "${local_builddir}/nxadm/nx/${::hostname}.1":
       ensure  => directory,
-      mode    => '0755',
-      replace => false;
+      mode    => '0755';
   }
 }
