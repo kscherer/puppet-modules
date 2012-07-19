@@ -3,20 +3,23 @@ class nx::ala-blades {
 
   case $::hostname {
     /ala-blade2[5-9]/: {
-      include nx::netapp_iscsi_setup
-      nx::setup {['1','2']:}
+      include nx::ala_local_build
+      nx::setup { '1': }
     }
     /ala-blade3[0-2]/: {
-      include nx::netapp_iscsi_setup
-      nx::setup {['1','2']:}
+      include nx::ala_local_build
+      nx::setup { '1': }
     }
     default: { fail("Do not know how to configure nx for $::hostname")}
   }
 
   host {
+    'ala-lpgnas1-nfs':
+      ip           => '172.17.136.110',
+      host_aliases => 'ala-lpgnas1-nfs.wrs.com';
     'ala-lpgnas2-nfs':
       ip           => '172.17.136.114',
-      host_aliases => 'ala-lpgnas2-nfs.wrs.com',
+      host_aliases => 'ala-lpgnas2-nfs.wrs.com';
   }
 
   case $::hostname {
