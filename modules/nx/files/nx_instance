@@ -197,7 +197,7 @@ nx_status(){
         local nxlog_age=$(($now - $(stat -c '%Y' "$nx_log")))
 
         #disable hang check for ala-blades
-        if [ "${HOSTNAME:0:3}" != "ala" ] && [ -f $wrbuildlog ]; then
+        if [ -f $wrbuildlog ]; then
             local wrbuildlog_age=$(($now - $(stat -c '%Y' "$wrbuildlog")))
             #If the 00-wrbuild.log was modified recently then build is not hung
             if [ $wrbuildlog_age -lt $one_hour ]; then
