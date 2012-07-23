@@ -1,5 +1,5 @@
 #
-define nx::setup {
+define nx::setup( $notxylo_branch = 'master') {
 
   #this directory is created by the subclasses like
   #yow-blades and yow-hostel
@@ -24,7 +24,7 @@ define nx::setup {
       command => 'git clone git://ala-git.wrs.com/users/buildadmin/configs',
       unless  => "test -d $nx_builddir/configs";
     "clone_notxylo_repo_$name":
-      command => 'git clone git://ala-git.wrs.com/users/paul/notxylo',
+      command => "git clone --branch $notxylo_branch git://ala-git.wrs.com/users/paul/notxylo",
       unless  => "test -d $nx_builddir/notxylo";
   }
 
