@@ -52,7 +52,7 @@ class wr::mcollective (
     #at the top of the file
     content  => inline_template("<%= scope.to_hash.reject {
       |k,v| !k.is_a?(String) || !v.is_a?(String) ||
-      k.to_s =~ /(uptime|timestamp|free|path|rubysitedir|pubkey|ssh)/
+      k.to_s =~ /(uptime|timestamp|free|path|rubysitedir|pubkey|ssh|module_name|caller_module_name)/
       }.to_yaml().split('\n').sort{ |x,y| y <=> x }.join('\n') %>")
   }
 
