@@ -6,9 +6,13 @@ class nx::ala-blades {
       include nx::ala_local_build
       nx::setup { '1': }
     }
-    /ala-blade3[0-2]/: {
+    'ala-blade30': {
       include nx::ala_local_build
       nx::setup { '1': }
+    }
+    'ala-blade31': {
+      include nx::netapp_iscsi_setup
+      nx::setup { ['1','2']: }
     }
     default: { fail("Do not know how to configure nx for $::hostname")}
   }
