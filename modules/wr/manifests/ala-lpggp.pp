@@ -43,6 +43,13 @@ class wr::ala-lpggp inherits wr::ala-common {
           content =>
           'This machine is reserved for Linux Products automated testing only.';
       }
+      # create a directory for exclusive use by lpg-test group
+      file {
+        "/${::hostname}1/lpg-test":
+          ensure => 'directory',
+          group  => '3815',
+          mode   => '0775';
+      }
     }
     default: {
       motd::register{
