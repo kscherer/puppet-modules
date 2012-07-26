@@ -3,7 +3,7 @@ class yocto::redhat {
   #glibc_std in yocto requires OpenGL
   package {
     [ 'texi2html', 'chrpath','diffstat','subversion','mesa-libGL', 'mesa-libGLU',
-      'SDL-devel', 'texinfo', 'gawk', 'gcc', 'gcc-c++', 'help2man', 'tcl']:
+      'SDL-devel', 'texinfo', 'gawk', 'gcc', 'gcc-c++', 'help2man' ]:
         ensure => installed;
   }
 
