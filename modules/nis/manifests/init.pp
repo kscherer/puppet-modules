@@ -33,7 +33,7 @@ class nis {
     'nis':
       ensure => installed,
       name   => $nis_package;
-    ['autofs', 'csh']:
+    ['autofs', 'tcsh']:
       ensure => installed;
   }
 
