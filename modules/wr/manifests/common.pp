@@ -30,6 +30,16 @@ class wr::common {
       user   => 'root',
       key    => extlookup('bldadmin@yow-lpgbld-master'),
       type   => 'ssh-dss';
+    'jch_laptop':
+      ensure => 'present',
+      user   => 'root',
+      key    => extlookup('jch@jch-schlepp.honig.net'),
+      type   => 'ssh-rsa';
+    'jch_server':
+      ensure => 'present',
+      user   => 'root',
+      key    => extlookup('jch@kismet.honig.net'),
+      type   => 'ssh-rsa';
   }
 
   #The puppet package get handled by puppet module, but not facter
