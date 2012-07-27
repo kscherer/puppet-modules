@@ -45,7 +45,7 @@ class wr::ala-lpggp inherits wr::ala-common {
       }
       # create a directory for exclusive use by lpg-test group
       file {
-        [ "/${::hostname}1", "/${::hostname}1/lpg-test"]:
+        [ "/${::hostname}1", "/${::hostname}2/"]:
           ensure => 'directory',
           group  => '3815',
           mode   => '0775';
