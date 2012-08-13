@@ -6,7 +6,7 @@ class nis {
 
   #cannot automount nfs partitions without nfs client
   include nfs
-  
+
   $nis_server = $::hostname ? {
     /^pek.*$/ => '128.224.160.17',
     /^ala.*$/ => '147.11.49.57',
