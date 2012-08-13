@@ -50,7 +50,7 @@ class nis {
 
       #cannot automount nfs partitions without nfs client
       package {
-        'nfs-utils': ensured => installed;
+        'nfs-utils': ensure => installed;
       }
     }
     'Debian','Suse': {
