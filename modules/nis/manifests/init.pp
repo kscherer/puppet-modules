@@ -4,6 +4,9 @@ class nis {
   #needed so that network service can be restarted
   include network
 
+  #cannot automount nfs partitions without nfs client
+  include nfs
+  
   $nis_server = $::hostname ? {
     /^pek.*$/ => '128.224.160.17',
     /^ala.*$/ => '147.11.49.57',
@@ -47,11 +50,6 @@ class nis {
           notify => Service['network'];
       }
       File_line['nisdomain'] -> Service['nis']
-
-      #cannot automount nfs partitions without nfs client
-      package {
-        'nfs-utils': ensure => installed;
-      }
     }
     'Debian','Suse': {
       file {
