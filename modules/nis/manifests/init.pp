@@ -47,6 +47,11 @@ class nis {
           notify => Service['network'];
       }
       File_line['nisdomain'] -> Service['nis']
+
+      #cannot automount nfs partitions without nfs client
+      package {
+        'nfs-utils': ensured => installed;
+      }
     }
     'Debian','Suse': {
       file {
