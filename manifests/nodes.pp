@@ -126,4 +126,5 @@ node 'yow-irc.wrs.com' {
 
 node 'yow-lpg-md3000.wrs.com' {
   class {'wr::yow-common': }
+  -> class {'nomachine': }
 }
