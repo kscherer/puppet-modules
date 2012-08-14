@@ -225,6 +225,9 @@ nx_status(){
         elif [ $(tail -n 1 $nx_log | grep -q "Cloning wrlinux-x") ]; then
             nx_status_string="Waiting for initial clone."
             RETVAL=0
+        elif [ $(tail -n 1 $nx_log | grep -q "deleting passed") ]; then
+            nx_status_string="Long delete. Nx busy."
+            RETVAL=0
         elif [ $(tail -n 5 $nx_log | grep -q "Network glitch") ]; then
             nx_status_string="Something messed up - repo corrupt, network might be down, etc."
             RETVAL=151 # Reserved for application return code
