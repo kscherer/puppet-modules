@@ -27,4 +27,14 @@ class activemq::service(
     require    => Class['activemq::packages'],
   }
 
+  #restart activemq once a week after sleeping between 0 and 10 minutes
+  cron {
+    'weekly_activemq_restart':
+      ensure  => present,
+      command => '/bin/sleep `/usr/bin/expr $RANDOM % 600`; /bin/service activemq restart',
+      user    => 'root',
+      minute  => '0',
+      hour    => '0',
+      weekday => '0';
+  }
 }
