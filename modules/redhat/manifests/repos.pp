@@ -84,6 +84,8 @@ class redhat::repos {
       baseurl => "${mrepo_mirror}/puppetlabs-rh6-${::architecture}/RPMS.all";
     'passenger-rh6':
       baseurl => "${mrepo_mirror}/passenger-rh6-${::architecture}/RPMS.main";
+    'foreman-rh6':
+      baseurl => "${mrepo_mirror}/foreman-rh6-${::architecture}/RPMS.all";
   }
 
   case $::operatingsystemrelease {
@@ -101,6 +103,7 @@ class redhat::repos {
       realize( Yumrepo["puppetlabs-rh${major_release}"] )
       if ( $major_release == '6' ) {
         realize( Yumrepo["passenger-rh${major_release}"] )
+        realize( Yumrepo["foreman-rh${major_release}"] )
       }
     }
     Fedora: {
