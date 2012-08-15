@@ -34,7 +34,7 @@ class wr::master inherits wr::mcollective {
       mysql_root_pw               => 'r00t',
       activerecord_provider       => 'yum',
       activerecord_package        => 'rubygem-activerecord',
-      activerecord_ensure         => '3.0.11-1',
+      activerecord_ensure         => 'installed',
       require                     => [ Yumrepo['puppetlabs-rh6'],Yumrepo['passenger-rh6']],
   }
 
