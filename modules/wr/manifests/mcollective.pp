@@ -35,8 +35,6 @@ class wr::mcollective (
       stomp_user            => 'mcollective',
       stomp_passwd          => 'marionette',
       plugin_params         => {
-        'puppetd.puppetd'   => '/usr/bin/puppet agent',
-        'provision.puppetd' => '/usr/bin/puppet agent',
         'puppetca.puppetca' => '/usr/bin/puppet cert'
       }
   }
