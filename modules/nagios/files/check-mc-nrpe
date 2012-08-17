@@ -44,12 +44,12 @@ nrpe_results.each do |result|
 end
 
 # Nodes that don't respond are UNKNOWNs
-if nrpe.stats[:noresponsefrom].size > 0
-  stats[3] << nrpe.stats[:noresponsefrom]
-  statuscodes << 3
+# if nrpe.stats[:noresponsefrom].size > 0
+#   stats[3] << nrpe.stats[:noresponsefrom]
+#   statuscodes << 3
 
-  stats[3].flatten!
-end
+#   stats[3].flatten!
+# end
 
 # If we didn't discover any then thats an unknown
 statuscodes << 3 if nrpe.discover.size == 0
