@@ -21,11 +21,12 @@ node 'pek-lpd-puppet.wrs.com' {
 
 node 'yow-lpd-puppet.wrs.com' {
   class { 'redhat': }
-  -> class { 'ntp': servers => ['yow-lpgbld-master.wrs.com'] }
+  -> class { 'ntp': servers => ['yow-lpggp1.wrs.com'] }
   -> class { 'collectd::client': }
   -> class { 'wr::master': }
   -> class { 'nrpe': }
   -> class { 'nagios::target': }
+  -> class { 'git::stomp_listener': }
 }
 
 node 'yow-lpg-amqp.wrs.com' {

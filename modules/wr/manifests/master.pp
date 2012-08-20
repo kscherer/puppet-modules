@@ -35,7 +35,15 @@ class wr::master inherits wr::mcollective {
       activerecord_provider       => 'yum',
       activerecord_package        => 'rubygem-activerecord',
       activerecord_ensure         => 'installed',
-      require                     => [ Yumrepo['puppetlabs-rh6'],Yumrepo['passenger-rh6']],
+      require                     => [ Yumrepo['puppetlabs-rh6'], Yumrepo['passenger-rh6']],
+  }
+
+  file {
+    'puppet_env':
+      ensure => directory,
+      path   => '/etc/puppet/environments',
+      owner  => 'puppet',
+      group  => 'puppet';
   }
 
   cron {
