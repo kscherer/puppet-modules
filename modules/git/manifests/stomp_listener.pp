@@ -4,6 +4,7 @@ class git::stomp_listener {
 
   $script = "${git::stomp_repo::local}/git-stomp-listener.py"
 
+  #not a real service, just a python script that looks like a service
   service {
     'git_stomp_listener':
       ensure     => running,
