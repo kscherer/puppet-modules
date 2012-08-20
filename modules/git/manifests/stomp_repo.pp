@@ -5,19 +5,10 @@ class git::stomp_repo {
 
   vcsrepo {
     $local:
-      ensure   => 'latest',
+      ensure   => 'present',
       provider => 'git',
       source   => $remote,
       user     => 'puppet',
       revision => 'master';
   }
-
-  # exec {
-  #   'add_remote_master':
-  #     command => "git remote add --mirror=fetch master $remote",
-  #     unless  => 'git remote show master',
-  #     require => Vcsrepo[$local],
-  #     cwd     => $local,
-  #     user    => 'puppet';
-  # }
 }
