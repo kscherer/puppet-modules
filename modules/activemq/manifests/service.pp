@@ -31,7 +31,7 @@ class activemq::service(
   cron {
     'weekly_activemq_restart':
       ensure  => present,
-      command => '/bin/sleep `/usr/bin/expr $RANDOM % 600`; /bin/service activemq restart',
+      command => 'sleep $(/usr/bin/expr $RANDOM \% 600); /etc/init.d/activemq restart',
       user    => 'root',
       minute  => '0',
       hour    => '0',
