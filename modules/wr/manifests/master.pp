@@ -62,14 +62,4 @@ class wr::master inherits wr::mcollective {
       hour    => '3',
       weekday => '0';
   }
-
-  #this key is needed so that buildadmin can push from ala-git to
-  #to wr-puppet-modules repo on each puppet master
-  ssh_authorized_key {
-    'buildadmin@ala-git':
-      ensure => 'present',
-      user   => 'puppet',
-      key    => extlookup('buildadmin@ala-git'),
-      type   => 'ssh-rsa';
-  }
 }
