@@ -34,4 +34,10 @@ class wr::yow-hostel inherits wr::mcollective {
     'yow-hostel':
       content => 'This machine is reserved for the Ottawa Host Test Lab.';
   }
+
+  file {
+    '/buildarea':
+      ensure => directory,
+      mode   => '0777';
+  }
 }
