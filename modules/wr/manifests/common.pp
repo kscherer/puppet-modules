@@ -99,9 +99,9 @@ class wr::common {
   $ala_ntp_servers = ['ntp-1.wrs.com','ntp-2.wrs.com','ntp-3.wrs.com']
 
   $ntp_servers = $::hostname ? {
-    yow-lpggp1        => $ala_ntp_servers,
+    yow-lpggp2        => $ala_ntp_servers,
     pek-lpd-puppet    => $ala_ntp_servers,
-    /^yow.*/          => ['yow-lpggp1.wrs.com'],
+    /^yow.*/          => ['yow-lpggp2.wrs.com'],
     /^pek.*/          => ['pek-lpd-puppet.wrs.com'],
     default           => $ala_ntp_servers,
   }
