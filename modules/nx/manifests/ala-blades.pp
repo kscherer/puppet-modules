@@ -7,8 +7,8 @@ class nx::ala-blades {
       nx::setup { '1': }
     }
     'ala-blade30': {
-      include nx::ala_local_build
-      nx::setup { '1': }
+      include nx::netapp_iscsi_setup
+      nx::setup { ['1','2']: }
     }
     'ala-blade31': {
       include nx::netapp_iscsi_setup
