@@ -85,7 +85,7 @@ class redhat::repos {
     'passenger-rh6':
       baseurl => "${mrepo_mirror}/passenger-rh6-${::architecture}/RPMS.main";
     'foreman-rh6':
-      baseurl => "${mrepo_mirror}/foreman-rh6-${::architecture}/RPMS.all";
+      baseurl => "http://ala-mirror.wrs.com/mirror/mrepo/repos/foreman-rh6-${::architecture}/RPMS.all";
   }
 
   case $::operatingsystemrelease {
