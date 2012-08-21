@@ -8,6 +8,7 @@ node 'ala-lpd-puppet.wrs.com' {
   -> class { 'activemq': broker_name => 'ala-broker' }
   -> class { 'wr::master': }
   -> class { 'nrpe': }
+  -> class { 'git::stomp_listener': }
 }
 
 node 'pek-lpd-puppet.wrs.com' {
@@ -17,6 +18,7 @@ node 'pek-lpd-puppet.wrs.com' {
   -> class { 'activemq': broker_name => 'pek-broker' }
   -> class { 'wr::master': }
   -> class { 'nrpe': }
+  -> class { 'git::stomp_listener': }
 }
 
 node 'yow-lpd-puppet.wrs.com' {
