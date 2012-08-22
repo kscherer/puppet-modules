@@ -76,9 +76,9 @@ class nx {
     '/home/nxadm/.gitconfig':
       mode    => '0644',
       source  => 'puppet:///modules/nx/gitconfig';
-    '/home/nxadm/.ssh/':
+    ['/home/nxadm/.ssh/', '/home/nxadm/.history']:
       ensure => directory,
-      mode   => '0600';
+      mode   => '0700';
     '/home/nxadm/.ssh/id_dsa.pub':
       ensure => present,
       source => 'puppet:///modules/nx/id_dsa.pub',
