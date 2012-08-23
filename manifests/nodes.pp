@@ -131,3 +131,12 @@ node 'yow-lpg-md3000.wrs.com' {
   class {'wr::yow-common': }
   -> class {'nomachine': }
 }
+
+node 'yow-git.wrs.com': {
+  class { 'redhat': }
+  -> class { 'ntp': servers => ['yow-lpggp1.wrs.com'] }
+  -> class { 'collectd::client': }
+  -> class { 'nrpe': }
+  -> class { 'nagios::target': }
+  -> class { 'git::stomp_listener': }
+}
