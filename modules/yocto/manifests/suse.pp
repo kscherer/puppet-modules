@@ -5,7 +5,7 @@ class yocto::suse {
     package {
       [ 'chrpath','diffstat','subversion','Mesa', 'Mesa-devel', 'make',
         'libSDL-devel', 'texinfo', 'gawk', 'gcc', 'gcc-c++', 'help2man',
-        'patch', 'libexpat-devel', 'python-curses']:
+        'patch', 'libexpat-devel', 'python-curses','libsqlite3-0']:
           ensure => installed;
     }
   } elsif $::operatingsystem == 'SLED' {
