@@ -5,7 +5,7 @@ class yocto::suse {
     package {
       [ 'chrpath','diffstat','subversion','Mesa', 'Mesa-devel', 'make',
         'libSDL-devel', 'texinfo', 'gawk', 'gcc', 'gcc-c++', 'help2man',
-        'patch']:
+        'patch', 'libexpat-devel']:
           ensure => installed;
     }
   } elsif $::operatingsystem == 'SLED' {
