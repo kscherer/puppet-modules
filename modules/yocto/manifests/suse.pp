@@ -5,13 +5,14 @@ class yocto::suse {
     package {
       [ 'chrpath','diffstat','subversion','Mesa', 'Mesa-devel', 'make',
         'libSDL-devel', 'texinfo', 'gawk', 'gcc', 'gcc-c++', 'help2man',
-        'patch', 'libexpat-devel']:
+        'patch', 'libexpat-devel', 'python-curses']:
           ensure => installed;
     }
   } elsif $::operatingsystem == 'SLED' {
     package {
       [ 'make', 'texinfo', 'gawk', 'gcc', 'gcc-c++', 'patch', 'diffstat',
-        'subversion', 'chrpath', 'Mesa-devel', 'SDL-devel', 'expat']:
+        'subversion', 'chrpath', 'Mesa-devel', 'SDL-devel', 'expat',
+        'python-curses']:
           ensure => installed;
     }
   }
