@@ -24,10 +24,10 @@ plugin.stomp.port     = <%= stomp_port %>
 plugin.stomp.user     = <%= stomp_user %>
 plugin.stomp.password = <%= stomp_passwd %>
 <% else -%>
-plugin.stomp.pool.size = <%= stomp_pool_size %>
+plugin.<%= connector -%>.pool.size = <%= stomp_pool_size %>
 <% stomp_pool_real.each do |pool,configs| -%>
 <% configs.each do |key,value| -%>
-plugin.stomp.pool.<%= key -%> = <%= value %>
+plugin.<%= connector -%>.pool.<%= key -%> = <%= value %>
 <% end -%>
 <% end -%>
 <% end -%>
