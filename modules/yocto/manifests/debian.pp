@@ -8,6 +8,11 @@ class yocto::debian {
         ensure => installed;
   }
 
+  package {
+      'libexpat1-dev':
+        ensure => absent;
+  }
+
   if $::architecture =~ /(x86_64|amd64)/ {
     if $::operatingsystemrelease == '10.04' {
       package {
