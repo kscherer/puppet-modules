@@ -55,6 +55,7 @@ class collectd::client {
         ensure  => present,
         path    => '/etc/collectd.d/libvirt.conf',
         source  => 'puppet:///modules/collectd/libvirt.conf',
+        mode  => '0644',
         notify  => Service['collectd'],
         require => [ Package['collectd'], File['/etc/collectd.d']];
     }
