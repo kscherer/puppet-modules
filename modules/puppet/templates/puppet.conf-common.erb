@@ -9,5 +9,9 @@ pluginsync                = true
 templatedir               = $confdir/templates
 
 [agent]
+<% if rubyversion =~ /1.8/ -%>
 report                    = true
+<% else -%>
+report                    = false
+<% end -%>
 environment               = production
