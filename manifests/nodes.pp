@@ -133,6 +133,6 @@ node 'yow-lpg-md3000.wrs.com' {
 }
 
 node 'yow-git.wrs.com' {
-  class {'wr::yow-common': }
-  -> class { 'git::stomp_listener': }
+  class { 'redhat': }
+  -> class { 'ntp': servers => ['yow-lpggp1.wrs.com'] }
 }
