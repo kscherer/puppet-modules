@@ -134,5 +134,11 @@ node 'yow-lpg-md3000.wrs.com' {
 
 node 'yow-git.wrs.com' {
   class { 'redhat': }
-  -> class { 'ntp': servers => ['yow-lpggp1.wrs.com'] }
+  -> class { 'ntp': servers => ['yow-lpggp2.wrs.com'] }
+  -> class { 'puppet':
+    puppet_server               => 'yow-lpd-puppet.wrs.com',
+    puppet_agent_ensure         => 'latest',
+    puppet_agent_service_enable => false,
+    agent                       => true,
+  }
 }
