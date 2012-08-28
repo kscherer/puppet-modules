@@ -15,9 +15,6 @@ class wr::mcollective (
     /^yow.*$/ => 'yow-lpg-amqp.wrs.com',
   }
 
-  #Previous bug with 12.04 and upstart has been fixed
-  $mc_daemonize = '1'
-
   class {
     '::mcollective':
       version               => 'latest',
@@ -27,7 +24,6 @@ class wr::mcollective (
       yaml_facter_source    => '/etc/mcollective/facter.yaml',
       mc_security_provider  => 'psk',
       mc_security_psk       => 'H5FFD^B*S0yc7JCp',
-      mc_daemonize          => $mc_daemonize,
       main_collective       => 'mcollective',
       collectives           => "mcollective,$collective",
       stomp_server          => $amqp_server,

@@ -25,11 +25,6 @@ class wr::common {
       user   => 'root',
       key    => extlookup('kscherer@helix'),
       type   => 'ssh-rsa';
-    'cobbler_admin':
-      ensure => 'present',
-      user   => 'root',
-      key    => extlookup('bldadmin@yow-lpgbld-master'),
-      type   => 'ssh-dss';
     'jch_laptop':
       ensure => 'present',
       user   => 'root',

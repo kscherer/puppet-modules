@@ -141,4 +141,8 @@ node 'yow-git.wrs.com' {
     puppet_agent_service_enable => false,
     agent                       => true,
   }
+  -> class { 'wr::mcollective': }
+  -> class { 'nrpe': }
+  -> class { 'nagios::target': }
+  -> class { 'git::stomp_listener': }
 }
