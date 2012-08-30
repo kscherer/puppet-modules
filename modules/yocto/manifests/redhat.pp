@@ -13,8 +13,13 @@ class yocto::redhat {
   }
 
   if $::architecture == 'x86_64' {
+    #on RedHat/CentOS 5 the package is i386
+    case $::operatingsystemrelease {
+      /5.*/:   { $arch = 'i386' }
+      default: { $arch = 'i686' }
+    }
     package {
-      ['glibc.i686','glibc-devel.i686']:
+      ['glibc.i686',"glibc-devel.$arch"]:
         ensure => installed;
     }
   }
