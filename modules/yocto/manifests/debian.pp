@@ -21,7 +21,7 @@ class yocto::debian {
       }
     } else {
       package {
-        ['libc6:i386','libc6-dev:i386']:
+        ['libc6:i386','libc6-dev-i386']:
           ensure => installed;
       }
     }
