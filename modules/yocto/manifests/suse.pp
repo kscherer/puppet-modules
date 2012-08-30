@@ -9,20 +9,18 @@ class yocto::suse {
           ensure => installed;
     }
 
-    package {
-      'libexpat-devel':
-        ensure => absent;
-    }
   } elsif $::operatingsystem == 'SLED' {
     package {
       [ 'make', 'texinfo', 'gawk', 'gcc', 'gcc-c++', 'patch', 'diffstat',
         'subversion', 'chrpath', 'Mesa-devel', 'SDL-devel', 'python-curses']:
           ensure => installed;
     }
+  }
 
+  if $::architecture == 'x86_64' {
     package {
-      'expat':
-        ensure => absent;
+      'glibc-devel-32bit':
+        ensure => installed;
     }
   }
 }

@@ -7,11 +7,6 @@ class yocto::redhat {
         ensure => installed;
   }
 
-  package {
-    'expat-devel':
-      ensure => absent;
-  }
-
   if $::architecture == 'x86_64' {
     #on RedHat/CentOS 5 the package is i386
     case $::operatingsystemrelease {
