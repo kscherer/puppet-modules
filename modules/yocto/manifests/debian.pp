@@ -4,7 +4,7 @@ class yocto::debian {
   package {
     [ 'texi2html', 'chrpath','diffstat','subversion','libgl1-mesa-dev',
       'libglu1-mesa-dev', 'libsdl1.2-dev', 'texinfo', 'gawk', 'gcc',
-      'help2man']:
+      'help2man', 'g++']:
         ensure => installed;
   }
 
