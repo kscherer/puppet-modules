@@ -14,7 +14,7 @@ class yocto::redhat {
 
   if $::architecture == 'x86_64' {
     package {
-      'glibc.i686':
+      ['glibc.i686','glibc-devel.i686']:
         ensure => installed;
     }
   }
