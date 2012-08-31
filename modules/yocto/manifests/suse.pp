@@ -10,7 +10,7 @@ class yocto::suse {
     }
     if $::architecture == 'x86_64' {
       package {
-        ['libgcc46','libgcc46-32bit']:
+        ['gcc46-32bit']:
           ensure => installed;
       }
     }
@@ -22,16 +22,9 @@ class yocto::suse {
     }
     if $::architecture == 'x86_64' {
       package {
-        ['libgcc43','libgcc43-32bit']:
+        ['gcc43-32bit']:
           ensure => installed;
       }
-    }
-  }
-
-  if $::architecture == 'x86_64' {
-    package {
-      ['glibc-devel-32bit']:
-        ensure => installed;
     }
   }
 }
