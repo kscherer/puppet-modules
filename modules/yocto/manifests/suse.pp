@@ -8,18 +8,29 @@ class yocto::suse {
         'patch', 'python-curses','libsqlite3-0']:
           ensure => installed;
     }
-
+    if $::architecture == 'x86_64' {
+      package {
+        ['libgcc46','libgcc46-32bit']:
+          ensure => installed;
+      }
+    }
   } elsif $::operatingsystem == 'SLED' {
     package {
       [ 'make', 'texinfo', 'gawk', 'gcc', 'gcc-c++', 'patch', 'diffstat',
         'subversion', 'chrpath', 'Mesa-devel', 'SDL-devel', 'python-curses']:
           ensure => installed;
     }
+    if $::architecture == 'x86_64' {
+      package {
+        ['libgcc43','libgcc43-32bit']:
+          ensure => installed;
+      }
+    }
   }
 
   if $::architecture == 'x86_64' {
     package {
-      'glibc-devel-32bit':
+      ['glibc-devel-32bit']:
         ensure => installed;
     }
   }
