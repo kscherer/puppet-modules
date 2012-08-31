@@ -10,7 +10,7 @@ class yocto::redhat {
   if $::architecture == 'x86_64' {
     #on RedHat/CentOS 5 the package is i386
     case $::operatingsystemrelease {
-      /5.*/:   { $arch = 'i386' }
+      /^5.*/:   { $arch = 'i386' }
       default: { $arch = 'i686' }
     }
     package {
