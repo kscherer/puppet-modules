@@ -14,7 +14,7 @@ class yocto::redhat {
       default: { $arch = 'i686' }
     }
     package {
-      ['glibc.i686',"glibc-devel.$arch"]:
+      ['glibc.i686',"glibc-devel.$arch","libgcc.$arch"]:
         ensure => installed;
     }
   }
