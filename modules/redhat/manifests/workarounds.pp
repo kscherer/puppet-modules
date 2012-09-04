@@ -2,10 +2,10 @@
 class redhat::workarounds {
 
   file_line {
-    'stop_dhcp_modifying_ntp_conf':
-      path => '/etc/sysconfig/network-scripts/ifcfg-eth0',
-      line => 'PEERNTP=no';
-    #perfer the arch of the package that matches the installation arch
+    # 'stop_dhcp_modifying_ntp_conf':
+    #   path => '/etc/sysconfig/network-scripts/ifcfg-eth0',
+    #   line => 'PEERNTP=no';
+    #prefer the arch of the package that matches the installation arch
     'multilib-policy-best':
       path => '/etc/yum.conf',
       line => 'multilib_policy=best';
