@@ -135,3 +135,7 @@ node 'yow-lpg-md3000.wrs.com' {
 node 'yow-git.wrs.com' {
   class {'wr::yow-common': }
 }
+
+node 'ala-git-new.wrs.com' {
+  class {'wr::ala-common': }
+}
