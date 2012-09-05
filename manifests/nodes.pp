@@ -115,8 +115,8 @@ node /yow-lpggp\d+\.wrs\.com/ {
   class { 'wr::yow-lpggp': }
 }
 
-node /ala-lp.*\.wrs\.com/ {
-  class { 'wr::ala-common': }
+node 'ala-lpd-rcpl.wrs.com' {
+  class {'wr::ala-lpd-rcpl': }
 }
 
 node 'ala-irc.wrs.com' {
@@ -136,6 +136,6 @@ node 'yow-git.wrs.com' {
   class {'wr::yow-common': }
 }
 
-node 'ala-git-new.wrs.com' {
-  class {'wr::ala-lpd-rcpl': }
+node /ala-lp.*\.wrs\.com/ {
+  class { 'wr::ala-common': }
 }

@@ -25,4 +25,13 @@ class wr::ala-lpd-rcpl {
     ['git','git-daemon','cgit']:
       ensure => installed;
   }
+
+  mount {
+    '/git':
+      ensure   => mounted,
+      atboot   => true,
+      device   => '/dev/mapper/vg-git',
+      fstype   => 'ext4',
+      remounts => true;
+  }
 }
