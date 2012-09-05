@@ -32,6 +32,7 @@ class wr::ala-lpd-rcpl {
       atboot   => true,
       device   => '/dev/mapper/vg-git',
       fstype   => 'ext4',
+      options  => 'defaults',
       remounts => true;
   }
 }
