@@ -55,6 +55,11 @@ class nx {
       user   => 'nxadm',
       key    => extlookup('rmacleod@fidler'),
       type   => 'ssh-dss';
+    'wenzong_nxadm':
+      ensure => 'present',
+      user   => 'root',
+      key    => extlookup('wfan@pek-wenzong-fan'),
+      type   => 'ssh-dss';
   }
 
   File {
