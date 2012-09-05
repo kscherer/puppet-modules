@@ -18,7 +18,7 @@ class wr::ala-lpd-rcpl {
       hour     => 22,
       minute   => 0,
       weekday  => 6,
-      requires => File['e2croncheck'];
+      require  => File['e2croncheck'];
   }
 
   package {
