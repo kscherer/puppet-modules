@@ -137,5 +137,5 @@ node 'yow-git.wrs.com' {
 }
 
 node 'ala-git-new.wrs.com' {
-  class {'wr::ala-common': }
+  class {'wr::ala-lpd-rcpl': }
 }
