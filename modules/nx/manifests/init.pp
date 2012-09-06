@@ -72,7 +72,7 @@ class nx {
       ensure  => directory,
       mode    => '0755';
     '/home/nxadm/bin':
-      ensure  => absent,
+      ensure  => directory,
       recurse => true,
       purge   => true;
     '/etc/init.d/nx_instance':
