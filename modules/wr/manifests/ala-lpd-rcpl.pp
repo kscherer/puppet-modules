@@ -38,6 +38,15 @@ class wr::ala-lpd-rcpl {
 
   user {
     'git':
+      ensure     => present,
+      groups     => 'git',
+      managehome => true,
+      home       => '/home/git',
+      shell      => '/bin/bash';
+  }
+
+  group {
+    'git':
       ensure => present,
   }
 
