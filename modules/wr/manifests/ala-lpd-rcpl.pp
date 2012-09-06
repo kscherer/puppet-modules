@@ -1,6 +1,7 @@
 #
 class wr::ala-lpd-rcpl {
   class { 'wr::common': }
+  -> class { 'yocto': }
   -> class { 'nx': }
 
   file {
