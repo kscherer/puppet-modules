@@ -18,9 +18,6 @@ else
             elif [ "$?" -eq "1" ]; then
                 num_warning=$((num_warning+1))
                 longoutput="$longoutput\n$output"
-            elif [ "$?" -eq "150" ]; then
-                num_warning=$((num_warning+1))
-                longoutput="$longoutput\n$output"
             elif [ "$?" -eq "151" ]; then
                 num_warning=$((num_warning+1))
                 longoutput="$longoutput\n$output"

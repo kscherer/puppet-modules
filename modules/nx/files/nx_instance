@@ -100,9 +100,6 @@ start() {
     elif [ "$RETVAL" -eq "1" ]; then
         echo "Nx is hung, restarting..."
         stop
-    elif [ "$RETVAL" -eq "150" ]; then
-        echo "Warning: STFU deployed. Start request ignored."
-        return 0
     elif [ "$RETVAL" -eq "151" ]; then
         echo "Warning: Nx is experiencing external glitches. Start request ignored ."
         return 0
@@ -186,7 +183,7 @@ nx_status(){
 
     local pid=$(cat $pidfile)
     local fifteen_sec=15
-    local thirty_min=1800 #30 * 60 seconds
+    local five_min=300 #5 * 60 seconds
     local one_hour=3600 #60 * 60 seconds
     #When nx is building is makes a link to the current build
     local wrbuildlog="${nx_builddir}/current_build/00-wrbuild.log"
@@ -196,26 +193,9 @@ nx_status(){
     if [ "${#pid}" -gt "2" ] && [ -d "/proc/$pid" ]; then
         local nxlog_age=$(($now - $(stat -c '%Y' "$nx_log")))
 
-        #disable hang check for ala-blades
-        if [ -f $wrbuildlog ]; then
-            local wrbuildlog_age=$(($now - $(stat -c '%Y' "$wrbuildlog")))
-            #If the 00-wrbuild.log was modified recently then build is not hung
-            if [ $wrbuildlog_age -lt $one_hour ]; then
-                nx_status_string="Nx instance $instance is running"
-                RETVAL=0
-            elif [ $nxlog_age -lt $one_hour ]; then
-                nx_status_string="Nx instance $instance is running"
-                RETVAL=0
-            else
-                nx_status_string="Nx is hung"
-                RETVAL=1
-            fi
-        elif [ -f "/var/tmp/STFU" ]; then
+        if [ -f "/var/tmp/STFU" ]; then
             nx_status_string="STFU deployed. Nx waiting"
             RETVAL=0
-        elif [ ! -f ${nx_builddir}/nx.log ]; then
-            nx_status_string="Nx instance $instance is stopped"
-            RETVAL=3
         elif [ $(tail -n 1 $nx_log | grep -q "Build blackout") ]; then
             nx_status_string="Build blackout. Nx waiting"
             RETVAL=0
@@ -228,11 +208,25 @@ nx_status(){
         elif [ $(tail -n 1 $nx_log | egrep -q "(deleting passed|Removing)") ]; then
             nx_status_string="Long delete. Nx busy."
             RETVAL=0
-        elif [ $(tail -n 5 $nx_log | grep -q "Network glitch") ]; then
+        elif [ $(tail -n 1 $nx_log | grep -q "Network glitch") ]; then
             nx_status_string="Something messed up - repo corrupt, network might be down, etc."
             RETVAL=151 # Reserved for application return code
-        elif [ $nxlog_age -lt $thirty_min ]; then
-            nx_status_string="Nx is waiting"
+        elif [ -f $wrbuildlog ]; then
+            local wrbuildlog_age=$(($now - $(stat -c '%Y' "$wrbuildlog")))
+            #If the 00-wrbuild.log was modified recently then build is not hung
+            if [ $wrbuildlog_age -lt $one_hour ]; then
+                nx_status_string="Nx instance $instance is running"
+                RETVAL=0
+            elif [ $nxlog_age -lt $one_hour ]; then
+                nx_status_string="Nx instance $instance is running"
+                RETVAL=0
+            else
+                nx_status_string="Nx is hung"
+                RETVAL=1
+            fi
+        #nx is running but busy doing something that is not building
+        elif [ $nxlog_age -lt $five_min ]; then
+            nx_status_string="Nx is preparing a build"
             RETVAL=0
         else
             nx_status_string="I have no idea what nx is doing: $(tail ${nx_log})"
@@ -252,6 +246,13 @@ nx_status(){
     return $RETVAL
 }
 
+nx_tail(){
+    local nx_log="${nx_builddir}/nx.log"
+    if [ -f $nx_log ]; then
+        tail $nx_log
+    fi
+}
+
 # See how we were called.
 case "$1" in
     start)
@@ -266,6 +267,9 @@ case "$1" in
     status)
         nx_status
         echo $nx_status_string
+        ;;
+    tail)
+        nx_tail
         ;;
     *)
         echo "Usage: nx_instance {start|stop|restart|status}"
