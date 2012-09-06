@@ -27,12 +27,33 @@ class wr::ala-lpd-rcpl {
   }
 
   mount {
-    '/git':
+    '/data':
       ensure   => mounted,
       atboot   => true,
-      device   => '/dev/mapper/vg-git',
+      device   => '/dev/mapper/vg-data',
       fstype   => 'ext4',
       options  => 'defaults',
       remounts => true;
   }
+
+  user {
+    'git':
+      ensure => present,
+  }
+
+  group {
+    'git':
+      ensure => present,
+  }
+
+  file {
+    '/data/git':
+      ensure => directory,
+      owner  => 'git',
+      group  => 'git';
+    '/git':
+      ensure => link,
+      target => '/data/git';
+  }
+
 }
