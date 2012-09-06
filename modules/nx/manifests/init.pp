@@ -78,6 +78,7 @@ class nx {
     '/etc/init.d/nx_instance':
       owner   => 'root',
       group   => 'root',
+      mode    => '0755',
       source  => 'puppet:///modules/nx/nx_instance';
     '/home/nxadm/.gitconfig':
       mode    => '0644',
