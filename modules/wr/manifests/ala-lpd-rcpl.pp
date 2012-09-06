@@ -23,7 +23,7 @@ class wr::ala-lpd-rcpl {
   }
 
   package {
-    ['git','git-daemon','cgit']:
+    ['git-daemon','cgit']:
       ensure => installed;
   }
 
