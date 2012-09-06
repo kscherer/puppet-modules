@@ -41,11 +41,6 @@ class wr::ala-lpd-rcpl {
       ensure => present,
   }
 
-  group {
-    'git':
-      ensure => present,
-  }
-
   file {
     '/data/git':
       ensure => directory,
