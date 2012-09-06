@@ -47,7 +47,8 @@ class wr::ala-lpd-rcpl {
 
   group {
     'git':
-      ensure => present,
+      ensure  => present,
+      require => User['git'];
   }
 
   file {
