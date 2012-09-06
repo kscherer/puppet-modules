@@ -1,16 +1,34 @@
 #
 class nx::ala-lpd-rcpl {
-  include nx::ala_local_build
   nx::setup { ['1','2']: }
-  
+
   file {
-    '/data/nx':
+    '/data/nxadm':
       ensure => directory,
+      mode   => '0755',
       owner  => 'nxadm',
       group  => 'nxadm';
-    '/ala-lpd-rcpl1':
+    '/buildarea':
       ensure => link,
-      target => '/data/nx';
+      target => '/data/nxadm';
+    '/buildarea/nxadm/nx':
+      ensure  => directory,
+      owner   => 'nxadm',
+      group   => 'nxadm',
+      require => File['/buildarea/nxadm'],
+      mode    => '0755';
+    '/home/nxadm/nx':
+      ensure  => link,
+      target  => '/buildarea/nxadm/nx';
+    "/buildarea/nxadm/nx/${::hostname}.1":
+      ensure  => directory,
+      owner   => 'nxadm',
+      group   => 'nxadm',
+      mode    => '0755';
+    "/buildarea/nxadm/nx/${::hostname}.2":
+      ensure  => directory,
+      owner   => 'nxadm',
+      group   => 'nxadm',
+      mode    => '0755';
   }
-  
 }
