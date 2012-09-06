@@ -10,12 +10,12 @@ class nx::ala-lpd-rcpl {
       group  => 'nxadm';
     '/buildarea':
       ensure => link,
-      target => '/data/nxadm';
+      target => '/data/';
     '/buildarea/nxadm/nx':
       ensure  => directory,
       owner   => 'nxadm',
       group   => 'nxadm',
-      require => File['/buildarea/nxadm'],
+      require => File['/data/nxadm'],
       mode    => '0755';
     '/home/nxadm/nx':
       ensure  => link,
