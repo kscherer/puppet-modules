@@ -1,6 +1,7 @@
 #
 class wr::ala-lpd-rcpl {
   class { 'wr::common': }
+  -> class { 'nx': }
 
   file {
     'e2croncheck':
