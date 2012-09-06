@@ -57,7 +57,7 @@ class nx {
       type   => 'ssh-dss';
     'wenzong_nxadm':
       ensure => 'absent',
-      user   => 'root',
+      user   => 'nxadm',
       key    => extlookup('wfan@pek-wenzong-fan'),
       type   => 'ssh-dss';
   }
