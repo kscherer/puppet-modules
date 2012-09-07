@@ -25,11 +25,6 @@ class wr::ala-lpd-rcpl {
       require  => File['e2croncheck'];
   }
 
-  package {
-    ['cgit']:
-      ensure => installed;
-  }
-
   mount {
     '/data':
       ensure   => mounted,
