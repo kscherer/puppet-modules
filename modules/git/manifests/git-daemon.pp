@@ -12,7 +12,7 @@ class git::git-daemon {
       owner  => root,
       group  => root,
       mode   => '0644',
-      source => 'puppet:///modules/git/xinetd.get.conf';
+      source => 'puppet:///modules/git/xinetd.git.conf';
   }
 
   #which requires xinetd to be started
