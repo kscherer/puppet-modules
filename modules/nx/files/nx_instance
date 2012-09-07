@@ -183,7 +183,7 @@ nx_status(){
 
     local pid=$(cat $pidfile)
     local fifteen_sec=15
-    local five_min=300 #5 * 60 seconds
+    local fifteen_min=900 #15 * 60 seconds
     local one_hour=3600 #60 * 60 seconds
     #When nx is building is makes a link to the current build
     local wrbuildlog="${nx_builddir}/current_build/00-wrbuild.log"
@@ -225,7 +225,7 @@ nx_status(){
                 RETVAL=1
             fi
         #nx is running but busy doing something that is not building
-        elif [ $nxlog_age -lt $five_min ]; then
+        elif [ $nxlog_age -lt $fifteen_min ]; then
             nx_status_string="Nx is preparing a build"
             RETVAL=0
         else
