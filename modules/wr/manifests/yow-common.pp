@@ -1,6 +1,7 @@
 #
 class wr::yow-common inherits wr::mcollective {
   class { 'redhat': }
+  -> class { 'redhat::autoupdate': }
   -> class { 'ntp':
     servers => $wr::common::ntp_servers,
   }
@@ -20,20 +21,5 @@ class wr::yow-common inherits wr::mcollective {
       ensure  => present,
       mode    => '0644',
       content => "domain wrs.com\nsearch wrs.com windriver.com corp.ad.wrs.com\nnameserver 128.224.144.28 \nnameserver 147.11.57.128\n";
-  }
-
-  #enable auto update using cron
-  package {
-    ['yum-cron', 'bash-completion']:
-      ensure => installed;
-    'yum-updatesd':
-      ensure => absent;
-  }
-
-  service {
-    'yum-cron':
-      ensure    => running,
-      enable    => true,
-      hasstatus => true;
   }
 }

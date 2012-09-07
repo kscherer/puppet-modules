@@ -1,8 +1,10 @@
 #
 class wr::ala-lpd-rcpl {
   class { 'wr::common': }
+  -> class { 'redhat::autoupdate': }
   -> class { 'yocto': }
   -> class { 'nx': }
+  -> class { 'git::git-daemon': }
 
   file {
     'e2croncheck':
