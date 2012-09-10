@@ -12,11 +12,11 @@ class wr::ala-lpd-rcpl {
       user   => 'root',
       key    => extlookup('jwessel@splat'),
       type   => 'ssh-rsa';
-    # 'pkennedy_root':
-    #   ensure => 'present',
-    #   user   => 'root',
-    #   key    => extlookup('jwessel@splat'),
-    #   type   => 'ssh-rsa';
+    'pkennedy_root':
+      ensure => 'present',
+      user   => 'root',
+      key    => extlookup('pkennedy@linux-y9cs.site'),
+      type   => 'ssh-dss';
   }
 
   file {
