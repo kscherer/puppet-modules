@@ -209,7 +209,7 @@ nx_status(){
             nx_status_string="Long delete. Nx busy."
             RETVAL=0
         elif $(tail -n 1 $nx_log | egrep -q "(Running .*fix-config)"); then
-            nx_status_string="Runing fix-config. Nx busy."
+            nx_status_string="Running fix-config. Nx busy."
             RETVAL=0
         elif $(tail -n 1 $nx_log | grep -q "Network glitch"); then
             nx_status_string="Something messed up - repo corrupt, network might be down, etc."
@@ -238,7 +238,7 @@ nx_status(){
     elif $(tail -n 1 $nx_log | grep -q "Goodbye Cruel World"); then
         nx_status_string="Nx instance $instance is stopped"
         RETVAL=3
-    elif [ -f "$nx_log" ] && [ $(($now - $(stat -c '%Y' "$nx_log"))) -lt $fifteen_sec ]; then
+    elif [ $(($now - $(stat -c '%Y' "$nx_log"))) -lt $fifteen_sec ]; then
         #it is possible that the pidfile is out of date as it auto restarts
         nx_status_string="Nx instance $instance is running"
         RETVAL=0
