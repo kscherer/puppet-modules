@@ -56,6 +56,10 @@ class wr::ala-lpd-rcpl {
       ensure => directory,
       owner  => 'git',
       group  => 'git';
+    '/data/git/rcpl':
+      ensure => directory,
+      owner  => 'git',
+      group  => 'git';
     '/git':
       ensure => link,
       target => '/data/git';
