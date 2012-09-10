@@ -81,14 +81,15 @@ MIRROR=ala-git.wrs.com"
       minute      => 0,
       weekday     => 6,
       require     => File['e2croncheck'];
-    'mirror-update':
+    'mirror-update-5min':
       command => 'mirror-update 5mins',
       user    => 'git',
       minute  => [ 3,8,13,18,23,28,33,38,43,48,53 ];
-    'mirror-update':
-      command => 'mirror-update hourly',
+    'mirror-update-hourly':
+      command => 'mirror-update hourly 5mins',
       user    => 'git',
-      minute  => 0;
+      minute  => 56,
+      hourly  => ['1-23'];
     'mirror-kernels':
       command => 'mirror-kernels',
       user    => 'git',
@@ -96,14 +97,14 @@ MIRROR=ala-git.wrs.com"
     'mirror-repositories':
       command => 'mirror-repository 5mins hourly',
       user    => 'git',
-      minute  => 45,
-      hour    => 2,
-      weekday => [ '1-6'];
+      minute  => 56,
+      hour    => 0,
+      weekday => ['1-6'];
     'mirror-truncate':
       command => 'mirror-truncate-log',
       user    => 'git',
-      minute  => 45,
-      hour    => 2,
+      minute  => 56,
+      hour    => 0,
       weekday => 0;
   }
 }
