@@ -6,24 +6,25 @@ class wr::ala-lpd-rcpl {
   -> class { 'nx': }
   -> class { 'git::git-daemon': }
 
+  ssh_authorized_key {
+    'jwessel_root':
+      ensure => 'present',
+      user   => 'root',
+      key    => extlookup('jwessel@splat'),
+      type   => 'ssh-rsa';
+    # 'pkennedy_root':
+    #   ensure => 'present',
+    #   user   => 'root',
+    #   key    => extlookup('jwessel@splat'),
+    #   type   => 'ssh-rsa';
+  }
+
   file {
     'e2croncheck':
       ensure => present,
       path   => '/root/e2croncheck',
       mode   => '0755',
       source => 'puppet:///modules/wr/e2croncheck';
-  }
-
-  cron {
-    'e2croncheck':
-      ensure      => present,
-      command     => '/root/e2croncheck vg/git',
-      environment => 'MAILTO=konrad.scherer@windriver.com',
-      user        => root,
-      hour        => 22,
-      minute      => 0,
-      weekday     => 6,
-      require     => File['e2croncheck'];
   }
 
   mount {
@@ -65,4 +66,44 @@ class wr::ala-lpd-rcpl {
       target => '/data/git';
   }
 
+  #setup local ala-git mirror
+  $env="MAILTO='konrad.scherer@windriver.com'
+PATH=/git/bin:/usr/local/bin:/usr/bin:/bin
+MIRROR=ala-git.wrs.com"
+
+  cron {
+    'e2croncheck':
+      ensure      => present,
+      command     => '/root/e2croncheck vg/git',
+      environment => $env,
+      user        => root,
+      hour        => 22,
+      minute      => 0,
+      weekday     => 6,
+      require     => File['e2croncheck'];
+    'mirror-update':
+      command => 'mirror-update 5mins',
+      user    => 'git',
+      minute  => [ 3,8,13,18,23,28,33,38,43,48,53 ];
+    'mirror-update':
+      command => 'mirror-update hourly',
+      user    => 'git',
+      minute  => 0;
+    'mirror-kernels':
+      command => 'mirror-kernels',
+      user    => 'git',
+      minute  => 30;
+    'mirror-repositories':
+      command => 'mirror-repository 5mins hourly',
+      user    => 'git',
+      minute  => 45,
+      hour    => 2,
+      weekday => [ '1-6'];
+    'mirror-truncate':
+      command => 'mirror-truncate-log',
+      user    => 'git',
+      minute  => 45,
+      hour    => 2,
+      weekday => 0;
+  }
 }
