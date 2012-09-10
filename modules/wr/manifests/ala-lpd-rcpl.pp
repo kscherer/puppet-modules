@@ -89,7 +89,7 @@ MIRROR=ala-git.wrs.com"
       command => 'mirror-update hourly 5mins',
       user    => 'git',
       minute  => 56,
-      hourly  => ['1-23'];
+      hour    => ['1-23'];
     'mirror-kernels':
       command => 'mirror-kernels',
       user    => 'git',
