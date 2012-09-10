@@ -16,13 +16,14 @@ class wr::ala-lpd-rcpl {
 
   cron {
     'e2croncheck':
-      ensure   => present,
-      command  => '/root/e2croncheck vg/git >/dev/null',
-      user     => root,
-      hour     => 22,
-      minute   => 0,
-      weekday  => 6,
-      require  => File['e2croncheck'];
+      ensure      => present,
+      command     => '/root/e2croncheck vg/git',
+      environment => 'MAILTO=konrad.scherer@windriver.com',
+      user        => root,
+      hour        => 22,
+      minute      => 0,
+      weekday     => 6,
+      require     => File['e2croncheck'];
   }
 
   mount {
