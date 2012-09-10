@@ -196,19 +196,19 @@ nx_status(){
         if [ -f "/var/tmp/STFU" ]; then
             nx_status_string="STFU deployed. Nx waiting"
             RETVAL=0
-        elif [ $(tail -n 1 $nx_log | grep -q "Build blackout") ]; then
+        elif $(tail -n 1 $nx_log | grep -q "Build blackout"); then
             nx_status_string="Build blackout. Nx waiting"
             RETVAL=0
-        elif [ $(tail -n 1 $nx_log | grep -q "No new commits") ]; then
+        elif $(tail -n 1 $nx_log | grep -q "No new commits"); then
             nx_status_string="Waiting for commits."
             RETVAL=0
-        elif [ $(tail -n 1 $nx_log | grep -q "Cloning wrlinux-x") ]; then
+        elif $(tail -n 1 $nx_log | grep -q "Cloning wrlinux-x"); then
             nx_status_string="Waiting for initial clone."
             RETVAL=0
-        elif [ $(tail -n 1 $nx_log | egrep -q "(deleting passed|Removing)") ]; then
+        elif $(tail -n 1 $nx_log | egrep -q "(deleting passed|Removing)"); then
             nx_status_string="Long delete. Nx busy."
             RETVAL=0
-        elif [ $(tail -n 1 $nx_log | grep -q "Network glitch") ]; then
+        elif $(tail -n 1 $nx_log | grep -q "Network glitch"); then
             nx_status_string="Something messed up - repo corrupt, network might be down, etc."
             RETVAL=151 # Reserved for application return code
         elif [ -f $wrbuildlog ]; then
@@ -232,7 +232,7 @@ nx_status(){
             nx_status_string="I have no idea what nx is doing: $(tail ${nx_log})"
             RETVAL=4 # Unknown state
         fi
-    elif [ $(tail -n 1 $nx_log | grep -q "Goodbye Cruel World") ]; then
+    elif $(tail -n 1 $nx_log | grep -q "Goodbye Cruel World"); then
         nx_status_string="Nx instance $instance is stopped"
         RETVAL=3
     elif [ -f "$nx_log" ] && [ $(($now - $(stat -c '%Y' "$nx_log"))) -lt $fifteen_sec ]; then
