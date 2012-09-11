@@ -12,6 +12,7 @@ class git::git-daemon {
       owner  => root,
       group  => root,
       mode   => '0644',
+      notify => Service['xinetd'],
       source => 'puppet:///modules/git/xinetd.git.conf';
   }
 

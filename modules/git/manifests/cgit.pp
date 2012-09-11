@@ -11,4 +11,11 @@ class git::cgit {
       source => 'puppet:///modules/git/cgitrc';
   }
 
+  service {
+    'httpd':
+      ensure     => running,
+      enable     => true,
+      hasstatus  => true,
+      hasrestart => true;
+  }
 }
