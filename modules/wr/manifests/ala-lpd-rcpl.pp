@@ -40,7 +40,6 @@ class wr::ala-lpd-rcpl {
 
   yumrepo {
     'git':
-      ensure   => present,
       enabled  => true,
       descr    => 'Latest git',
       gpgcheck => '0',
