@@ -4,6 +4,7 @@ class wr::ala-lpd-rcpl {
   -> class { 'redhat::autoupdate': }
   -> class { 'yocto': }
   -> class { 'nx': }
+  -> class { 'git': }
   -> class { 'git::git-daemon': }
   -> class { 'git::cgit': }
 
@@ -67,10 +68,10 @@ class wr::ala-lpd-rcpl {
       ensure => directory,
       owner  => 'git',
       group  => 'git';
-    '/data/git/rcpl':
-      ensure => directory,
-      owner  => 'git',
-      group  => 'git';
+    #this recursive link is needed due an assumption in many scripts
+    '/data/git/git':
+      ensure => link,
+      target => '/data/git';
     '/git':
       ensure => link,
       target => '/data/git';
