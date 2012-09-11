@@ -5,6 +5,7 @@ class wr::ala-lpd-rcpl {
   -> class { 'yocto': }
   -> class { 'nx': }
   -> class { 'git::git-daemon': }
+  -> class { 'git::cgit': }
 
   ssh_authorized_key {
     'jwessel_root':
