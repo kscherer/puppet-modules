@@ -52,9 +52,8 @@ class wr::mcollective (
 
   cron {
     'restart_mcollective':
-      command => 'service mcollective restart &> /dev/null',
+      command => '/sbin/service mcollective restart &> /dev/null',
       minute  => '0',
       hour    => '0';
   }
 }
-
