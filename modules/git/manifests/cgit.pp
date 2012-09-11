@@ -8,6 +8,7 @@ class git::cgit {
   file {
     '/etc/cgitrc':
       ensure => present,
+      notify => Service['httpd'],
       source => 'puppet:///modules/git/cgitrc';
   }
 

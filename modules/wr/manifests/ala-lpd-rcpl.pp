@@ -38,6 +38,16 @@ class wr::ala-lpd-rcpl {
       remounts => true;
   }
 
+  yumrepo {
+    'git':
+      ensure   => present,
+      enable   => true,
+      descr    => 'Latest git',
+      gpgcheck => '0',
+      before   => Package['git'],
+      baseurl  => 'http://ala-mirror.wrs.com/mirror/git';
+  }
+
   user {
     'git':
       ensure     => present,

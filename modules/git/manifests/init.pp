@@ -8,6 +8,6 @@ class git {
 
   package {
     [$git_package_name, 'git-email']:
-      ensure => present;
+      ensure => latest;
   }
 }

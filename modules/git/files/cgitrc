@@ -76,4 +76,4 @@ source-filter=/usr/libexec/cgit/filters/syntax-highlighting.sh
 #repo.readme=info/web/about.html
 
 # Specify where to scan for repos
-scan-path=/git/rcpl
+scan-path=/data/git/
