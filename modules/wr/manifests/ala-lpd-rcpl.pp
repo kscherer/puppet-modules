@@ -79,9 +79,7 @@ class wr::ala-lpd-rcpl {
   }
 
   #setup local ala-git mirror
-  $env="MAILTO='konrad.scherer@windriver.com'
-PATH=/git/bin:/usr/local/bin:/usr/bin:/bin
-MIRROR=ala-git.wrs.com"
+  $env="MAILTO='konrad.scherer@windriver.com'"
 
   cron {
     'e2croncheck':
@@ -94,33 +92,33 @@ MIRROR=ala-git.wrs.com"
       weekday     => 6,
       require     => File['e2croncheck'];
     'mirror-update-5min':
-      command     => '/git/bin/mirror-update 5mins',
+      command     => 'MIRROR=ala-git.wrs.com /git/bin/mirror-update 5mins',
       environment => $env,
       user        => 'git',
       minute      => [ 3,8,13,18,23,28,33,38,43,48,53 ];
     'mirror-update-hourly':
-      command => '/git/bin/mirror-update hourly 5mins',
+      command => 'MIRROR=ala-git.wrs.com /git/bin/mirror-update hourly 5mins',
       user    => 'git',
       minute  => 56,
       hour    => ['1-23'];
     'mirror-kernels':
-      command => '/git/bin/mirror-kernels',
+      command => 'MIRROR=ala-git.wrs.com /git/bin/mirror-kernels',
       user    => 'git',
       minute  => 30;
     'mirror-repositories':
-      command => '/git/bin/mirror-repository 5mins hourly',
+      command => 'MIRROR=ala-git.wrs.com /git/bin/mirror-repository 5mins hourly',
       user    => 'git',
       minute  => 56,
       hour    => 0,
       weekday => ['1-6'];
     'mirror-truncate':
-      command => '/git/bin/mirror-truncate-log',
+      command => 'MIRROR=ala-git.wrs.com /git/bin/mirror-truncate-log',
       user    => 'git',
       minute  => 56,
       hour    => 0,
       weekday => 0;
     'mirror-external':
-      command => '/git/bin/external-update external',
+      command => 'MIRROR=ala-git.wrs.com /git/bin/external-update external',
       user    => 'git',
       minute  => 5,
       hour    => 4;
