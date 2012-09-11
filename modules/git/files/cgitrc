@@ -2,6 +2,9 @@
 # See cgitrc(5) or /usr/share/doc/cgit-*/cgitrc.5.html for details
 #
 
+# Specify the number of entries to list per page
+max-repo-count=1000
+
 # Enable caching of up to 1000 output entries
 cache-size=1000
 
