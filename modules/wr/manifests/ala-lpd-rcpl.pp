@@ -107,5 +107,10 @@ MIRROR=ala-git.wrs.com"
       minute  => 56,
       hour    => 0,
       weekday => 0;
+    'mirror-external':
+      command => '/git/bin/external-update external',
+      user    => 'git',
+      minute  => 5,
+      hour    => 4;
   }
 }
