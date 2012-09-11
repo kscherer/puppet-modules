@@ -4,7 +4,6 @@ class wr::ala-lpd-rcpl {
   -> class { 'redhat::autoupdate': }
   -> class { 'yocto': }
   -> class { 'nx': }
-  -> class { 'git': }
   -> class { 'git::git-daemon': }
   -> class { 'git::cgit': }
 
