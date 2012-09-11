@@ -70,7 +70,9 @@ class wr::ala-lpd-rcpl {
     #this recursive link is needed due an assumption in many scripts
     '/data/git/git':
       ensure => link,
-      target => '/data/git';
+      owner  => 'git',
+      group  => 'git',
+      target => '.';
     '/git':
       ensure => link,
       target => '/data/git';
