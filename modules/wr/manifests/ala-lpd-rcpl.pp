@@ -117,10 +117,5 @@ class wr::ala-lpd-rcpl {
       minute  => 56,
       hour    => 0,
       weekday => 0;
-    'mirror-external':
-      command => 'MIRROR=ala-git.wrs.com /git/bin/external-update external',
-      user    => 'git',
-      minute  => 5,
-      hour    => 4;
   }
 }
