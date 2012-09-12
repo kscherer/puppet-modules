@@ -79,7 +79,7 @@ class wr::ala-lpd-rcpl {
   }
 
   #setup local ala-git mirror
-  $env="MAILTO='konrad.scherer@windriver.com'"
+  $env='MAILTO=konrad.scherer@windriver.com'
 
   cron {
     'e2croncheck':
