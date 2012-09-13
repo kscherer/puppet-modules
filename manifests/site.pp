@@ -19,5 +19,10 @@ if $::operatingsystem == 'RedHat' and $::operatingsystemrelease == '4' {
   Package { provider => yum }
 }
 
+#force the provider on Suse to be zypper
+if $::osfamily == 'Suse' {
+  Package { provider => zypper }
+}
+
 # define nodes
 import 'nodes.pp'
