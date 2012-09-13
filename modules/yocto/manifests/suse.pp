@@ -10,9 +10,16 @@ class yocto::suse {
           ensure => installed;
     }
     if $::architecture == 'x86_64' {
-      package {
-        ['gcc46-32bit']:
-          ensure => installed;
+      if $::operatingsystemrelease == '12.1' {
+        package {
+          ['gcc46-32bit']:
+            ensure => installed;
+        }
+      } elsif $::operatingsystemrelease == '11.4' {
+        package {
+          ['gcc45-32bit']:
+            ensure => installed;
+        }
       }
     }
   } elsif $::operatingsystem == 'SLED' {

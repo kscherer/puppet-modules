@@ -32,6 +32,12 @@ puts
 puts "Ubuntu 12.04 x86_64"
 puts "apt-get install %s" % lookup('Debian', 'Ubuntu', '12', 'x86_64').join(',')
 puts
+puts "OpenSuSE 11.4 i386"
+puts "zypper install %s" % lookup('Suse', 'OpenSuSE', '11', 'i386').join(',')
+puts
+puts "OpenSuSE 11.4 x86_64"
+puts "zypper install %s" % lookup('Suse', 'OpenSuSE', '11', 'x86_64').join(',')
+puts
 puts "OpenSuSE 12.1 i386"
 puts "zypper install %s" % lookup('Suse', 'OpenSuSE', '12', 'i386').join(',')
 puts
