@@ -1,0 +1,14 @@
+---
+packages:
+  - texi2html
+  - chrpath
+  - diffstat
+  - subversion
+  - mesa-libGL
+  - mesa-libGLU
+  - SDL-devel
+  - texinfo
+  - gawk
+  - gcc
+  - gcc-c++
+  - help2man

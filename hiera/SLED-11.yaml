@@ -1,0 +1,14 @@
+---
+packages:
+  - make
+  - texinfo
+  - gawk
+  - gcc
+  - gcc-c++
+  - patch
+  - diffstat
+  - subversion
+  - chrpath
+  - Mesa-devel
+  - SDL-devel
+  - python-curses

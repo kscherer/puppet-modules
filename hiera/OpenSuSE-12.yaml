@@ -1,0 +1,17 @@
+---
+packages:
+  - chrpath
+  - diffstat
+  - subversion
+  - Mesa
+  - Mesa-devel
+  - make
+  - libSDL-devel
+  - texinfo
+  - gawk
+  - gcc
+  - gcc-c++
+  - help2man
+  - patch
+  - python-curses
+  - libsqlite3-0

@@ -1,0 +1,14 @@
+---
+:backends:
+  - yaml
+
+:logger: console
+
+:hierarchy:
+  - "%{operatingsystem}-%{lsbmajdistrelease}-%{architecture}"
+  - "%{operatingsystem}-%{lsbmajdistrelease}"
+  - "%{osfamily}"
+  - common
+
+:yaml:
+   :datadir: /home/kscherer/devel/hiera/

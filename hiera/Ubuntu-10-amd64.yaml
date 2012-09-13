@@ -1,0 +1,4 @@
+---
+packages:
+  - libc6-i386
+  - libc6-dev-i386
