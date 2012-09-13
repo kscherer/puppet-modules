@@ -1,11 +1,6 @@
 class yocto::suse {
 
-  package {
-    'lsb-release':
-      ensure => installed;
-  }
-
-  if $::operatingsystem == 'OpenSuSE' and $::operatingsystemrelease == '12.1' {
+  if $::operatingsystem == 'OpenSuSE' {
     #buildbot needs some packages not part of wrlinux required files
     #glibc_std in yocto requires OpenGL
     package {

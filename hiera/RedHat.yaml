@@ -1,7 +1,6 @@
 ---
 packages:
   - texi2html
-  - chrpath
   - diffstat
   - subversion
   - mesa-libGL

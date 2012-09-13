@@ -2,7 +2,7 @@
 :backends:
   - yaml
 
-:logger: console
+:logger: noop
 
 :hierarchy:
   - "%{operatingsystem}-%{lsbmajdistrelease}-%{architecture}"
@@ -11,4 +11,4 @@
   - common
 
 :yaml:
-   :datadir: /home/kscherer/devel/hiera/
+   :datadir: "/etc/puppet/environments/%{environment}/hiera"
