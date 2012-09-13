@@ -54,10 +54,6 @@ class redhat::workarounds {
       hasstatus => $yum_updatesd_hasstatus;
   }
 
-  if $::operatingsystem =~ /(RedHat|CentOS)/ {
-    package {
-      'redhat-lsb':
-        ensure => installed,
-    }
-  }
+  #Need lsb package for facter lsb variables
+  ensure_resource('package', 'redhat-lsb', {'ensure' => 'installed' })
 }
