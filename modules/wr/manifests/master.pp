@@ -17,7 +17,7 @@ class wr::master inherits wr::mcollective {
       datadir    => '/etc/puppet/environments/%{environment}/hiera',
       logger     => 'puppet',
       backends   => ['yaml'],
-  } ->
+  }
 
   class {
     'puppet':
