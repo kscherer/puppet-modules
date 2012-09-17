@@ -8,6 +8,18 @@ class wr::master inherits wr::mcollective {
   -> Class['wr::master']
 
   class {
+    'hiera':
+      hierarchy  => [ '%{operatingsystem}-%{lsbmajdistrelease}-%{architecture}',
+                      '%{operatingsystem}-%{lsbmajdistrelease}',
+                      '%{osfamily}',
+                      'common' ],
+      hiera_yaml => '/etc/puppet/hiera.yaml',
+      datadir    => '/etc/puppet/environments/%{environment}/hiera',
+      logger     => 'puppet',
+      backends   => ['yaml'],
+  } ->
+
+  class {
     'puppet':
       agent                       => true,
       puppet_server               => $wr::common::puppet_server,
