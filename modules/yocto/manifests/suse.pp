@@ -15,6 +15,11 @@ class yocto::suse {
           ['gcc46-32bit']:
             ensure => installed;
         }
+      } elsif $::operatingsystemrelease == '12.2' {
+        package {
+          ['gcc47-32bit']:
+            ensure => installed;
+        }
       } elsif $::operatingsystemrelease == '11.4' {
         package {
           ['gcc45-32bit']:
