@@ -2,10 +2,16 @@
 class wr::ala-lpd-susbld {
   class { 'wr::common': }
 
+  group {
+    'buildadmin':
+      ensure => present,
+  }
+
   user {
     'buildadmin':
       ensure     => present,
       home       => '/home/buildadmin',
+      gid        => 'buildadmin',
       managehome => true;
   }
 
