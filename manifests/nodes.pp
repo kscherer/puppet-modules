@@ -136,6 +136,10 @@ node 'yow-git.wrs.com' {
   class {'wr::yow-common': }
 }
 
+node 'ala-lpd-susbld.wrs.com' {
+  class { 'wr::ala-lpd-susbld': }
+}
+
 node /ala-lp.*\.wrs\.com/ {
   class { 'wr::ala-common': }
 }
