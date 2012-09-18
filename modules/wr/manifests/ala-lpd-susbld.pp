@@ -26,5 +26,10 @@ class wr::ala-lpd-susbld {
       user   => 'buildadmin',
       key    => extlookup('wfan@pek-wenzong-fan'),
       type   => 'ssh-dss';
+    'buildadmin_buildadmin':
+      ensure => 'present',
+      user   => 'buildadmin',
+      key    => extlookup('buildadmin@ala-blade9'),
+      type   => 'ssh-rsa';
   }
 }
