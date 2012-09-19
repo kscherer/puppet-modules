@@ -30,6 +30,16 @@ class wr::ala-blades inherits wr::ala-common {
       user   => 'root',
       key    => extlookup('root@ala-blade25'),
       type   => 'ssh-rsa';
+    'pkennedy_buildadmin':
+      ensure => 'present',
+      user   => 'buildadmin',
+      key    => extlookup('pkennedy@linux-y9cs.site'),
+      type   => 'ssh-dss';
+    'wenzong_buildadmin':
+      ensure => 'present',
+      user   => 'buildadmin',
+      key    => extlookup('wfan@pek-wenzong-fan'),
+      type   => 'ssh-dss';
   }
 
   motd::register{
