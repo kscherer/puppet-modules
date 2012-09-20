@@ -46,8 +46,8 @@ class redhat::workarounds {
       hasstatus => $iptables_hasstatus,
       enable    => false;
     'sendmail':
-      ensure => stopped,
-      enable => false;
+      ensure => running,
+      enable => true;
     'yum-updatesd':
       ensure    => stopped,
       enable    => false,
