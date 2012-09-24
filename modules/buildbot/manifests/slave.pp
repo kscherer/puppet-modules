@@ -94,6 +94,10 @@ class buildbot::slave(
     group   => 'buildbot',
   }
 
+  #When puppet runs exec as user it does not do as a login shell
+  #so some of the environment vars are missing
+  $env_vars = 'HOME=/home/buildbot PATH=/bin:/usr/bin:/sbin:/home/buildbot/bin USER=buildbot'
+
   exec {
     'clone_bin_repo':
       command => 'git clone git://yow-git.wrs.com/bin',
@@ -102,14 +106,12 @@ class buildbot::slave(
     'create-buildbot-slave':
       require => [ File["$bb_base/slave"], Package['buildbot-slave'],
                   Exec['clone_bin_repo']],
-      command => "buildslave create-slave --umask=022 slave $master $slave_name pass",
+      command => "$env_vars buildslave create-slave --umask=022 slave $master $slave_name pass",
       creates => "$bb_base/slave/buildbot.tac";
     'start-buildbot-slave':
       require     => [ File["$bb_base/slave"], Package['buildbot-slave'],
                       Exec['create-buildbot-slave']],
-      command     => 'buildslave start slave',
-      environment => ['HOME=/home/buildbot','PATH=/bin:/usr/bin:/sbin:/home/buildbot/bin',
-                      'USER=buildbot'],
+      command     => '$env_vars buildslave start slave',
       #check if buildbot slave is running by checking for pid
       unless      => 'test -e slave/twistd.pid && test -d /proc/$(cat slave/twistd.pid)';
   }
