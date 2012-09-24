@@ -1,6 +1,6 @@
 #
 class wr::ala-lpd-susbld {
-  class { 'wr::common': }
+  class { 'wr::mcollective': }
 
   group {
     'buildadmin':
