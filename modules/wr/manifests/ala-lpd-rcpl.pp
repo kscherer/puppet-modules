@@ -1,6 +1,6 @@
 #
 class wr::ala-lpd-rcpl {
-  class { 'wr::common': }
+  class { 'wr::mcollective': }
   -> class { 'redhat::autoupdate': }
   -> class { 'yocto': }
   -> class { 'nx': }
