@@ -73,16 +73,32 @@
 #
 # To setup stomp failover pools, ssl and plugin parameters:
 # node default {
-#   $stomp_server1 = { host1 => 'stomp1', port1 => '61612', user1 => 'mcollective',
-#     password1 => 'marionette'}
-#   $stomp_server2 = { host2 => 'stomp2', port2 => '6163', user2 => 'mcollective',
-#     password2 => 'marionette', ssl2 => 'true' }
+#   $stomp_server1 = { host => 'stomp1', port => '61612', user => 'mcollective',
+#     password => 'marionette'}
+#   $stomp_server2 = { host => 'stomp2', port => '6163', user => 'mcollective',
+#     password => 'marionette', ssl => true }
+#   $stomp_pool = { 1 => $stomp_server1, 2 => $stomp_server2 }
 #
 #   class {
-#     mcollective:
-#       stomp_pool => { pool1 => $stomp_server1, pool2 => $stomp_server2 },
+#     'mcollective':
+#       pool          => $stomp_pool,
 #       plugin_params => { 'puppetd.puppetd' => '/usr/bin/puppet agent' }
 #   }
+# }
+#
+# To setup activemq or rabbitmq failover pools, ssl parameters:
+# node default {
+#   $activemq_server1 = { host => 'activemq1', port => '61612', user => 'mcollective',
+#     password => 'marionette'}
+#   $activemq_server2 = { host => 'activemq2', port => '6163', user => 'mcollective',
+#     password => 'marionette', ssl => true }
+#     $activemq_pool = { 1 => $activemq_server1, 2 => $activemq_server2 }
+#
+#     class {
+#       'mcollective':
+#         connector => 'activemq',
+#         pool      => $activemq_pool;
+#     }
 # }
 #
 class mcollective(
@@ -100,7 +116,7 @@ class mcollective(
   $collectives          = 'mcollective',
   $connector            = 'stomp',
   $classesfile          = '/var/lib/puppet/state/classes.txt',
-  $stomp_pool           = 'UNSET',
+  $pool                 = 'UNSET',
   $stomp_server         = $mcollective::params::stomp_server,
   $stomp_port           = $mcollective::params::stomp_port,
   $stomp_user           = $mcollective::params::stomp_user,
@@ -111,8 +127,7 @@ class mcollective(
   $fact_source          = 'facter',
   $yaml_facter_source   = '/etc/mcollective/facts.yaml',
   $plugin_params        = {}
-) inherits mcollective::params
-{
+) inherits mcollective::params {
   $v_bool = [ '^true$', '^false$' ]
   $v_alphanum = '^[._0-9a-zA-Z:-]+$'
   validate_bool($manage_packages)
@@ -152,16 +167,16 @@ class mcollective(
   }
 
   # if no pool hash is provided, create a single pool using defaults
-  if $stomp_pool == 'UNSET' {
+  if $pool == 'UNSET' {
     validate_re($stomp_server, $v_alphanum)
     validate_re($stomp_port, '^[0-9]+$')
     validate_re($stomp_user, $v_alphanum)
     validate_re($stomp_passwd, $v_alphanum)
   } else {
-    validate_hash( $stomp_pool )
-    validate_hash( $stomp_pool['pool1'] )
-    $stomp_pool_real = $stomp_pool
-    $stomp_pool_size = size(keys($stomp_pool_real))
+    validate_hash( $pool )
+    validate_hash( $pool['1'] )
+    $pool_real = $pool
+    $pool_size = size(keys($pool_real))
   }
 
   if $client_config == 'UNSET' {

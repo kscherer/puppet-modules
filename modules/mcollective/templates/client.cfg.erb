@@ -11,16 +11,25 @@ plugin.psk       = <%= mc_security_psk_real %>
 
 # Middleware
 connector              = <%= connector %>
-<% if stomp_pool == 'UNSET' -%>
+<% if connector == 'stomp' -%>
+<% if pool == 'UNSET' -%>
 plugin.stomp.host     = <%= stomp_server %>
 plugin.stomp.port     = <%= stomp_port %>
 plugin.stomp.user     = <%= stomp_user %>
 plugin.stomp.password = <%= stomp_passwd %>
 <% else -%>
-plugin.stomp.pool.size = <%= stomp_pool_size %>
-<% stomp_pool_real.each do |pool,configs| -%>
+plugin.<%= connector -%>.pool.size = <%= pool_size %>
+<% pool_real.each do |pool_num,configs| -%>
 <% configs.each do |key,value| -%>
-plugin.stomp.pool.<%= key -%> = <%= value %>
+plugin.<%= connector -%>.pool.<%= key -%><%= pool_num -%> = <%= value %>
+<% end -%>
+<% end -%>
+<% end -%>
+<% else -%>
+plugin.<%= connector -%>.pool.size = <%= pool_size %>
+<% pool_real.each do |pool_num,configs| -%>
+<% configs.each do |key,value| -%>
+plugin.<%= connector -%>.pool.<%= pool_num -%>.<%= key -%> = <%= value %>
 <% end -%>
 <% end -%>
 <% end -%>

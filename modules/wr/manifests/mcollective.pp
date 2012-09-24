@@ -3,17 +3,16 @@ class wr::mcollective (
   $client = false
   ) inherits wr::common {
 
-  $collective = $::hostname ? {
-    /^ala.*$/ => 'ala',
-    /^pek.*$/ => 'pek',
-    /^yow.*$/ => 'yow',
-  }
-
   $amqp_server = $::hostname ? {
     /^ala.*$/ => 'ala-lpd-puppet.wrs.com',
     /^pek.*$/ => 'pek-lpd-puppet.wrs.com',
     /^yow.*$/ => 'yow-lpg-amqp.wrs.com',
   }
+
+  $activemq_server1 = { host => $amqp_server, port => '6163',
+                        user => 'mcollective', password => 'marionette'}
+
+  $activemq_pool = { 1 => $activemq_server1 }
 
   class {
     '::mcollective':
@@ -25,11 +24,9 @@ class wr::mcollective (
       mc_security_provider  => 'psk',
       mc_security_psk       => 'H5FFD^B*S0yc7JCp',
       main_collective       => 'mcollective',
-      collectives           => "mcollective,$collective",
-      stomp_server          => $amqp_server,
-      stomp_port            => '6163',
-      stomp_user            => 'mcollective',
-      stomp_passwd          => 'marionette',
+      collectives           => "mcollective,${::location}",
+      connector             => 'activemq',
+      pool                  => $activemq_pool,
       plugin_params         => {
         'puppetca.puppetca' => '/usr/bin/puppet cert'
       }
