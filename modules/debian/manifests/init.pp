@@ -13,6 +13,12 @@ class debian {
     /^pek.*/ => 'http://pek-mirror.wrs.com/mirror',
   }
 
+  #Sources are managed by puppet only
+  class {
+    'apt':
+      purge_sources_list => true;
+  }
+
   case $::operatingsystem {
     'Ubuntu': {
       class { 'debian::ubuntu' : mirror_base => $mirror_base }

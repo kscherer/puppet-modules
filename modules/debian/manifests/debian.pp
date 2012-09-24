@@ -26,11 +26,16 @@ class debian::debian( $mirror_base ) {
       release     => 'squeeze',
       include_src => false,
       repos       => 'main';
-    'yow_puppetlabs_mirror':
+    'yow_puppetlabs_main_mirror':
       location    => "${mirror_base}/puppetlabs",
       release     => 'squeeze',
       include_src => false,
       repos       => 'main';
+    'yow_puppetlabs_dependencies_mirror':
+      location    => "${mirror_base}/puppetlabs",
+      release     => 'squeeze',
+      include_src => false,
+      repos       => 'dependencies';
   }
 
   #don't enable testing and unstable on squeeze
