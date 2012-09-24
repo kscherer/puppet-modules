@@ -23,7 +23,7 @@ class debian::ubuntu ( $mirror_base ) {
       location    => "${mirror_base}/puppetlabs",
       release     => 'squeeze',
       include_src => false,
-      repos       => 'main';
+      repos       => 'main dependencies';
   }
 
   #force the default shell to be bash
