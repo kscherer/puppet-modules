@@ -32,7 +32,7 @@ class puppet::storeconfigs (
     }
     'mysql': {
       class {
-        "puppet::storeconfigs::mysql":
+        'puppet::storeconfigs::mysql':
           dbuser                 => $dbuser,
           dbpassword             => $dbpassword,
           mysql_root_pw          => $mysql_root_pw,
@@ -43,13 +43,16 @@ class puppet::storeconfigs (
           activerecord_ensure    => $activerecord_ensure,
       }
     }
+    'puppetdb': {
+      #No other config needed, handled by puppetdb module
+    }
     default: { err("target dbadapter $dbadapter not implemented") }
   }
 
   concat::fragment { 'puppet.conf-master-storeconfig':
     order   => '06',
-    target  => "/etc/puppet/puppet.conf",
-    content => template("puppet/puppet.conf-master-storeconfigs.erb");
+    target  => '/etc/puppet/puppet.conf',
+    content => template('puppet/puppet.conf-master-storeconfigs.erb');
   }
 
 }

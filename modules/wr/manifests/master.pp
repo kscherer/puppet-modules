@@ -19,6 +19,9 @@ class wr::master inherits wr::mcollective {
       backends   => ['yaml'],
   }
 
+  class { 'puppetdb': }
+  -> class { 'puppetdb::master::config': manage_storeconfigs => false }
+
   class {
     'puppet':
       agent                       => true,
@@ -39,15 +42,9 @@ class wr::master inherits wr::mcollective {
       dashboard_port              => '3000',
       dashboard_password          => 'dashb0ard',
       storeconfigs                => true,
-      thinstoreconfigs            => true,
-      storeconfigs_dbuser         => 'puppet',
-      storeconfigs_dbpassword     => 'windriver-puppet',
-      storeconfigs_dbsocket       => '/var/lib/mysql/mysql.sock',
-      mysql_root_pw               => 'r00t',
-      activerecord_provider       => 'yum',
-      activerecord_package        => 'rubygem-activerecord',
-      activerecord_ensure         => 'installed',
-      require                     => [ Yumrepo['puppetlabs-rh6'], Yumrepo['passenger-rh6']],
+      storeconfigs_dbadapter      => 'puppetdb',
+      require                     => [ Yumrepo['puppetlabs-rh6'],
+                                       Yumrepo['passenger-rh6']],
   }
 
   file {
