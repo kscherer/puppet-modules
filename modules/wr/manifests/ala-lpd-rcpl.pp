@@ -94,7 +94,7 @@ class wr::ala-lpd-rcpl {
   cron {
     'e2croncheck':
       ensure      => present,
-      command     => 'PATH=/bin:/sbin/:/usr/bin /root/e2croncheck vg/git',
+      command     => 'PATH=/bin:/sbin/:/usr/bin /root/e2croncheck vg/data',
       environment => $env,
       user        => root,
       hour        => 22,
