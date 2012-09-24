@@ -19,8 +19,12 @@ class wr::master inherits wr::mcollective {
       backends   => ['yaml'],
   }
 
-  class { 'puppetdb': puppetdb_server => $wr::common::puppet_server, }
-  -> class { 'puppetdb::master::config': manage_storeconfigs => false }
+  class { 'puppetdb': }
+  -> class {
+    'puppetdb::master::config':
+      puppetdb_server     => $wr::common::puppet_server,
+      manage_storeconfigs => false,
+  }
 
   class {
     'puppet':
