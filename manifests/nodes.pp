@@ -49,7 +49,7 @@ node /yow-lpgbld-[3-5][0-9]\.wrs\.com/ {
 }
 
 node 'yow-lpgbld-master.wrs.com' {
-  class { 'wr::xenserver': }
+  class { 'wr::xenserver': client => true }
 }
 
 node /pek-hostel-deb0[1-6]\.wrs\.com/ {

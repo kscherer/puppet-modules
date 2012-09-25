@@ -1,7 +1,10 @@
 #
-class wr::xenserver inherits wr::mcollective {
+class wr::xenserver(
+  $client = false
+  ) {
 
   class { 'debian': }
+  -> class { 'wr::mcollective': client => $client }
   -> class { 'ntp':
     servers    => $wr::common::ntp_servers,
   }
@@ -15,10 +18,6 @@ class wr::xenserver inherits wr::mcollective {
   -> class { 'collectd::client': }
   -> class { 'nagios::target': }
   -> class { 'xen': }
-
-  #make sure mcollective package does not try to install packages until
-  #sources have been installed
-  Class['debian'] -> Class['mcollective']
 
   #set a strong generated password to encourage use of ssh authorized keys
   user {
