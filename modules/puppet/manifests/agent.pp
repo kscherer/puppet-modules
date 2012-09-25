@@ -106,7 +106,7 @@ class puppet::agent(
         ensure    => stopped,
         enable    => false,
         hasstatus => false,
-        pattern   => 'puppetd',
+        pattern   => '/usr/sbin/puppetd',
         subscribe => Package[$puppet_agent_name],
       }
     }
