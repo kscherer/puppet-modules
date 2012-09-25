@@ -28,7 +28,7 @@ class puppetdb::params {
   $puppetdb_version       = 'present'
 
   # TODO: figure out a way to make this not platform-specific
-  $manage_redhat_firewall = true
+  $manage_redhat_firewall = false
 
   $gc_interval            = '60'
   $confdir                = '/etc/puppetdb/conf.d'

@@ -24,6 +24,7 @@ class wr::master inherits wr::mcollective {
     'puppetdb::master::config':
       puppetdb_server     => $wr::common::puppet_server,
       manage_storeconfigs => false,
+      restart_puppet      => false,
   }
 
   class {
