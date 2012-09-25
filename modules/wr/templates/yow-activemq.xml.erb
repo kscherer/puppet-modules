@@ -18,7 +18,6 @@
     <destinationPolicy>
       <policyMap>
         <policyEntries>
-          <policyEntry topic=">" producerFlowControl="false"/>
           <policyEntry queue="*.reply.>" gcInactiveDestinations="true" inactiveTimoutBeforeGC="300000" />
         </policyEntries>
       </policyMap>
@@ -40,7 +39,7 @@
           networkTTL="2"
           dynamicOnly="true">
         <excludedDestinations>
-          <queue physicalName="yow.>" />
+          <queue physicalName=">" />
         </excludedDestinations>
       </networkConnector>
       <networkConnector
@@ -54,7 +53,7 @@
           dynamicOnly="true"
           conduitSubscriptions="false">
         <excludedDestinations>
-          <topic physicalName="yow.>" />
+          <topic physicalName=">" />
         </excludedDestinations>
       </networkConnector>
 
@@ -69,7 +68,7 @@
         networkTTL="2"
         dynamicOnly="true">
         <excludedDestinations>
-          <queue physicalName="yow.>" />
+          <queue physicalName=">" />
         </excludedDestinations>
       </networkConnector>
       <networkConnector
@@ -83,7 +82,7 @@
           dynamicOnly="true"
           conduitSubscriptions="false">
         <excludedDestinations>
-          <topic physicalName="yow.>" />
+          <topic physicalName=">" />
         </excludedDestinations>
       </networkConnector>
     </networkConnectors>

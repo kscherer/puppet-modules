@@ -18,7 +18,6 @@
     <destinationPolicy>
       <policyMap>
         <policyEntries>
-          <policyEntry topic=">" producerFlowControl="false"/>
           <policyEntry queue="*.reply.>" gcInactiveDestinations="true" inactiveTimoutBeforeGC="300000" />
         </policyEntries>
       </policyMap>
@@ -45,6 +44,12 @@
               <authorizationEntry topic=">" write="admins" read="admins" admin="admins" />
               <authorizationEntry topic="mcollective.>" write="mcollective" read="mcollective" admin="mcollective" />
               <authorizationEntry queue="mcollective.>" write="mcollective" read="mcollective" admin="mcollective" />
+              <authorizationEntry topic="yow.>" write="mcollective" read="mcollective" admin="mcollective" />
+              <authorizationEntry queue="yow.>" write="mcollective" read="mcollective" admin="mcollective" />
+              <authorizationEntry topic="ala.>" write="mcollective" read="mcollective" admin="mcollective" />
+              <authorizationEntry queue="ala.>" write="mcollective" read="mcollective" admin="mcollective" />
+              <authorizationEntry topic="pek.>" write="mcollective" read="mcollective" admin="mcollective" />
+              <authorizationEntry queue="pek.>" write="mcollective" read="mcollective" admin="mcollective" />
               <authorizationEntry topic="ActiveMQ.Advisory.>" read="everyone" write="everyone" admin="everyone"/>
             </authorizationEntries>
           </authorizationMap>
