@@ -23,22 +23,21 @@ class mcollective::server::package(
 
   # The relationship to this class is required because other classes, e.g.
   # Class['mcollective::config'] requires the mcollective::server:package class.
-  case $::operatingsystem {
-    debian,ubuntu: {
+  case $::osfamily {
+    'Debian': {
       class { 'mcollective::server::package::debian':
         version => $version,
         require => Anchor['mcollective::server::package::begin'],
         before  => Anchor['mcollective::server::package::end'],
       }
     }
-    redhat,centos,oel: {
+    'RedHat': {
       class { 'mcollective::server::package::redhat':
         version => $version,
         require => Anchor['mcollective::server::package::begin'],
         before  => Anchor['mcollective::server::package::end'],
       }
     }
+    default: {}
   }
-
 }
-
