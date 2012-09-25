@@ -96,7 +96,7 @@ class buildbot::slave(
 
   #When puppet runs exec as user it does not do as a login shell
   #so some of the environment vars are missing
-  $env = 'HOME=/home/buildbot USER=buildbot'
+  $env = ['HOME=/home/buildbot', 'USER=buildbot']
 
   exec {
     'clone_bin_repo':
