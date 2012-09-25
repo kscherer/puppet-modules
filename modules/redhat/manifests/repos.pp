@@ -86,6 +86,8 @@ class redhat::repos {
       baseurl => "${mrepo_mirror}/passenger-rh6-${::architecture}/RPMS.main";
     'foreman-rh6':
       baseurl => "http://ala-mirror.wrs.com/mirror/mrepo/repos/foreman-rh6-${::architecture}/RPMS.all";
+    'activemq':
+      baseurl => 'http://yow-mirror.wrs.com/mirror/activemq';
   }
 
   case $::operatingsystemrelease {
@@ -104,6 +106,7 @@ class redhat::repos {
       if ( $major_release == '6' ) {
         realize( Yumrepo["passenger-rh${major_release}"] )
         realize( Yumrepo["foreman-rh${major_release}"] )
+        realize( Yumrepo['activemq'] )
       }
     }
     Fedora: {
