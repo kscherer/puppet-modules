@@ -1,11 +1,14 @@
 # Define the default puppet master setup for WindRiver
 
-class wr::master inherits wr::mcollective {
+class wr::master {
 
   Class['redhat']
+  -> Class['wr::mcollective']
   -> Class['mysql']
   -> Class['mysql::ruby']
   -> Class['wr::master']
+
+  class { 'wr::mcollective': client => true }
 
   class {
     'hiera':
@@ -49,7 +52,7 @@ class wr::master inherits wr::mcollective {
       storeconfigs                => true,
       storeconfigs_dbadapter      => 'puppetdb',
       require                     => [ Yumrepo['puppetlabs-rh6'],
-                                       Yumrepo['passenger-rh6']],
+                                      Yumrepo['passenger-rh6']],
   }
 
   file {
