@@ -76,14 +76,14 @@ class buildbot::slave(
       source  => 'puppet:///modules/nx/gitconfig';
     "${bb_base}/slave/info/admin":
       ensure  => present,
-      require => [ File["$bb_base/slave"], Package['buildbot-slave'],
+      require => [ File["${bb_base}/slave"], Package['buildbot-slave'],
                   Exec['create-buildbot-slave']],
       content => 'Konrad Scherer <Konrad.Scherer@windriver.com>';
     "${bb_base}/slave/info/host":
       ensure  => present,
-      require => [ File["$bb_base/slave"], Package['buildbot-slave'],
+      require => [ File["${bb_base}/slave"], Package['buildbot-slave'],
                   Exec['create-buildbot-slave']],
-      content => "OS: $::operatingsystem\nRelease: $::operatingsystemrelease\nArch: $::architecture";
+      content => "OS: ${::operatingsystem}\nRelease: ${::operatingsystemrelease}\nArch: ${::architecture}";
   }
 
   Exec {
@@ -104,14 +104,14 @@ class buildbot::slave(
       cwd     => '/home/buildbot',
       unless  => 'test -d /home/buildbot/bin';
     'create-buildbot-slave':
-      require => [ File["$bb_base/slave"], Package['buildbot-slave'],
+      require => [ File["${bb_base}/slave"], Package['buildbot-slave'],
                   Exec['clone_bin_repo']],
-      command => "$env_vars buildslave create-slave --umask=022 slave $master $slave_name pass",
-      creates => "$bb_base/slave/buildbot.tac";
+      command => "${env_vars} buildslave create-slave --umask=022 slave ${master} ${slave_name} pass",
+      creates => "${bb_base}/slave/buildbot.tac";
     'start-buildbot-slave':
-      require     => [ File["$bb_base/slave"], Package['buildbot-slave'],
+      require     => [ File["${bb_base}/slave"], Package['buildbot-slave'],
                       Exec['create-buildbot-slave']],
-      command     => '$env_vars buildslave start slave',
+      command     => "${env_vars} buildslave start slave",
       #check if buildbot slave is running by checking for pid
       unless      => 'test -e slave/twistd.pid && test -d /proc/$(cat slave/twistd.pid)';
   }
