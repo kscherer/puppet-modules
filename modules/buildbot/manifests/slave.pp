@@ -104,16 +104,16 @@ class buildbot::slave(
       cwd     => '/home/buildbot',
       unless  => 'test -d /home/buildbot/bin';
     'create-buildbot-slave':
-      require => [ File["${bb_base}/slave"], Package['buildbot-slave'],
-                  Exec['clone_bin_repo']],
-      command => "buildslave create-slave --umask=022 slave ${master} ${slave_name} pass",
-      env     => $env,
-      creates => "${bb_base}/slave/buildbot.tac";
+      require     => [ File["${bb_base}/slave"], Package['buildbot-slave'],
+                      Exec['clone_bin_repo']],
+      command     => "buildslave create-slave --umask=022 slave ${master} ${slave_name} pass",
+      environment => $env,
+      creates     => "${bb_base}/slave/buildbot.tac";
     'start-buildbot-slave':
       require     => [ File["${bb_base}/slave"], Package['buildbot-slave'],
                       Exec['create-buildbot-slave']],
       command     => 'buildslave start slave',
-      env         => $env,
+      environment => $env,
       #check if buildbot slave is running by checking for pid
       unless      => 'test -e slave/twistd.pid && test -d /proc/$(cat slave/twistd.pid)';
   }
