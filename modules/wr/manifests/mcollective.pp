@@ -38,13 +38,11 @@ class wr::mcollective (
     backup   => false,
     replace  => true,
     #grab all puppet vars from current scope, filter out invalid
-    #or frequently changing values, make a yaml hash and then
-    #sort the lines reverse alphabetically. Reverse so that --- stays
-    #at the top of the file
+    #or frequently changing values, make a yaml hash
     content  => inline_template("<%= scope.to_hash.reject {
       |k,v| !k.is_a?(String) || !v.is_a?(String) ||
       k.to_s =~ /(uptime|timestamp|free|path|rubysitedir|pubkey|ssh|module_name|caller_module_name)/
-      }.to_yaml().split('\n').sort{ |x,y| y <=> x }.join('\n') %>")
+      }.to_yaml() %>")
   }
 
   cron {
