@@ -56,6 +56,10 @@ node /pek-hostel-deb0[1-6]\.wrs\.com/ {
   class { 'wr::pek-xenserver': }
 }
 
+node /pek-blade\d+\.wrs\.com/ {
+  class { 'wr::mcollective': }
+}
+
 node 'yow-lpd-monitor.wrs.com' {
   class { 'redhat': }
   -> class { 'puppet':
