@@ -102,31 +102,33 @@
 # }
 #
 class mcollective(
-  $version              = 'UNSET',
-  $enterprise           = false,
-  $manage_packages      = true,
-  $manage_plugins       = false,
-  $server               = true,
-  $server_config        = 'UNSET',
-  $server_config_file   = '/etc/mcollective/server.cfg',
-  $client               = false,
-  $client_config        = 'UNSET',
-  $client_config_file   = '/etc/mcollective/client.cfg',
-  $main_collective      = 'mcollective',
-  $collectives          = 'mcollective',
-  $connector            = 'stomp',
-  $classesfile          = '/var/lib/puppet/state/classes.txt',
-  $pool                 = 'UNSET',
-  $stomp_server         = $mcollective::params::stomp_server,
-  $stomp_port           = $mcollective::params::stomp_port,
-  $stomp_user           = $mcollective::params::stomp_user,
-  $stomp_passwd         = $mcollective::params::stomp_passwd,
-  $mc_security_provider = $mcollective::params::mc_security_provider,
-  $mc_security_psk      = $mcollective::params::mc_security_psk,
-  $mc_daemonize         = $mcollective::params::mc_daemonize,
-  $fact_source          = 'facter',
-  $yaml_facter_source   = '/etc/mcollective/facts.yaml',
-  $plugin_params        = {}
+  $version                 = 'UNSET',
+  $enterprise              = false,
+  $manage_packages         = true,
+  $manage_plugins          = false,
+  $server                  = true,
+  $server_config           = 'UNSET',
+  $server_config_file      = '/etc/mcollective/server.cfg',
+  $client                  = false,
+  $client_config           = 'UNSET',
+  $client_config_file      = '/etc/mcollective/client.cfg',
+  $main_collective         = 'mcollective',
+  $collectives             = 'mcollective',
+  $connector               = 'stomp',
+  $classesfile             = '/var/lib/puppet/state/classes.txt',
+  $registration            = true,
+  $registration_collective = 'UNSET',
+  $pool                    = 'UNSET',
+  $stomp_server            = $mcollective::params::stomp_server,
+  $stomp_port              = $mcollective::params::stomp_port,
+  $stomp_user              = $mcollective::params::stomp_user,
+  $stomp_passwd            = $mcollective::params::stomp_passwd,
+  $mc_security_provider    = $mcollective::params::mc_security_provider,
+  $mc_security_psk         = $mcollective::params::mc_security_psk,
+  $mc_daemonize            = $mcollective::params::mc_daemonize,
+  $fact_source             = 'facter',
+  $yaml_facter_source      = '/etc/mcollective/facts.yaml',
+  $plugin_params           = {}
 ) inherits mcollective::params {
   $v_bool = [ '^true$', '^false$' ]
   $v_alphanum = '^[._0-9a-zA-Z:-]+$'
@@ -144,6 +146,7 @@ class mcollective(
   validate_re($fact_source, '^facter$|^yaml$')
   validate_re($connector, '^stomp$|^activemq$')
   validate_hash($plugin_params)
+  validate_bool($registration)
 
   $server_real               = $server
   $client_real               = $client

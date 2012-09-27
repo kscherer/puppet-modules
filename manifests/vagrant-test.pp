@@ -1,4 +1,5 @@
 
+
 $extlookup_datadir = "/vagrant_data/extdata/"
 $extlookup_precedence = [ 'common']
 
@@ -13,6 +14,11 @@ node default {
 
   class { $base_class: }
   -> class { 'wr::common': }
+  -> class {
+    'wr::mcollective':
+      client       => true,
+      registration => false,
+  }
   -> class { 'ntp':
     servers    => $wr::common::ntp_servers,
   }
@@ -21,10 +27,5 @@ node default {
     puppet_agent_ensure         => 'latest',
     puppet_agent_service_enable => false,
     agent                       => true,
-  } ->
-
-  class {
-    'wr::mcollective':
-      client => true,
   }
 }

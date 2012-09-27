@@ -1,6 +1,7 @@
 # A class to hold common mcollective params for mcollective
 class wr::mcollective (
-  $client = false
+  $client       = false,
+  $registration = true
   ) inherits wr::common {
 
   $amqp_server = $::hostname ? {
@@ -16,19 +17,21 @@ class wr::mcollective (
 
   class {
     '::mcollective':
-      version               => 'latest',
-      client                => $client,
-      manage_plugins        => true,
-      fact_source           => 'yaml',
-      yaml_facter_source    => '/etc/mcollective/facter.yaml',
-      mc_security_provider  => 'psk',
-      mc_security_psk       => 'H5FFD^B*S0yc7JCp',
-      main_collective       => 'mcollective',
-      collectives           => "mcollective,${::location}",
-      connector             => 'activemq',
-      pool                  => $activemq_pool,
-      plugin_params         => {
-        'puppetca.puppetca' => '/usr/bin/puppet cert'
+      version                 => 'latest',
+      client                  => $client,
+      manage_plugins          => true,
+      fact_source             => 'yaml',
+      yaml_facter_source      => '/etc/mcollective/facter.yaml',
+      mc_security_provider    => 'psk',
+      mc_security_psk         => 'H5FFD^B*S0yc7JCp',
+      main_collective         => 'mcollective',
+      collectives             => "mcollective,${::location}",
+      registration            => $registration,
+      registration_collective => $::location,
+      connector               => 'activemq',
+      pool                    => $activemq_pool,
+      plugin_params           => {
+        'puppetca.puppetca'   => '/usr/bin/puppet cert'
       }
   }
 

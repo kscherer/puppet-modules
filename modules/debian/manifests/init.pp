@@ -9,26 +9,38 @@ class debian {
   }
 
   $mirror_base = $::hostname ? {
-    /^yow.*/ => 'http://yow-mirror.wrs.com/mirror',
     /^pek.*/ => 'http://pek-mirror.wrs.com/mirror',
+    /^yow.*/ => 'http://yow-mirror.wrs.com/mirror',
   }
+
+  anchor { 'debian::begin': }
+  anchor { 'debian::end': }
 
   #Sources are managed by puppet only
   class {
     'apt':
-      purge_sources_list => true;
+      purge_sources_list => true,
+      require            => Anchor['debian::begin'],
   }
 
   case $::operatingsystem {
     'Ubuntu': {
-      class { 'debian::ubuntu' : mirror_base => $mirror_base }
+      class {
+        'debian::ubuntu':
+          mirror_base => $mirror_base,
+          require     => Class['apt'],
+      }
       $repo=yow-mirror_ubuntu
     }
     'Debian': {
-      class { 'debian::debian' : mirror_base => $mirror_base }
+      class {
+        'debian::debian':
+          mirror_base => $mirror_base,
+          require     => Class['apt'],
+      }
       $repo=debian_mirror_stable
     }
-    default: { fail("Unsupported OS $::operatingsystem") }
+    default: { fail("Unsupported OS ${::operatingsystem}") }
   }
 
   #needed to allow puppet to set passwords
