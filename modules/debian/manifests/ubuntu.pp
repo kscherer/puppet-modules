@@ -3,6 +3,9 @@ class debian::ubuntu ( $mirror_base ) {
 
   $ubuntu_mirror = "${mirror_base}/ubuntu.com/ubuntu"
 
+  #Sources are managed by puppet only
+  class {'apt': purge_sources_list => true }
+
   apt::source {
     'yow-mirror_ubuntu':
       location    => $ubuntu_mirror,

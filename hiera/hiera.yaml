@@ -8,6 +8,7 @@
   - "%{operatingsystem}-%{lsbmajdistrelease}-%{architecture}"
   - "%{operatingsystem}-%{lsbmajdistrelease}"
   - "%{osfamily}"
+  - "%{location}"
   - common
 
 :yaml:

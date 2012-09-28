@@ -24,5 +24,24 @@ if $::osfamily == 'Suse' {
   Package { provider => zypper }
 }
 
+case $::location {
+  undef: {
+    #This path is used for stdlib facter_dot_d module
+    #if location fact is not set by pluginsync, use default from hostname
+    file {
+      '/etc/facter/':
+        ensure => directory;
+      '/etc/facter/facts.d/':
+        ensure => directory;
+      '/etc/facter/facts.d/location.txt':
+        ensure  => present,
+        content => inline_template( 'location=<%= hostname[0..2] %>' );
+    }
+    $location = regsubst($::hostname, '^(\w\w\w).*','\1')
+    notice("Using calculated location of ${::location}")
+  }
+  default: { } #location properly set, Nothing to do
+}
+
 # define nodes
 import 'nodes.pp'

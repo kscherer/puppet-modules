@@ -1,0 +1,8 @@
+---
+amqp_server: ala-lpd-puppet.wrs.com
+puppet_server: ala-lpd-puppet.wrs.com
+ntp_servers:
+  - ntp-1.wrs.com
+  - ntp-2.wrs.com
+  - ntp-3.wrs.com
+

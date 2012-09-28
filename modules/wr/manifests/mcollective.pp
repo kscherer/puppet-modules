@@ -4,11 +4,7 @@ class wr::mcollective (
   $registration = true
   ) inherits wr::common {
 
-  $amqp_server = $::hostname ? {
-    /^ala.*$/ => 'ala-lpd-puppet.wrs.com',
-    /^pek.*$/ => 'pek-lpd-puppet.wrs.com',
-    /^yow.*$/ => 'yow-lpg-amqp.wrs.com',
-  }
+  $amqp_server = hiera('amqp_server')
 
   $activemq_server1 = { host => $amqp_server, port => '6163',
                         user => 'mcollective', password => 'marionette'}

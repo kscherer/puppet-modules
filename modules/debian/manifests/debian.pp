@@ -15,6 +15,9 @@ class debian::debian( $mirror_base ) {
     default: { class { 'apt::release' : release_id => 'stable' } }
   }
 
+  #Sources are managed by puppet only
+  class {'apt': purge_sources_list => true }
+
   apt::source {
     'debian_mirror_stable':
       location    => "${mirror_base}/debian",

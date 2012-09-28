@@ -15,6 +15,7 @@ class wr::master {
       hierarchy  => [ '%{operatingsystem}-%{lsbmajdistrelease}-%{architecture}',
                       '%{operatingsystem}-%{lsbmajdistrelease}',
                       '%{osfamily}',
+                      '%{location}',
                       'common' ],
       hiera_yaml => '/etc/puppet/hiera.yaml',
       datadir    => '/etc/puppet/environments/%{environment}/hiera',

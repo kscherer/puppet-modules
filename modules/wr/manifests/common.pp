@@ -43,17 +43,6 @@ class wr::common {
       ensure   => 'latest';
   }
 
-  #This path is used for stdlib facter_dot_d module
-  file {
-    '/etc/facter/':
-      ensure => directory;
-    '/etc/facter/facts.d/':
-      ensure => directory;
-    '/etc/facter/facts.d/location.txt':
-      ensure  => present,
-      content => inline_template( 'location=<%= hostname[0..2] %>' );
-  }
-
   #boolean variables from facter may be strings
   $is_virtual_bool = any2bool($::is_virtual)
 
@@ -85,20 +74,14 @@ class wr::common {
   }
 
   #set the puppet server based on hostname
-  $puppet_server = $::hostname ? {
-    /^ala.*$/ => 'ala-lpd-puppet.wrs.com',
-    /^pek.*$/ => 'pek-lpd-puppet.wrs.com',
-    /^yow.*$/ => 'yow-lpd-puppet.wrs.com',
-  }
+  $puppet_server = hiera('puppet_server')
 
   $ala_ntp_servers = ['ntp-1.wrs.com','ntp-2.wrs.com','ntp-3.wrs.com']
 
   $ntp_servers = $::hostname ? {
     yow-lpggp2        => $ala_ntp_servers,
     pek-lpd-puppet    => $ala_ntp_servers,
-    /^yow.*/          => ['yow-lpggp2.wrs.com'],
-    /^pek.*/          => ['pek-lpd-puppet.wrs.com'],
-    default           => $ala_ntp_servers,
+    default           => hiera_array('ntp_servers')
   }
 
   #add my configs to all machines

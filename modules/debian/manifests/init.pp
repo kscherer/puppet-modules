@@ -1,6 +1,6 @@
 #
 class debian {
-  include exim4
+  #include exim4
 
   File {
     owner => 'root',
@@ -8,40 +8,23 @@ class debian {
     mode  => '0644'
   }
 
-  $mirror_base = $::hostname ? {
-    /^pek.*/ => 'http://pek-mirror.wrs.com/mirror',
-    /^yow.*/ => 'http://yow-mirror.wrs.com/mirror',
-  }
-
-  anchor { 'debian::begin': }
-  anchor { 'debian::end': }
-
-  #Sources are managed by puppet only
-  class {
-    'apt':
-      purge_sources_list => true,
-      require            => Anchor['debian::begin'],
-  }
+  $mirror_base = "http://${::location}-mirror.wrs.com/mirror"
 
   case $::operatingsystem {
     'Ubuntu': {
-      class {
-        'debian::ubuntu':
-          mirror_base => $mirror_base,
-          require     => Class['apt'],
-      }
+      $debian_variant='debian::ubuntu'
       $repo=yow-mirror_ubuntu
     }
     'Debian': {
-      class {
-        'debian::debian':
-          mirror_base => $mirror_base,
-          require     => Class['apt'],
-      }
+      $debian_variant='debian::debian'
       $repo=debian_mirror_stable
     }
     default: { fail("Unsupported OS ${::operatingsystem}") }
   }
+
+  anchor { 'debian::begin': }
+  -> class { $debian_variant: mirror_base => $mirror_base }
+  -> anchor { 'debian::end': }
 
   #needed to allow puppet to set passwords
   package {
