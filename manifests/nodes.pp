@@ -9,6 +9,13 @@ node 'ala-lpd-puppet.wrs.com' {
   -> class { 'wr::master': }
   -> class { 'nrpe': }
   -> class { 'git::stomp_listener': }
+  -> class { 'wr::puppetcommander': }
+  -> class { 'nagios': }
+
+  class { 'nagios::target': }
+
+  #nagios class notifies httpd service so -> relationship creates cycles
+  class { 'apache': }
 }
 
 node 'pek-lpd-puppet.wrs.com' {
