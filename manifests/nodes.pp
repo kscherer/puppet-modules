@@ -13,9 +13,6 @@ node 'ala-lpd-puppet.wrs.com' {
   -> class { 'nagios': }
 
   class { 'nagios::target': }
-
-  #nagios class notifies httpd service so -> relationship creates cycles
-  class { 'apache': }
 }
 
 node 'pek-lpd-puppet.wrs.com' {
