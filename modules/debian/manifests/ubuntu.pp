@@ -11,6 +11,7 @@ class debian::ubuntu ( $mirror_base ) {
       location    => $ubuntu_mirror,
       release     => $::lsbdistcodename,
       repos       => 'main restricted universe',
+      before      => Package['python-software-properties'],
       include_src => false;
     'yow-mirror_ubuntu_security':
       location    => $ubuntu_mirror,

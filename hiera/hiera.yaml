@@ -12,4 +12,4 @@
   - common
 
 :yaml:
-   :datadir: "/etc/puppet/environments/%{environment}/hiera"
+   :datadir: "/puppet/hiera"

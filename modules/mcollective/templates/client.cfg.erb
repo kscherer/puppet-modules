@@ -20,7 +20,7 @@ plugin.stomp.password = <%= stomp_passwd %>
 <% else -%>
 plugin.<%= connector -%>.pool.size = <%= pool_size %>
 <% pool_real.each do |pool_num,configs| -%>
-<% configs.each do |key,value| -%>
+<% configs.to_a.sort.each do |key,value| -%>
 plugin.<%= connector -%>.pool.<%= key -%><%= pool_num -%> = <%= value %>
 <% end -%>
 <% end -%>
@@ -28,7 +28,7 @@ plugin.<%= connector -%>.pool.<%= key -%><%= pool_num -%> = <%= value %>
 <% else -%>
 plugin.<%= connector -%>.pool.size = <%= pool_size %>
 <% pool_real.each do |pool_num,configs| -%>
-<% configs.each do |key,value| -%>
+<% configs.to_a.sort.each do |key,value| -%>
 plugin.<%= connector -%>.pool.<%= pool_num -%>.<%= key -%> = <%= value %>
 <% end -%>
 <% end -%>

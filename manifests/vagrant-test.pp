@@ -1,6 +1,6 @@
 
 
-$extlookup_datadir = "/vagrant_data/extdata/"
+$extlookup_datadir = '/puppet/extdata/'
 $extlookup_precedence = [ 'common']
 
 case $::location {
@@ -30,11 +30,10 @@ node default {
     Debian,Ubuntu: { $base_class='debian' }
     CentOS,RedHat,Fedora: { $base_class='redhat' }
     OpenSuSE,SLED: { $base_class='suse'}
-    default: { fail("Unsupported OS: $::operatingsystem")}
+    default: { fail("Unsupported OS: ${::operatingsystem}")}
   }
 
   class { $base_class: }
-  -> class { 'wr::common': }
   -> class {
     'wr::mcollective':
       client       => true,
@@ -49,4 +48,7 @@ node default {
     puppet_agent_service_enable => false,
     agent                       => true,
   }
+
+  #vagrant uses puppet apply which needs hiera packages installed
+  Class[$base_class] -> package{ ['hiera','hiera-puppet']: ensure => installed; }
 }

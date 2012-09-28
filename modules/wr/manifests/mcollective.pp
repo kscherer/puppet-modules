@@ -2,16 +2,25 @@
 class wr::mcollective (
   $client       = false,
   $registration = true
-  ) inherits wr::common {
+  ) {
 
   $amqp_server = hiera('amqp_server')
 
   $activemq_server1 = { host => $amqp_server, port => '6163',
-                        user => 'mcollective', password => 'marionette'}
+    user => 'mcollective', password => 'marionette'}
 
   $activemq_pool = { 1 => $activemq_server1 }
 
-  class {
+  #mcollective 2.2 deb package does not have dependency on stomp
+  if $::operatingsystem == 'Ubuntu' and $::operatingsystemrelease == '12.04' {
+    ensure_resource( 'package', 'ruby-stomp', {'ensure' => 'latest' })
+    Package['ruby-stomp'] -> Package['mcollective']
+  }
+
+  anchor { 'wr::mcollective::begin': }
+  -> class { 'wr::common': }
+
+  -> class {
     '::mcollective':
       version                 => 'latest',
       client                  => $client,
@@ -30,6 +39,7 @@ class wr::mcollective (
         'puppetca.puppetca'   => '/usr/bin/puppet cert'
       }
   }
+  -> anchor { 'wr::mcollective::end': }
 
   cron {
     'restart_mcollective':
