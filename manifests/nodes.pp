@@ -10,8 +10,8 @@ node 'ala-lpd-puppet.wrs.com' {
   -> class { 'nrpe': }
   -> class { 'git::stomp_listener': }
   -> class { 'wr::puppetcommander': }
-  -> class { 'nagios': }
 
+  class { 'nagios': }
   class { 'nagios::target': }
 }
 
