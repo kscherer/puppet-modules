@@ -7,10 +7,10 @@ node 'ala-lpd-puppet.wrs.com' {
   -> class { 'java':    distribution => 'java-1.7.0-openjdk' }
   -> class { 'activemq': broker_name => 'ala-broker' }
   -> class { 'wr::master': }
-  -> class { 'nrpe': }
   -> class { 'git::stomp_listener': }
   -> class { 'wr::puppetcommander': }
 
+  Class['redhat'] -> class { 'nrpe': }
   class { 'nagios': }
   class { 'nagios::target': }
 }
