@@ -29,65 +29,42 @@ class nagios::service(
       register                     => '0';
     'puppet':
       use                 => 'generic-service',
-      host_name           => 'yow-lpd-monitor.wrs.com',
+      host_name           => $::fqdn,
       service_description => 'mc_puppet_run',
-      check_command       => 'check_mc_nrpe!puppet!yow!check_puppet',
+      check_command       => 'check_mc_nrpe!puppet!check_puppet',
       notification_period => 'workhours',
       contact_groups      => 'admins';
     'puppet_failures':
       use                 => 'generic-service',
-      host_name           => 'yow-lpd-monitor.wrs.com',
+      host_name           => $::fqdn,
       service_description => 'mc_puppet_failures_run',
-      check_command       => 'check_mc_nrpe!puppet!yow!check_puppet_failures',
+      check_command       => 'check_mc_nrpe!puppet!check_puppet_failures',
       notification_period => 'workhours',
       contact_groups      => 'admins';
     'clock_check':
       use                 => 'generic-service',
-      host_name           => 'yow-lpd-monitor.wrs.com',
+      host_name           => $::fqdn,
       service_description => 'mc_ntp_run',
-      check_command       => 'check_mc_nrpe!ntp!yow!check_ntp',
+      check_command       => 'check_mc_nrpe!ntp!check_ntp',
       notification_period => 'workhours',
       contact_groups      => 'admins';
-    'yow_disk_check':
+    'disk_check':
       use                 => 'generic-service',
-      host_name           => 'yow-lpd-monitor.wrs.com',
-      service_description => 'mc_yow_disk_check_run',
-      check_command       => 'check_mc_nrpe!settings!yow!check_disks',
+      host_name           => $::fqdn,
+      service_description => 'mc_disk_check_run',
+      check_command       => 'check_mc_nrpe!settings!check_disks',
       notification_period => 'workhours',
       contact_groups      => 'admins';
-    'yow-blades_nx_check':
+    'nx_check':
       use                 => 'generic-service',
-      host_name           => 'yow-lpd-monitor.wrs.com',
+      host_name           => $::fqdn,
       service_description => 'mc_nx_blades_run',
-      check_command       => 'check_mc_nrpe!nx::yow-blades!yow!check_nx_instance',
-      notification_period => 'workhours',
-      contact_groups      => 'admins';
-    'yow-lpgbuild_nx_check':
-      use                 => 'generic-service',
-      host_name           => 'yow-lpd-monitor.wrs.com',
-      service_description => 'mc_nx_lpgbuild_run',
-      check_command       => 'check_mc_nrpe!nx::yow-lpgbuild!yow!check_nx_instance',
-      notification_period => 'workhours',
-      contact_groups      => 'admins';
-    'yow-hostel_nx_check':
-      use                 => 'generic-service',
-      host_name           => 'yow-lpd-monitor.wrs.com',
-      service_description => 'mc_nx_hostel_run',
-      check_command       => 'check_mc_nrpe!wr::yow-hostel!yow!check_nx_instance',
-      notification_period => 'workhours',
-      contact_groups      => 'admins';
-    'yow_puppet_check':
-      use                 => 'generic-service',
-      host_name           => 'yow-lpd-monitor.wrs.com',
-      service_description => 'yow_puppet_check',
-      #this command uses SSL to connect to puppet, but returns "Bad Request"
-      #which is all that we need to confirm service is actually running
-      check_command       => 'check_http!-I 128.224.194.14 -S -p 8140 -e HTTP',
+      check_command       => 'check_mc_nrpe!nx!check_nx_instance',
       notification_period => 'workhours',
       contact_groups      => 'admins';
     'check_mcollective':
       use                 => 'generic-service',
-      host_name           => 'yow-lpd-monitor.wrs.com',
+      host_name           => $::fqdn,
       service_description => 'check_mcollective_registration',
       check_command       => 'check_mcollective',
       notification_period => 'workhours',

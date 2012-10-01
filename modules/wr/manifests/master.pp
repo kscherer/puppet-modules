@@ -80,4 +80,16 @@ class wr::master {
       hour    => '3',
       weekday => '0';
   }
+
+  @@nagios_service {
+    'puppet_check':
+      use                 => 'generic-service',
+      host_name           => $::fqdn,
+      service_description => 'puppet_check',
+      #this command uses SSL to connect to puppet, but returns "Bad Request"
+      #which is all that we need to confirm service is actually running
+      check_command       => "check_http!-I ${::ipaddress} -S -p 8140 -e HTTP",
+      notification_period => 'workhours',
+      contact_groups      => 'admins';
+  }
 }
