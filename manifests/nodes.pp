@@ -2,7 +2,8 @@ node default {
 }
 
 node 'ala-lpd-puppet.wrs.com' {
-  class { 'redhat': }
+  class {'wr::ala_dns': }
+  -> class { 'redhat': }
   -> class { 'ntp': servers          => ['ntp-1.wrs.com','ntp-2.wrs.com'] }
   -> class { 'java':    distribution => 'java-1.7.0-openjdk' }
   -> class { 'activemq': broker_name => 'ala-broker' }
