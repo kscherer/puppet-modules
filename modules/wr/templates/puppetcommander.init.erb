@@ -60,7 +60,7 @@ case "$1" in
 
 		rm -f ${pidfile}
 
-		${puppetcommanderd} -d
+		${puppetcommanderd} -T <%= location -%> -d
 		if [ $? = 0 ]; then
 			log_success_msg
 			touch $lock
