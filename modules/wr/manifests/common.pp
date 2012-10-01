@@ -37,6 +37,9 @@ class wr::common {
       type   => 'ssh-rsa';
   }
 
+  #central place to control puppet version. Created for 3.0 upgrade
+  $puppet_version = '2.7.19'
+
   #The puppet package get handled by puppet module, but not facter
   package {
     'facter':

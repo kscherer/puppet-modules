@@ -6,7 +6,7 @@ class wr::irc inherits wr::mcollective {
   }
   -> class { 'puppet':
     puppet_server               => $wr::common::puppet_server,
-    puppet_agent_ensure         => 'latest',
+    puppet_agent_ensure         => $wr::common::puppet_version,
     puppet_agent_service_enable => false,
     agent                       => true,
   }

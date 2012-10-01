@@ -35,8 +35,8 @@ class wr::master {
     'puppet':
       agent                       => true,
       puppet_server               => $wr::common::puppet_server,
-      puppet_master_ensure        => 'latest',
-      puppet_agent_ensure         => 'latest',
+      puppet_master_ensure        => $wr::common::puppet_version,
+      puppet_agent_ensure         => $wr::common::puppet_version,
       puppet_agent_service_enable => false,
       master                      => true,
       autosign                    => true,
