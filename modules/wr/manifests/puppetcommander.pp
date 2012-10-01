@@ -19,7 +19,7 @@ class wr::puppetcommander {
       owner  => 'root',
       group  => 'root',
       mode   => '0755',
-      source => template('/wr/puppetcommander.init.erb');
+      source => template('wr/puppetcommander.init.erb');
     '/var/lib/puppet/log':
       ensure => directory,
       owner  => 'puppet',
