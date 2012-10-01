@@ -15,11 +15,11 @@ class wr::puppetcommander {
       mode   => '0755',
       source => 'puppet:///modules/wr/puppetcommanderd';
     '/etc/init.d/puppetcommanderd':
-      ensure => 'present',
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0755',
-      source => template('wr/puppetcommander.init.erb');
+      ensure  => 'present',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      content => template('wr/puppetcommander.init.erb');
     '/var/lib/puppet/log':
       ensure => directory,
       owner  => 'puppet',
