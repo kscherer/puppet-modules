@@ -23,7 +23,9 @@ class wr::master {
       backends   => ['yaml'],
   }
 
-  class { 'puppetdb': }
+  class { 'puppetdb':
+    manage_redhat_firewall => false
+  }
   -> class {
     'puppetdb::master::config':
       puppetdb_server     => $wr::common::puppet_server,
