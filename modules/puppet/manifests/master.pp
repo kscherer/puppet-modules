@@ -148,14 +148,14 @@ class puppet::master (
 
     Concat::Fragment['puppet.conf-master'] -> Service['httpd']
 
-    exec { 'Certificate_Check':
-      command   => "puppet cert --generate ${certname} --trace",
-      unless    => "ls ${puppet::params::puppet_ssldir}/certs/${::certname}.pem",
-      path      => '/bin/:/usr/bin:/usr/local/bin',
-      before    => Class['::passenger'],
-      require   => Package[$puppet_master_package],
-      logoutput => on_failure,
-    }
+    # exec { 'Certificate_Check':
+    #   command   => "puppet cert --generate ${certname} --trace",
+    #   unless    => "ls ${puppet::params::puppet_ssldir}/certs/${::certname}.pem",
+    #   path      => '/bin/:/usr/bin:/usr/local/bin',
+    #   before    => Class['::passenger'],
+    #   require   => Package[$puppet_master_package],
+    #   logoutput => on_failure,
+    # }
 
     if ! defined(Class['passenger']) {
       class { '::passenger':
