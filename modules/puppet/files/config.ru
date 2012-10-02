@@ -1,4 +1,4 @@
-i# a config.ru, for use with every rack-compatible webserver.
+# a config.ru, for use with every rack-compatible webserver.
 # SSL needs to be handled outside this, though.
 
 # if puppet is not in your RUBYLIB:
