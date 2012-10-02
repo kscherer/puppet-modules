@@ -23,8 +23,7 @@ class mysql::server (
   $enabled          = true
 ) inherits mysql::params {
 
-  #Class['mysql::server'] -> Class['mysql::config']
-  Class['mysql::config'] -> Class['mysql::server']
+  Class['mysql::server'] -> Class['mysql::config']
 
   $config_class = { 'mysql::config' => $config_hash }
 
