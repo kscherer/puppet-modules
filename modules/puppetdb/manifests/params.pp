@@ -11,8 +11,6 @@
 # Sample Usage:
 #
 class puppetdb::params {
-  # TODO: need to condition this based on whether we are a PE install or not
-
   $ssl_listen_address    = $::clientcert
   $ssl_listen_port       = '8081'
 
@@ -28,10 +26,9 @@ class puppetdb::params {
   $puppetdb_version       = 'present'
 
   # TODO: figure out a way to make this not platform-specific
-  $manage_redhat_firewall = false
+  $manage_redhat_firewall = true
 
   $gc_interval            = '60'
-  $confdir                = '/etc/puppetdb/conf.d'
 
   case $::osfamily {
     'RedHat': {
@@ -49,6 +46,21 @@ class puppetdb::params {
     }
   }
 
-  # TODO: need to condition this for PE
-  $puppet_service_name  = 'puppetmaster'
+  if $::puppetversion =~ /Puppet Enterprise/ {
+    $puppetdb_package     = 'pe-puppetdb'
+    $puppetdb_service     = 'pe-puppetdb'
+    $confdir              = '/etc/puppetlabs/puppetdb/conf.d'
+    $puppet_service_name  = 'pe-httpd'
+    $puppet_confdir       = '/etc/puppetlabs/puppet'
+    $terminus_package     = 'pe-puppetdb-terminus'
+  } else {
+    $puppetdb_package     = 'puppetdb'
+    $puppetdb_service     = 'puppetdb'
+    $confdir              = '/etc/puppetdb/conf.d'
+    $puppet_service_name  = 'puppetmaster'
+    $puppet_confdir       = '/etc/puppet'
+    $terminus_package     = 'puppetdb-terminus'
+  }
+
+  $puppet_conf          = "${puppet_confdir}/puppet.conf"
 }
