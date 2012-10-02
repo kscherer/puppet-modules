@@ -54,7 +54,7 @@ class wr::master {
       dashboard_password          => 'dashb0ard',
       storeconfigs                => true,
       storeconfigs_dbadapter      => 'puppetdb',
-      mysql_root_pw               => 'changemetoo', #needed for dashboard
+      mysql_root_pw               => 'r00t', #needed for dashboard
       require                     => [ Yumrepo['puppetlabs-rh6'],
                                       Yumrepo['passenger-rh6']],
   }
