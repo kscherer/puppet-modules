@@ -76,11 +76,7 @@ class dashboard (
   }
 
   if $passenger {
-    Class['mysql']
-    -> Class['mysql::ruby']
-    -> Class['mysql::server']
-    -> Package[$dashboard::params::dashboard_package]
-    -> Mysql::DB[$dashboard_db]
+    Package[$dashboard::params::dashboard_package]
     -> File["${dashboard::params::dashboard_root}/config/database.yml"]
     -> Exec['db-migrate']
     -> Class['dashboard::passenger']
@@ -95,11 +91,7 @@ class dashboard (
     }
 
   } else {
-    Class['mysql']
-    -> Class['mysql::ruby']
-    -> Class['mysql::server']
-    -> Package[$dashboard::params::dashboard_package]
-    -> Mysql::DB[$dashboard_db]
+    Package[$dashboard::params::dashboard_package]
     -> File["${dashboard::params::dashboard_root}/config/database.yml"]
     -> Exec['db-migrate']
     -> Service[$dashboard::params::dashboard_service]
@@ -198,12 +190,12 @@ class dashboard (
     creates   => "/var/lib/mysql/${dashboard_db}/nodes.frm",
   }
 
-  mysql::db {
-    $dashboard_db:
-      user     => $dashboard_user,
-      password => $dashboard_password,
-      charset  => $dashboard_charset,
-  }
+  # mysql::db {
+  #   $dashboard_db:
+  #     user     => $dashboard_user,
+  #     password => $dashboard_password,
+  #     charset  => $dashboard_charset,
+  # }
 
   user {
     $dashboard_user:
