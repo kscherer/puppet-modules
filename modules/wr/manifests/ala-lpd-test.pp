@@ -2,6 +2,7 @@
 class wr::ala-lpd-test {
   class { 'wr::mcollective': }
   -> class { 'redhat::autoupdate': }
+  -> class { 'git': }
   -> class { 'yocto': }
 
   ssh_authorized_key {
