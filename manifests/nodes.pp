@@ -124,6 +124,10 @@ node /yow-lpggp\d+\.wrs\.com/ {
   class { 'wr::yow-lpggp': }
 }
 
+node /ala-lpd-test[1-3]\.wrs\.com/ {
+  class { 'wr::ala-lpd-test': }
+}
+
 node 'ala-lpd-rcpl.wrs.com' {
   class {'wr::ala-lpd-rcpl': }
 }
