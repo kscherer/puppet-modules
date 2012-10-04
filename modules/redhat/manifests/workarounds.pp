@@ -54,6 +54,11 @@ class redhat::workarounds {
   #Need lsb package for facter lsb variables
   ensure_resource('package', 'redhat-lsb', {'ensure' => 'installed' })
 
+  #cron is absolutely necessary
+  if ($::osfamily == 'RedHat' and $::lsbmajdistrelease == '6') {
+    ensure_resource('package', 'cronie', {'ensure' => 'installed' })
+  }
+
   #Puppet 3.0 requires ruby 1.8.7 so puppetlabs made custom EL5 ruby rpm
   if ($::osfamily == 'RedHat' and $::lsbmajdistrelease == '5') {
     ensure_resource('package', 'ruby', {'ensure' => 'latest' })
