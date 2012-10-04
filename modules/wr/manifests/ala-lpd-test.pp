@@ -34,6 +34,8 @@ class wr::ala-lpd-test {
       path   => '/root/e2croncheck',
       mode   => '0755',
       source => 'puppet:///modules/wr/e2croncheck';
+    '/data':
+      ensure => directory;
   }
 
   mount {
@@ -44,46 +46,6 @@ class wr::ala-lpd-test {
       fstype   => 'ext4',
       options  => 'defaults',
       remounts => true;
-  }
-
-  yumrepo {
-    'git':
-      enabled  => '1',
-      descr    => 'Latest git',
-      gpgcheck => '0',
-      before   => Package['git'],
-      baseurl  => 'http://ala-mirror.wrs.com/mirror/git';
-  }
-
-  user {
-    'git':
-      ensure     => present,
-      groups     => 'git',
-      managehome => true,
-      home       => '/home/git',
-      shell      => '/bin/bash';
-  }
-
-  group {
-    'git':
-      ensure  => present,
-      require => User['git'];
-  }
-
-  file {
-    '/data/git':
-      ensure => directory,
-      owner  => 'git',
-      group  => 'git';
-    #this recursive link is needed due an assumption in many scripts
-    '/data/git/git':
-      ensure => link,
-      owner  => 'git',
-      group  => 'git',
-      target => '.';
-    '/git':
-      ensure => link,
-      target => '/data/git';
   }
 
   #setup local ala-git mirror
