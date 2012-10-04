@@ -16,16 +16,6 @@ class wr::ala-lpd-test {
       user   => 'root',
       key    => extlookup('pkennedy@linux-y9cs.site'),
       type   => 'ssh-dss';
-    'pkennedy_git':
-      ensure => 'present',
-      user   => 'git',
-      key    => extlookup('pkennedy@linux-y9cs.site'),
-      type   => 'ssh-dss';
-    'wenzong_git':
-      ensure => 'present',
-      user   => 'git',
-      key    => extlookup('wfan@pek-wenzong-fan'),
-      type   => 'ssh-dss';
   }
 
   file {
