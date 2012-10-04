@@ -3,6 +3,7 @@ class wr::ala-lpd-test {
   class { 'redhat': }
   -> class { 'redhat::autoupdate': }
   -> class { 'wr::mcollective': }
+  -> class { 'nrpe': }
   -> class { 'git': }
   -> class { 'yocto': }
 

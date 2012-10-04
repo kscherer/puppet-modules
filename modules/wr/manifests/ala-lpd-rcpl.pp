@@ -1,7 +1,9 @@
 #
 class wr::ala-lpd-rcpl {
-  class { 'wr::mcollective': }
+  class { 'redhat': }
   -> class { 'redhat::autoupdate': }
+  -> class { 'wr::mcollective': }
+  -> class { 'nrpe': }
   -> class { 'yocto': }
   -> class { 'nx': }
   -> class { 'git::git-daemon': }
