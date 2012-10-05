@@ -5,6 +5,7 @@ class wr::ala-lpd-test {
   -> class { 'wr::mcollective': }
   -> class { 'nrpe': }
   -> class { 'git': }
+  -> class { 'nis': }
   -> class { 'yocto': }
 
   ssh_authorized_key {

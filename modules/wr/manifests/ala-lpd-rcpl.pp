@@ -6,6 +6,7 @@ class wr::ala-lpd-rcpl {
   -> class { 'nrpe': }
   -> class { 'yocto': }
   -> class { 'nx': }
+  -> class { 'nis': }
   -> class { 'git::git-daemon': }
   -> class { 'git::cgit': }
 
