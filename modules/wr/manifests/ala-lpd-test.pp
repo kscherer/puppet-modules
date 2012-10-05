@@ -7,22 +7,24 @@ class wr::ala-lpd-test {
   -> class { 'git': }
   -> class { 'nis': }
   -> class { 'sudo': }
-  -> sudo::conf { 'admin':
-    source => 'puppet:///modules/wr/sudoers.d/admin',
-  }
   -> class { 'yocto': }
 
   ssh_authorized_key {
     'jwessel_root':
-      ensure => 'present',
+      ensure => 'absent',
       user   => 'root',
       key    => extlookup('jwessel@splat'),
       type   => 'ssh-rsa';
     'pkennedy_root':
-      ensure => 'present',
+      ensure => 'absent',
       user   => 'root',
       key    => extlookup('pkennedy@linux-y9cs.site'),
       type   => 'ssh-dss';
+  }
+
+  sudo::conf {
+    'admin':
+      source  => 'puppet:///modules/wr/sudoers.d/admin';
   }
 
   file {

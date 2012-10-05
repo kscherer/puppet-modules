@@ -6,18 +6,19 @@ class wr::ala-lpd-rcpl {
   -> class { 'nrpe': }
   -> class { 'yocto': }
   -> class { 'nx': }
+  -> class { 'sudo': }
   -> class { 'nis': }
   -> class { 'git::git-daemon': }
   -> class { 'git::cgit': }
 
   ssh_authorized_key {
     'jwessel_root':
-      ensure => 'present',
+      ensure => 'absent',
       user   => 'root',
       key    => extlookup('jwessel@splat'),
       type   => 'ssh-rsa';
     'pkennedy_root':
-      ensure => 'present',
+      ensure => 'absent',
       user   => 'root',
       key    => extlookup('pkennedy@linux-y9cs.site'),
       type   => 'ssh-dss';
@@ -31,6 +32,13 @@ class wr::ala-lpd-rcpl {
       user   => 'git',
       key    => extlookup('wfan@pek-wenzong-fan'),
       type   => 'ssh-dss';
+  }
+
+  sudo::conf {
+    'admin':
+      source  => 'puppet:///modules/wr/sudoers.d/admin';
+    'leads':
+      source  => 'puppet:///modules/wr/sudoers.d/leads';
   }
 
   file {
