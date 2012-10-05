@@ -6,6 +6,10 @@ class wr::ala-lpd-test {
   -> class { 'nrpe': }
   -> class { 'git': }
   -> class { 'nis': }
+  -> class { 'sudo': }
+  -> sudo::conf { 'admin':
+    source => 'puppet:///modules/wr/sudoers.d/admin',
+  }
   -> class { 'yocto': }
 
   ssh_authorized_key {
