@@ -40,7 +40,6 @@ class nx::ala-blades {
       ensure => directory,
       owner  => 'buildadmin',
       group  => 'buildadmin',
-      mode   => '2755';
   }
 
   mount {
