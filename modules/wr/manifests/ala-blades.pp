@@ -16,6 +16,11 @@ class wr::ala-blades inherits wr::ala-common {
       owner  => 'buildadmin',
       group  => 'buildadmin',
       mode   => '0755';
+    '/home/buildadmin/.ssh':
+      ensure => directory,
+      owner  => 'buildadmin',
+      group  => 'buildadmin',
+      mode   => '0700';
   }
 
   ssh_authorized_key {
@@ -40,25 +45,29 @@ class wr::ala-blades inherits wr::ala-common {
       key    => extlookup('root@ala-blade25'),
       type   => 'ssh-rsa';
     'pkennedy_buildadmin':
-      ensure => 'present',
-      user   => 'buildadmin',
-      key    => extlookup('pkennedy@linux-y9cs.site'),
-      type   => 'ssh-dss';
+      ensure  => 'present',
+      user    => 'buildadmin',
+      key     => extlookup('pkennedy@linux-y9cs.site'),
+      require => File['/home/buildadmin/.ssh'],
+      type    => 'ssh-dss';
     'wenzong_buildadmin':
-      ensure => 'present',
-      user   => 'buildadmin',
-      key    => extlookup('wfan@pek-wenzong-fan'),
-      type   => 'ssh-dss';
+      ensure  => 'present',
+      user    => 'buildadmin',
+      key     => extlookup('wfan@pek-wenzong-fan'),
+      require => File['/home/buildadmin/.ssh'],
+      type    => 'ssh-dss';
     'kscherer_windriver_buildadmin':
-      ensure => 'present',
-      user   => 'buildadmin',
-      key    => extlookup('kscherer@yow-kscherer-l1'),
-      type   => 'ssh-dss';
+      ensure  => 'present',
+      user    => 'buildadmin',
+      key     => extlookup('kscherer@yow-kscherer-l1'),
+      require => File['/home/buildadmin/.ssh'],
+      type    => 'ssh-dss';
     'kscherer_home_buildadmin':
-      ensure => 'present',
-      user   => 'buildadmin',
-      key    => extlookup('kscherer@helix'),
-      type   => 'ssh-rsa';
+      ensure  => 'present',
+      user    => 'buildadmin',
+      key     => extlookup('kscherer@helix'),
+      require => File['/home/buildadmin/.ssh],
+      type    => 'ssh-rsa';
   }
 
   motd::register{
