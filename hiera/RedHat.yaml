@@ -11,3 +11,4 @@ packages:
   - gcc
   - gcc-c++
   - help2man
+  - chrpath
