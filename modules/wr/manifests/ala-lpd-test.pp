@@ -35,6 +35,12 @@ class wr::ala-lpd-test {
       source => 'puppet:///modules/wr/e2croncheck';
     '/data':
       ensure => directory;
+    '/data/wr-taf':
+      ensure  => directory,
+      owner   => 'wr-taf',
+      group   => 'users',
+      mode    => '0755',
+      require => Mount['/data'];
   }
 
   mount {
@@ -44,7 +50,8 @@ class wr::ala-lpd-test {
       device   => '/dev/mapper/vg-data',
       fstype   => 'ext4',
       options  => 'defaults',
-      remounts => true;
+      remounts => true,
+      require  => File['/data'];
   }
 
   #setup local ala-git mirror
