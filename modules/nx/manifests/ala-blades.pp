@@ -38,8 +38,8 @@ class nx::ala-blades {
   file {
     '/stored_builds':
       ensure => directory,
-      owner  => 'root',
-      group  => 'root',
+      owner  => 'buildadmin',
+      group  => 'buildadmin',
       mode   => '0755';
   }
 
