@@ -1,22 +1,16 @@
 #
 class wr::ala-lpd-test {
-  class {'wr::common': }
+  class {'common': }
+  -> class { 'wr::common': }
   -> class { 'redhat::autoupdate': }
   -> class { 'git': }
   -> class { 'sudo': }
   -> class { 'yocto': }
 
-  ssh_authorized_key {
-    'jwessel_root':
-      ensure => 'absent',
-      user   => 'root',
-      key    => extlookup('jwessel@splat'),
-      type   => 'ssh-rsa';
-    'pkennedy_root':
-      ensure => 'absent',
-      user   => 'root',
-      key    => extlookup('pkennedy@linux-y9cs.site'),
-      type   => 'ssh-dss';
+  motd::register {
+    'ala-lpd-test':
+      content =>
+      'This machine is reserved for Linux Products automated testing only.';
   }
 
   sudo::conf {
