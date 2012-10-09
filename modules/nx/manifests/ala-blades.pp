@@ -35,6 +35,14 @@ class nx::ala-blades {
     default: { $options='ro' }
   }
 
+  file {
+    '/stored_builds':
+      ensure => directory,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0755';
+  }
+
   mount {
     '/stored_builds':
       ensure   => mounted,
@@ -42,6 +50,7 @@ class nx::ala-blades {
       device   => 'ala-lpgnas2-nfs:/vol/stored_builds_25',
       fstype   => 'nfs',
       options  => $options,
+      require  => File['/stored_builds'],
       remounts => true;
   }
 }
