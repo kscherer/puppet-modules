@@ -16,19 +16,15 @@ define nx::setup( $notxylo_branch = 'master') {
   exec {
     "clone_bin_repo_${name}":
       command => "git clone git://${::location}-git.wrs.com/bin",
-      require => File["/home/nxadm/nx/${::hostname}.${name}"],
       unless  => "test -d ${nx_builddir}/bin";
     "clone_nxrc_repo_${name}":
       command => 'git clone git://ala-git.wrs.com/users/buildadmin/nxrc_files',
-      require => File["/home/nxadm/nx/${::hostname}.${name}"],
       unless  => "test -d ${nx_builddir}/nxrc_files";
     "clone_nxconfigs_repo_${name}":
       command => 'git clone git://ala-git.wrs.com/users/buildadmin/configs',
-      require => File["/home/nxadm/nx/${::hostname}.${name}"],
       unless  => "test -d ${nx_builddir}/configs";
     "clone_notxylo_repo_${name}":
       command => "git clone --branch ${notxylo_branch} git://ala-git.wrs.com/users/paul/notxylo",
-      require => File["/home/nxadm/nx/${::hostname}.${name}"],
       unless  => "test -d ${nx_builddir}/notxylo";
   }
 
