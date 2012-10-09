@@ -1,25 +1,8 @@
 #
 class nx::ala-blades {
 
-  case $::hostname {
-    /ala-blade2[5-9]/: {
-      include nx::ala_local_build
-      nx::setup { '1': }
-    }
-    'ala-blade30': {
-      include nx::ala_local_build
-      nx::setup { '1': }
-    }
-    'ala-blade31': {
-      include nx::netapp_iscsi_setup
-      nx::setup { ['1','2']: }
-    }
-    'ala-blade32': {
-      include nx::local_build
-      nx::setup { ['1','2']: }
-    }
-    default: { fail("Do not know how to configure nx for $::hostname")}
-  }
+  include nx::local_build
+  nx::setup { ['1','2']: }
 
   host {
     'ala-lpgnas1-nfs':
@@ -31,6 +14,7 @@ class nx::ala-blades {
   }
 
   case $::hostname {
+    ala-blade17: { $options='rw' }
     ala-blade25: { $options='rw' }
     default: { $options='ro' }
   }
