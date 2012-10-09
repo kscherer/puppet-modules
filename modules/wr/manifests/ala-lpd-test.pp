@@ -1,6 +1,8 @@
 #
 class wr::ala-lpd-test {
-  class { 'redhat': }
+  class {'wr::ala_dns': }
+  -> class { 'redhat': }
+  -> class { 'ntp': servers => $wr::common::ntp_servers }
   -> class { 'redhat::autoupdate': }
   -> class { 'wr::mcollective': }
   -> class { 'nrpe': }
