@@ -7,11 +7,15 @@ class wr::ala-blades inherits wr::ala-common {
   user {
     'root':
       password => '$1$5VSxF7IZ$.yx57bNrz.RCFQRnz3KYV0';
-    'buildadmin':
-      ensure     => present,
-      home       => '/home/buildadmin',
-      managehome => true,
-      password   => '$1$WLsSGhc6$MJh1phmmC/hMyAM51Y5w70';
+  }
+
+  #buildadmin user is a nis account, but without a nfs home directory.
+  file {
+    '/home/buildadmin':
+      ensure => directory,
+      owner  => 'buildadmin',
+      group  => 'buildadmin',
+      mode   => '0755';
   }
 
   ssh_authorized_key {
