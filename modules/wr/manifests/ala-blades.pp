@@ -66,7 +66,7 @@ class wr::ala-blades inherits wr::ala-common {
       ensure  => 'present',
       user    => 'buildadmin',
       key     => extlookup('kscherer@helix'),
-      require => File['/home/buildadmin/.ssh],
+      require => File['/home/buildadmin/.ssh'],
       type    => 'ssh-rsa';
   }
 
