@@ -8,7 +8,10 @@ class wr::ala-blades inherits wr::ala-common {
     'root':
       password => '$1$5VSxF7IZ$.yx57bNrz.RCFQRnz3KYV0';
     'buildadmin':
-      password => '$1$WLsSGhc6$MJh1phmmC/hMyAM51Y5w70';
+      ensure     => present,
+      home       => '/home/buildadmin',
+      managehome => true,
+      password   => '$1$WLsSGhc6$MJh1phmmC/hMyAM51Y5w70';
   }
 
   ssh_authorized_key {
