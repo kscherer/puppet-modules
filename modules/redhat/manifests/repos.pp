@@ -100,8 +100,8 @@ class redhat::repos {
   #setup repos depending on which flavour of redhat
   case $::operatingsystem {
     CentOS: {
-      realize( Yumrepo["epel-el${major_release}-${::architecture}"] )
       realize( Yumrepo["centos${major_release}-updates"] )
+      realize( Yumrepo["epel-el${major_release}-${::architecture}"] )
       realize( Yumrepo["puppetlabs-rh${major_release}"] )
       if ( $major_release == '6' ) {
         realize( Yumrepo["passenger-rh${major_release}"] )
