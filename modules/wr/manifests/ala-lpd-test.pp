@@ -5,6 +5,7 @@ class wr::ala-lpd-test {
   -> class { 'git': }
   -> class { 'sudo': }
   -> class { 'yocto': }
+  -> class { 'nx': }
 
   motd::register {
     'ala-lpd-test':
