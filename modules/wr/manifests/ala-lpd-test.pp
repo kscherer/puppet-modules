@@ -1,6 +1,6 @@
 #
 class wr::ala-lpd-test {
-  class { 'wr::ala-common': }
+  class { 'wr::mcollective': }
   -> class { 'redhat::autoupdate': }
   -> class { 'git': }
   -> class { 'sudo': }
