@@ -14,6 +14,10 @@ class nx::ala-blades {
       include nx::netapp_iscsi_setup
       nx::setup { ['1','2']: }
     }
+    'ala-blade32': {
+      include nx::local_build
+      nx::setup { ['1','2']: }
+    }
     default: { fail("Do not know how to configure nx for $::hostname")}
   }
 

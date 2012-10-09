@@ -122,12 +122,13 @@ class nx {
       content => 'if [ -f $HOME/.bashrc ]; then source $HOME/.bashrc; fi';
   }
 
+  #
   define nx::script() {
     file {
       $name:
-        path    => "/home/nxadm/bin/$name",
+        path    => "/home/nxadm/bin/${name}",
         mode    => '0755',
-        source  => "puppet:///modules/nx/$name",
+        source  => "puppet:///modules/nx/${name}",
         require => File['/home/nxadm/bin'];
     }
   }
@@ -142,7 +143,7 @@ class nx {
     /^yow-blade*/:     { include nx::yow-blades }
     /^ala-blade*/:     { include nx::ala-blades }
     'ala-lpd-rcpl':    { include nx::ala-lpd-rcpl }
-    default:           { fail("Unsupported nx configuration for $::hostname") }
+    default:           { fail("Unsupported nx configuration for ${::hostname}") }
   }
 
   cron {
