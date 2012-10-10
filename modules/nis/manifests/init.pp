@@ -49,7 +49,7 @@ class nis {
           line   => 'NISDOMAIN=swamp',
           notify => Service['network'];
       }
-      File_line['nisdomain'] -> Service['nis']
+      File_line['nisdomain'] -> Service['network'] -> Service['nis']
     }
     'Debian','Suse': {
       file {
