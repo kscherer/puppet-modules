@@ -53,10 +53,10 @@ class nx::yow_local_build {
     '/home/nxadm/nx':
       ensure  => link,
       target  => "${local_builddir}/nxadm/nx";
-    "${local_builddir}/nxadm/nx/${::hostname}.1":
+    "/home/nxadm/nx/${::hostname}.1":
       ensure  => directory,
       mode    => '0755';
-    "${local_builddir}/nxadm/nx/${::hostname}.2":
+    "/home/nxadm/nx/${::hostname}.2":
       ensure  => directory,
       mode    => '0755';
   }

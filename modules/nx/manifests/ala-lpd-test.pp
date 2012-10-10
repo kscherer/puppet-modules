@@ -20,12 +20,12 @@ class nx::ala-lpd-test {
     '/home/nxadm/nx':
       ensure  => link,
       target  => '/buildarea/nxadm/nx';
-    "/buildarea/nxadm/nx/${::hostname}.1":
+    "/home/nxadm/nx/${::hostname}.1":
       ensure  => directory,
       owner   => 'nxadm',
       group   => 'nxadm',
       mode    => '0755';
-    "/buildarea/nxadm/nx/${::hostname}.2":
+    "/home/nxadm/nx/${::hostname}.2":
       ensure  => directory,
       owner   => 'nxadm',
       group   => 'nxadm',

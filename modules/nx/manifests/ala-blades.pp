@@ -21,9 +21,10 @@ class nx::ala-blades {
 
   file {
     '/stored_builds':
-      ensure => directory,
-      owner  => 'buildadmin',
-      group  => 'buildadmin',
+      ensure  => directory,
+      owner   => 'buildadmin',
+      group   => 'buildadmin',
+      require => Class['nis'],
   }
 
   mount {

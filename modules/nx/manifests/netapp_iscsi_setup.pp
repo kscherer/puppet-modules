@@ -24,8 +24,8 @@ class nx::netapp_iscsi_setup {
     '/home/nxadm/nx':
       ensure  => link,
       target  => '/buildarea/nxadm/nx';
-    [ "/buildarea/nxadm/nx/${::hostname}.1",
-      "/buildarea/nxadm/nx/${::hostname}.2"]:
+    [ "/home/nxadm/nx/${::hostname}.1",
+      "/home/nxadm/nx/${::hostname}.2"]:
         ensure  => directory,
         mode    => '0755',
         replace => false;
