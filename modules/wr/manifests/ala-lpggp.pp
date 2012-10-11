@@ -1,7 +1,9 @@
 #
 class wr::ala-lpggp inherits wr::ala-common {
   class { 'yocto': }
+  class { 'git': }
   Class['redhat'] -> Class['yocto']
+  Class['redhat'] -> Class['git']
 
   if $::hostname == 'ala-lpggp2.wrs.com' {
     file {
@@ -18,9 +20,8 @@ class wr::ala-lpggp inherits wr::ala-common {
     }
   }
 
-  #make sure latest git is available from epel
   package {
-    'git':
+    'quilt':
       ensure => 'latest';
   }
 
