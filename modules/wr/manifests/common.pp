@@ -38,7 +38,7 @@ class wr::common {
   }
 
   #central place to control puppet version. Created for 3.0 upgrade
-  $puppet_version = 'present'
+  $puppet_version = 'latest'
 
   #The puppet package get handled by puppet module, but not facter
   package {
