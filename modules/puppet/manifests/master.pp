@@ -231,9 +231,9 @@ class puppet::master (
   realize(Concat[$puppet_conf])
   Concat[$puppet_conf] -> $service_require
 
-  if $service_notify != '' {
-    Concat[$puppet_conf] ~> $service_notify
-  }
+  # if $service_notify != '' {
+  #   Concat[$puppet_conf] ~> $service_notify
+  # }
 
   if ! defined(Concat::Fragment['puppet.conf-common']) {
     concat::fragment { 'puppet.conf-common':
