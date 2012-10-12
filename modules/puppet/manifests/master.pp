@@ -80,10 +80,12 @@ class puppet::master (
   $dashboard_port          = UNSET,
   $puppet_passenger        = false,
   $puppet_site             = $puppet::params::puppet_site,
+  $puppet_conf             = $puppet::params::puppet_conf,
   $puppet_docroot          = $puppet::params::puppet_docroot,
   $puppet_vardir           = $puppet::params::puppet_vardir,
   $puppet_passenger_port   = $puppet::params::puppet_passenger_port,
   $puppet_master_package   = $puppet::params::puppet_master_package,
+  $puppet_agent_name       = $puppet::params::puppet_agent_name,
   $puppet_server           = $puppet::params::puppet_server,
   $package_provider        = $puppet::params::package_provider,
   $passenger_ensure        = undef,
@@ -166,9 +168,9 @@ class puppet::master (
     }
 
     Class ['::passenger']
-    -> Apache::Vhost["puppet-$puppet_site"]
+    -> Apache::Vhost["puppet-${puppet_site}"]
 
-    apache::vhost { "puppet-$puppet_site":
+    apache::vhost { "puppet-${puppet_site}":
       port        => $puppet_passenger_port,
       priority    => '40',
       docroot     => $puppet_docroot,
@@ -206,10 +208,10 @@ class puppet::master (
       exec { 'puppet_master_start':
         command   => '/usr/bin/nohup puppet master &',
         refresh   => '/usr/bin/pkill puppet && /usr/bin/nohup puppet master &',
-        unless    => "/bin/ps -ef | grep -v grep | /bin/grep 'puppet master'",
+        unless    => '/bin/ps -ef | grep -v grep | /bin/grep \'puppet master\'',
         require   => File['/etc/puppet/puppet.conf'],
         subscribe => [ Package[$puppet_master_package],
-                       Concat::Fragment['puppet.conf-master']]
+                      Concat::Fragment['puppet.conf-master']]
       }
     } else {
       $service_notify = Service[$puppet_master_service]
@@ -221,21 +223,16 @@ class puppet::master (
           hasstatus => true,
           require   => File['/etc/puppet/puppet.conf'],
           subscribe => [ Package[$puppet_master_package],
-                         Concat::Fragment['puppet.conf-master']]
+                        Concat::Fragment['puppet.conf-master']]
       }
     }
   }
 
-  realize(Concat[$puppet::params::puppet_conf])
-  Concat<| title == $puppet::params::puppet_conf |> {
-    require +> $service_require,
-  }
+  realize(Concat[$puppet_conf])
+  Concat[$puppet_conf] -> $service_require
 
-  #for some reason puppet cannot handle undef with +>
-  if $puppet::master::service_notify != '' {
-    Concat<| title == $puppet::params::puppet_conf |> {
-      notify  +> $service_notify,
-    }
+  if $service_notify != '' {
+    Concat[$puppet_conf] ~> $service_notify
   }
 
   if ! defined(Concat::Fragment['puppet.conf-common']) {
