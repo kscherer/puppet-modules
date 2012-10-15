@@ -38,7 +38,13 @@ class wr::common {
   }
 
   #central place to control puppet version. Created for 3.0 upgrade
-  $puppet_version = 'latest'
+  if $::operatingsystem == 'RedHat' and $::operatingsystemrelease == '5.3' {
+    $puppet_version = '2.7.19-1.el5'
+  } else if $::operatingsystem == 'Fedora' and $::operatingsystemrelease == '13' {
+    $puppet_version = '2.7.19-1.el6'
+  } else {
+    $puppet_version = 'latest'
+  }
 
   #The puppet package get handled by puppet module, but not facter
   package {
