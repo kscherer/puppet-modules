@@ -12,8 +12,6 @@
 # Sample Usage:
 #
 class collectd {
-  include collectd::params
-
   package { 'collectd':
     ensure => present,
   }
@@ -24,5 +22,4 @@ class collectd {
     hasrestart => true,
     require    => Package['collectd'];
   }
-
 }

@@ -11,8 +11,11 @@
 # Sample Usage:
 #
 class collectd::client {
-  include collectd::params
-  include collectd
+
+  anchor{ 'collectd::client::begin': }
+  -> class {'collectd::params': }
+  -> class {'collectd': }
+  anchor{ 'collectd::client::end': }
 
   file {
     '/etc/collectd.d':
@@ -25,7 +28,9 @@ class collectd::client {
     '/opt/collectd-plugins/carbon_writer.py':
       ensure  => present,
       source  => 'puppet:///modules/collectd/carbon_writer.py',
-      owner   => root, group => root, mode => '0644',
+      owner   => root,
+      group   => root,
+      mode    => '0644',
       notify  => Service['collectd'],
       require => [ File['/opt/collectd-plugins'], File['collectd-client']];
   }
