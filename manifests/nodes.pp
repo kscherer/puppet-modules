@@ -62,7 +62,7 @@ node /pek-hostel-deb0[1-6]\.wrs\.com/ {
 }
 
 node /pek-blade\d+\.wrs\.com/ {
-  class { 'wr::mcollective': }
+  class { 'wr::pek-blades': }
 }
 
 node 'yow-lpd-monitor.wrs.com' {
