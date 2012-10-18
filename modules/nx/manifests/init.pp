@@ -142,6 +142,7 @@ class nx {
     /^yow-lpgbld-vm*/: { include nx::yow-hostel }
     /^yow-blade*/:     { include nx::yow-blades }
     /^ala-blade*/:     { include nx::ala-blades }
+    /^pek-blade*/:     { include nx::pek-blades }
     /^ala-lpd-test*/:  { include nx::ala-lpd-test }
     'ala-lpd-rcpl':    { include nx::ala-lpd-rcpl }
     default:           { fail("Unsupported nx configuration for ${::hostname}") }
