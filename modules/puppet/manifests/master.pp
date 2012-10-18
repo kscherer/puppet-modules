@@ -227,13 +227,17 @@ class puppet::master (
       }
     }
   }
+  realize(Concat[$puppet::params::puppet_conf])
+  Concat<| title == $puppet::params::puppet_conf |> {
+    require +> $service_require,
+  }
 
-  realize(Concat[$puppet_conf])
-  Concat[$puppet_conf] -> $service_require
-
-  # if $service_notify != '' {
-  #   Concat[$puppet_conf] ~> $service_notify
-  # }
+  #for some reason puppet cannot handle undef with +>
+  if $puppet::master::service_notify != '' {
+    Concat<| title == $puppet::params::puppet_conf |> {
+      notify  +> $service_notify,
+    }
+  }
 
   if ! defined(Concat::Fragment['puppet.conf-common']) {
     concat::fragment { 'puppet.conf-common':
