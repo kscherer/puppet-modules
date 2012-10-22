@@ -106,7 +106,6 @@ class redhat::repos {
       if ( $major_release == '6' ) {
         realize( Yumrepo["passenger-rh${major_release}"] )
         realize( Yumrepo["foreman-rh${major_release}"] )
-        realize( Yumrepo['activemq'] )
       }
     }
     Fedora: {
