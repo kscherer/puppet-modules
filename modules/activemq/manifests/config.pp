@@ -11,14 +11,26 @@
 # Sample Usage:
 #
 class activemq::config (
-  $server_config,
-  $path = '/etc/activemq/activemq.xml'
+  $server_config  = 'UNSET',
+  $wrapper_config = 'UNSET',
+  $credentials    = 'UNSET',
+  $path = '/etc/activemq/'
 ) {
+
+  if $server_config == 'UNSET' {
+    fail('ActiveMQ server configuration not set.')
+  }
+
+  if $wrapper_config == 'UNSET' {
+    fail('ActiveMQ wrapper configuration not set.')
+  }
+
+  if $credentials == 'UNSET' {
+    fail('ActiveMQ credentials are not set.')
+  }
 
   validate_re($path, '^/')
   $path_real = $path
-
-  $server_config_real = $server_config
 
   # Resource defaults
   File {
@@ -32,10 +44,17 @@ class activemq::config (
   # The configuration file itself.
   file { 'activemq.xml':
     ensure  => file,
-    path    => $path_real,
-    owner   => '0',
-    group   => '0',
-    content => $server_config_real,
+    path    => "${path_real}/activemq.xml",
+    content => $server_config,
   }
-
+  file { 'activemq-wrapper.conf':
+    ensure  => file,
+    path    => "${path_real}/activemq-wrapper.conf",
+    content => $wrapper_config,
+  }
+  file { 'credentials.properties':
+    ensure  => file,
+    path    => "${path_real}/credentials.properties",
+    content => $credentials,
+  }
 }

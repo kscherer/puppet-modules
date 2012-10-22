@@ -1,14 +1,7 @@
 #
-class wr::yow-amqp inherits wr::yow-common {
+class wr::yow-amqp {
 
-  #need to define these here due to template declared here
-  #will move when I fix the activemq class
-  $broker_name = 'yow-broker'
-  $webconsole_real = true
+  class { 'yow::common': }
+  -> class { 'wr::activemq': broker_name => 'yow-broker' }
 
-  class { 'java': distribution => 'java-1.7.0-openjdk' }
-  -> class { 'activemq':
-    broker_name   => 'yow-broker',
-    server_config => template('wr/yow-activemq.xml.erb')
-  }
 }

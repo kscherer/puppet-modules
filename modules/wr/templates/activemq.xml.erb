@@ -28,72 +28,47 @@
     </managementContext>
 
     <networkConnectors>
-      <!-- yow-broker -> ala-broker -->
+<% collectives.each do |collective| -%>
+<% if collective != location -%>
       <networkConnector
-          name="yow-ala-topics"
-          uri="static:(tcp://ala-lpd-puppet.wrs.com:6166)"
-          userName="amq"
-          password="secret"
+          name="<%= location -%>-<%= collective -%>-topics"
+          uri="static:(tcp://<%= activemq_servers[collective] -%>:6166)"
+          userName="${activemq.username}"
+          password="${activemq.password}"
           duplex="true"
           decreaseNetworkConsumerPriority="true"
           networkTTL="2"
           dynamicOnly="true">
         <excludedDestinations>
+          <topic physicalName="<%= location -%>.>" />
           <queue physicalName=">" />
         </excludedDestinations>
       </networkConnector>
       <networkConnector
-          name="yow-ala-queues"
-          uri="static:(tcp://ala-lpd-puppet.wrs.com:6166)"
-          userName="amq"
-          password="secret"
+          name="<%= location -%>-<%= collective -%>-queues"
+          uri="static:(tcp://<%= activemq_servers[collective] -%>:6166)"
+          userName="${activemq.username}"
+          password="${activemq.password}"
           duplex="true"
           decreaseNetworkConsumerPriority="true"
           networkTTL="2"
           dynamicOnly="true"
           conduitSubscriptions="false">
         <excludedDestinations>
+          <queue physicalName="<%= location -%>.>" />
           <topic physicalName=">" />
         </excludedDestinations>
       </networkConnector>
-
-      <!-- yow-broker -> pek-broker -->
-      <networkConnector
-        name="yow-pek-topics"
-        uri="static:(tcp://pek-lpd-puppet.wrs.com:6166)"
-        userName="amq"
-        password="secret"
-        duplex="true"
-        decreaseNetworkConsumerPriority="true"
-        networkTTL="2"
-        dynamicOnly="true">
-        <excludedDestinations>
-          <queue physicalName=">" />
-        </excludedDestinations>
-      </networkConnector>
-      <networkConnector
-          name="yow-pek-queues"
-          uri="static:(tcp://pek-lpd-puppet.wrs.com:6166)"
-          userName="amq"
-          password="secret"
-          duplex="true"
-          decreaseNetworkConsumerPriority="true"
-          networkTTL="2"
-          dynamicOnly="true"
-          conduitSubscriptions="false">
-        <excludedDestinations>
-          <topic physicalName=">" />
-        </excludedDestinations>
-      </networkConnector>
+<% end -%>
+<% end -%>
     </networkConnectors>
 
     <plugins>
       <statisticsBrokerPlugin/>
       <simpleAuthenticationPlugin>
         <users>
-          <authenticationUser username="amq" password="secret" groups="admins,everyone"/>
-          <authenticationUser username="mcollective" password="marionette" groups="mcollective,everyone"/>
-          <authenticationUser username="admin" password="secret" groups="mcollective,admin,everyone"/>
+          <authenticationUser username="${activemq.username}" password="${activemq.password}" groups="admins,everyone"/>
+          <authenticationUser username="${mcollective.username}" password="${mcollective.password}" groups="mcollective,everyone"/>
         </users>
       </simpleAuthenticationPlugin>
       <authorizationPlugin>
@@ -104,12 +79,10 @@
               <authorizationEntry topic=">" write="admins" read="admins" admin="admins" />
               <authorizationEntry topic="mcollective.>" write="mcollective" read="mcollective" admin="mcollective" />
               <authorizationEntry queue="mcollective.>" write="mcollective" read="mcollective" admin="mcollective" />
-              <authorizationEntry topic="yow.>" write="mcollective" read="mcollective" admin="mcollective" />
-              <authorizationEntry queue="yow.>" write="mcollective" read="mcollective" admin="mcollective" />
-              <authorizationEntry topic="ala.>" write="mcollective" read="mcollective" admin="mcollective" />
-              <authorizationEntry queue="ala.>" write="mcollective" read="mcollective" admin="mcollective" />
-              <authorizationEntry topic="pek.>" write="mcollective" read="mcollective" admin="mcollective" />
-              <authorizationEntry queue="pek.>" write="mcollective" read="mcollective" admin="mcollective" />
+<% collectives.each do |collective| -%>
+              <authorizationEntry topic="<%= collective -%>.>" write="mcollective" read="mcollective" admin="mcollective" />
+              <authorizationEntry queue="<%= collective -%>.>" write="mcollective" read="mcollective" admin="mcollective" />
+<% end -%>              
               <authorizationEntry topic="ActiveMQ.Advisory.>" read="everyone" write="everyone" admin="everyone"/>
             </authorizationEntries>
           </authorizationMap>
@@ -133,7 +106,7 @@
 
     <transportConnectors>
       <transportConnector name="openwire" uri="tcp://0.0.0.0:6166"/>
-      <transportConnector name="stomp+nio" uri="stomp://0.0.0.0:6163"/>
+      <transportConnector name="stomp+nio" uri="stomp://0.0.0.0:6163?transport.closeAsync=false"/>
     </transportConnectors>
   </broker>
 

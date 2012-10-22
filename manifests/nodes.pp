@@ -6,7 +6,7 @@ node 'ala-lpd-puppet.wrs.com' {
   -> class { 'redhat': }
   -> class { 'ntp': servers          => ['ntp-1.wrs.com','ntp-2.wrs.com'] }
   -> class { 'java':    distribution => 'java-1.7.0-openjdk' }
-  -> class { 'activemq': broker_name => 'ala-broker' }
+  -> class { 'wr::activemq': broker_name => 'ala-broker' }
   -> class { 'wr::master': }
   -> class { 'git::stomp_listener': }
   -> class { 'wr::puppetcommander': }
@@ -20,7 +20,7 @@ node 'pek-lpd-puppet.wrs.com' {
   class { 'redhat': }
   -> class { 'ntp': servers          => ['ntp-1.wrs.com','ntp-2.wrs.com'] }
   -> class { 'java':    distribution => 'java-1.7.0-openjdk' }
-  -> class { 'activemq': broker_name => 'pek-broker' }
+  -> class { 'wr::activemq': broker_name => 'pek-broker' }
   -> class { 'wr::master': }
   -> class { 'nrpe': }
   -> class { 'git::stomp_listener': }

@@ -25,11 +25,13 @@
 # }
 #
 class activemq(
-  $version       = 'present',
-  $ensure        = 'running',
-  $webconsole    = true,
-  $server_config = 'UNSET',
-  $broker_name   = 'localhost'
+  $version        = 'present',
+  $ensure         = 'running',
+  $webconsole     = true,
+  $server_config  = 'UNSET',
+  $wrapper_config = 'UNSET',
+  $credentials    = 'UNSET',
+  $broker_name    = 'localhost'
 ) {
 
   validate_re($ensure, '^running$|^stopped$')
@@ -48,6 +50,16 @@ class activemq(
     default => $server_config,
   }
 
+  $wrapper_config_real = $wrapper_config ? {
+    'UNSET' => template("${module_name}/activemq-wrapper.conf.erb"),
+    default => $wrapper_config,
+  }
+
+  $credentials_real = $credentials ? {
+    'UNSET' => template("${module_name}/credentials.properties.erb"),
+    default => $credentials,
+  }
+
   # Anchors for containing the implementation class
   anchor { 'activemq::begin':
     before => Class['activemq::packages'],
@@ -60,9 +72,11 @@ class activemq(
   }
 
   class { 'activemq::config':
-    server_config => $server_config_real,
-    require       => Class['activemq::packages'],
-    notify        => Class['activemq::service'],
+    server_config  => $server_config_real,
+    wrapper_config => $wrapper_config_real,
+    credentials    => $credentials_real,
+    require        => Class['activemq::packages'],
+    notify         => Class['activemq::service'],
   }
 
   class { 'activemq::service':
