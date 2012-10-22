@@ -31,7 +31,7 @@
 <% collectives.each do |collective| -%>
 <% if collective != location -%>
       <networkConnector
-          name="<%= location -%>-<%= collective -%>-topics"
+          name="topics"
           uri="static:(tcp://<%= activemq_servers[collective] -%>:6166)"
           userName="${activemq.username}"
           password="${activemq.password}"
@@ -45,7 +45,7 @@
         </excludedDestinations>
       </networkConnector>
       <networkConnector
-          name="<%= location -%>-<%= collective -%>-queues"
+          name="queues"
           uri="static:(tcp://<%= activemq_servers[collective] -%>:6166)"
           userName="${activemq.username}"
           password="${activemq.password}"
