@@ -46,6 +46,11 @@ plugin.<%= connector -%>.pool.<%= pool_num -%>.<%= key -%> = <%= value %>
 <% end -%>
 <% end -%>
 
+<% if connector == 'activemq' or connector == 'rabbitmq' -%>
+#with activemq or rabbitmq, direct addressing is possible
+direct_addressing = 1
+<% end -%>
+
 <% plugin_params.each do |param,value| -%>
 plugin.<%= param -%> = <%= value %>
 <% end -%>
