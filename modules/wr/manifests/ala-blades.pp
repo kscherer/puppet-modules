@@ -9,6 +9,13 @@ class wr::ala-blades inherits wr::ala-common {
       password => '$1$5VSxF7IZ$.yx57bNrz.RCFQRnz3KYV0';
   }
 
+  #for now there are still a few machines that have not been moved to local disk yet
+  case $::hostname {
+    /ala-blade[1-8]/: { include nx }
+    /ala-blade(1[7-9]|2[0-9]|3[0-2])/: { include nx }
+    default: {}
+  }
+
   #buildadmin user is a nis account, but without a nfs home directory.
   file {
     '/home/buildadmin':
