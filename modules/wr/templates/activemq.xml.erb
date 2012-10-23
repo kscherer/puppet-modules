@@ -35,7 +35,6 @@
           uri="static:(tcp://<%= activemq_servers[collective] -%>:6166)"
           userName="${activemq.username}"
           password="${activemq.password}"
-          duplex="true"
           decreaseNetworkConsumerPriority="true"
           networkTTL="2"
           dynamicOnly="true">
@@ -49,7 +48,6 @@
           uri="static:(tcp://<%= activemq_servers[collective] -%>:6166)"
           userName="${activemq.username}"
           password="${activemq.password}"
-          duplex="true"
           decreaseNetworkConsumerPriority="true"
           networkTTL="2"
           dynamicOnly="true"
