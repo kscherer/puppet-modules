@@ -36,7 +36,7 @@ class wr::ala-lpd-test {
 
   #packages need to run installed
   package {
-    [ 'gtk2.i686','libXtst.i686','PackageKit-gtk-module.i686', 'libcanberra.gtk2',
+    [ 'gtk2.i686','libXtst.i686','PackageKit-gtk-module.i686', 'libcanberra-gtk2.i686',
       'gtk2-engines.i686','libXt']:
       ensure => installed;
   }
