@@ -94,6 +94,12 @@ class mcollective::plugins(
     ddl         => true,
     application => true,
   }
+  mcollective::plugins::plugin { 'shell':
+    ensure      => present,
+    type        => 'agent',
+    ddl         => true,
+    application => true,
+  }
   mcollective::plugins::plugin { 'etc_facts':
     ensure      => present,
     type        => 'agent',
