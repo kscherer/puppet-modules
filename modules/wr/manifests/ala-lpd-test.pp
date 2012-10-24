@@ -26,12 +26,19 @@ class wr::ala-lpd-test {
       source => 'puppet:///modules/wr/e2croncheck';
     '/data':
       ensure => directory;
-    '/data/wr-taf':
+    ['/data/wr-taf','/data/tm_fast', '/data/fast_build', '/data/fast_prod']:
       ensure  => directory,
       owner   => 'wr-taf',
       group   => 'users',
       mode    => '0755',
       require => Mount['/data'];
+  }
+
+  #packages need to run installed
+  package {
+    [ 'gtk2.i686','libXtst.i686','PackageKit-gtk-module.i686', 'libcanberra.gtk2',
+      'gtk2-engines.i686','libXt']:
+      ensure => installed;
   }
 
   mount {
