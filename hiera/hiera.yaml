@@ -12,4 +12,4 @@
   - common
 
 :yaml:
-   :datadir: "/puppet/hiera"
+   :datadir: "/home/kscherer/repos/wr-puppet-modules/hiera"
