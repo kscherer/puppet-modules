@@ -34,10 +34,16 @@ class wr::ala-lpd-test {
       require => Mount['/data'];
   }
 
-  #packages need to run installed
+  #packages are needed to run installer
   package {
     [ 'gtk2.i686','libXtst.i686','PackageKit-gtk-module.i686', 'libcanberra-gtk2.i686',
       'gtk2-engines.i686','libXt']:
+      ensure => installed;
+  }
+
+  #these packages are needed to run FAST
+  package {
+    [ 'python-configobj', 'python-concurrentloghandler' ]:
       ensure => installed;
   }
 
