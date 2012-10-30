@@ -80,7 +80,7 @@ class wr::ala-lpd-test {
       owner   => 'root',
       group   => 'root',
       mode    => '0644',
-      content => '/buildarea *(ro,async,insecure,insecure_locks)\n',
+      content => "/buildarea *(ro,async,insecure,insecure_locks)\n",
       notify  => Service['nfs'];
   }
 
