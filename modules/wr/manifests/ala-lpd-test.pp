@@ -72,4 +72,21 @@ class wr::ala-lpd-test {
       weekday     => 6,
       require     => File['e2croncheck'];
   }
+
+  #export /data using nfs
+  file {
+    '/etc/exports':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => '/buildarea *(ro,async,insecure,insecure_locks)',
+      notify  => Service['nfs'];
+  }
+
+  service {
+    'nfs':
+      ensure => running,
+      enable => true;
+  }
 }
