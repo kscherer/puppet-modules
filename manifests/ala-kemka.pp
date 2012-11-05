@@ -26,7 +26,8 @@ case $::location {
 
 node default {
 
-  class { 'debian': }
+  class { 'wr::common': }
+  -> class { 'debian': }
   -> class { 'ntp':
     servers    => $wr::common::ntp_servers,
   }
