@@ -35,12 +35,10 @@
           uri="static:(tcp://<%= activemq_servers[collective] -%>:6166)"
           userName="${activemq.username}"
           password="${activemq.password}"
-          duplex="true"
           decreaseNetworkConsumerPriority="true"
           networkTTL="1"
           dynamicOnly="true">
         <excludedDestinations>
-          <topic physicalName="<%= location -%>.>" />
           <queue physicalName=">" />
         </excludedDestinations>
       </networkConnector>
@@ -49,13 +47,11 @@
           uri="static:(tcp://<%= activemq_servers[collective] -%>:6166)"
           userName="${activemq.username}"
           password="${activemq.password}"
-          duplex="true"
           decreaseNetworkConsumerPriority="true"
           networkTTL="1"
           dynamicOnly="true"
           conduitSubscriptions="false">
         <excludedDestinations>
-          <queue physicalName="<%= location -%>.>" />
           <topic physicalName=">" />
         </excludedDestinations>
       </networkConnector>
