@@ -1,6 +1,10 @@
 #
 class nx::ala-lpd-test {
-  nx::setup { ['1','2']: }
+
+  case $::hostname {
+    'ala-lpd-test3': { nx::setup { ['1','2','3']: } }
+    default: {  nx::setup { ['1','2']: } }
+  }
 
   file {
     '/data/nxadm':
@@ -20,12 +24,8 @@ class nx::ala-lpd-test {
     '/home/nxadm/nx':
       ensure  => link,
       target  => '/buildarea/nxadm/nx';
-    "/home/nxadm/nx/${::hostname}.1":
-      ensure  => directory,
-      owner   => 'nxadm',
-      group   => 'nxadm',
-      mode    => '0755';
-    "/home/nxadm/nx/${::hostname}.2":
+    [ "/home/nxadm/nx/${::hostname}.1", "/home/nxadm/nx/${::hostname}.2",
+      "/home/nxadm/nx/${::hostname}.3" ]:
       ensure  => directory,
       owner   => 'nxadm',
       group   => 'nxadm',
