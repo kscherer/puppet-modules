@@ -157,35 +157,7 @@ class nx {
       require => User[ 'nxadm' ];
   }
 
-  $network_repo1="${::hostname}.1/wrlinux-x/git/meta-networking"
-  $selinux_repo1="${::hostname}.1/wrlinux-x/git/meta-selinux"
-  $network_repo2="${::hostname}.2/wrlinux-x/git/meta-networking"
-  $selinux_repo2="${::hostname}.2/wrlinux-x/git/meta-selinux"
-
-  exec {
-    'network_clean1':
-      command => "rm -rf ${network_repo1}",
-      cwd     => '/home/nxadm/nx',
-      user    => 'nxadm',
-      group   => 'nxadm',
-      onlyif  => "test -d ${network_repo1}/.git";
-    'selinux_clean1':
-      command => "rm -rf ${selinux_repo1}",
-      cwd     => '/home/nxadm/nx',
-      user    => 'nxadm',
-      group   => 'nxadm',
-      onlyif  => "test -d ${selinux_repo1}/.git";
-    'network_clean2':
-      command => "rm -rf ${network_repo2}",
-      cwd     => '/home/nxadm/nx',
-      user    => 'nxadm',
-      group   => 'nxadm',
-      onlyif  => "test -d ${network_repo2}/.git";
-    'selinux_clean2':
-      command => "rm -rf ${selinux_repo2}",
-      cwd     => '/home/nxadm/nx',
-      user    => 'nxadm',
-      group   => 'nxadm',
-      onlyif  => "test -d ${selinux_repo2}/.git";
+  if $::osfamily == 'RedHat' {
+    ensure_resource('package', 'vim-enhanced', {'ensure' => 'installed' })
   }
 }
