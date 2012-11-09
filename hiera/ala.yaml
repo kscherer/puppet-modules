@@ -5,4 +5,5 @@ ntp_servers:
   - ntp-1.wrs.com
   - ntp-2.wrs.com
   - ntp-3.wrs.com
+graphite::web::time_zone: America/Los_Angeles
 
