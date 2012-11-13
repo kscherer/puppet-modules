@@ -15,4 +15,10 @@ class wr::yow-blades inherits wr::yow-common {
     'yow-blade':
       content => 'This machine is reserved for WR Linux coverage builds.';
   }
+
+  #this package is needed for Dell bios upgrade software
+  package {
+    'libxml2.i386':
+      ensure => installed;
+  }
 }
