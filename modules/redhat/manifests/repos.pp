@@ -14,22 +14,13 @@ class redhat::repos {
     notify   => Exec[ 'yum_reload' ],
   }
 
-  define redhat::delete_repo() {
-    file {
-      $name:
-        ensure => absent,
-        path   => "/etc/yum.repos.d/${name}.repo",
-        notify => Exec[ 'yum_reload' ],
-    }
-  }
-
-  #make sure all other repos are gone
-  redhat::delete_repo {
-    [ 'fedora', 'fedora-updates-testing', 'cobbler-config',
-      'CentOS-Base','CentOS-Debuginfo', 'CentOS-Media',
-      'puppet', 'redhat_dvd', 'rhel-source',
-      'puppet-el6', 'puppet-el5', 'epel',
-      'redhat-el5', 'rhel-debuginfo', 'centos_dvd', 'centos-dvd' ]:
+  #only puppet managed repo files in /etc/yum.repos.d
+  file {
+    '/etc/yum.repos.d/':
+      ensure  => directory,
+      recurse => true,
+      purge   => true,
+      notify  => Exec[ 'yum_reload' ];
   }
 
   $mirror = $::hostname ? {
@@ -40,7 +31,6 @@ class redhat::repos {
 
   $mrepo_mirror = "${mirror}/mrepo/repos"
   $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
-  $fedora_repo_base = "${mrepo_mirror}/fedora${::operatingsystemrelease}-${::architecture}"
 
   #this exists solely to stop yum complaining about missing name
   define redhat::named_yumrepo( $baseurl ){
@@ -54,58 +44,47 @@ class redhat::repos {
   #declare all the repos virtually and realize the correct ones on
   #relevant platforms
   redhat::named_yumrepo {
-    "epel-el4-${::architecture}":
-      baseurl => "${mrepo_mirror}/rhel5c-${::architecture}/RPMS.epel";
-    "epel-el5-${::architecture}":
-      baseurl => "${mrepo_mirror}/rhel5c-${::architecture}/RPMS.epel";
-    "epel-el6-${::architecture}":
-      baseurl => "${mrepo_mirror}/rhel6ws-${::architecture}/RPMS.epel";
+    'epel':
+      baseurl => "${mirror}/epel/${::lsbmajdistrelease}/${::architecture}";
     'redhat-dvd':
       baseurl => "${mirror}/repos/${redhat_dvd_repo}";
     'fedora-updates':
-      baseurl => "${fedora_repo_base}/RPMS.updates";
+      baseurl => "${mirror}/fedora/updates/${::operatingsystemrelease}/${::architecture}";
     'fedora-everything':
-      baseurl => "${fedora_repo_base}/RPMS.everything";
+      baseurl => "${mirror}/fedora/releases/${::operatingsystemrelease}/Everything/${::architecture}";
     'rhel6-optional':
       baseurl => "${mrepo_mirror}/rhel6ws-${::architecture}/RPMS.optional";
     'rhel6-updates':
       baseurl => "${mrepo_mirror}/rhel6ws-${::architecture}/RPMS.updates";
-    'centos5-updates':
-      baseurl => "${mrepo_mirror}/centos5-${::architecture}/RPMS.all";
-    'centos6-updates':
-      baseurl => "${mrepo_mirror}/centos6-${::architecture}/RPMS.all";
-    'puppetlabs-rh4':
-      baseurl => "${mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.all";
-    'puppetlabs-rh5':
-      baseurl => "${mrepo_mirror}/puppetlabs-rh5-${::architecture}/RPMS.all";
+    'centos-os':
+      baseurl => "${mirror}/centos/${::lsbmajdistrelease}/os/${::architecture}/";
+    'centos-updates':
+      baseurl => "${mirror}/centos/${::lsbmajdistrelease}/updates/${::architecture}/";
+    'puppetlabs':
+      baseurl => "${mrepo_mirror}/puppetlabs-rh${::lsbmajdistrelease}-${::architecture}/RPMS.all";
     'puppetlabs-fedora':
       baseurl => "${mrepo_mirror}/puppetlabs-f${::operatingsystemrelease}-${::architecture}/RPMS.all";
-    'puppetlabs-rh6':
-      baseurl => "${mrepo_mirror}/puppetlabs-rh6-${::architecture}/RPMS.all";
-    'passenger-rh6':
+    'passenger':
       baseurl => "${mrepo_mirror}/passenger-rh6-${::architecture}/RPMS.main";
-    'foreman-rh6':
+    'foreman':
       baseurl => "http://ala-mirror.wrs.com/mirror/mrepo/repos/foreman-rh6-${::architecture}/RPMS.all";
     'activemq':
       baseurl => 'http://yow-mirror.wrs.com/mirror/activemq';
-  }
-
-  case $::operatingsystemrelease {
-    /^4.*$/: { $major_release=4 }
-    /^5.*$/: { $major_release=5 }
-    /^6.*$/: { $major_release=6 }
-    default: {  }
+    'graphite':
+      baseurl => 'http://ala-mirror.wrs.com/mirror/graphite';
   }
 
   #setup repos depending on which flavour of redhat
   case $::operatingsystem {
     CentOS: {
-      realize( Yumrepo["centos${major_release}-updates"] )
-      realize( Yumrepo["epel-el${major_release}-${::architecture}"] )
-      realize( Yumrepo["puppetlabs-rh${major_release}"] )
-      if ( $major_release == '6' ) {
-        realize( Yumrepo["passenger-rh${major_release}"] )
-        realize( Yumrepo["foreman-rh${major_release}"] )
+      realize( Yumrepo['centos-os'] )
+      realize( Yumrepo['centos-updates'] )
+      realize( Yumrepo['epel'] )
+      realize( Yumrepo['puppetlabs'] )
+      if ( $::lsbmajdistrelease == '6' ) {
+        realize( Yumrepo['passenger'] )
+        realize( Yumrepo['foreman'] )
+        realize( Yumrepo['graphite'] )
       }
     }
     Fedora: {
@@ -113,16 +92,16 @@ class redhat::repos {
       if $::operatingsystemrelease >= 16 {
         realize( Yumrepo['puppetlabs-fedora'] )
       } else {
-        realize( Yumrepo['puppetlabs-rh6'] )
+        realize( Yumrepo['puppetlabs'] )
       }
     }
     RedHat: {
       realize( Yumrepo['redhat-dvd'] )
-      realize( Yumrepo["epel-el${major_release}-${::architecture}"] )
-      realize( Yumrepo["puppetlabs-rh${major_release}"] )
-      if ( $major_release == '6' ) {
-        realize( Yumrepo["rhel${major_release}-updates"] )
-        realize( Yumrepo["rhel${major_release}-optional"] )
+      realize( Yumrepo['epel'] )
+      realize( Yumrepo['puppetlabs'] )
+      if ( $::lsbmajdistrelease == '6' ) {
+        realize( Yumrepo['rhel6-updates'] )
+        realize( Yumrepo['rhel6-optional'] )
       }
     }
     default: { fail('Unsupported Operating System') }
