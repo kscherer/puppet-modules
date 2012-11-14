@@ -20,6 +20,8 @@ class redhat::repos {
       ensure  => directory,
       recurse => true,
       purge   => true,
+      owner   => root,
+      group   => root,
       source  => 'puppet:///modules/redhat/empty',
       notify  => Exec[ 'yum_reload' ];
   }
