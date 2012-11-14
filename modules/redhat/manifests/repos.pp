@@ -22,7 +22,6 @@ class redhat::repos {
       purge   => true,
       owner   => root,
       group   => root,
-      source  => 'puppet:///modules/redhat/empty',
       notify  => Exec[ 'yum_reload' ];
   }
 
@@ -36,17 +35,21 @@ class redhat::repos {
   $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
 
   #this exists solely to stop yum complaining about missing name
-  define redhat::named_yumrepo( $baseurl ){
-    @yumrepo {
+  define named_yumrepo( $baseurl ){
+    yumrepo {
       $name:
         baseurl => $baseurl,
         descr   => $name,
+    }
+    file {
+      "/etc/yum.repos.d/${name}.repo":
+        ensure => file;
     }
   }
 
   #declare all the repos virtually and realize the correct ones on
   #relevant platforms
-  redhat::named_yumrepo {
+  @named_yumrepo {
     'epel':
       baseurl => "${mirror}/epel/${::lsbmajdistrelease}/${::architecture}";
     'redhat-dvd':
@@ -80,31 +83,31 @@ class redhat::repos {
   #setup repos depending on which flavour of redhat
   case $::operatingsystem {
     CentOS: {
-      realize( Yumrepo['centos-os'] )
-      realize( Yumrepo['centos-updates'] )
-      realize( Yumrepo['epel'] )
-      realize( Yumrepo['puppetlabs'] )
+      realize( Named_yumrepo['centos-os'] )
+      realize( Named_yumrepo['centos-updates'] )
+      realize( Named_yumrepo['epel'] )
+      realize( Named_yumrepo['puppetlabs'] )
       if ( $::lsbmajdistrelease == '6' ) {
-        realize( Yumrepo['passenger'] )
-        realize( Yumrepo['foreman'] )
-        realize( Yumrepo['graphite'] )
+        realize( Named_yumrepo['passenger'] )
+        realize( Named_yumrepo['foreman'] )
+        realize( Named_yumrepo['graphite'] )
       }
     }
     Fedora: {
-      realize( Yumrepo['fedora-updates'], Yumrepo['fedora-everything'] )
+      realize( Named_yumrepo['fedora-updates'], Named_yumrepo['fedora-everything'] )
       if $::operatingsystemrelease >= 16 {
-        realize( Yumrepo['puppetlabs-fedora'] )
+        realize( Named_yumrepo['puppetlabs-fedora'] )
       } else {
-        realize( Yumrepo['puppetlabs'] )
+        realize( Named_yumrepo['puppetlabs'] )
       }
     }
     RedHat: {
-      realize( Yumrepo['redhat-dvd'] )
-      realize( Yumrepo['epel'] )
-      realize( Yumrepo['puppetlabs'] )
+      realize( Named_yumrepo['redhat-dvd'] )
+      realize( Named_yumrepo['epel'] )
+      realize( Named_yumrepo['puppetlabs'] )
       if ( $::lsbmajdistrelease == '6' ) {
-        realize( Yumrepo['rhel6-updates'] )
-        realize( Yumrepo['rhel6-optional'] )
+        realize( Named_yumrepo['rhel6-updates'] )
+        realize( Named_yumrepo['rhel6-optional'] )
       }
     }
     default: { fail('Unsupported Operating System') }
