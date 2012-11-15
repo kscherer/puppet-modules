@@ -56,6 +56,11 @@ class redhat::repos {
     }
   }
 
+  $centos_mirror_base = "${mirror}/centos/${::lsbmajdistrelease}"
+  $centos_mirror_os = "${centos_mirror_base}/os/${::architecture}/"
+  $centos_mirror_updates = "${centos_mirror_base}/updates/${::architecture}/"
+  $centos_gpgkey = "${centos_mirror_os}/RPM-GPG-KEY-CentOS-${::lsbmajdistrelease}"
+
   #declare all the repos virtually and realize the correct ones on
   #relevant platforms
   @named_yumrepo {
@@ -72,9 +77,11 @@ class redhat::repos {
     'rhel6-updates':
       baseurl => "${mrepo_mirror}/rhel6ws-${::architecture}/RPMS.updates";
     'centos-os':
-      baseurl => "${mirror}/centos/${::lsbmajdistrelease}/os/${::architecture}/";
+      gpgkey  => $centos_gpgkey
+      baseurl => $centos_mirror_os
     'centos-updates':
-      baseurl => "${mirror}/centos/${::lsbmajdistrelease}/updates/${::architecture}/";
+      gpgkey  => $centos_gpgkey
+      baseurl => $centos_mirror_updates
     'puppetlabs':
       baseurl => "${mrepo_mirror}/puppetlabs-rh${::lsbmajdistrelease}-${::architecture}/RPMS.all";
     'puppetlabs-fedora':
