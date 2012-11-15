@@ -12,3 +12,5 @@ packages:
   - gcc-c++
   - help2man
   - chrpath
+  - git
+  - pygtk2

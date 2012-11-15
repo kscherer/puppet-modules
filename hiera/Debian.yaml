@@ -12,3 +12,5 @@ packages:
   - gcc
   - help2man
   - g++
+  - git-core
+  - python-gtk2
