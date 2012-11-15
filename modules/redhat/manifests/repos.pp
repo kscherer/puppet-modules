@@ -35,12 +35,21 @@ class redhat::repos {
   $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
 
   #this exists solely to stop yum complaining about missing name
-  define named_yumrepo( $baseurl ){
+  define named_yumrepo( $baseurl, $gpgkey ){
+
+    $real_gpgcheck = $gpgkey ? {
+      undef   => '0',
+      default => '1',
+    }
+
     yumrepo {
       $name:
-        baseurl => $baseurl,
-        descr   => $name,
+        baseurl  => $baseurl,
+        descr    => $name,
+        gpgcheck => $real_gpgcheck,
+        gpgkey   => $gpgkey,
     }
+    #this is necessary to keep puppet from deleting the repo files
     file {
       "/etc/yum.repos.d/${name}.repo":
         ensure => file;
