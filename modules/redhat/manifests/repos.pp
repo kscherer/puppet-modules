@@ -35,7 +35,7 @@ class redhat::repos {
   $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
 
   #this exists solely to stop yum complaining about missing name
-  define named_yumrepo( $baseurl, $gpgkey ){
+  define named_yumrepo( $baseurl, $gpgkey = undef ){
 
     $real_gpgcheck = $gpgkey ? {
       undef   => '0',
