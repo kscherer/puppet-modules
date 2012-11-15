@@ -34,10 +34,9 @@ class redhat::repos {
   $mrepo_mirror = "${mirror}/mrepo/repos"
   $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
 
-  #this exists solely to stop yum complaining about missing name
-  define named_yumrepo( $baseurl, $gpgkey = undef ){
-
-    $real_gpgcheck = $gpgkey ? {
+  #eliminate common fields amoung repo definitions
+  define named_yumrepo( $baseurl, $repo_gpgkey = undef ){
+    $real_gpgcheck = $repo_gpgkey ? {
       undef   => '0',
       default => '1',
     }
@@ -47,8 +46,9 @@ class redhat::repos {
         baseurl  => $baseurl,
         descr    => $name,
         gpgcheck => $real_gpgcheck,
-        gpgkey   => $gpgkey;
+        gpgkey   => $repo_gpgkey;
     }
+
     #this is necessary to keep puppet from deleting the repo files
     file {
       "/etc/yum.repos.d/${name}.repo":
@@ -57,12 +57,12 @@ class redhat::repos {
   }
 
   $centos_mirror_base = "${mirror}/centos/${::lsbmajdistrelease}"
-  $centos_mirror_os = "${centos_mirror_base}/os/${::architecture}/"
-  $centos_mirror_updates = "${centos_mirror_base}/updates/${::architecture}/"
+  $centos_mirror_os = "${centos_mirror_base}/os/${::architecture}"
+  $centos_mirror_updates = "${centos_mirror_base}/updates/${::architecture}"
   $centos_gpgkey = "${centos_mirror_os}/RPM-GPG-KEY-CentOS-${::lsbmajdistrelease}"
 
   #declare all the repos virtually and realize the correct ones on
-  #relevant platforms
+  #relevant platforms. Virtual define makes all classes within virtual
   @named_yumrepo {
     'epel':
       baseurl => "${mirror}/epel/${::lsbmajdistrelease}/${::architecture}";
@@ -77,6 +77,7 @@ class redhat::repos {
     'rhel6-updates':
       baseurl => "${mrepo_mirror}/rhel6ws-${::architecture}/RPMS.updates";
     'centos-os':
+      gpgkey  => $centos_gpgkey,
       baseurl => $centos_mirror_os;
     'centos-updates':
       baseurl => $centos_mirror_updates;
