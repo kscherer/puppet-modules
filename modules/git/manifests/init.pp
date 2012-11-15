@@ -6,6 +6,6 @@ class git {
     default           => 'git',
   }
 
-  ensure_resource('package', $git_package_name, {'ensure' => 'latest' })
-  ensure_resource('package', 'git-email',       {'ensure' => 'latest' })
+  ensure_resource('package', $git_package_name, {'ensure' => 'installed' })
+  ensure_resource('package', 'git-email',       {'ensure' => 'installed' })
 }
