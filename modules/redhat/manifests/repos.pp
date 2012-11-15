@@ -65,7 +65,8 @@ class redhat::repos {
   #relevant platforms. Virtual define makes all classes within virtual
   @named_yumrepo {
     'epel':
-      baseurl => "${mirror}/epel/${::lsbmajdistrelease}/${::architecture}";
+      repo_gpgkey => "${mirror}/epel/RPM_GPG_KEY-${::lsbmajdistrelease}";
+      baseurl     => "${mirror}/epel/${::lsbmajdistrelease}/${::architecture}";
     'redhat-dvd':
       baseurl => "${mirror}/repos/${redhat_dvd_repo}";
     'fedora-updates':
@@ -77,10 +78,11 @@ class redhat::repos {
     'rhel6-updates':
       baseurl => "${mrepo_mirror}/rhel6ws-${::architecture}/RPMS.updates";
     'centos-os':
-      repo_gpgkey  => $centos_gpgkey,
-      baseurl      => $centos_mirror_os;
+      repo_gpgkey => $centos_gpgkey,
+      baseurl     => $centos_mirror_os;
     'centos-updates':
-      baseurl => $centos_mirror_updates;
+      repo_gpgkey => $centos_gpgkey,
+      baseurl     => $centos_mirror_updates;
     'puppetlabs':
       baseurl => "${mrepo_mirror}/puppetlabs-rh${::lsbmajdistrelease}-${::architecture}/RPMS.all";
     'puppetlabs-fedora':
