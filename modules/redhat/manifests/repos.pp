@@ -77,11 +77,11 @@ class redhat::repos {
     'rhel6-updates':
       baseurl => "${mrepo_mirror}/rhel6ws-${::architecture}/RPMS.updates";
     'centos-os':
-      gpgkey  => $centos_gpgkey
-      baseurl => $centos_mirror_os
+      gpgkey  => $centos_gpgkey,
+      baseurl => $centos_mirror_os;
     'centos-updates':
-      gpgkey  => $centos_gpgkey
-      baseurl => $centos_mirror_updates
+      gpgkey  => $centos_gpgkey,
+      baseurl => $centos_mirror_updates;
     'puppetlabs':
       baseurl => "${mrepo_mirror}/puppetlabs-rh${::lsbmajdistrelease}-${::architecture}/RPMS.all";
     'puppetlabs-fedora':
