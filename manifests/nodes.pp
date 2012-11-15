@@ -55,6 +55,11 @@ node /pek-blade\d+\.wrs\.com/ {
   -> class { 'nx': }
 }
 
+node /pek-usp-\d+\.wrs\.com/ {
+  class { 'wr::pek-usp': }
+  -> class { 'nx': }
+}
+
 node 'yow-lpd-monitor.wrs.com' {
   class { 'redhat': }
   -> class { 'puppet':
