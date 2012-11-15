@@ -112,11 +112,7 @@ class redhat::repos {
     }
     Fedora: {
       realize( Named_yumrepo['fedora-updates'], Named_yumrepo['fedora-everything'] )
-      if $::operatingsystemrelease >= 16 {
-        realize( Named_yumrepo['puppetlabs-fedora'] )
-      } else {
-        realize( Named_yumrepo['puppetlabs'] )
-      }
+      realize( Named_yumrepo['puppetlabs-fedora'] )
     }
     RedHat: {
       realize( Named_yumrepo['redhat-dvd'] )
