@@ -57,7 +57,7 @@ class redhat::repos {
     'fedora-updates':
       baseurl => "${mirror}/fedora/updates/${::operatingsystemrelease}/${::architecture}";
     'fedora-everything':
-      baseurl => "${mirror}/fedora/releases/${::operatingsystemrelease}/Everything/${::architecture}";
+      baseurl => "${mirror}/fedora/releases/${::operatingsystemrelease}/Everything/${::architecture}/os";
     'rhel6-optional':
       baseurl => "${mrepo_mirror}/rhel6ws-${::architecture}/RPMS.optional";
     'rhel6-updates':
