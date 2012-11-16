@@ -65,7 +65,7 @@ class redhat::repos {
   #relevant platforms. Virtual define makes all classes within virtual
   @named_yumrepo {
     'epel':
-      repo_gpgkey => "${mirror}/epel/RPM_GPG_KEY-${::lsbmajdistrelease}",
+      repo_gpgkey => "${mirror}/epel/RPM-GPG-KEY-EPEL-${::lsbmajdistrelease}",
       baseurl     => "${mirror}/epel/${::lsbmajdistrelease}/${::architecture}";
     'redhat-dvd':
       baseurl => "${mirror}/repos/${redhat_dvd_repo}";
