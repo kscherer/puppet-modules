@@ -115,8 +115,12 @@ end
 Facter.add('warranty') do
     confine :kernel => ['Linux', 'Windows']
     setcode do
+        manufacturer = Facter.value('manufacturer')
+        if manufacturer.nil?
+            next
+        end
         warranty = 'Unsupported'
-        if Facter.value('manufacturer').downcase !~ /(dell.*|lenovo)/
+        if manufacturer.downcase !~ /(dell.*|lenovo)/
             # Just support for dell so far... Contribute *hint*
             next
         end
@@ -131,13 +135,13 @@ Facter.add('warranty') do
             cache_file = '/var/cache/.facter_warranty.fact'
         end
 
-        # refresh cache daily
-        if File.exists?(cache_file) and Time.now < File.stat(cache_file).mtime + 86400 * 1
+        # refresh cache weekly
+        if File.exists?(cache_file) and Time.now < File.stat(cache_file).mtime + 86400 * 7
             Facter.debug('warranty cache: Valid')
         else
             Facter.debug('warranty cache: Outdated, recreating')
 
-            if Facter.value('manufacturer').downcase =~ /Dell.*/
+            if manufacturer.downcase =~ /dell.*/
                 create_dell_warranty_cache cache_file
             else
                 create_lenovo_warranty_cache cache_file
