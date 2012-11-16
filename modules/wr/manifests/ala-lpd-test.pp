@@ -32,6 +32,9 @@ class wr::ala-lpd-test {
       group   => 'users',
       mode    => '0755',
       require => Mount['/data'];
+    '/etc/security/limits.d/99-wr-taf-nproc.conf':
+      ensure  => file,
+      content => 'wr-taf soft nproc 5000';
   }
 
   #packages are needed to run installer
