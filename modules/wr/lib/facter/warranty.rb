@@ -70,18 +70,11 @@ def create_dell_warranty_cache(cache)
     end
 
     # Does the first match with html tags because there's multiple [days_left]
-    match_result = /<b>\[\d+\]<\/b>/.match(response.body)
+    match_result = /<b>(\d+\/\d+\/\d+)<\/b>/.match(response.body)
 
     if match_result
-        # match days left in match_result.
-        # I'm sorry for the ugly convertions, feel free to improve.
-        warranty = false
-        days_left = /\d+/.match(match_result.to_s).to_s
-        if days_left.to_i != 0
-            warranty = true
-            end_date = DateTime.now + days_left.to_i
-            expiration_date = end_date.strftime('%Y-%m-%d')
-        end
+        warranty = true
+        expiration_date = match_result[1].to_s
     end
     File.open(cache, 'w') do |file|
         YAML.dump({'warranty_status' => warranty, 'expiration_date' => expiration_date}, file)
