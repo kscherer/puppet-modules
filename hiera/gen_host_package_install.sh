@@ -62,9 +62,13 @@ if [ -e /usr/bin/yum ]; then
 elif [ -e /usr/bin/dpkg ]; then
     #we only support Ubuntu 12.04
     install_program="apt-get $opt_yes install"
-    install_check='dpkg -l'
+    install_check='dpkg -L'
     distro=U1204
 elif [ -e /usr/bin/zypper ]; then
+    if [ -n "$opt_yes" ]; then
+        opt_yes='-n'
+    fi
+
     install_program="zypper $opt_yes install"
     if cat /etc/issue | grep -q '11\.4'
     then
@@ -85,7 +89,7 @@ log "Checking for missing host packages using $install_check"
 
 for package in $packages
 do
-    if $install_check $package 2>&1 > /dev/null
+    if $install_check $package > /dev/null 2>&1
     then
         log "Package $package already installed"
     else
