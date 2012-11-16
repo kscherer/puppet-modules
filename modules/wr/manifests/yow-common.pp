@@ -15,6 +15,7 @@ class wr::yow-common inherits wr::mcollective {
   -> class { 'nis': }
   -> class { 'collectd::client': }
   -> class { 'nagios::target': }
+  -> class { 'sudo': }
 
   file {
     '/etc/resolv.conf':

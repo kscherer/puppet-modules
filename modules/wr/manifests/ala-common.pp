@@ -14,6 +14,7 @@ class wr::ala-common {
   }
   -> class { 'nrpe': }
   -> class { 'nis': }
+  -> class { 'sudo': }
 
   class { 'nagios::target': }
 }

@@ -23,6 +23,7 @@ class wr::yow-hostel inherits wr::mcollective {
   -> class { 'yocto': }
   -> class { 'nx': }
   -> class { 'nagios::target': }
+  -> class { 'sudo': }
 
   user {
     'root':
