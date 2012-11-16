@@ -82,4 +82,9 @@ class wr::ala-blades inherits wr::ala-common {
     'ala-blade':
       content => 'This machine is reserved for WR Linux release and coverage builds.';
   }
+
+  sudo::conf {
+    'admin':
+      source  => 'puppet:///modules/wr/sudoers.d/admin';
+  }
 }

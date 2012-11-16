@@ -21,4 +21,9 @@ class wr::yow-blades inherits wr::yow-common {
     'libxml2.i386':
       ensure => installed;
   }
+
+  sudo::conf {
+    'admin':
+      source  => 'puppet:///modules/wr/sudoers.d/admin';
+  }
 }

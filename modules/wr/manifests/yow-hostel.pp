@@ -40,4 +40,9 @@ class wr::yow-hostel inherits wr::mcollective {
       ensure => directory,
       mode   => '0777';
   }
+
+  sudo::conf {
+    'admin':
+      source  => 'puppet:///modules/wr/sudoers.d/admin';
+  }
 }
