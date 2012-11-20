@@ -117,7 +117,7 @@ class wr::ala-blades inherits wr::ala-common {
       atboot   => true,
       device   => 'ala-lpgnas2-nfs:/vol/vol1',
       fstype   => 'nfs',
-      options  => 'rw',
+      options  => 'bg,vers=3,nointr,timeo=600,_netdev',
       require  => File['/stored_builds'],
       remounts => true;
   }
