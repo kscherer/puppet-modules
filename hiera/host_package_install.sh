@@ -45,11 +45,11 @@ install_program=""
 usage() {
 	echo `basename $0`: Check and optionally install host packages for Wind River Linux 5.
 	echo usage:
-	echo -e "\t--help\t\tThis message"
-	echo -e "\t--install\t\tInstall host packages detected as missing"
-	echo -e "\t--dryrun\t\tOnly show command that would be used to install missing host packages"
-	echo -e "\t--verbose\t\tIncrease output verbosity"
-	echo -e "\t--yes\t\tPass --yes flag to package manager"
+	echo "--help - This message"
+	echo "--install - Install host packages detected as missing"
+	echo "--dryrun - Only show command that would be used to install missing host packages"
+	echo "--verbose - Increase output verbosity"
+	echo "--yes - Pass --yes flag to package manager"
 	exit 1
 }
 
@@ -81,7 +81,7 @@ do
 done
 
 log() {
-    if [ "$opt_verbose" == "1" ]; then
+    if [ x"$opt_verbose" = x1 ]; then
         echo "$1"
     fi
 }
@@ -142,12 +142,12 @@ fi
 
 install_command="sudo $install_program $uninstalled"
 
-if [ "$opt_dryrun" == "1" ]; then
+if [ x"$opt_dryrun" = x1 ]; then
     echo "Dry run: Would execute $install_command"
     exit 0
 fi
 
-if [ "$opt_install" == "1" ]; then
+if [ x"$opt_install" = x1 ]; then
     log $install_command
     $install_command
     exit $?
