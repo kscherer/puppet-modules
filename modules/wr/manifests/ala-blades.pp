@@ -87,4 +87,38 @@ class wr::ala-blades inherits wr::ala-common {
     'admin':
       source  => 'puppet:///modules/wr/sudoers.d/admin';
   }
+
+  host {
+    'ala-lpgnas1-nfs':
+      ip           => '172.17.136.110',
+      host_aliases => 'ala-lpgnas1-nfs.wrs.com';
+    'ala-lpgnas2-nfs':
+      ip           => '172.17.136.114',
+      host_aliases => 'ala-lpgnas2-nfs.wrs.com';
+  }
+
+  case $::hostname {
+    ala-blade1: { $options='mounted' }
+    ala-blade9: { $options='mounted' }
+    default: { $options='absent' }
+  }
+
+  file {
+    '/stored_builds':
+      ensure  => directory,
+      owner   => 'buildadmin',
+      group   => 'buildadmin',
+      require => Class['nis'],
+  }
+
+  mount {
+    '/stored_builds':
+      ensure   => mounted,
+      atboot   => true,
+      device   => 'ala-lpgnas2-nfs:/vol/vol1',
+      fstype   => 'nfs',
+      options  => 'rw',
+      require  => File['/stored_builds'],
+      remounts => true;
+  }
 }
