@@ -1,9 +1,10 @@
 #
-class wr::yow-blades inherits wr::yow-common {
+class wr::yow-blades {
 
   Class['redhat'] -> Class['yocto']
 
-  class { 'yocto': }
+  class { 'wr::yow-common': }
+  -> class { 'yocto': }
   -> class { 'nx': }
 
   user {

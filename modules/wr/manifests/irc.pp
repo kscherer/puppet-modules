@@ -1,6 +1,8 @@
 #
-class wr::irc inherits wr::mcollective {
-  class { 'redhat': }
+class wr::irc {
+  class { "wr::${::location}_dns": }
+  -> class { 'redhat': }
+  -> class { 'wr::mcollective': }
   -> class { 'ntp':
     servers => $wr::common::ntp_servers,
   }
