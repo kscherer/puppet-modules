@@ -50,6 +50,12 @@ class wr::ala-lpd-test {
       ensure => installed;
   }
 
+  #another developer request
+  package {
+    'screen':
+      ensure => installed;
+  }
+
   mount {
     '/data':
       ensure   => mounted,
