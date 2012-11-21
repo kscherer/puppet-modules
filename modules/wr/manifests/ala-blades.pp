@@ -113,12 +113,18 @@ class wr::ala-blades inherits wr::ala-common {
 
   mount {
     '/stored_builds':
-      ensure   => mounted,
+      ensure   => $options,
       atboot   => true,
       device   => 'ala-lpgnas2-nfs:/vol/vol1',
       fstype   => 'nfs',
       options  => 'bg,vers=3,nointr,timeo=600,_netdev',
       require  => File['/stored_builds'],
       remounts => true;
+  }
+
+  #some packages needed to run Xylo
+  package {
+    ['perl-XML-Simple','perl-XML-Twig']:
+      ensure => installed;
   }
 }
