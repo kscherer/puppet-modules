@@ -61,6 +61,9 @@ class redhat::repos {
   $centos_mirror_updates = "${centos_mirror_base}/updates/${::architecture}"
   $centos_gpgkey = "${centos_mirror_os}/RPM-GPG-KEY-CentOS-${::lsbmajdistrelease}"
 
+  $puppetlabs_mirror_el = "${mirror}/puppetlabs/yum/el/${::lsbmajdistrelease}"
+  $puppetlabs_mirror_fedora = "${mirror}/puppetlabs/yum/fedora/f${::lsbmajdistrelease}"
+
   #declare all the repos virtually and realize the correct ones on
   #relevant platforms. Virtual define makes all classes within virtual
   @named_yumrepo {
@@ -84,9 +87,13 @@ class redhat::repos {
       repo_gpgkey => $centos_gpgkey,
       baseurl     => $centos_mirror_updates;
     'puppetlabs':
-      baseurl => "${mrepo_mirror}/puppetlabs-rh${::lsbmajdistrelease}-${::architecture}/RPMS.all";
+      baseurl => "${puppetlabs_mirror_el}/products/${::architecture}";
+    'puppetlabs-deps':
+      baseurl => "${puppetlabs_mirror_el}/dependencies/${::architecture}";
     'puppetlabs-fedora':
-      baseurl => "${mrepo_mirror}/puppetlabs-f${::operatingsystemrelease}-${::architecture}/RPMS.all";
+      baseurl => "${puppetlabs_mirror_fedora}/products/${::architecture}";
+    'puppetlabs-fedora-deps':
+      baseurl => "${puppetlabs_mirror_fedora}/dependencies/${::architecture}";
     'passenger':
       baseurl => "${mrepo_mirror}/passenger-rh6-${::architecture}/RPMS.main";
     'foreman':
@@ -104,6 +111,7 @@ class redhat::repos {
       realize( Named_yumrepo['centos-updates'] )
       realize( Named_yumrepo['epel'] )
       realize( Named_yumrepo['puppetlabs'] )
+      realize( Named_yumrepo['puppetlabs-deps'] )
       if ( $::lsbmajdistrelease == '6' ) {
         realize( Named_yumrepo['passenger'] )
         realize( Named_yumrepo['foreman'] )
@@ -113,6 +121,7 @@ class redhat::repos {
     Fedora: {
       realize( Named_yumrepo['fedora-updates'], Named_yumrepo['fedora-everything'] )
       realize( Named_yumrepo['puppetlabs-fedora'] )
+      realize( Named_yumrepo['puppetlabs-fedora-deps'] )
     }
     RedHat: {
       realize( Named_yumrepo['redhat-dvd'] )

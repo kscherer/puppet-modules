@@ -24,8 +24,8 @@ class debian::ubuntu ( $mirror_base ) {
       repos       => 'main restricted universe',
       include_src => false;
     'yow_puppetlabs_mirror':
-      location    => "${mirror_base}/puppetlabs",
-      release     => 'squeeze',
+      location    => "${mirror_base}/puppetlabs/apt",
+      release     => $::lsbdistcodename,
       include_src => false,
       repos       => 'main dependencies';
   }

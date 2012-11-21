@@ -30,7 +30,7 @@ class debian::debian( $mirror_base ) {
       include_src => false,
       repos       => 'main';
     'yow_puppetlabs_mirror':
-      location    => "${mirror_base}/puppetlabs",
+      location    => "${mirror_base}/puppetlabs/apt",
       release     => 'squeeze',
       include_src => false,
       repos       => 'main dependencies';
