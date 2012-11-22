@@ -15,4 +15,12 @@
 	editor = vi
 [wrgit]
 	username = buildadmin
-    autoupdate = true
+	autoupdate = true
+[alias]
+	st = status
+	ci = commit
+	df = diff
+	co = checkout
+	br = branch
+	l = log
+	s = show
