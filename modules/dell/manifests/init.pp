@@ -11,7 +11,7 @@ class dell {
   #need this to ensure dell repo is not deleted
   file {
     $dell_repo:
-      ensure => file,
-      after  => Exec['dell_repo'];
+      ensure  => file,
+      require => Exec['dell_repo'];
   }
 }
