@@ -25,12 +25,8 @@ class redhat::repos {
       notify  => Exec[ 'yum_reload' ];
   }
 
-  $mirror = $::hostname ? {
-    /^pek.*$/ => 'http://pek-mirror.wrs.com/mirror',
-    /^ala.*$/ => 'http://ala-mirror.wrs.com/mirror',
-    default   => 'http://yow-mirror.wrs.com/mirror',
-  }
-
+  $mirror_host = hiera('mirror')
+  $mirror = "http://${mirror_host}/mirror"
   $mrepo_mirror = "${mirror}/mrepo/repos"
   $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
 
