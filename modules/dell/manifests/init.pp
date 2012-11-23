@@ -4,7 +4,7 @@ class dell {
   $dell_repo = '/etc/yum.repos.d/dell-omsa-repository.repo'
   exec {
     'dell_repo':
-      command => "wget -q -O - http://${mirror}/mirror/dell/hardware/latest/bootstrap.sh | bash",
+      command => "wget -q -O - http://${mirror}/mirror/dell/hardware/latest/bootstrap.cgi | bash",
       creates => $dell_repo;
   }
 
