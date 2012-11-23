@@ -1,6 +1,7 @@
 #
 class wr::yow-blades {
 
+  include dell
   Class['redhat'] -> Class['yocto']
 
   class { 'wr::yow-common': }
@@ -28,7 +29,10 @@ class wr::yow-blades {
       source  => 'puppet:///modules/wr/sudoers.d/admin';
   }
 
-  if $::hostname == 'yow-blade1' {
-    include dell
+  #unnecesary services
+  service {
+    ['hidd','iscsi','iscsid']:
+      ensure => stopped,
+      enable => false;
   }
 }
