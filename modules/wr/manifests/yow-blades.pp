@@ -27,4 +27,8 @@ class wr::yow-blades {
     'admin':
       source  => 'puppet:///modules/wr/sudoers.d/admin';
   }
+
+  if $::hostname == 'yow-blade1' {
+    include dell
+  }
 }
