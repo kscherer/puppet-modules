@@ -122,6 +122,7 @@ class redhat::repos {
         realize( Named_yumrepo['foreman'] )
         realize( Named_yumrepo['graphite'] )
       }
+      package { 'epel-release': ensure => installed; }
     }
     Fedora: {
       realize( Named_yumrepo['fedora-updates'], Named_yumrepo['fedora-everything'] )
@@ -136,13 +137,11 @@ class redhat::repos {
         realize( Named_yumrepo['rhel6-updates'] )
         realize( Named_yumrepo['rhel6-optional'] )
       }
+      package { 'epel-release': ensure => installed; }
     }
     default: { fail('Unsupported Operating System') }
   }
 
-  #make sure gpg keys is installed
-  package {
-    ['epel-release','puppetlabs-release']:
-      ensure => installed;
-  }
+  #make sure gpg keys are installed
+  package { 'puppetlabs-release': ensure => installed; }
 }
