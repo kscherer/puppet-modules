@@ -63,6 +63,7 @@ class redhat::repos {
 
   $puppetlabs_mirror_el = "${mirror}/puppetlabs/yum/el/${::lsbmajdistrelease}"
   $puppetlabs_mirror_fedora = "${mirror}/puppetlabs/yum/fedora/f${::lsbmajdistrelease}"
+  $puppetlabs_gpgkey = "${mirror}/puppetlabs/yum/RPM-GPG-KEY-puppetlabs"
 
   #declare all the repos virtually and realize the correct ones on
   #relevant platforms. Virtual define makes all classes within virtual
@@ -87,13 +88,17 @@ class redhat::repos {
       repo_gpgkey => $centos_gpgkey,
       baseurl     => $centos_mirror_updates;
     'puppetlabs':
-      baseurl => "${puppetlabs_mirror_el}/products/${::architecture}";
+      repo_gpgkey => $puppetlabs_gpgkey,
+      baseurl     => "${puppetlabs_mirror_el}/products/${::architecture}";
     'puppetlabs-deps':
-      baseurl => "${puppetlabs_mirror_el}/dependencies/${::architecture}";
+      repo_gpgkey => $puppetlabs_gpgkey,
+      baseurl     => "${puppetlabs_mirror_el}/dependencies/${::architecture}";
     'puppetlabs-fedora':
-      baseurl => "${puppetlabs_mirror_fedora}/products/${::architecture}";
+      repo_gpgkey => $puppetlabs_gpgkey,
+      baseurl     => "${puppetlabs_mirror_fedora}/products/${::architecture}";
     'puppetlabs-fedora-deps':
-      baseurl => "${puppetlabs_mirror_fedora}/dependencies/${::architecture}";
+      repo_gpgkey => $puppetlabs_gpgkey,
+      baseurl     => "${puppetlabs_mirror_fedora}/dependencies/${::architecture}";
     'passenger':
       baseurl => "${mrepo_mirror}/passenger-rh6-${::architecture}/RPMS.main";
     'foreman':
@@ -133,5 +138,11 @@ class redhat::repos {
       }
     }
     default: { fail('Unsupported Operating System') }
+  }
+
+  #make sure gpg keys is installed
+  package {
+    ['epel-release','puppetlabs-release']:
+      ensure => installed;
   }
 }
