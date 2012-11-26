@@ -20,8 +20,9 @@ class dell {
 
   #package has to depend on file, not yum repo
   package {
-    'srvadmin-base':
+    ['srvadmin-base','srvadmin-storage']:
       ensure  => latest,
+      notify  => Service['dataeng'],
       require => File[$dell_repo];
   }
 
