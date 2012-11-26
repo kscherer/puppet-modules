@@ -1,6 +1,8 @@
 #
 class wr::ala-blades inherits wr::ala-common {
 
+  class { 'dell': }
+
   class { 'yocto': }
   Class['redhat'] -> Class['yocto']
 
