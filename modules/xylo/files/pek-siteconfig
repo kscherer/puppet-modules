@@ -1,0 +1,59 @@
+# sourced by make and bash
+
+BASEDIR=/stored_builds
+# Where do we keep build output on the master?
+BUILDHOME=${BASEDIR}/builds
+# Where do we keep build output on the slaves?
+SLAVE_GRP2_DIR=/buildarea
+SLAVE_USERNAME=buildadmin
+SLAVE_CLEAN_TIMESTAMP="5 hours ago"
+
+# Do we want to run cleanup script on slaves?
+CLEANUP_OLD_BUILDS=1
+SLAVE_KEEP=0
+
+# Specify the max number of builds
+NUM_JOBS=40
+
+# Specify whether to link or sync the 'release' directory on the slaves
+LINK_RELEASE=true
+
+# Location of the ccache on master & slave
+CCACHE_MASTER_LOCATION=${BUILDHOME}/ccache
+CCACHE_SLAVE_LOCATION=${SLAVE_GRP2_DIR}/ccache
+
+CCACHE_SIZE=10G
+
+# Variables required by the Node Manager
+LOCK_SERVER=http://pek-blade17
+LOCK_PORT=2300
+SLAVE_REQUIREMENTS="'+DISKSPACE>=10g'"
+
+MINIMUM_DISK_SPACE_MASTER=120 # GB
+DELETE_ON_SUCCESS=1
+
+DOCS_CVSROOT=:pserver:anonymous@cvs.wrs.com:/master/prod_rel_docs
+CVSROOT=:pserver:anonymous@cvs.wrs.com:/master/linux
+
+GITREPO=git://pek-git/git
+
+FAST_SERVER=ala-fast-vm1
+FAST_USER=tester
+
+#EMAIL=paul.kennedy@windriver.com,wenzong.fan@windriver.com
+EMAIL=wenzong.fan@windriver.com
+#EMAIL=lpd-eng-buildreports@windriver.com
+ADMIN_EMAIL=wenzong.fan@windriver.com
+#ADMIN_EMAIL=lpd-eng-infrastructure@windriver.com
+#MFG_EMAIL=michael.krueger@windriver.com,andrew.edgar@windriver.com
+MFG_EMAIL=paul.kennedy@windriver.com,wenzong.fan@windriver.com
+
+
+# tree where prebuilt caches and working scripts live
+PREBUILT_CACHE_LOC=/pb_cache
+PREBUILT_CACHE_LOC_SLAVE=/pb_cache
+
+# Specify the length of time to keep Daily/MFG builds around. If they are
+# specified they will over-write the defaults specified in 'dobuild.sh'.
+MFG_KEEP_STRING="1 week"
+DAILY_KEEP_STRING="3 days"

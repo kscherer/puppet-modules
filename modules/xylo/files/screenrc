@@ -1,0 +1,2 @@
+caption always "%{rw}%n%f %t %{wk} | %?%-Lw%?%{wb}[%n*%f %t]%?(%u)%?%{wk}%?%+Lw%? %{wk}"
+hardstatus alwayslastline "%{+b kr}host: %{kw}%H %{kg} | %c | %{ky}%d.%m.%Y | %{kr}(load: %l)%-0=%{kw}"
