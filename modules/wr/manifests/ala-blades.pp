@@ -132,8 +132,14 @@ class wr::ala-blades inherits wr::ala-common {
 
   #some packages needed to run Xylo
   package {
-    ['perl-XML-Simple','perl-XML-Twig','cvs']:
+    ['perl-XML-Simple','cvs']:
       ensure  => installed,
+  }
+
+  #make sure latest Twig package is installed
+  package {
+    'perl-XML-Twig':
+      ensure  => latest,
       require => Yumrepo['xylo'];
   }
 }
