@@ -129,6 +129,7 @@ class redhat::repos {
       realize( Named_yumrepo['redhat-dvd'] )
       realize( Named_yumrepo['epel'] )
       realize( Named_yumrepo['puppetlabs'] )
+      realize( Named_yumrepo['puppetlabs-deps'] )
       if ( $::lsbmajdistrelease == '6' ) {
         realize( Named_yumrepo['rhel6-updates'] )
         realize( Named_yumrepo['rhel6-optional'] )
