@@ -30,28 +30,6 @@ class redhat::repos {
   $mrepo_mirror = "${mirror}/mrepo/repos"
   $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
 
-  #eliminate common fields amoung repo definitions
-  define named_yumrepo( $baseurl, $repo_gpgkey = undef ){
-    $real_gpgcheck = $repo_gpgkey ? {
-      undef   => '0',
-      default => '1',
-    }
-
-    yumrepo {
-      $name:
-        baseurl  => $baseurl,
-        descr    => $name,
-        gpgcheck => $real_gpgcheck,
-        gpgkey   => $repo_gpgkey;
-    }
-
-    #this is necessary to keep puppet from deleting the repo files
-    file {
-      "/etc/yum.repos.d/${name}.repo":
-        ensure => file;
-    }
-  }
-
   $centos_mirror_base = "${mirror}/centos/${::lsbmajdistrelease}"
   $centos_mirror_os = "${centos_mirror_base}/os/${::architecture}"
   $centos_mirror_updates = "${centos_mirror_base}/updates/${::architecture}"
@@ -63,7 +41,7 @@ class redhat::repos {
 
   #declare all the repos virtually and realize the correct ones on
   #relevant platforms. Virtual define makes all classes within virtual
-  @named_yumrepo {
+  @yum_repo {
     'epel':
       repo_gpgkey => "${mirror}/epel/RPM-GPG-KEY-EPEL-${::lsbmajdistrelease}",
       baseurl     => "${mirror}/epel/${::lsbmajdistrelease}/${::architecture}";
@@ -108,31 +86,30 @@ class redhat::repos {
   #setup repos depending on which flavour of redhat
   case $::operatingsystem {
     CentOS: {
-      realize( Named_yumrepo['centos-os'] )
-      realize( Named_yumrepo['centos-updates'] )
-      realize( Named_yumrepo['epel'] )
-      realize( Named_yumrepo['puppetlabs'] )
-      realize( Named_yumrepo['puppetlabs-deps'] )
+      realize( Yum_repo['centos-os'] )
+      realize( Yum_repo['centos-updates'] )
+      realize( Yum_repo['epel'] )
+      realize( Yum_repo['puppetlabs'] )
+      realize( Yum_repo['puppetlabs-deps'] )
       if ( $::lsbmajdistrelease == '6' ) {
-        realize( Named_yumrepo['passenger'] )
-        realize( Named_yumrepo['foreman'] )
-        realize( Named_yumrepo['graphite'] )
+        realize( Yum_repo['passenger'] )
+        realize( Yum_repo['foreman'] )
+        realize( Yum_repo['graphite'] )
       }
       package { 'epel-release': ensure => installed; }
     }
     Fedora: {
-      realize( Named_yumrepo['fedora-updates'], Named_yumrepo['fedora-everything'] )
-      realize( Named_yumrepo['puppetlabs-fedora'] )
-      realize( Named_yumrepo['puppetlabs-fedora-deps'] )
+      realize( Yum_repo['fedora-updates'], Yum_repo['fedora-everything'] )
+      realize( Yum_repo['puppetlabs-fedora'] )
+      realize( Yum_repo['puppetlabs-fedora-deps'] )
     }
     RedHat: {
-      realize( Named_yumrepo['redhat-dvd'] )
-      realize( Named_yumrepo['epel'] )
-      realize( Named_yumrepo['puppetlabs'] )
-      realize( Named_yumrepo['puppetlabs-deps'] )
+      realize( Yum_repo['redhat-dvd'] )
+      realize( Yum_repo['epel'] )
+      realize( Yum_repo['puppetlabs'] )
       if ( $::lsbmajdistrelease == '6' ) {
-        realize( Named_yumrepo['rhel6-updates'] )
-        realize( Named_yumrepo['rhel6-optional'] )
+        realize( Yum_repo['rhel6-updates'] )
+        realize( Yum_repo['rhel6-optional'] )
       }
       package { 'epel-release': ensure => installed; }
     }

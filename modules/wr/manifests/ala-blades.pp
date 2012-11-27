@@ -124,9 +124,16 @@ class wr::ala-blades inherits wr::ala-common {
       remounts => true;
   }
 
+  #contains newer packages needed for xylo
+  redhat::yum_repo {
+    'xylo':
+      baseurl     => 'http://ala-mirror.wrs.com/mirror/xylo';
+  }
+
   #some packages needed to run Xylo
   package {
     ['perl-XML-Simple','perl-XML-Twig','cvs']:
-      ensure => installed;
+      ensure  => installed,
+      require => Yumrepo['xylo'];
   }
 }
