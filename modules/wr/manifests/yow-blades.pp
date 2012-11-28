@@ -31,7 +31,7 @@ class wr::yow-blades {
 
   #unnecesary services
   service {
-    ['hidd','iscsi','iscsid']:
+    ['iscsi','iscsid']:
       ensure => stopped,
       enable => false;
   }
