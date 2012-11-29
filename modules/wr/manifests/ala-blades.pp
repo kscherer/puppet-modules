@@ -14,7 +14,7 @@ class wr::ala-blades inherits wr::ala-common {
   #for now there are still a few machines that have not been moved to local disk yet
   case $::hostname {
     /^ala-blade[1-8]$/: { include nx }
-    /ala-blade(1[7-9]|2[0-9]|3[0-2])/: { include nx }
+    /ala-blade(1[0-9]|2[0-9]|3[0-2])/: { include nx }
     default: {}
   }
 
