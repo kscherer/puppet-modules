@@ -13,12 +13,6 @@ class wr::ala-lpd-puppet {
   class { 'nagios': }
   class { 'nagios::target': }
 
-  yumrepo {
-    'graphite':
-      baseurl  => 'http://ala-mirror.wrs.com/mirror/graphite',
-      descr    => 'Graphite',
-      gpgcheck => '0',
-  }
   Yumrepo['graphite'] -> Class['graphite']
 
   graphite::carbon::storage {
