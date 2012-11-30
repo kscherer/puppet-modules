@@ -8,7 +8,7 @@ class wr::activemq( $broker_name ) {
   $activemq_servers = { 'yow' => 'yow-lpg-amqp.wrs.com',
     'ala' => 'ala-lpd-puppet.wrs.com', 'pek' => 'pek-lpd-puppet.wrs.com' }
 
-  realize( Yumrepo['activemq'] )
+  realize( Redhat::Yum_repo['activemq'] )
   Yumrepo['activemq'] -> Class['activemq']
 
   class { 'java': distribution => 'java-1.7.0-openjdk' }

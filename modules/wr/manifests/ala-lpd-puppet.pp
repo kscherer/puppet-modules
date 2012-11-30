@@ -13,6 +13,7 @@ class wr::ala-lpd-puppet {
   class { 'nagios': }
   class { 'nagios::target': }
 
+  realize( Redhat::Yum_repo['graphite'] )
   Yumrepo['graphite'] -> Class['graphite']
 
   graphite::carbon::storage {

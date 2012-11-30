@@ -94,7 +94,6 @@ class redhat::repos {
       if ( $::lsbmajdistrelease == '6' ) {
         realize( Yum_repo['passenger'] )
         realize( Yum_repo['foreman'] )
-        realize( Yum_repo['graphite'] )
       }
       package { 'epel-release': ensure => installed; }
     }
