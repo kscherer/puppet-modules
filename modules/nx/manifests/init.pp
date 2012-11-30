@@ -151,7 +151,7 @@ class nx {
 
   cron {
     'clean_nx_logs':
-      command => '/usr/bin/find /home/nxadm/nx/yow*/log -mtime +10 -exec rm {} \; &> /dev/null',
+      command => "/usr/bin/find /home/nxadm/nx/${::location}*/log -mtime +10 -exec rm {} \; &> /dev/null",
       user    => nxadm,
       hour    => 23,
       minute  => 0,
