@@ -55,8 +55,8 @@ class wr::master {
       storeconfigs                => true,
       storeconfigs_dbadapter      => 'puppetdb',
       mysql_root_pw               => 'r00t', #needed for dashboard
-      require                     => [ Yumrepo['puppetlabs-rh6'],
-                                      Yumrepo['passenger-rh6']],
+      require                     => [ Yumrepo['puppetlabs'],
+                                      Yumrepo['passenger']],
   }
 
   file {
