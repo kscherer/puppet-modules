@@ -11,7 +11,7 @@ class xylo::master {
       require => File[$base_dir],
       unless  => "test -d ${base_dir}/xylo";
     'clone_bin_repo':
-      command => 'git clone git://${::location}-git.wrs.com/git/bin binrepo',
+      command => "git clone git://${::location}-git.wrs.com/git/bin binrepo",
       cwd     => "${base_dir}/xylo",
       user    => 'buildadmin',
       require => Exec[ 'clone_bin_repo' ],
@@ -138,7 +138,7 @@ class xylo::master {
       owner   => 'buildadmin',
       group   => 'buildadmin',
       mode    => '0775',
-      require => File["${base_dir}"];
+      require => File[$base_dir];
   }
 
   # Setup cron tasks on Xylo master
