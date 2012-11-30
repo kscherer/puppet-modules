@@ -93,7 +93,7 @@ class wr::ala-lpd-test {
   }
 
   service {
-    ['exim','nfs']:
+    'nfs':
       ensure => running,
       enable => true;
   }
