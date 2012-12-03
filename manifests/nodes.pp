@@ -66,28 +66,7 @@ node /pek-usp-\d+\.wrs\.com/ {
 }
 
 node 'yow-lpd-monitor.wrs.com' {
-  class { 'redhat': }
-  -> class { 'puppet':
-    puppet_server               => 'yow-lpd-puppet.wrs.com',
-    puppet_agent_ensure         => 'latest',
-    puppet_agent_service_enable => false,
-    agent                       => true,
-  }
-  -> class { 'collectd::client': }
-  -> class { 'wr::mcollective': client => true }
-  -> class { 'ntp':
-    servers => $wr::common::ntp_servers
-  }
-  -> class { 'wr::puppetcommander': }
-  -> class { 'nrpe': }
-  -> class { 'nagios': }
-  -> class { 'nis': }
-
-  class { 'nagios::target': }
-
-  #nagios class notifies httpd service so -> relationship creates cycles
-  class { 'apache': }
-
+  include yow_lpd_monitor
 }
 
 node /yow-lpgbld-vm\d+\.wrs\.com$/ {
