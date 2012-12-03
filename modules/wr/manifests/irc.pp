@@ -14,7 +14,7 @@ class wr::irc {
   }
   -> class { 'nrpe': }
   -> class { 'nis': }
-  -> class { 'collectd::client': }
+  -> class { 'collectd::disable': }
   -> class { 'nagios::target': }
 
   #enable auto update using cron

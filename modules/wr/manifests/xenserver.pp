@@ -15,7 +15,7 @@ class wr::xenserver(
     agent                       => true,
   }
   -> class { 'nrpe': }
-  -> class { 'collectd::client': }
+  -> class { 'collectd::disable': }
   -> class { 'nagios::target': }
   -> class { 'xen': }
 
