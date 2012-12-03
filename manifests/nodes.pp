@@ -66,7 +66,7 @@ node /pek-usp-\d+\.wrs\.com/ {
 }
 
 node 'yow-lpd-monitor.wrs.com' {
-  include yow_lpd_monitor
+  include wr::yow_lpd_monitor
 }
 
 node /yow-lpgbld-vm\d+\.wrs\.com$/ {
