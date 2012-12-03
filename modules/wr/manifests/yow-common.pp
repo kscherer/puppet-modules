@@ -1,9 +1,9 @@
 #
-class wr::yow-common {
+class wr::yow-common( $mcollective_client = false ) {
   class { 'wr::yow_dns': }
   class { 'redhat': }
   -> class { 'redhat::autoupdate': }
-  -> class { 'wr::mcollective': }
+  -> class { 'wr::mcollective': client => $mcollective_client }
   -> class { 'ntp':
     servers => $wr::common::ntp_servers,
   }

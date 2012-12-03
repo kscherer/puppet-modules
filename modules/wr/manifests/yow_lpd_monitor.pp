@@ -1,27 +1,10 @@
 #
 class wr::yow_lpd_monitor {
 
-  class { 'wr::yow_dns': }
-  class { 'redhat': }
-  -> class { 'redhat::autoupdate': }
-  -> class { 'wr::mcollective': client => true }
-  -> class { 'ntp':
-    servers => $wr::common::ntp_servers,
-  }
-  -> class { 'puppet':
-    puppet_server               => $wr::common::puppet_server,
-    puppet_agent_ensure         => $wr::common::puppet_version,
-    puppet_agent_service_enable => false,
-    agent                       => true,
-  }
-  -> class { 'nrpe': }
-  -> class { 'wr::puppetcommander': }
+  class { 'wr::yow-common': mcollective_client => true}
   -> class { 'nagios': }
-  -> class { 'nis': }
-  -> class { 'collectd::client': }
+  -> class { 'wr::puppetcommander': }
   -> class { 'graphite': }
-
-  class { 'nagios::target': }
 
   #nagios class notifies httpd service so -> relationship creates cycles
   class { 'apache': }
