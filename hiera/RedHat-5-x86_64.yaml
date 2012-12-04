@@ -2,4 +2,5 @@
 packages:
   - glibc.i686
   - glibc-devel.i386
+  - glibc-devel.x86_64
   - libgcc.i386
