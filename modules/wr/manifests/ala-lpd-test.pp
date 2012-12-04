@@ -15,6 +15,8 @@ class wr::ala-lpd-test {
   sudo::conf {
     'admin':
       source  => 'puppet:///modules/wr/sudoers.d/admin';
+    'leads':
+      source  => 'puppet:///modules/wr/sudoers.d/leads';
   }
 
   file {
