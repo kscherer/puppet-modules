@@ -30,6 +30,8 @@ define nrpe::command ($command, $parameters='', $cplugdir='auto', $ensure='prese
   }
 }
 
+# Class to install nagios nrpe scripts. These scripts are used by mcollective
+# and are not used with nrpe daemon
 class nrpe {
 
   #this allows system to use both nrpe and mcollective
@@ -61,6 +63,7 @@ class nrpe {
       mode   => '0755';
   }
 
+  #
   class debian {
     package {
       'nagios-plugins-basic':
@@ -68,6 +71,7 @@ class nrpe {
     }
   }
 
+  #
   class redhat {
     package {
       [ 'nagios-plugins-disk', 'nagios-plugins-file_age', 'nagios-plugins-ntp',
@@ -77,6 +81,7 @@ class nrpe {
     }
   }
 
+  #
   class fedora {
     package {
       [ 'nagios-plugins-disk', 'nagios-plugins-file_age', 'nagios-plugins-ntp',
@@ -85,6 +90,7 @@ class nrpe {
     }
   }
 
+  #
   class opensuse {
     package {
       'nagios-plugins':
@@ -92,6 +98,7 @@ class nrpe {
     }
   }
 
+  #
   class sled {
     package {
       [ 'nagios-plugins-disk', 'nagios-plugins-file_age', 'nagios-plugins-ntp_time',
