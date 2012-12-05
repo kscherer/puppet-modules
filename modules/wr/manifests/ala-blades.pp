@@ -1,5 +1,8 @@
 #
-class wr::ala-blades inherits wr::ala-common {
+class wr::ala-blades {
+
+  class { 'wr::ala-common': }
+  -> class { 'nx': }
 
   class { 'dell': }
 
@@ -9,13 +12,6 @@ class wr::ala-blades inherits wr::ala-common {
   user {
     'root':
       password => '$1$5VSxF7IZ$.yx57bNrz.RCFQRnz3KYV0';
-  }
-
-  #for now there are still a few machines that have not been moved to local disk yet
-  case $::hostname {
-    /^ala-blade[1-8]$/: { include nx }
-    /ala-blade(1[0-9]|2[0-9]|3[0-2])/: { include nx }
-    default: {}
   }
 
   #buildadmin user is a nis account, but without a nfs home directory.
@@ -99,12 +95,6 @@ class wr::ala-blades inherits wr::ala-common {
       host_aliases => 'ala-lpgnas2-nfs.wrs.com';
   }
 
-  case $::hostname {
-    ala-blade1: { $options='mounted' }
-    ala-blade9: { $options='mounted' }
-    default: { $options='absent' }
-  }
-
   file {
     '/stored_builds':
       ensure  => directory,
@@ -113,15 +103,17 @@ class wr::ala-blades inherits wr::ala-common {
       require => Class['nis'],
   }
 
-  mount {
-    '/stored_builds':
-      ensure   => $options,
-      atboot   => true,
-      device   => 'ala-lpgnas2-nfs:/vol/vol1',
-      fstype   => 'nfs',
-      options  => 'bg,vers=3,nointr,timeo=600,_netdev',
-      require  => File['/stored_builds'],
-      remounts => true;
+  if $::hostname == 'ala-blade1' {
+    mount {
+      '/stored_builds':
+        ensure   => mounted,
+        atboot   => true,
+        device   => 'ala-lpgnas2-nfs:/vol/vol1',
+        fstype   => 'nfs',
+        options  => 'bg,vers=3,nointr,timeo=600,_netdev',
+        require  => File['/stored_builds'],
+        remounts => true;
+    }
   }
 
   #contains newer packages needed for xylo

@@ -2,14 +2,11 @@
 class nx {
 
   # git is a must install
-  include git
+  require git
 
   # Add anchor resources for containment
   anchor { 'nx::begin': }
   anchor { 'nx::end': }
-
-  #make sure git is installed before this class starts to create repos
-  Class['git'] -> Anchor['nx::begin']
 
   # Do builds as an unprivileged user
   group {
@@ -151,7 +148,7 @@ class nx {
 
   cron {
     'clean_nx_logs':
-      command => "/usr/bin/find /home/nxadm/nx/${::location}*/log -mtime +10 -exec rm {} \; &> /dev/null",
+      command => "/usr/bin/find /home/nxadm/nx/${::location}*/log -mtime +10 -exec rm {} \\; &> /dev/null",
       user    => nxadm,
       hour    => 23,
       minute  => 0,
