@@ -76,6 +76,14 @@ class nrpe {
     }
   }
 
+  class fedora {
+    package {
+      [ 'nagios-plugins-disk', 'nagios-plugins-file_age', 'nagios-plugins-ntp',
+        'nagios-plugins-procs']:
+        ensure => present;
+    }
+  }
+
   class opensuse {
     package {
       'nagios-plugins':
@@ -92,11 +100,12 @@ class nrpe {
   }
 
   case $::operatingsystem {
-    Debian,Ubuntu:        { require nrpe::debian }
-    CentOS,RedHat,Fedora: { require nrpe::redhat }
-    OpenSuSE:             { require nrpe::opensuse }
-    SLED:                 { require nrpe::sled }
-    default:              { fail('Unknown distro') }
+    Debian,Ubuntu: { include nrpe::debian }
+    CentOS,RedHat: { include nrpe::redhat }
+    Fedora:        { include nrpe::fedora }
+    OpenSuSE:      { include nrpe::opensuse }
+    SLED:          { include nrpe::sled }
+    default:       { fail('Unknown distro') }
   }
 
   $first_ntp_server = $wr::common::ntp_servers[0]
