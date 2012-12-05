@@ -73,6 +73,7 @@ class nrpe {
       [ 'nagios-plugins-disk', 'nagios-plugins-file_age', 'nagios-plugins-ntp',
         'nagios-plugins-procs']:
         ensure  => present,
+        require => Yumrepo['epel'];
     }
   }
 
@@ -100,11 +101,11 @@ class nrpe {
   }
 
   case $::operatingsystem {
-    Debian,Ubuntu: { include nrpe::debian }
-    CentOS,RedHat: { include nrpe::redhat }
-    Fedora:        { include nrpe::fedora }
-    OpenSuSE:      { include nrpe::opensuse }
-    SLED:          { include nrpe::sled }
+    Debian,Ubuntu: { require nrpe::debian }
+    CentOS,RedHat: { require nrpe::redhat }
+    Fedora:        { require nrpe::fedora }
+    OpenSuSE:      { require nrpe::opensuse }
+    SLED:          { require nrpe::sled }
     default:       { fail('Unknown distro') }
   }
 
@@ -116,7 +117,7 @@ class nrpe {
       parameters => '--warning=10% --critical=5% --all --ignore-eregi-path=\'(shm|boot|prebuilt_cache|folk|net|india)\' --units GB';
     'check_ntp':
       command    => 'check_ntp_time',
-      parameters => "-H $first_ntp_server -w 1.0 -c 2.0";
+      parameters => "-H ${first_ntp_server} -w 1.0 -c 2.0";
     #make sure the nx log file has been updated recently. Checks if nx is hung
     'check_nx':
       command    => 'check_file_age',
