@@ -15,5 +15,11 @@ class graphite::carbon {
   include graphite::carbon::package
   include graphite::carbon::config
   include graphite::carbon::service
+
+  anchor { 'graphite::carbon::begin': }
+  -> Class['graphite::carbon::package']
+  -> Class['graphite::carbon::config']
+  -> Class['graphite::carbon::service']
+  -> anchor { 'graphite::carbon::end': }
 }
 
