@@ -7,6 +7,7 @@ class wr::yow-blades {
   class { 'wr::yow-common': }
   -> class { 'yocto': }
   -> class { 'nx': }
+  -> class{ 'collectd': }
 
   user {
     'root':

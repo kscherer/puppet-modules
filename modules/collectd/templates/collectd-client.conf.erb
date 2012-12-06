@@ -20,22 +20,6 @@ LoadPlugin syslog
   LogLevel "info"
 </Plugin>
 
-<LoadPlugin python>
-    Globals true
-</LoadPlugin>
-
-<Plugin python>
-    ModulePath "/opt/collectd-plugins/"
-
-    Import "carbon_writer"
-    <Module carbon_writer>
-        LineReceiverHost "<%= carbon_host %>"
-        LineReceiverPort <%= carbon_line_receiver_port %>
-        DeriveCounters true
-        TypesDB "/usr/share/collectd/types.db"
-    </Module>
-</Plugin>
-
 Include "/etc/collectd.d"
 #Include "/etc/collectd/filters.conf"
 #Include "/etc/collectd/thresholds.conf"

@@ -4,5 +4,7 @@ puppet_server: yow-lpd-puppet.wrs.com
 ntp_servers:
   - yow-lpggp2.wrs.com
 mirror: yow-mirror.wrs.com
+graphite::web::time_zone: US/Eastern
+collectd::plugin::write_graphite::host: yow-lpd-monitor.wrs.com
 
 

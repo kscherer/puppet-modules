@@ -1,0 +1,15 @@
+#Load and configure the write_graphite plugin
+
+LoadPlugin write_graphite
+
+<Plugin write_graphite>
+  <Carbon>
+    Host "<%= host_real %>"
+    Port "<%= port_real %>"
+    Prefix "<%= prefix %>"
+    Postfix "<%= postfix %>"
+    StoreRates <%= store_rates_real %>
+    AlwaysAppendDS <%= always_append_ds_real %>
+    EscapeCharacter "<%= escape_character %>"
+  </Carbon>
+</Plugin>

@@ -81,6 +81,8 @@ class redhat::repos {
       baseurl => 'http://yow-mirror.wrs.com/mirror/activemq';
     'graphite':
       baseurl => 'http://ala-mirror.wrs.com/mirror/graphite';
+    'collectd':
+      baseurl => "${mirror}/collectd/${::lsbmajdistrelease}";
   }
 
   #setup repos depending on which flavour of redhat
@@ -89,13 +91,18 @@ class redhat::repos {
       realize( Yum_repo['centos-os'] )
       realize( Yum_repo['centos-updates'] )
       realize( Yum_repo['epel'] )
+      realize( Yum_repo['collectd'] )
       realize( Yum_repo['puppetlabs'] )
       realize( Yum_repo['puppetlabs-deps'] )
       if ( $::lsbmajdistrelease == '6' ) {
         realize( Yum_repo['passenger'] )
         realize( Yum_repo['foreman'] )
       }
-      package { 'epel-release': ensure => installed; }
+      package {
+        'epel-release':
+          ensure  => installed,
+          require => Yumrepo['epel'];
+      }
     }
     Fedora: {
       realize( Yum_repo['fedora-updates'], Yum_repo['fedora-everything'] )
@@ -110,11 +117,19 @@ class redhat::repos {
         realize( Yum_repo['rhel6-updates'] )
         realize( Yum_repo['rhel6-optional'] )
       }
-      package { 'epel-release': ensure => installed; }
+      package {
+        'epel-release':
+          ensure  => installed,
+          require => Yumrepo['epel'];
+      }
     }
     default: { fail('Unsupported Operating System') }
   }
 
   #make sure gpg keys are installed
-  package { 'puppetlabs-release': ensure => installed; }
+  package {
+    'puppetlabs-release':
+      ensure  => installed,
+      require => Yumrepo['puppetlabs'];
+  }
 }
