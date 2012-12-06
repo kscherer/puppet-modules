@@ -15,7 +15,6 @@ class wr::yow-common( $mcollective_client = false ) {
   }
   -> class { 'nrpe': }
   -> class { 'nis': }
-  -> class { 'collectd::disable': }
   -> class { 'nagios::target': }
   -> class { 'sudo': }
 }
