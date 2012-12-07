@@ -2,6 +2,7 @@
 collectd::plugins:
   - collectd::plugin::base
   - collectd::plugin::write_graphite
+  - collectd::plugin::ipmi
 collectd::plugin::write_graphite::port: "2023"
 graphite::carbon::service::aggregator_ensure: "running"
 graphite::carbon::service::aggregator_enable: true
