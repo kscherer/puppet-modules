@@ -1,9 +1,10 @@
 LoadPlugin ipmi
 
 <Plugin "ipmi">
-  Sensor "Ambient Temp"
-  Sensor "Temp"
-  Sensor "System Level"
+  Sensor "current-System_Level_system_board_(7_1)"
+  Sensor "temperature-Ambient_Temp_system_board_(7_1)"
+  Sensor "temperature-Temp_processor_(3_1)"
+  Sensor "temperature-Temp_processor_(3_2)"
   IgnoreSelected false
   NotifySensorAdd false
   NotifySensorRemove false
