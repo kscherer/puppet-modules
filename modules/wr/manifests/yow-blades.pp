@@ -36,4 +36,12 @@ class wr::yow-blades {
       ensure => stopped,
       enable => false;
   }
+
+  #concat is another possible extension point
+  concat::fragment {
+    'cpu-aggregrate':
+      target  => '/etc/carbon/aggregation-rules.conf',
+      order   => 0,
+      source  => 'puppet:///modules/wr/cpu-aggregation.conf'
+  }
 }

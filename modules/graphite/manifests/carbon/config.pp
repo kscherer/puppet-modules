@@ -19,11 +19,18 @@ class graphite::carbon::config {
     owner   => '0',
     notify  => Service['carbon-cache'];
   }
+
   concat::fragment { 'header':
     target  => '/etc/carbon/storage-schemas.conf',
     order   => 0,
     source  => 'puppet:///modules/graphite/storage-schemas.conf'
   }
 
-
+  #modifications to this file are automatically read by
+  #carbon aggregation service
+  concat { '/etc/carbon/aggregation-rules.conf':
+    group   => '0',
+    mode    => '0644',
+    owner   => '0',
+  }
 }
