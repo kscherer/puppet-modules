@@ -1,8 +1,10 @@
 LoadPlugin ipmi
 
 <Plugin "ipmi">
-  Sensor "some_sensor"
-  IgnoreSelected true
+  Sensor "Ambient Temp"
+  Sensor "Temp"
+  Sensor "System Level"
+  IgnoreSelected false
   NotifySensorAdd false
   NotifySensorRemove false
   NotifySensorNotPresent false
