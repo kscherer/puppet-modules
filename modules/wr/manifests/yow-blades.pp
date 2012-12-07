@@ -42,6 +42,7 @@ class wr::yow-blades {
     'cpu-aggregrate':
       target  => '/etc/carbon/aggregation-rules.conf',
       order   => 0,
-      source  => 'puppet:///modules/wr/cpu-aggregation.conf'
+      source  => 'puppet:///modules/wr/cpu-aggregation.conf',
+      before  => Concat['/etc/carbon/aggregation-rules.conf'];
   }
 }
