@@ -33,4 +33,12 @@ class graphite::carbon::config {
     mode    => '0644',
     owner   => '0',
   }
+
+  #concat requires at least one fragment
+  concat::fragment {
+    'default-aggregrate':
+      target  => '/etc/carbon/aggregation-rules.conf',
+      order   => 0,
+      source  => 'puppet:///modules/graphite/aggregation-rules.conf';
+  }
 }
