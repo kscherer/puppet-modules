@@ -18,7 +18,6 @@ node 'pek-lpd-puppet.wrs.com' {
 node 'yow-lpd-puppet.wrs.com' {
   class { 'redhat': }
   -> class { 'ntp': servers => ['yow-lpggp1.wrs.com'] }
-  -> class { 'collectd::disable': }
   -> class { 'wr::master': }
   -> class { 'nrpe': }
   -> class { 'nagios::target': }
