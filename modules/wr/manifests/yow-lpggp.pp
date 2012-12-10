@@ -3,8 +3,7 @@ class wr::yow-lpggp inherits wr::yow-common {
   class { 'yocto': }
   Class['redhat'] -> Class['yocto']
 
-  #make sure latest git is available from epel
-  ensure_resource('package', 'git', {'ensure' => 'latest' })
+  include git
 
   define wr::yow-lpggp::local_file() {
     file {
