@@ -4,6 +4,7 @@ class wr::yow-lpggp inherits wr::yow-common {
   Class['redhat'] -> Class['yocto']
 
   include git
+  include dell
 
   define wr::yow-lpggp::local_file() {
     file {
