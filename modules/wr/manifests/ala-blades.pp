@@ -134,4 +134,10 @@ class wr::ala-blades {
       ensure  => latest,
       require => Yumrepo['xylo'];
   }
+
+  #this package is needed for Dell bios upgrade software
+  package {
+    'libxml2.i386':
+      ensure => installed;
+  }
 }
