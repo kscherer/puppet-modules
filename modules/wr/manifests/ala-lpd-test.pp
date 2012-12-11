@@ -6,6 +6,8 @@ class wr::ala-lpd-test {
   -> class { 'yocto': }
   -> class { 'nx': }
 
+  include e2croncheck
+
   motd::register {
     'ala-lpd-test':
       content =>
@@ -20,11 +22,6 @@ class wr::ala-lpd-test {
   }
 
   file {
-    'e2croncheck':
-      ensure => present,
-      path   => '/root/e2croncheck',
-      mode   => '0755',
-      source => 'puppet:///modules/wr/e2croncheck';
     '/data':
       ensure => directory;
     ['/data/wr-taf','/data/tm_fast', '/data/fast_build', '/data/fast_prod']:
@@ -66,21 +63,6 @@ class wr::ala-lpd-test {
       options  => 'defaults',
       remounts => true,
       require  => File['/data'];
-  }
-
-  #setup local ala-git mirror
-  $env='MAILTO=konrad.scherer@windriver.com'
-
-  cron {
-    'e2croncheck':
-      ensure      => present,
-      command     => 'PATH=/bin:/sbin/:/usr/bin /root/e2croncheck vg/data',
-      environment => $env,
-      user        => root,
-      hour        => 22,
-      minute      => 0,
-      weekday     => 6,
-      require     => File['e2croncheck'];
   }
 
   #export /data using nfs

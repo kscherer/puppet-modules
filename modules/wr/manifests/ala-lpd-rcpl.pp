@@ -1,15 +1,13 @@
 #
 class wr::ala-lpd-rcpl {
-  class { 'redhat': }
+  class { 'wr::ala-common': }
   -> class { 'redhat::autoupdate': }
-  -> class { 'wr::mcollective': }
-  -> class { 'nrpe': }
   -> class { 'yocto': }
   -> class { 'nx': }
-  -> class { 'sudo': }
-  -> class { 'nis': }
   -> class { 'git::git-daemon': }
   -> class { 'git::cgit': }
+
+  include e2croncheck
 
   ssh_authorized_key {
     'jwessel_root':
@@ -39,14 +37,6 @@ class wr::ala-lpd-rcpl {
       source  => 'puppet:///modules/wr/sudoers.d/admin';
     'leads':
       source  => 'puppet:///modules/wr/sudoers.d/leads';
-  }
-
-  file {
-    'e2croncheck':
-      ensure => present,
-      path   => '/root/e2croncheck',
-      mode   => '0755',
-      source => 'puppet:///modules/wr/e2croncheck';
   }
 
   mount {
@@ -103,15 +93,6 @@ class wr::ala-lpd-rcpl {
   $env='MAILTO=konrad.scherer@windriver.com'
 
   cron {
-    'e2croncheck':
-      ensure      => present,
-      command     => 'PATH=/bin:/sbin/:/usr/bin /root/e2croncheck vg/data',
-      environment => $env,
-      user        => root,
-      hour        => 22,
-      minute      => 0,
-      weekday     => 6,
-      require     => File['e2croncheck'];
     'mirror-update-5min':
       command     => 'MIRROR=ala-git.wrs.com /git/bin/mirror-update 5mins',
       environment => $env,
