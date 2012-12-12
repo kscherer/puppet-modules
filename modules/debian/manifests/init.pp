@@ -59,6 +59,8 @@ Pin-Priority: 900';
       source => 'puppet:///modules/debian/public.key';
     '/etc/apt/wenzong.public.key':
       source => 'puppet:///modules/debian/wenzong.public.key';
+    '/etc/apt/trusted.gpg.d/puppetlabs-keyring.gpg':
+      source => 'puppet:///modules/debian/puppetlabs-keyring.gpg';
   }
 
   #This is for the key that signs the windriver internal reprepro apt repo
