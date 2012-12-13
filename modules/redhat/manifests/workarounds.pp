@@ -59,15 +59,23 @@ class redhat::workarounds {
     ensure_resource('package', 'cronie', {'ensure' => 'installed' })
 
     #by default ssmtp is installed but times out with long cron scripts
-    #postfix requires configuration but exim works so use it
-    ensure_resource('package', 'exim', {'ensure' => 'installed' })
+    #so use postfix but it requires configuration
+    ensure_resource('package', 'postfix', {'ensure' => 'absent' })
+    file_line {
+      'set_smtp_server':
+        path   => '/etc/mail.rc',
+        line   => 'set smtp="prod-webmail.wrs.com"';
+    }
 
-    #Just install exim as sendmail replacement, not full smtp service
+    #Just use postfix as sendmail replacement, not full smtp service
     service {
-      'exim':
+      'postfix':
         ensure => stopped,
         enable => false;
     }
+
+    #failed attempt to use exim
+    ensure_resource('package', 'exim', {'ensure' => 'absent' })
   }
 
   #Puppet 3.0 requires ruby 1.8.7 so puppetlabs made custom EL5 ruby rpm
