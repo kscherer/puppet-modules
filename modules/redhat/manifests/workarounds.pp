@@ -74,8 +74,8 @@ class redhat::workarounds {
         enable => false;
     }
 
-    #failed attempt to use exim
-    ensure_resource('package', 'exim', {'ensure' => 'absent' })
+    #failed attempt to use exim, will remove later
+    ensure_resource('package', 'exim', {'ensure' => 'installed' })
   }
 
   #Puppet 3.0 requires ruby 1.8.7 so puppetlabs made custom EL5 ruby rpm
