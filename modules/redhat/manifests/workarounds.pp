@@ -60,7 +60,7 @@ class redhat::workarounds {
 
     #by default ssmtp is installed but times out with long cron scripts
     #so use postfix but it requires configuration
-    ensure_resource('package', 'postfix', {'ensure' => 'absent' })
+    ensure_resource('package', 'postfix', {'ensure' => 'installed' })
     file_line {
       'set_smtp_server':
         path   => '/etc/mail.rc',
