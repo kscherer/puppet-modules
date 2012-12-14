@@ -63,7 +63,12 @@ elif [ -e /usr/bin/dpkg ]; then
     #we only support Ubuntu 12.04
     install_program="apt-get $opt_yes install"
     install_check='dpkg -L'
-    distro=U1204
+    if echo $kernel | grep -q '^2.6'
+    then
+        distro=U1004
+    else
+        distro=U1204
+    fi
 elif [ -e /usr/bin/zypper ]; then
     if [ -n "$opt_yes" ]; then
         opt_yes='-n'

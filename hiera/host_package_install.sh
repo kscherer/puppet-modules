@@ -12,11 +12,17 @@ RH6_i686='texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo
 #RedHat 6.x and Fedora 15 16 17 x86_64
 RH6_x86_64='glibc.i686 glibc-devel.i686 glibc-devel.x86_64 libgcc.i686 texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2'
 
+#Ubuntu 10.04 i386
+U1004_i686='texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2'
+
+#Ubuntu 10.04 x86_64
+U1004_x86_64='libc6-i386 libc6-dev-i386 texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2'
+
 #Ubuntu 12.04 i386
 U1204_i686='texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2'
 
 #Ubuntu 12.04 x86_64
-U1204_x86_64='texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2'
+U1204_x86_64='libc6:i386 libc6-dev-i386 texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2'
 
 #OpenSuSE 11.4 i386
 OS114_i686='chrpath diffstat subversion Mesa Mesa-devel make libSDL-devel texinfo gawk gcc gcc-c++ help2man patch python-curses libsqlite3-0 git python-gtk'
@@ -100,7 +106,12 @@ elif [ -e /usr/bin/dpkg ]; then
     #we only support Ubuntu 12.04
     install_program="apt-get $opt_yes install"
     install_check='dpkg -L'
-    distro=U1204
+    if echo $kernel | grep -q '^2.6'
+    then
+        distro=U1004
+    else
+        distro=U1204
+    fi
 elif [ -e /usr/bin/zypper ]; then
     if [ -n "$opt_yes" ]; then
         opt_yes='-n'
