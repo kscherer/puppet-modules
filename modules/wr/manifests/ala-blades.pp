@@ -124,7 +124,7 @@ class wr::ala-blades {
 
   #some packages needed to run Xylo
   package {
-    ['perl-XML-Simple','cvs']:
+    ['perl-XML-Simple','cvs','perl-Module-Manifest']:
       ensure  => installed,
   }
 
