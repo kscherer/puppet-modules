@@ -141,6 +141,7 @@ class nx {
     /^ala-blade*/:     { include nx::ala-blades }
     /^pek-blade*/:     { include nx::pek-blades }
     /^pek-usp*/:       { include nx::pek-usp }
+    /^pek-hostel-vm*/: { include nx::pek-hostel }
     /^ala-lpd-test*/:  { include nx::ala-lpd-test }
     'ala-lpd-rcpl':    { include nx::ala-lpd-rcpl }
     default:           { fail("Unsupported nx configuration for ${::hostname}") }

@@ -76,8 +76,13 @@ node /yow-lpgbuild-\d+\.wrs\.com$/ {
   class { 'wr::yow-lpgbuild': }
 }
 
-node /pek-hostel-vm\d+\.wrs\.com$/ {
+node /pek-hostel-vm(19|2[0-9]|3[0-6])\.wrs\.com$/ {
   class { 'wr::pek-hostel': }
+}
+
+node /pek-hostel-vm(0[1-9]|1[0-3])\.wrs\.com/ {
+  class { 'wr::pek-hostel': }
+  -> class { 'nx::pek-hostel': }
 }
 
 node /ala-blade\d+\.wrs\.com/ {
