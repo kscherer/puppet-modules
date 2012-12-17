@@ -137,7 +137,7 @@ class wr::ala-blades {
 
   #this package is needed for Dell bios upgrade software
   package {
-    'libxml2.i386':
+    ['libxml2.i386','compat-libstdc++-33.i386']:
       ensure => installed;
   }
 }
