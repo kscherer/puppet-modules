@@ -49,14 +49,11 @@ class wr::ala-lpd-rcpl {
       remounts => true;
   }
 
-  yumrepo {
+  redhat::yum_repo {
     'git':
-      enabled  => '1',
-      descr    => 'Latest git',
-      gpgcheck => '0',
-      before   => Package['git'],
       baseurl  => 'http://ala-mirror.wrs.com/mirror/git';
   }
+  Yumrepo['git'] -> Package['git']
 
   user {
     'git':
