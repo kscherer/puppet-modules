@@ -131,7 +131,8 @@ class nx {
   }
 
   nx::script {
-    ['hostel-fix-config','ice_check.sh','pull-multicore-layer','hostel-make']:
+    [ 'hostel-fix-config','ice_check.sh','pull-multicore-layer','hostel-make',
+      'pull-toolchain.sh']:
   }
 
   case $::hostname {
