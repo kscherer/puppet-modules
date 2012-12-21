@@ -119,7 +119,7 @@ node 'yow-lpg-md3000.wrs.com' {
 }
 
 node 'yow-git.wrs.com' {
-  class {'wr::yow-common': }
+  include wr::yow_git
 }
 
 node 'ala-lpd-susbld.wrs.com' {
