@@ -25,18 +25,6 @@ class wr::ala-lpggp inherits wr::ala-common {
       ensure => 'latest';
   }
 
-  define wr::ala-lpggp::local_file() {
-    file {
-      "/usr/local/bin/$name":
-        ensure => 'absent';
-    }
-  }
-
-  wr::ala-lpggp::local_file {
-    [ '/git','gitk','git-cvsserver','git-shell','git-upload-pack',
-      'git-upload-archive','git-recieve-pack']:
-  }
-
   motd::register{
     'ala-lpggp':
       content => "This machine is for Linux Products developers manual compiles.
@@ -103,12 +91,12 @@ up periodically.";
     }
 
     host {
-      'ala-lpgnas1-nfs':
-        ip           => '172.17.136.110',
-        host_aliases => 'ala-lpgnas1-nfs.wrs.com';
-      'ala-lpgnas2-nfs':
-        ip           => '172.17.136.114',
-        host_aliases => 'ala-lpgnas2-nfs.wrs.com';
+      'ala-lpgnas1':
+        ip           => '147.11.105.11',
+        host_aliases => 'ala-lpgnas1.wrs.com';
+      'ala-lpgnas2':
+        ip           => '147.11.105.12',
+        host_aliases => 'ala-lpgnas2.wrs.com';
     }
 
     file {
@@ -117,16 +105,20 @@ up periodically.";
         owner   => 'buildadmin',
         group   => 'buildadmin',
         require => Class['nis'];
+      '/ala-lpggp12/buildarea':
+        ensure  => directory,
+        owner   => 'buildadmin',
+        group   => 'buildadmin';
       '/buildarea':
         ensure => link,
-        target => '/ala-lpggp12';
+        target => '/ala-lpggp12/buildarea';
     }
 
     mount {
       '/stored_builds':
         ensure   => mounted,
         atboot   => true,
-        device   => 'ala-lpgnas2-nfs:/vol/vol1',
+        device   => 'ala-lpgnas2:/vol/vol1',
         fstype   => 'nfs',
         options  => 'bg,vers=3,nointr,timeo=600,_netdev',
         require  => File['/stored_builds'],
