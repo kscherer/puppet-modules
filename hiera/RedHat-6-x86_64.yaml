@@ -4,4 +4,4 @@ packages:
   - glibc-devel.i686
   - glibc-devel.x86_64
   - libgcc.i686
-  - ncurses-lib.i686
+  - ncurses-libs.i686
