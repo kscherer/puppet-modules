@@ -10,7 +10,7 @@ RH5_x86_64='glibc.i686 glibc-devel.i386 glibc-devel.x86_64 libgcc.i386 ncurses.i
 RH6_i686='texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2'
 
 #RedHat 6.x and Fedora 15 16 17 x86_64
-RH6_x86_64='glibc.i686 glibc-devel.i686 glibc-devel.x86_64 libgcc.i686 ncurses-lib.i686 texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2'
+RH6_x86_64='glibc.i686 glibc-devel.i686 glibc-devel.x86_64 libgcc.i686 ncurses-libs.i686 texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2'
 
 #Ubuntu 10.04 i386
 U1004_i686='texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2'
