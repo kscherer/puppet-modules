@@ -79,4 +79,7 @@ class redhat::workarounds {
   if ($::osfamily == 'RedHat' and $::lsbmajdistrelease == '5') {
     ensure_resource('package', 'ruby', {'ensure' => 'latest' })
   }
+
+  #Jeff Honig likes this package
+  ensure_resource('package', 'htop', {'ensure' => 'present' })
 }
