@@ -40,7 +40,7 @@ OS121_x86_64='gcc-32bit libncurses5-32bit chrpath diffstat subversion Mesa Mesa-
 SLED112_i686='make texinfo gawk gcc gcc-c++ patch diffstat subversion chrpath Mesa-devel SDL-devel python-curses git python-gtk'
 
 #SLED 11 SP2 x86_64 (requires SLE 11 SP2 SDK)
-SLED112_x86_64='gcc43-32bit make texinfo gawk gcc gcc-c++ patch diffstat subversion chrpath Mesa-devel SDL-devel python-curses git python-gtk'
+SLED112_x86_64='gcc43-32bit libncurses5-32bit make texinfo gawk gcc gcc-c++ patch diffstat subversion chrpath Mesa-devel SDL-devel python-curses git python-gtk'
 
 arch=`uname -m`
 kernel=`uname -r`
