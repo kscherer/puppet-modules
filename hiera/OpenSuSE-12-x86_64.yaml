@@ -1,3 +1,4 @@
 ---
 packages:
   - gcc-32bit
+  - libncurses5-32bit
