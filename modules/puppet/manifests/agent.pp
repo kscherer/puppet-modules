@@ -97,8 +97,9 @@ class puppet::agent(
       #are triggered manually or using something like puppet commander
       #This will cause the current puppet run to exit with an error
       service { $puppet_agent_service:
-        ensure    => stopped,
-        enable    => false;
+        ensure   => stopped,
+        pattern  => '.*puppet agent(?! --onetime)',
+        enable   => false;
       }
     }
   }
