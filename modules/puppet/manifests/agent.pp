@@ -93,21 +93,12 @@ class puppet::agent(
           onlyif    => '/bin/ps -ef | grep -v grep | /bin/grep \'.*puppet agent$\'',
       }
     } else {
-      #make sure the puppet agent service stays stopped after package
-      #upgrade. The problem is that puppet agent --onetime still looks
-      #like a running service. All puppet runs using mcollective fail
-      #midway through catalog application. This hack exploits the fact
-      #that starting the service manually uses puppetd whereas
-      #mcollective agent has been changed to use puppet agent. A
-      #running service will terminate mid way and report a failure,
-      #but puppetcommander will then pick up the node and it will be
-      #added to the regular rotation
+      #Make sure puppet agent service is not running. Assume puppet runs
+      #are triggered manually or using something like puppet commander
+      #This will cause the current puppet run to exit with an error
       service { $puppet_agent_service:
         ensure    => stopped,
-        enable    => false,
-        hasstatus => false,
-        pattern   => '/usr/sbin/puppetd',
-        subscribe => Package[$puppet_agent_name],
+        enable    => false;
       }
     }
   }
