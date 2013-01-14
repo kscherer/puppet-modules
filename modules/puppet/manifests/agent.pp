@@ -96,11 +96,11 @@ class puppet::agent(
       #Make sure puppet agent service is not running. Assume puppet runs
       #are triggered manually or using something like puppet commander
       #This will cause the current puppet run to exit with an error
-      service { $puppet_agent_service:
-        ensure   => stopped,
-        pattern  => '.*puppet agent(?! --onetime)',
-        enable   => false;
-      }
+      # service { $puppet_agent_service:
+      #   ensure   => stopped,
+      #   pattern  => '.*puppet agent(?! --onetime)',
+      #   enable   => false;
+      # }
     }
   }
 
