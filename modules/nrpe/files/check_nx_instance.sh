@@ -6,8 +6,13 @@ num_critical=0
 longoutput=
 
 if [ -f /var/tmp/STFU ]; then
-    num_warning=1
-    longoutput="SFTU Deployed"
+    if [ -f /home/nxadm/.disable_nagios_stfu_notification ]; then
+        num_ok=1
+        longoutput="SFTU Deployed and notification suppressed."
+    else
+        num_warning=1
+        longoutput="SFTU Deployed"
+    fi
 else
     for instance in {1..4}; do
         nx=/etc/init.d/nx_instance.$instance
