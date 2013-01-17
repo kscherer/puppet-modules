@@ -14,3 +14,5 @@ packages:
   - chrpath
   - git
   - pygtk2
+  - bzip2
+  - wget
