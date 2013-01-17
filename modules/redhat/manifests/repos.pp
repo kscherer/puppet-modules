@@ -35,8 +35,13 @@ class redhat::repos {
   $centos_mirror_updates = "${centos_mirror_base}/updates/${::architecture}"
   $centos_gpgkey = "${centos_mirror_os}/RPM-GPG-KEY-CentOS-${::lsbmajdistrelease}"
 
-  $puppetlabs_mirror_el = "${mirror}/puppetlabs/yum/el/${::lsbmajdistrelease}"
-  $puppetlabs_mirror_fedora = "${mirror}/puppetlabs/yum/fedora/f${::lsbmajdistrelease}"
+  #special case for fedora puppetlabs repo path
+  case $::operatingsystem {
+    Fedora:  { $repo_path='fedora/f'}
+    default: { $repo_path='el/' }
+  }
+
+  $puppetlabs_mirror = "${mirror}/puppetlabs/yum/${repo_path}${::lsbmajdistrelease}"
   $puppetlabs_gpgkey = "${mirror}/puppetlabs/yum/RPM-GPG-KEY-puppetlabs"
 
   #declare all the repos virtually and realize the correct ones on
@@ -63,16 +68,10 @@ class redhat::repos {
       baseurl     => $centos_mirror_updates;
     'puppetlabs':
       repo_gpgkey => $puppetlabs_gpgkey,
-      baseurl     => "${puppetlabs_mirror_el}/products/${::architecture}";
+      baseurl     => "${puppetlabs_mirror}/products/${::architecture}";
     'puppetlabs-deps':
       repo_gpgkey => $puppetlabs_gpgkey,
-      baseurl     => "${puppetlabs_mirror_el}/dependencies/${::architecture}";
-    'puppetlabs-fedora':
-      repo_gpgkey => $puppetlabs_gpgkey,
-      baseurl     => "${puppetlabs_mirror_fedora}/products/${::architecture}";
-    'puppetlabs-fedora-deps':
-      repo_gpgkey => $puppetlabs_gpgkey,
-      baseurl     => "${puppetlabs_mirror_fedora}/dependencies/${::architecture}";
+      baseurl     => "${puppetlabs_mirror}/dependencies/${::architecture}";
     'passenger':
       baseurl => "${mrepo_mirror}/passenger-rh6-${::architecture}/RPMS.main";
     'foreman':
@@ -92,8 +91,6 @@ class redhat::repos {
       realize( Yum_repo['centos-updates'] )
       realize( Yum_repo['epel'] )
       realize( Yum_repo['collectd'] )
-      realize( Yum_repo['puppetlabs'] )
-      realize( Yum_repo['puppetlabs-deps'] )
       if ( $::lsbmajdistrelease == '6' ) {
         realize( Yum_repo['passenger'] )
         realize( Yum_repo['foreman'] )
@@ -106,13 +103,10 @@ class redhat::repos {
     }
     Fedora: {
       realize( Yum_repo['fedora-updates'], Yum_repo['fedora-everything'] )
-      realize( Yum_repo['puppetlabs-fedora'] )
-      realize( Yum_repo['puppetlabs-fedora-deps'] )
     }
     RedHat: {
       realize( Yum_repo['redhat-dvd'] )
       realize( Yum_repo['epel'] )
-      realize( Yum_repo['puppetlabs'] )
       if ( $::lsbmajdistrelease == '6' ) {
         realize( Yum_repo['rhel6-updates'] )
         realize( Yum_repo['rhel6-optional'] )
@@ -127,6 +121,8 @@ class redhat::repos {
   }
 
   #make sure gpg keys are installed
+  realize( Yum_repo['puppetlabs'] )
+  realize( Yum_repo['puppetlabs-deps'] )
   package {
     'puppetlabs-release':
       ensure  => installed,
