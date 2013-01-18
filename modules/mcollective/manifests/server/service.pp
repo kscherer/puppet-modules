@@ -31,13 +31,21 @@ class mcollective::server::service(
     default => $mc_service_start,
   }
 
-  service { 'mcollective':
-    ensure    => running,
-    enable    => true,
-    name      => $mc_service_name,
-    hasstatus => true,
-    start     => $mc_service_start_real,
-    stop      => $mc_service_stop_real,
+  if $::operatingsystem == 'Fedora' {
+    service { 'mcollective':
+      ensure    => running,
+      enable    => true,
+      provider  => systemd;
+    }
+  } else {
+    service { 'mcollective':
+      ensure    => running,
+      enable    => true,
+      name      => $mc_service_name,
+      hasstatus => true,
+      start     => $mc_service_start_real,
+      stop      => $mc_service_stop_real,
+    }
   }
 
 }
