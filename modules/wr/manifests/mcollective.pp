@@ -43,6 +43,7 @@ class wr::mcollective (
 
   cron {
     'restart_mcollective':
+      ensure  => absent,
       command => '/sbin/service mcollective restart &> /dev/null',
       minute  => '0',
       hour    => '0';
