@@ -1,0 +1,4 @@
+---
+mc_service_name: mcollective.service
+mc_service_stop: systemctl stop mcollective.service
+mc_service_start: systemctl start mcollective.service
