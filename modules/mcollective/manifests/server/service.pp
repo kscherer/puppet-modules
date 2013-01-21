@@ -32,7 +32,7 @@ class mcollective::server::service(
   }
 
   if $::operatingsystem == 'Fedora' {
-    service { 'mcollective':
+    service { 'mcollective.service':
       ensure    => running,
       enable    => true,
       provider  => systemd;
