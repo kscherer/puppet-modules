@@ -85,11 +85,6 @@ up periodically.";
         type    => 'ssh-rsa';
     }
 
-    sudo::conf {
-      'admin':
-        source  => 'puppet:///modules/wr/sudoers.d/admin';
-    }
-
     host {
       'ala-lpgnas1':
         ip           => '147.11.105.11',

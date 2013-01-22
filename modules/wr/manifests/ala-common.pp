@@ -17,4 +17,9 @@ class wr::ala-common {
   -> class { 'sudo': }
 
   class { 'nagios::target': }
+
+  sudo::conf {
+    'admin':
+      source  => 'puppet:///modules/wr/sudoers.d/admin';
+  }
 }

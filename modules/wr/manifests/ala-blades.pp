@@ -81,11 +81,6 @@ class wr::ala-blades {
       content => 'This machine is reserved for WR Linux release and coverage builds.';
   }
 
-  sudo::conf {
-    'admin':
-      source  => 'puppet:///modules/wr/sudoers.d/admin';
-  }
-
   host {
     'ala-lpgnas1-nfs':
       ip           => '172.17.136.110',

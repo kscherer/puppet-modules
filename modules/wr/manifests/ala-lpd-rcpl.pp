@@ -33,8 +33,6 @@ class wr::ala-lpd-rcpl {
   }
 
   sudo::conf {
-    'admin':
-      source  => 'puppet:///modules/wr/sudoers.d/admin';
     'leads':
       source  => 'puppet:///modules/wr/sudoers.d/leads';
   }

@@ -17,4 +17,9 @@ class wr::yow-common( $mcollective_client = false ) {
   -> class { 'nis': }
   -> class { 'nagios::target': }
   -> class { 'sudo': }
+
+  sudo::conf {
+    'admin':
+      source  => 'puppet:///modules/wr/sudoers.d/admin';
+  }
 }

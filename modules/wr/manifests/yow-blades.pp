@@ -25,11 +25,6 @@ class wr::yow-blades {
       ensure => installed;
   }
 
-  sudo::conf {
-    'admin':
-      source  => 'puppet:///modules/wr/sudoers.d/admin';
-  }
-
   #unnecesary services
   service {
     ['iscsi','iscsid']:
