@@ -22,6 +22,7 @@ define mcollective::plugins::plugin(
   $ensure      = present,
   $ddl         = false,
   $application = false,
+  $recurse     = false,
   $plugin_base = $mcollective::params::plugin_base,
   $module_source = 'puppet:///modules/mcollective/plugins'
 ) {
@@ -59,5 +60,12 @@ define mcollective::plugins::plugin(
       source => "${module_source}/application/${name}.rb",
     }
   }
-
+  if $recurse {
+    file { "${plugin_base_real}/${type}/${name}":
+      ensure  => directory,
+      recurse => true,
+      purge   => true,
+      source  => "${module_source}/${type}/${name}",
+    }
+  }
 }

@@ -130,4 +130,9 @@ class mcollective::plugins(
       type        => 'validator',
       ddl         => true,
   }
+  mcollective::plugins::plugin { 'puppet_agent_mgr':
+    ensure      => present,
+    type        => 'util',
+    recurse     => true,
+  }
 }
