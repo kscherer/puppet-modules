@@ -38,8 +38,14 @@ class mcollective::plugins(
     notify => Class['mcollective::server::service'],
   }
 
+  if $enable_registration_collection {
+    $registration_agent_ensure = present
+  } else {
+    $registration_agent_ensure = absent
+  }
+
   mcollective::plugins::plugin { 'registration':
-    ensure      => any2bool($enable_registration_collection),
+    ensure      => $registration_agent_ensure,
     type        => 'agent',
     ddl         => false,
     application => false,
