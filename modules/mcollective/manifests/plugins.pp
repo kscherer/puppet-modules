@@ -39,7 +39,7 @@ class mcollective::plugins(
   }
 
   mcollective::plugins::plugin { 'registration':
-    ensure      => $enable_registration_collection,
+    ensure      => any2bool($enable_registration_collection),
     type        => 'agent',
     ddl         => false,
     application => false,
