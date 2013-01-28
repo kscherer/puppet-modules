@@ -120,12 +120,14 @@ class redhat::repos {
     default: { fail('Unsupported Operating System') }
   }
 
-  #make sure gpg keys are installed
-  realize( Yum_repo['puppetlabs'] )
-  realize( Yum_repo['puppetlabs-deps'] )
-  package {
-    'puppetlabs-release':
-      ensure  => installed,
-      require => Yumrepo['puppetlabs'];
+  if $::operatingsystem != 'Fedora' and $::operatingsystemrelease != '18' {
+    #make sure gpg keys are installed
+    realize( Yum_repo['puppetlabs'] )
+    realize( Yum_repo['puppetlabs-deps'] )
+    package {
+      'puppetlabs-release':
+        ensure  => installed,
+        require => Yumrepo['puppetlabs'];
+    }
   }
 }
