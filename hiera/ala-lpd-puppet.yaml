@@ -1,2 +1,2 @@
 ---
-  mcollective::plugin::enable_registration_collection: true
+mcollective::plugin::enable_registration_collection: true
