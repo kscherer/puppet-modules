@@ -18,7 +18,8 @@
 #
 class mcollective::plugins(
   $plugin_base = $mcollective::params::plugin_base,
-  $plugin_subs = $mcollective::params::plugin_subs
+  $plugin_subs = $mcollective::params::plugin_subs,
+  $enable_registration_collection = false
 ) inherits mcollective::params {
 
   File {
@@ -38,7 +39,7 @@ class mcollective::plugins(
   }
 
   mcollective::plugins::plugin { 'registration':
-    ensure      => present,
+    ensure      => $enable_registration_collection,
     type        => 'agent',
     ddl         => false,
     application => false,
@@ -52,10 +53,10 @@ class mcollective::plugins(
     type   => 'facts',
   }
   mcollective::plugins::plugin { 'service':
-    ensure      => present,
+    ensure      => absent,
     type        => 'agent',
     ddl         => true,
-    application => false,
+    application => true,
   }
   mcollective::plugins::plugin { 'package':
     ensure      => present,
@@ -76,6 +77,12 @@ class mcollective::plugins(
     ddl         => true,
     application => true,
   }
+  mcollective::plugins::plugin { 'puppet':
+    ensure      => present,
+    type        => 'agent',
+    ddl         => true,
+    application => true,
+  }
   mcollective::plugins::plugin { 'puppetd':
     ensure      => present,
     type        => 'agent',
@@ -83,13 +90,13 @@ class mcollective::plugins(
     application => true,
   }
   mcollective::plugins::plugin { 'puppetral':
-    ensure      => present,
+    ensure      => absent,
     type        => 'agent',
     ddl         => true,
     application => false,
   }
   mcollective::plugins::plugin { 'shellcmd':
-    ensure      => present,
+    ensure      => absent,
     type        => 'agent',
     ddl         => true,
     application => true,
@@ -101,9 +108,26 @@ class mcollective::plugins(
     application => true,
   }
   mcollective::plugins::plugin { 'etc_facts':
-    ensure      => present,
+    ensure      => absent,
     type        => 'agent',
     ddl         => true,
     application => true,
+  }
+  mcollective::plugins::plugin { 'boolean_summary':
+    ensure      => present,
+    type        => 'aggregate',
+    ddl         => true,
+  }
+  mcollective::plugins::plugin { ['puppet_data', 'resource_data']:
+    ensure      => present,
+    type        => 'data',
+    ddl         => true,
+  }
+  mcollective::plugins::plugin {
+    [ 'puppet_resource_validator', 'puppet_server_address_validator',
+      'puppet_tags_validator', 'puppet_variable_validator']:
+      ensure      => present,
+      type        => 'validator',
+      ddl         => true,
   }
 }

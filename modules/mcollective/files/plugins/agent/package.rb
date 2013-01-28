@@ -10,13 +10,6 @@ module MCollective
     #
     # As this agent is based on Simple RPC, it requires mcollective 0.4.7 or newer.
     class Package<RPC::Agent
-      metadata    :name        => "Package Agent",
-                  :description => "Install and uninstall software packages",
-                  :author      => "R.I.Pienaar",
-                  :license     => "ASL2",
-                  :version     => "2.0",
-                  :url         => "http://projects.puppetlabs.com/projects/mcollective-plugins/wiki",
-                  :timeout     => 180
 
       ["install", "update", "uninstall", "purge", "status"].each do |act|
         action act do
