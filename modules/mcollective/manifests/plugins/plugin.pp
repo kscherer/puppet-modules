@@ -40,10 +40,6 @@ define mcollective::plugins::plugin(
     $plugin_base_real = $plugin_base
   }
 
-  if ($ddl == true or $application == true) and $type != 'agent' {
-    fail('DDLs and Applications only apply to Agent plugins')
-  }
-
   file { "${plugin_base_real}/${type}/${name}.rb":
     ensure => $ensure,
     source => "${module_source}/${type}/${name}.rb",
