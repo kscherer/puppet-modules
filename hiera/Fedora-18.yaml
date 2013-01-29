@@ -1,2 +1,2 @@
 ---
-mc_daemonize: "0"
+mcollective::mc_daemonize: "0"
