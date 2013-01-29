@@ -41,6 +41,9 @@ define mcollective::plugins::plugin(
     $plugin_base_real = $plugin_base
   }
 
+  #make sure the directory for the plugins has been created
+  ensure_resource('file', "${plugin_base_real}/${type}", {'ensure' => 'directory' })
+
   file { "${plugin_base_real}/${type}/${name}.rb":
     ensure => $ensure,
     source => "${module_source}/${type}/${name}.rb",
