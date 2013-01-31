@@ -84,13 +84,9 @@ class nx {
       ensure => directory,
       mode   => '0700';
     '/home/nxadm/.ssh/id_dsa.pub':
-      ensure => present,
-      source => 'puppet:///modules/nx/id_dsa.pub',
-      mode   => '0600';
+      ensure => absent;
     '/home/nxadm/.ssh/id_dsa':
-      ensure => present,
-      source => 'puppet:///modules/nx/id_dsa',
-      mode   => '0600';
+      ensure => absent;
     '/home/nxadm/.ssh/config':
       ensure => present,
       mode   => '0600',
