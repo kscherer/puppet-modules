@@ -22,10 +22,10 @@ puts
 puts "#RedHat 5.x x86_64 (uses prebuilt Python 2.7.3 and chrpath layer)"
 puts "RH5_x86_64='%s'" % lookup('RedHat', 'RedHat', '5', 'x86_64').join(' ')
 puts
-puts "#RedHat 6.x and Fedora 15 16 17 i386"
+puts "#RedHat 6.x and Fedora 15 16 17 18 i386"
 puts "RH6_i686='%s'" % lookup('RedHat', 'RedHat', '6', 'i386').join(' ')
 puts
-puts "#RedHat 6.x and Fedora 15 16 17 x86_64"
+puts "#RedHat 6.x and Fedora 15 16 17 18 x86_64"
 puts "RH6_x86_64='%s'" % lookup('RedHat', 'RedHat', '6', 'x86_64').join(' ')
 puts
 puts "#Ubuntu 10.04 i386"

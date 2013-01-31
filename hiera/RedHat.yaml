@@ -16,3 +16,5 @@ packages:
   - pygtk2
   - bzip2
   - wget
+  - tar
+  - patch
