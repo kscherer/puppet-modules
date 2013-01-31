@@ -28,13 +28,9 @@ class xylo {
       ensure => directory,
       mode   => '0700';
     '/home/buildadmin/.ssh/id_dsa.pub':
-      ensure => present,
-      source => 'puppet:///modules/xylo/id_dsa.pub',
-      mode   => '0600';
+      ensure => absent;
     '/home/buildadmin/.ssh/id_dsa':
-      ensure => present,
-      source => 'puppet:///modules/xylo/id_dsa',
-      mode   => '0600';
+      ensure => absent;
     '/home/buildadmin/.ssh/config':
       ensure => present,
       mode   => '0600',
