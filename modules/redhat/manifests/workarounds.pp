@@ -65,13 +65,17 @@ class redhat::workarounds {
       'set_smtp_server':
         path   => '/etc/mail.rc',
         line   => 'set smtp="prod-webmail.wrs.com"';
+      'set_domain':
+        path   => '/etc/postfix/main.cf',
+        line   => 'mydomain = wrs.com',
+        notify => Service['postfix'];
     }
 
-    #Just use postfix as sendmail replacement, not full smtp service
+    #Postfix service needs to be running to deliver mail
     service {
       'postfix':
-        ensure => stopped,
-        enable => false;
+        ensure => running,
+        enable => true;
     }
   }
 
