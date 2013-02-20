@@ -21,5 +21,7 @@ class wr::ala-common {
   sudo::conf {
     'admin':
       source  => 'puppet:///modules/wr/sudoers.d/admin';
+    'leads':
+      source  => 'puppet:///modules/wr/sudoers.d/leads';
   }
 }

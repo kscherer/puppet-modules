@@ -21,5 +21,7 @@ class wr::yow-common( $mcollective_client = false ) {
   sudo::conf {
     'admin':
       source  => 'puppet:///modules/wr/sudoers.d/admin';
+    'leads':
+      source  => 'puppet:///modules/wr/sudoers.d/leads';
   }
 }
