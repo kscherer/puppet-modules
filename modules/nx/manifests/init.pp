@@ -132,7 +132,7 @@ class nx {
 
   nx::script {
     [ 'hostel-fix-config','ice_check.sh','pull-multicore-layer','hostel-make',
-      'pull-toolchain.sh']:
+      'pull-toolchain.sh','send_stats_to_graphite.sh']:
   }
 
   case $::hostname {

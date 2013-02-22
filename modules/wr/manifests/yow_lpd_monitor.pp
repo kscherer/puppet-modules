@@ -24,5 +24,9 @@ class wr::yow_lpd_monitor {
       target  => '/etc/carbon/aggregation-rules.conf',
       order   => 1,
       source  => 'puppet:///modules/wr/cpu-aggregation.conf';
+    'nx-aggregrate':
+      target  => '/etc/carbon/aggregation-rules.conf',
+      order   => 2,
+      source  => 'puppet:///modules/wr/nx-build-aggregation.conf';
   }
 }
