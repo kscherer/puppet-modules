@@ -109,6 +109,12 @@ class wr::ala-blades {
         require  => File['/stored_builds'],
         remounts => true;
     }
+
+    #Add buildadmin to sudoers
+    sudo::conf {
+      'xylo':
+        source  => 'puppet:///modules/wr/sudoers.d/xylo';
+    }
   }
 
   #contains newer packages needed for xylo
