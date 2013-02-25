@@ -21,7 +21,7 @@ if [ "$#" -ne 1 ]; then
   false
 fi
 
-snapsize=100G
+snapsize=500G
 fsckopts="-ttv -C0"
 
 fscklog="$(mktemp -t e2fsck.log.XXXXXXXXXX)"
