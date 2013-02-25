@@ -24,6 +24,8 @@ function send_data() {
 }
 
 if [ $PASSFAIL == 0 ]; then
+    echo "Send successful build stats to Graphite"
+
     #Build passed, send build success stat
     send_data "${METRIC_BASE}.success" "1"
 
@@ -31,6 +33,8 @@ if [ $PASSFAIL == 0 ]; then
     BUILD_TIME=$(cat $BDIR/time.log)
     send_data "${METRIC_BASE}.time" "${BUILD_TIME}"
 else
+    echo "Send failed build stats to Graphite"
+
     #Build failed, send build failure stat
     send_data "${METRIC_BASE}.failure" "1"
 fi
