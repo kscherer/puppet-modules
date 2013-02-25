@@ -9,6 +9,10 @@ class yocto {
   $packages = hiera_array('packages')
   yocto::ensure_package { $packages: }
 
+  #yocto machines are being used for development to debug failures are need
+  #the following packages
+  yocto::ensure_package { ['screen','gdb']: }
+
   #prevent accidental forkbombs, but builds with high parallelism
   #can generate more than default 1024 limit. So it is increased.
   if $::osfamily == 'RedHat' {
