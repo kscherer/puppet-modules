@@ -13,9 +13,13 @@ class wr::yow_lpd_monitor {
   Yumrepo['graphite'] -> Class['graphite']
 
   graphite::carbon::storage {
+    'nx_build_stats':
+      pattern    => '^nx\.',
+      retentions => '60:60d';
     'default_10s_for_2weeks':
       pattern    => '.*',
-      retentions => '10s:14d',
+      order      => '99',
+      retentions => '10s:14d';
   }
 
   #concat is another possible extension point

@@ -1,11 +1,10 @@
 #
-define graphite::carbon::storage ( $pattern,$retentions){
+define graphite::carbon::storage ( $pattern, $retentions, $order = 10){
   concat::fragment {$name:
     target  => '/etc/carbon/storage-schemas.conf',
-    order   => 10,
+    order   => $order,
     content => template('graphite/storage-schemas.erb'),
     require => Package['carbon'],
     notify  => Service['carbon-cache']
   }
-
 }
