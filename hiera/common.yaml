@@ -6,3 +6,5 @@ collectd::plugins:
 collectd::plugin::write_graphite::port: "2023"
 graphite::carbon::service::aggregator_ensure: "running"
 graphite::carbon::service::aggregator_enable: true
+packages:
+  - screen

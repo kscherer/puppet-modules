@@ -11,7 +11,7 @@ class yocto {
 
   #yocto machines are being used for development to debug failures are need
   #the following packages
-  yocto::ensure_package { ['screen','gdb']: }
+  yocto::ensure_package { 'gdb': }
 
   #prevent accidental forkbombs, but builds with high parallelism
   #can generate more than default 1024 limit. So it is increased.
