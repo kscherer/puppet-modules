@@ -31,7 +31,8 @@ if [ $PASSFAIL == 0 ]; then
 
     #Log the time to complete build
     BUILD_TIME=$(cat $BDIR/time.log)
-    send_data "${METRIC_BASE}.time" "${BUILD_TIME}"
+    BUILD_TIME_HOURS=$(echo "${BUILD_TIME}" | awk -F: '{ print $1 + ($2/60) + ($3/3600) }')
+    send_data "${METRIC_BASE}.time" "${BUILD_TIME_HOURS}"
 else
     echo "Send failed build stats to Graphite"
 
