@@ -104,7 +104,7 @@ do
 done
 
 if [ -z "$uninstalled" ]; then
-    log "All required host packages are installed"
+    echo "All required host packages are installed"
     exit 0
 fi
 
