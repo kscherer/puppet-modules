@@ -5,6 +5,18 @@ num_warning=0
 num_critical=0
 longoutput=
 
+function email_me() {
+    local instance=$1
+	TMP_EMAIL=`mktemp -p /var/tmp hung_email.XXX`
+    /etc/init.d/nx_instance.$instance tail > $TMP_EMAIL
+    echo >> $TMP_EMAIL
+    tail /home/nxadm/nx/${HOSTNAME}.${instance}/current_build/00-wrbuild.log >> $TMP_EMAIL
+    git send-email --smtp-server prod-webmail.wrs.com --to konrad.scherer@windriver.com \
+        --from nxadm@windriver.com \
+        --subject "Server ${HOSTNAME}.${instance} is probably hung" $TMP_EMAIL
+    rm $TMP_EMAIL
+}
+
 if [ -f /var/tmp/STFU ]; then
     if [ -f /home/nxadm/.disable_nagios_stfu_notification ]; then
         num_ok=1
@@ -19,7 +31,11 @@ else
         if [ -a $nx ]; then
             output=$($nx status)
             if [ "$?" -eq "0" ]; then
-                num_ok=$(($num_ok+1))
+                if [ "$output" == "Nx instance $instance is probably hung" ]; then
+                    email_me $instance
+                else
+                    num_ok=$(($num_ok+1))
+                fi
             elif [ "$?" -eq "1" ]; then
                 num_warning=$((num_warning+1))
                 longoutput="$longoutput\n$output"
