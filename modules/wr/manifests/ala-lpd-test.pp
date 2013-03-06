@@ -14,11 +14,6 @@ class wr::ala-lpd-test {
       'This machine is reserved for Linux Products automated testing only.';
   }
 
-  sudo::conf {
-    'leads':
-      source  => 'puppet:///modules/wr/sudoers.d/leads';
-  }
-
   file {
     '/data':
       ensure => directory;
