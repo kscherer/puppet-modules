@@ -218,13 +218,13 @@ nx_status(){
         elif [ -f $wrbuildlog ]; then
             local wrbuildlog_age=$(($now - $(stat -c '%Y' "$wrbuildlog")))
             #If the 00-wrbuild.log was modified recently then build is not hung
-            if [ $wrbuildlog_age -lt $timeout ]; then
+            if [ $nxlog_age -lt $timeout ]; then
                 nx_status_string="Nx instance $instance is running"
                 RETVAL=0
-            elif [ $nxlog_age -lt $timeout ]; then
+            elif [ $wrbuildlog_age -lt $timeout ]; then
                 nx_status_string="Nx instance $instance is running"
                 RETVAL=0
-            elif [ $nxlog_age -lt $second_timeout ]; then
+            elif [ $wrbuildlog_age -lt $second_timeout ]; then
                 nx_status_string="Nx instance $instance is probably hung"
                 RETVAL=0
             else
