@@ -8,12 +8,14 @@ longoutput=
 function email_me() {
     local instance=$1
 	TMP_EMAIL=`mktemp -p /var/tmp hung_email.XXX`
-    /etc/init.d/nx_instance.$instance tail > $TMP_EMAIL
-    echo >> $TMP_EMAIL
+    echo "Subject: Server ${HOSTNAME}.${instance} is probably hung" >> $TMP_EMAIL
+    echo "" >> $TMP_EMAIL
+    /etc/init.d/nx_instance.$instance tail >> $TMP_EMAIL
+    echo "" >> $TMP_EMAIL
     tail /home/nxadm/nx/${HOSTNAME}.${instance}/current_build/00-wrbuild.log >> $TMP_EMAIL
-    git send-email --smtp-server prod-webmail.wrs.com --to konrad.scherer@windriver.com \
-        --from nxadm@windriver.com \
-        --subject "Server ${HOSTNAME}.${instance} is probably hung" $TMP_EMAIL
+    git send-email --smtp-server prod-webmail.wrs.com --to konrad.scherer@windriver.com  \
+        --to randy.macleod@windriver.com \
+        --from nxadm@windriver.com $TMP_EMAIL
     rm $TMP_EMAIL
 }
 
