@@ -13,16 +13,16 @@ RH6_i686='texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo
 RH6_x86_64='glibc.i686 glibc-devel.i686 glibc-devel.x86_64 libgcc.i686 ncurses-libs.i686 texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch screen'
 
 #Ubuntu 10.04 i386
-U1004_i686='texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 screen'
+U1004_i686='texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 bash screen'
 
 #Ubuntu 10.04 x86_64
-U1004_x86_64='libc6-i386 libc6-dev-i386 lib32ncurses5 texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 screen'
+U1004_x86_64='libc6-i386 libc6-dev-i386 lib32ncurses5 texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 bash screen'
 
 #Ubuntu 12.04 i386
-U1204_i686='texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 screen'
+U1204_i686='texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 bash screen'
 
 #Ubuntu 12.04 x86_64
-U1204_x86_64='libc6:i386 libc6-dev-i386 libncurses5:i386 texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 screen'
+U1204_x86_64='libc6:i386 libc6-dev-i386 libncurses5:i386 texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 bash screen'
 
 #OpenSuSE 11.4 i386
 OS114_i686='chrpath diffstat subversion Mesa Mesa-devel make libSDL-devel texinfo gawk gcc gcc-c++ help2man patch python-curses libsqlite3-0 git python-gtk screen'

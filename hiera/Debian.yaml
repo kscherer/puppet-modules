@@ -14,3 +14,4 @@ packages:
   - g++
   - git-core
   - python-gtk2
+  - bash
