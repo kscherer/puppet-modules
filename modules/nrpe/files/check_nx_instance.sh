@@ -13,7 +13,7 @@ function email_me() {
     /etc/init.d/nx_instance.$instance tail >> $TMP_EMAIL
     echo "" >> $TMP_EMAIL
     tail /home/nxadm/nx/${HOSTNAME}.${instance}/current_build/00-wrbuild.log >> $TMP_EMAIL
-    old_processes=$(ps -e -o pid,etime,command | awk '$2~/-/ {if ($2>2) print $0}')
+    old_processes=$(ps -U nxadm -o pid,etime,command | awk '$2~/-/ {if ($2>2) print $0}')
     echo "" >> $TMP_EMAIL
     echo "$old_processes" >> $TMP_EMAIL
     git send-email --smtp-server prod-webmail.wrs.com --to konrad.scherer@windriver.com  \
