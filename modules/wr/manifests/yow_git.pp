@@ -12,9 +12,4 @@ class wr::yow_git {
       ensure  => installed,
       require => Yumrepo['git'];
   }
-
-  sudo::conf {
-    'leads':
-      source  => 'puppet:///modules/wr/sudoers.d/leads';
-  }
 }

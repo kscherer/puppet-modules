@@ -32,11 +32,6 @@ class wr::ala-lpd-rcpl {
       type   => 'ssh-dss';
   }
 
-  sudo::conf {
-    'leads':
-      source  => 'puppet:///modules/wr/sudoers.d/leads';
-  }
-
   mount {
     '/data':
       ensure   => mounted,
