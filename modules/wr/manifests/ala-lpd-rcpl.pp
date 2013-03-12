@@ -110,4 +110,9 @@ class wr::ala-lpd-rcpl {
       hour    => 0,
       weekday => 0;
   }
+
+  sudo::conf {
+    'rcpl':
+      source  => 'puppet:///modules/wr/sudoers.d/rcpl';
+  }
 }
