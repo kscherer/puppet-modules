@@ -28,6 +28,20 @@
       <managementContext createConnector="false"/>
     </managementContext>
 
+    <!--
+        Configure message persistence for the broker. MCollective only
+        requires this in a network of brokers, where it's used to prevent
+        duplicate messages.
+
+        The default persistence mechanism is the KahaDB store (identified by
+        the kahaDB tag). For more information, see:
+
+        http://activemq.apache.org/persistence.html
+    -->
+    <persistenceAdapter>
+      <kahaDB directory="${activemq.base}/data/kahadb"/>
+    </persistenceAdapter>
+
     <plugins>
       <statisticsBrokerPlugin/>
       <simpleAuthenticationPlugin>
