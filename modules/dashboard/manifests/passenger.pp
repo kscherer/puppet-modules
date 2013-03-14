@@ -19,7 +19,7 @@ class dashboard::passenger (
   $passenger_package = undef,
 ) inherits dashboard {
 
-  Class ['::passenger']
+  Package[$passenger_package]
   -> Apache::Vhost["dashboard-$dashboard_site"]
 
   ensure_resource( 'package', $passenger_package, {'ensure' => $passenger_ensure })
