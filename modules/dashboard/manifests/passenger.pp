@@ -17,18 +17,14 @@ class dashboard::passenger (
   $dashboard_port,
   $passenger_ensure = undef,
   $passenger_package = undef,
-  $passenger_provider = 'gem'
 ) inherits dashboard {
 
   Class ['::passenger']
   -> Apache::Vhost["dashboard-$dashboard_site"]
 
-  if ! defined(Class['::passenger']) {
-    class { '::passenger':
-      passenger_ensure   => $passenger_ensure,
-      passenger_package  => $passenger_package,
-      passenger_provider => $passenger_provider,
-    }
+  package {
+    $passenger_package:
+      passenger_ensure => $passenger_ensure,
   }
 
   file { '/etc/init.d/puppet-dashboard':

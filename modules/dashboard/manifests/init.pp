@@ -61,7 +61,6 @@ class dashboard (
   $passenger                = $dashboard::params::passenger,
   $passenger_ensure         = undef,
   $passenger_package        = undef,
-  $passenger_provider       = 'gem',
   $mysql_package_provider   = $dashboard::params::mysql_package_provider,
   $ruby_mysql_package       = $dashboard::params::ruby_mysql_package
 ) inherits dashboard::params {
@@ -87,7 +86,6 @@ class dashboard (
       dashboard_port     => $dashboard_port,
       passenger_ensure   => $passenger_ensure,
       passenger_package  => $passenger_package,
-      passenger_provider => $passenger_provider,
     }
 
   } else {
