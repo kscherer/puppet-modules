@@ -90,7 +90,6 @@ class puppet::master (
   $package_provider        = $puppet::params::package_provider,
   $passenger_ensure        = undef,
   $passenger_package       = undef,
-  $passenger_provider      = 'gem',
   $puppet_master_service   = $puppet::params::puppet_master_service,
   $puppet_master_ensure    = 'present',
   $activerecord_provider   = $puppet::params::activerecord_provider,
@@ -150,24 +149,12 @@ class puppet::master (
 
     Concat::Fragment['puppet.conf-master'] -> Service['httpd']
 
-    # exec { 'Certificate_Check':
-    #   command   => "puppet cert --generate ${certname} --trace",
-    #   unless    => "ls ${puppet::params::puppet_ssldir}/certs/${::certname}.pem",
-    #   path      => '/bin/:/usr/bin:/usr/local/bin',
-    #   before    => Class['::passenger'],
-    #   require   => Package[$puppet_master_package],
-    #   logoutput => on_failure,
-    # }
-
-    if ! defined(Class['passenger']) {
-      class { '::passenger':
-        passenger_ensure   => $passenger_ensure,
-        passenger_package  => $passenger_package,
-        passenger_provider => $passenger_provider,
-      }
+    package {
+      $passenger_package:
+        passenger_ensure => $passenger_ensure,
     }
 
-    Class ['::passenger']
+    Package[$passenger_package]
     -> Apache::Vhost["puppet-${puppet_site}"]
 
     apache::vhost { "puppet-${puppet_site}":

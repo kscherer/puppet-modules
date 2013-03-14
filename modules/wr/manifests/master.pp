@@ -46,7 +46,6 @@ class wr::master {
       manifest                    => '$confdir/environments/$environment/manifests/site.pp',
       modulepath                  => '$confdir/environments/$environment/modules',
       puppet_passenger            => true,
-      passenger_provider          => 'yum',
       passenger_package           => 'mod_passenger',
       passenger_ensure            => 'present',
       dashboard                   => true,
