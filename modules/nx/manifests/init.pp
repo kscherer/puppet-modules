@@ -117,6 +117,11 @@ class nx {
     '/home/nxadm/.bash_profile':
       ensure  => present,
       content => 'if [ -f $HOME/.bashrc ]; then source $HOME/.bashrc; fi';
+    '/etc/security/limits.d/90-nxadm-allow-core.conf':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      content => 'nxadm soft core unlimited';
   }
 
   #

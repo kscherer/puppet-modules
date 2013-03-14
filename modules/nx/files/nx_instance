@@ -65,6 +65,7 @@ pushd configs > /dev/null 2>&1;\
 if [ -d .git ]; then git pull > /dev/null 2>&1; fi;\
 popd > /dev/null 2>&1;\
 ulimit -u 5000;\
+ulimit -c unlimited;\
 ${nx_builddir}/notxylo/nx ${nxopts}"
 
 RETVAL=0
