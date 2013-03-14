@@ -46,7 +46,7 @@ define apache::vhost(
     $options            = $apache::params::options,
     $apache_name        = $apache::params::apache_name,
     $vhost_name         = $apache::params::vhost_name,
-    $logroot            = "/var/log/$apache::params::apache_name"
+    $logroot            = $apache::params::logroot
   ) {
 
   include apache
@@ -75,6 +75,8 @@ define apache::vhost(
     file {
       $docroot:
         ensure => directory,
+        owner  => 'root',
+        group  => 'root',
     }
   }
 
@@ -82,6 +84,8 @@ define apache::vhost(
     file {
       $logroot:
         ensure => directory,
+        owner  => 'root',
+        group  => 'root',
     }
   }
 
