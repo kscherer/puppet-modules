@@ -28,6 +28,7 @@ class dashboard::passenger (
     ensure => absent,
   }
 
+  include apache
   apache::vhost { "dashboard-$dashboard_site":
     port        => $dashboard_port,
     priority    => '50',
