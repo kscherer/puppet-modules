@@ -22,10 +22,7 @@ class dashboard::passenger (
   Class ['::passenger']
   -> Apache::Vhost["dashboard-$dashboard_site"]
 
-  package {
-    $passenger_package:
-      passenger_ensure => $passenger_ensure,
-  }
+  ensure_resource( 'package', $passenger_package, {'ensure' => $passenger_ensure })
 
   file { '/etc/init.d/puppet-dashboard':
     ensure => absent,

@@ -149,10 +149,7 @@ class puppet::master (
 
     Concat::Fragment['puppet.conf-master'] -> Service['httpd']
 
-    package {
-      $passenger_package:
-        passenger_ensure => $passenger_ensure,
-    }
+    ensure_resource( 'package', $passenger_package, {'ensure' => $passenger_ensure })
 
     Package[$passenger_package]
     -> Apache::Vhost["puppet-${puppet_site}"]
