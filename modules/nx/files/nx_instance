@@ -206,6 +206,9 @@ nx_status(){
         elif $(tail -n 1 $nx_log | grep -q "Cloning wrlinux-x"); then
             nx_status_string="Waiting for initial clone."
             RETVAL=0
+        elif $(tail -n 1 $nx_log | grep -q "Updating"); then
+            nx_status_string="Updating git repos."
+            RETVAL=0
         elif $(tail -n 1 $nx_log | egrep -q "(deleting passed|Removing)"); then
             nx_status_string="Long delete. Nx busy."
             RETVAL=0
