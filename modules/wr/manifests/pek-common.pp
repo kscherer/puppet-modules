@@ -2,6 +2,7 @@
 class wr::pek-common {
   class { 'redhat': }
   -> class { 'wr::mcollective': }
+  -> class { 'redhat::autoupdate': }
   -> class { 'ntp':
     servers => $wr::common::ntp_servers,
   }
