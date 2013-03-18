@@ -12,17 +12,4 @@ class yocto {
   #yocto machines are being used for development to debug failures are need
   #the following packages
   yocto::ensure_package { 'gdb': }
-
-  #prevent accidental forkbombs, but builds with high parallelism
-  #can generate more than default 1024 limit. So it is increased.
-  if $::osfamily == 'RedHat' {
-    file {
-      '/etc/security/limits.d/90-nproc.conf':
-        ensure  => present,
-        owner   => root,
-        group   => root,
-        mode    => '0644',
-        content => '* soft nproc 5000';
-    }
-  }
 }
