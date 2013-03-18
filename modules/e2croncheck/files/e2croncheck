@@ -45,7 +45,8 @@ dev_snap="/dev/$vg/$lv_snap"
 
 start="$(date +%Y%m%d%H%M%S)"
 
-lvcreate -s -L "$snapsize" -n "$lv_snap" "$vg/$lv"
+#experiment with larger chunksize that matches RAID chunksize
+lvcreate --snapshot --chunksize 128 --size "$snapsize" --name "$lv_snap" "$vg/$lv"
 traps="$traps"'; lvremove -f "$vg/$lv_snap"'
 trap "$traps" 0
 
