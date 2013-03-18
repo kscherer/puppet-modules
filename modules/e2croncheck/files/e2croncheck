@@ -49,8 +49,8 @@ lvcreate -s -L "$snapsize" -n "$lv_snap" "$vg/$lv"
 traps="$traps"'; lvremove -f "$vg/$lv_snap"'
 trap "$traps" 0
 
-if nice ionice logsave -as "$fscklog" e2fsck -p  $fsckopts "$dev_snap" && \
-   nice ionice logsave -as "$fscklog" e2fsck -fy $fsckopts "$dev_snap"; then
+if nice ionice -c 3 logsave -as "$fscklog" e2fsck -p  $fsckopts "$dev_snap" && \
+   nice ionice -c 3 logsave -as "$fscklog" e2fsck -fy $fsckopts "$dev_snap"; then
   printf "%s: Background fsck succeeded\n" "$vg/$lv"
 
 else
