@@ -1,5 +1,7 @@
 # Puppet Labs Standard Library #
 
+[![Build Status](https://travis-ci.org/puppetlabs/puppetlabs-stdlib.png?branch=master)](https://travis-ci.org/puppetlabs/puppetlabs-stdlib)
+
 This module provides a "standard library" of resources for developing Puppet
 Modules.  This modules will include the following additions to Puppet
 
@@ -46,7 +48,7 @@ All stdlib releases in the 2.0 major version support Puppet 2.6 and Puppet 2.7.
 ## stdlib 3.x ##
 
 The 3.0 major release of stdlib drops support for Puppet 2.6.  Stdlib 3.x
-supports Puppet 2.7.
+supports Puppet 2 and Puppet 3.
 
 # Functions #
 
@@ -92,6 +94,13 @@ with `\r\n`, both characters are removed. Applying chop to an empty
 string returns an empty string. If you wish to merely remove record
 separators then you should use the `chomp` function.
 Requires a string or array of strings as input.
+
+
+- *Type*: rvalue
+
+concat
+-----
+Appends the contents of the second array onto the first array.
 
 
 - *Type*: rvalue
@@ -189,6 +198,20 @@ Would return: ['a','b','c']
 
 - *Type*: rvalue
 
+floor
+-----
+Returns the largest integer less or equal to the argument.
+Takes a single numeric value as an argument.
+
+*Examples:*
+
+    floor('3.8')
+
+Would return: '3'
+
+
+- *Type*: rvalue
+
 fqdn_rotate
 -----------
 Rotates an array a random number of times based on a nodes fqdn.
@@ -204,6 +227,25 @@ environment.
 Example:
   $module_path = get_module_path('stdlib')
 
+
+- *Type*: rvalue
+
+getparam
+--------
+
+Takes a resource reference and name of the parameter and returns
+value of resource's parameter.
+
+For example:
+
+    define example_resource($param) {
+    }
+
+    example_resource { "example_resource_instance":
+        param => "param_value"
+    }
+
+    getparam(Example_resource["example_resource_instance"], "param")
 
 - *Type*: rvalue
 
@@ -751,6 +793,38 @@ The following values will fail, causing compilation to abort:
 
 - *Type*: statement
 
+validate_augeas
+--------------
+Perform validation of a string using an Augeas lens
+The first argument of this function should be a string to
+test, and the second argument should be the name of the Augeas lens to use.
+If Augeas fails to parse the string with the lens, the compilation will
+abort with a parse error.
+
+A third argument can be specified, listing paths which should
+not be found in the file. The `$file` variable points to the location
+of the temporary file being tested in the Augeas tree.
+
+For example, if you want to make sure your passwd content never contains
+a user `foo`, you could write:
+
+    validate_augeas($passwdcontent, 'Passwd.lns', ['$file/foo'])
+
+Or if you wanted to ensure that no users used the '/bin/barsh' shell,
+you could use:
+
+    validate_augeas($passwdcontent, 'Passwd.lns', ['$file/*[shell="/bin/barsh"]']
+
+If a fourth argument is specified, this will be the error message raised and
+seen by the user.
+
+A helpful error message can be returned like this:
+
+    validate_augeas($sudoerscontent, 'Sudoers.lns', [], 'Failed to validate sudoers content with Augeas')
+
+
+- *Type*: statement
+
 validate_bool
 -------------
 Validate that all passed values are either true or false. Abort catalog
@@ -768,6 +842,29 @@ The following values will fail, causing compilation to abort:
     validate_bool("false")
     validate_bool("true")
     validate_bool($some_array)
+
+
+
+- *Type*: statement
+
+
+validate_cmd
+-------------
+Perform validation of a string with an external command.
+The first argument of this function should be a string to
+test, and the second argument should be a path to a test command
+taking a file as last argument. If the command, launched against
+a tempfile containing the passed string, returns a non-null value,
+compilation will abort with a parse error.
+
+If a third argument is specified, this will be the error message raised and
+seen by the user.
+
+A helpful error message can be returned like this:
+
+Example:
+
+    validate_cmd($sudoerscontent, '/usr/sbin/visudo -c -f', 'Visudo failed to validate sudoers content')
 
 
 
