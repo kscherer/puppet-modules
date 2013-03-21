@@ -31,8 +31,14 @@ class suse {
         baseurl => $opensuse_dist;
       'opensuse-updates':
         baseurl => $opensuse_updates;
-      'opensuse-puppet':
-        baseurl => $opensuse_puppet;
+    }
+
+    #Special puppet repo only available for 12.1+
+    if $::lsbmajdistrelease >= '12' {
+      zypp_repo {
+        'opensuse-puppet':
+          baseurl => $opensuse_puppet;
+      }
     }
   }
 }
