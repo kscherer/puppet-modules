@@ -32,6 +32,10 @@ node 'yow-blade1.wrs.com' {
   class { 'wr::yow-common': }
 }
 
+node 'yow-blade2.wrs.com' {
+  class { 'wr::yow-common': }
+}
+
 node /yow-blade.*.wrs.com/ {
   class { 'wr::yow-blades': }
 }
