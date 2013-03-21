@@ -92,6 +92,7 @@ class puppet::master (
   $passenger_package       = undef,
   $puppet_master_service   = $puppet::params::puppet_master_service,
   $puppet_master_ensure    = 'present',
+  $puppet_environment      = 'production',
   $activerecord_provider   = $puppet::params::activerecord_provider,
   $activerecord_package    = $puppet::params::activerecord_package,
   $activerecord_ensure     = $puppet::params::activerecord_ensure

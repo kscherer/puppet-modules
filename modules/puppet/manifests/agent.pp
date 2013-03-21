@@ -36,6 +36,7 @@ class puppet::agent(
   $puppet_conf                 = $puppet::params::puppet_conf,
   $puppet_server               = $puppet::params::puppet_server,
   $package_provider            = $puppet::params::package_provider,
+  $puppet_environment          = 'production',
   $puppet_agent_ensure         = present,
   $puppet_agent_service_enable = true
 ) inherits puppet::config {
