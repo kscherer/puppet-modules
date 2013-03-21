@@ -20,40 +20,40 @@ the same repo to push changes to GitHub for pull requests.
 For example to add the logrotate module, first tell git where the
 module is located and automatically fetch it.
 
-    git remote add -f remote_logrotate_module git://github.com/rodjek/puppet-logrotate.git
+    git remote add -f logrotate git://github.com/rodjek/puppet-logrotate.git
 
 Now make a local tree which represents the upstream state. It is a
 little confusing because the branch looks completely different than
 the production branch.
 
-    git checkout -b tree_logrotate_upstream remote_logrotate_module/master
+    git checkout -b logrotate logrotate/master
     git checkout production
 
 As far as I can tell, the following command will wrap the import of
 the subtree in a merge commit. I did not do this for a while and had
 problems doing merges, so I am trying it to see if it helps.
 
-    git merge -s ours --no-commit tree_logrotate_upstream
+    git merge -s ours --no-commit logrotate
 
 Here is the git magic. "Mount" the tree into a directory of the main branch
 
-    git read-tree --prefix=modules/logrotate -u tree_logrotate_upstream
+    git read-tree --prefix=modules/logrotate -u logrotate
     git commit -m "Added logrotate module"
 
 Now if upstream changes:
 
-    git checkout tree_logrotate_upstream
+    git checkout logrotate
     git pull
     git checkout production
-    git merge --squash -s subtree tree_logrotate_upstream
+    git merge --squash -s subtree logrotate
     git commit -m "Sync with logrotate upstream"
 
 To submit changes upstream
 
-    git checkout -b tree_logrotate_local tree_logrotate_upstream
+    git checkout -b logrotate_local logrotate
     git merge --squash -s subtree production
     git commit -m "Submit patch to logrotate upstream"
-    git push github tree_logrotate_local
+    git push github logrotate_local
 
 Now go make a pull request on GitHub.
 
