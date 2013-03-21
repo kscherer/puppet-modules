@@ -1,6 +1,5 @@
 #
 class debian {
-  #include exim4
 
   File {
     owner => 'root',
