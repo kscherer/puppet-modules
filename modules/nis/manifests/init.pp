@@ -83,33 +83,31 @@ class nis {
       notify  => Service['autofs'];
   }
 
-  #On Redhat 5.x and Suse the portmap service is needed
+  #On Redhat 5.x and SLED the portmap service is needed
   $isRedHat5 = ($::operatingsystem =~ /(RedHat|CentOS)/ and $::operatingsystemrelease =~ /5.*/)
-  $isSuse = ($::operatingsystem =~ /(OpenSuSE|SLED|SLES)/)
-  $isSuse11plus = ($isSuse and $::operatingsystemrelease =~ /1[1-2]/ )
+  $isSLED = ($::operatingsystem =~ /(SLED|SLES)/)
 
-  if $isRedHat5 or $isSuse {
-    $portmap_name = $isSuse11plus ?{
-      true  => 'rpcbind',
-      false => 'portmap',
-    }
+  if $isRedHat5 or $isSLED {
+    $portmap_name = 'portmap'
+  } else {
+    $portmap_name = 'rpcbind'
+  }
 
-    package {
-      'portmap':
-        ensure => installed,
-        name   => $portmap_name;
-    }
+  package {
+    'portmap':
+      ensure => installed,
+      name   => $portmap_name;
+  }
 
-    service {
-      'portmap':
-        ensure     => running,
-        name       => $portmap_name,
-        enable     => true,
-        hasrestart => true,
-        hasstatus  => true,
-        require    => Package['portmap'],
-        before     => Service['nis'],
-    }
+  service {
+    'portmap':
+      ensure     => running,
+      name       => $portmap_name,
+      enable     => true,
+      hasrestart => true,
+      hasstatus  => true,
+      require    => Package['portmap'],
+      before     => Service['nis'],
   }
 
   service {
