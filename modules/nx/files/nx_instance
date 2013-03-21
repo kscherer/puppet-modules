@@ -210,6 +210,9 @@ nx_status(){
         elif $(tail -n 1 $nx_log | grep -q "Updating"); then
             nx_status_string="Updating git repos."
             RETVAL=0
+        elif $(tail -n 1 $nx_log | grep -q "Checking for new commits"); then
+            nx_status_string="Checking for new commits."
+            RETVAL=0
         elif $(tail -n 1 $nx_log | egrep -q "(deleting passed|Removing)"); then
             nx_status_string="Long delete. Nx busy."
             RETVAL=0
