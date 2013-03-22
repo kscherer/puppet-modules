@@ -83,10 +83,10 @@ class nis {
       notify  => Service['autofs'];
   }
 
-  #On Redhat 5.x and SLED the portmap service is needed
+  #On Redhat 5.x the portmap service is needed
   $isRedHat5 = ($::operatingsystem =~ /(RedHat|CentOS)/ and $::operatingsystemrelease =~ /5.*/)
 
-  if $isRedHat5 {
+  if $isRedHat5 or $::osfamily == 'Debian' {
     $portmap_name = 'portmap'
   } else {
     $portmap_name = 'rpcbind'
