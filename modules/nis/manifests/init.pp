@@ -85,9 +85,8 @@ class nis {
 
   #On Redhat 5.x and SLED the portmap service is needed
   $isRedHat5 = ($::operatingsystem =~ /(RedHat|CentOS)/ and $::operatingsystemrelease =~ /5.*/)
-  $isSLED = ($::operatingsystem =~ /(SLED|SLES)/)
 
-  if $isRedHat5 or $isSLED {
+  if $isRedHat5 {
     $portmap_name = 'portmap'
   } else {
     $portmap_name = 'rpcbind'
