@@ -85,8 +85,9 @@ class nis {
 
   #On Redhat 5.x the portmap service is needed
   $isRedHat5 = ($::operatingsystem =~ /(RedHat|CentOS)/ and $::operatingsystemrelease =~ /5.*/)
+  $isUbuntu1004 = $::operatingsystem == 'Ubuntu' and $::operatingsystemrelease == '10.04'
 
-  if $isRedHat5 or $::osfamily == 'Debian' {
+  if $isRedHat5 or $isUbuntu1004 {
     $portmap_name = 'portmap'
   } else {
     $portmap_name = 'rpcbind'
@@ -117,6 +118,7 @@ class nis {
       hasrestart => true,
       hasstatus  => $nis_hasstatus,
       status     => $nis_status,
+      require    => Service['portmap'],
       before     => Service['autofs'],
       subscribe  => [ File['/etc/yp.conf'], File['/etc/nsswitch.conf'],
                       Package['nis']];
