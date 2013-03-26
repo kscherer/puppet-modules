@@ -63,57 +63,27 @@ class nrpe {
       mode   => '0755';
   }
 
-  #
-  class debian {
-    package {
-      'nagios-plugins-basic':
-        ensure => present;
-    }
-  }
-
-  #
-  class redhat {
-    package {
-      [ 'nagios-plugins-disk', 'nagios-plugins-file_age', 'nagios-plugins-ntp',
-        'nagios-plugins-procs']:
-        ensure  => present,
-        require => Yumrepo['epel'];
-    }
-  }
-
-  #
-  class fedora {
-    package {
-      [ 'nagios-plugins-disk', 'nagios-plugins-file_age', 'nagios-plugins-ntp',
-        'nagios-plugins-procs']:
-        ensure => present;
-    }
-  }
-
-  #
-  class opensuse {
-    package {
-      'nagios-plugins':
-        ensure => present;
-    }
-  }
-
-  #
-  class sled {
-    package {
-      [ 'nagios-plugins-disk', 'nagios-plugins-file_age', 'nagios-plugins-ntp_time',
-        'nagios-plugins-procs']:
-          ensure => present;
-    }
-  }
-
   case $::operatingsystem {
-    Debian,Ubuntu: { require nrpe::debian }
-    CentOS,RedHat: { require nrpe::redhat }
-    Fedora:        { require nrpe::fedora }
-    OpenSuSE:      { require nrpe::opensuse }
-    SLED:          { require nrpe::sled }
+    Debian,Ubuntu: {
+      $nagios_packages = 'nagios-plugins-basic'
+    }
+    CentOS,RedHat,Fedora: {
+      $nagios_packages = ['nagios-plugins-disk', 'nagios-plugins-file_age',
+                          'nagios-plugins-ntp', 'nagios-plugins-procs']
+    }
+    OpenSuSE: {
+      $nagios_packages = 'nagios-plugins'
+    }
+    SLED: {
+      $nagios_packages = ['nagios-plugins-disk', 'nagios-plugins-file_age',
+                          'nagios-plugins-ntp_time', 'nagios-plugins-procs']
+    }
     default:       { fail('Unknown distro') }
+  }
+
+  package {
+    $nagios_packages:
+      ensure => present;
   }
 
   $first_ntp_server = $wr::common::ntp_servers[0]
