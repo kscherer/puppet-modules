@@ -34,7 +34,7 @@ class suse {
     }
 
     #Special puppet repo only available for 12.1+
-    if $::lsbmajdistrelease >= '12' {
+    if versioncmp($::operatingsystemrelease, '12') > 0  {
       zypp_repo {
         'opensuse-puppet':
           baseurl => $opensuse_puppet;
