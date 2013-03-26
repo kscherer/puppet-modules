@@ -93,7 +93,7 @@ class nis {
     $rpc_service = 'portmap'
   } elsif $isUbuntu12 {
     $rpc_package = 'rpcbind'
-    $rpc_service = 'rpcbind-boot'
+    $rpc_service = 'portmap'
   } else {
     $rpc_package = 'rpcbind'
     $rpc_service = 'rpcbind'
