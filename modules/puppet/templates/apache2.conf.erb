@@ -5,8 +5,9 @@ Listen <%= puppet_passenger_port %>
 <VirtualHost *:<%= puppet_passenger_port %>>
         ServerName <%= puppet_site %>
         SSLEngine on
-        SSLProtocol -ALL +SSLv3 +TLSv1
-        SSLCipherSuite ALL:!ADH:RC4+RSA:+HIGH:+MEDIUM:-LOW:-SSLv2:-EXP
+        # Only allow high security cryptography. Alter if needed for compatibility.
+        SSLProtocol             All -SSLv2
+        SSLCipherSuite          HIGH:!ADH:RC4+RSA:-MEDIUM:-LOW:-EXP
 
         SSLCertificateFile      <%= puppet_ssldir %>/certs/<%= certname %>.pem
         SSLCertificateKeyFile   <%= puppet_ssldir %>/private_keys/<%= certname %>.pem
@@ -17,10 +18,16 @@ Listen <%= puppet_passenger_port %>
         SSLCARevocationFile     <%= puppet_ssldir %>/ca/ca_crl.pem
         SSLVerifyClient optional
         SSLVerifyDepth  1
-        SSLOptions +StdEnvVars
+        SSLOptions +StdEnvVars +ExportCertData
+
+        # These request headers are used to pass the client certificate
+        # authentication information on to the puppet master process
+        RequestHeader set X-SSL-Subject %{SSL_CLIENT_S_DN}e
+        RequestHeader set X-Client-DN %{SSL_CLIENT_S_DN}e
+        RequestHeader set X-Client-Verify %{SSL_CLIENT_VERIFY}e
 
         DocumentRoot <%= puppet_docroot %>
-        RackBaseURI /
+        RackAutoDetect On
         <Directory /etc/puppet/rack/>
                 Options None
                 AllowOverride None
