@@ -3,35 +3,36 @@ LoadModule ssl_module modules/mod_ssl.so
 Listen <%= puppet_passenger_port %>
 
 <VirtualHost *:<%= puppet_passenger_port %>>
-        ServerName <%= puppet_site %>
-        SSLEngine on
-        # Only allow high security cryptography. Alter if needed for compatibility.
-        SSLProtocol             All -SSLv2
-        SSLCipherSuite          HIGH:!ADH:RC4+RSA:-MEDIUM:-LOW:-EXP
+    ServerName <%= puppet_site %>
+    SSLEngine on
 
-        SSLCertificateFile      <%= puppet_ssldir %>/certs/<%= certname %>.pem
-        SSLCertificateKeyFile   <%= puppet_ssldir %>/private_keys/<%= certname %>.pem
-        SSLCertificateChainFile <%= puppet_ssldir %>/ca/ca_crt.pem
-        SSLCACertificateFile    <%= puppet_ssldir %>/ca/ca_crt.pem
-        # If Apache complains about invalid signatures on the CRL, you can try disabling
-        # CRL checking by commenting the next line, but this is not recommended.
-        SSLCARevocationFile     <%= puppet_ssldir %>/ca/ca_crl.pem
-        SSLVerifyClient optional
-        SSLVerifyDepth  1
-        SSLOptions +StdEnvVars +ExportCertData
+    # Only allow high security cryptography. Alter if needed for compatibility.
+    SSLProtocol             All -SSLv2
+    SSLCipherSuite          HIGH:!ADH:RC4+RSA:-MEDIUM:-LOW:-EXP
 
-        # These request headers are used to pass the client certificate
-        # authentication information on to the puppet master process
-        RequestHeader set X-SSL-Subject %{SSL_CLIENT_S_DN}e
-        RequestHeader set X-Client-DN %{SSL_CLIENT_S_DN}e
-        RequestHeader set X-Client-Verify %{SSL_CLIENT_VERIFY}e
+    SSLCertificateFile      <%= puppet_ssldir %>/certs/<%= certname %>.pem
+    SSLCertificateKeyFile   <%= puppet_ssldir %>/private_keys/<%= certname %>.pem
+    SSLCertificateChainFile <%= puppet_ssldir %>/ca/ca_crt.pem
+    SSLCACertificateFile    <%= puppet_ssldir %>/ca/ca_crt.pem
+    # If Apache complains about invalid signatures on the CRL, you can try disabling
+    # CRL checking by commenting the next line, but this is not recommended.
+    SSLCARevocationFile     <%= puppet_ssldir %>/ca/ca_crl.pem
+    SSLVerifyClient         optional
+    SSLVerifyDepth          1
+    SSLOptions              +StdEnvVars +ExportCertData
 
-        DocumentRoot <%= puppet_docroot %>
-        RackAutoDetect On
-        <Directory /etc/puppet/rack/>
-                Options None
-                AllowOverride None
-                Order allow,deny
-                allow from all
-        </Directory>
+    # These request headers are used to pass the client certificate
+    # authentication information on to the puppet master process
+    RequestHeader set X-SSL-Subject %{SSL_CLIENT_S_DN}e
+    RequestHeader set X-Client-DN %{SSL_CLIENT_S_DN}e
+    RequestHeader set X-Client-Verify %{SSL_CLIENT_VERIFY}e
+
+    DocumentRoot <%= puppet_docroot %>
+    RackAutoDetect On
+    <Directory /etc/puppet/rack/>
+        Options None
+        AllowOverride None
+        Order Allow,Deny
+        Allow from All
+    </Directory>
 </VirtualHost>
