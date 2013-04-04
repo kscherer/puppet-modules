@@ -27,6 +27,11 @@ Listen <%= puppet_passenger_port %>
     RequestHeader set X-Client-DN %{SSL_CLIENT_S_DN}e
     RequestHeader set X-Client-Verify %{SSL_CLIENT_VERIFY}e
 
+    #Some passenger tuning
+    PassengerHighPerformance on
+    # Recycle master processes after they service 1000 requests
+    PassengerMaxRequests 1000
+
     DocumentRoot <%= puppet_docroot %>
     RackAutoDetect On
     <Directory /etc/puppet/rack/>
