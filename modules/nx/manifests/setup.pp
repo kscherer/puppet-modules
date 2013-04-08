@@ -48,6 +48,10 @@ define nx::setup( $notxylo_branch = 'master') {
     "nx_instance.${name}":
       ensure     => running,
       enable     => true,
+      start      => "/etc/init.d/nx_instance.${name} start",
+      stop       => "/etc/init.d/nx_instance.${name} stop",
+      restart    => "/etc/init.d/nx_instance.${name} restart",
+      status     => "/etc/init.d/nx_instance.${name} status",
       hasstatus  => true,
       hasrestart => true,
       require    => [ Exec["clone_bin_repo_${name}"],
