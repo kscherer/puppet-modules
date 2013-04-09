@@ -57,4 +57,13 @@ class activemq::config (
     path    => "${path_real}/credentials.properties",
     content => $credentials,
   }
+
+  #If this directory does not exist then /tmp is used and clobbered by tmpwatch
+  file {
+    'jetty_tmp_dir':
+      ensure  => directory,
+      owner   => 'activemq',
+      group   => 'activemq',
+      path    => '/usr/share/activemq/webapps/admin/META-INF/work',
+  }
 }
