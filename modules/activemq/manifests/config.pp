@@ -64,6 +64,6 @@ class activemq::config (
       ensure  => directory,
       owner   => 'activemq',
       group   => 'activemq',
-      path    => '/usr/share/activemq/webapps/admin/META-INF/work',
+      path    => '/usr/share/activemq/webapps/admin/WEB-INF/work',
   }
 }
