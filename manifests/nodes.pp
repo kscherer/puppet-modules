@@ -28,11 +28,7 @@ node 'yow-lpg-amqp.wrs.com' {
   class { 'wr::yow-amqp': }
 }
 
-node 'yow-blade1.wrs.com' {
-  class { 'wr::yow-common': }
-}
-
-node 'yow-blade2.wrs.com' {
+node /yow-blade[1-4].wrs.com/ {
   class { 'wr::yow-common': }
 }
 
