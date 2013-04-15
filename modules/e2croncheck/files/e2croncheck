@@ -43,16 +43,18 @@ lv_snap="$lv-fsck-snapshot"
 dev="/dev/$vg/$lv"
 dev_snap="/dev/$vg/$lv_snap"
 
-start="$(date +%Y%m%d%H%M%S)"
+start_timestamp=$(date --rfc-3339=ns)
+echo "Background fsck started at $start_timestamp"
 
 #experiment with larger chunksize that matches RAID chunksize
-lvcreate --snapshot --chunksize 128 --size "$snapsize" --name "$lv_snap" "$vg/$lv"
+lvcreate --snapshot --chunksize 64 --size "$snapsize" --name "$lv_snap" "$vg/$lv"
 traps="$traps"'; lvremove -f "$vg/$lv_snap"'
 trap "$traps" 0
 
 if nice ionice -c 3 logsave -as "$fscklog" e2fsck -p  $fsckopts "$dev_snap" && \
    nice ionice -c 3 logsave -as "$fscklog" e2fsck -fy -tt $fsckopts "$dev_snap"; then
-  printf "%s: Background fsck succeeded\n" "$vg/$lv"
+  end_timestamp=$(date --rfc-3339=ns)
+  printf "%s: Background fsck succeeded at %s\n" "$vg/$lv" "$end_timestamp"
 
 else
   >&2 printf "%s: Background fsck failed! Reboot to fsck soon!\n" "$vg/$lv"
