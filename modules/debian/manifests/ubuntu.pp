@@ -34,7 +34,7 @@ class debian::ubuntu ( $mirror_base ) {
   exec {
     'bash_setup':
       path    => '/usr/bin:/usr/sbin:/bin',
-      command => 'echo \'dash    dash/sh boolean false\' | debconf-set-selections; dpkg-reconfigure -pcritical dash',
-      onlyif  => 'test `readlink /bin/sh` = dash'
+      command => 'echo \'dash    dash/sh boolean true\' | debconf-set-selections; dpkg-reconfigure -pcritical dash',
+      onlyif  => 'test `readlink /bin/sh` = bash'
   }
 }
