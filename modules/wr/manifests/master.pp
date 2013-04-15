@@ -25,7 +25,8 @@ class wr::master {
   }
 
   class { 'puppetdb':
-    manage_redhat_firewall => false
+    open_ssl_listen_port => false,
+    open_postgres_port   => false,
   }
   -> class {
     'puppetdb::master::config':
