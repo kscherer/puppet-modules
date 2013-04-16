@@ -3,6 +3,18 @@
 module=$1
 repo=$2
 
+if [ -z "$module" ] || [ -z "$repo" ]; then
+    echo "Usage: add_module <module> <repo>"
+    exit 1
+fi
+
+#make sure module does not already exist
+git remote show $module &> /dev/null
+if [ "$?" == "0" ]; then
+    echo "Puppet module $module already exists."
+    exit 1
+fi
+
 set -x
 
 #add remote and fetch repos
