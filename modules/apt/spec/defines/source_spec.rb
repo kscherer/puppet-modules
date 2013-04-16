@@ -6,6 +6,7 @@ describe 'apt::source', :type => :define do
 
   let :default_params do
     {
+      :ensure             => 'present',
       :location           => '',
       :release            => 'karmic',
       :repos              => 'main',
@@ -21,7 +22,7 @@ describe 'apt::source', :type => :define do
 
   [{},
    {
-      :location           => 'somewhere',
+      :location           => 'http://example.com',
       :release            => 'precise',
       :repos              => 'security',
       :include_src        => false,
@@ -35,6 +36,18 @@ describe 'apt::source', :type => :define do
       :key                => 'key_name',
       :key_server         => 'keyserver.debian.com',
       :key_content        => false,
+    },
+    {
+      :ensure             => 'absent',
+      :location           => 'http://example.com',
+      :release            => 'precise',
+      :repos              => 'security',
+    },
+    {
+      :release            => '',
+    },
+    {
+      :release            => 'custom',
     }
   ].each do |param_set|
     describe "when #{param_set == {} ? "using default" : "specifying"} class parameters" do
@@ -66,23 +79,23 @@ describe 'apt::source', :type => :define do
       it { should contain_apt__params }
 
       it { should contain_file("#{title}.list").with({
+          'ensure'    => param_hash[:ensure],
           'path'      => filename,
-          'ensure'    => "file",
-          'owner'     => "root",
-          'group'     => "root",
-          'mode'      => 644,
-          'content'   => content
+          'owner'     => 'root',
+          'group'     => 'root',
+          'mode'      => '0644',
+          'content'   => content,
         })
       }
 
       it {
         if param_hash[:pin]
-          should contain_apt__pin(param_hash[:release]).with({
+          should contain_apt__pin(title).with({
             "priority"  => param_hash[:pin],
             "before"    => "File[#{title}.list]"
           })
         else
-          should_not contain_apt__pin(param_hash[:release]).with({
+          should_not contain_apt__pin(title).with({
             "priority"  => param_hash[:pin],
             "before"    => "File[#{title}.list]"
           })
@@ -90,9 +103,8 @@ describe 'apt::source', :type => :define do
       }
 
       it {
-        should contain_exec("#{title} apt update").with({
+        should contain_exec("apt_update").with({
           "command"     => "/usr/bin/apt-get update",
-          "subscribe"   => "File[#{title}.list]",
           "refreshonly" => true
         })
       }

@@ -7,89 +7,108 @@
 #     added for use cases related to development environments.
 #   disable_keys - disables the requirement for all packages to be signed
 #   always_apt_update - rather apt should be updated on every run (intended
-#     for development environments where package updates are frequent
+#     for development environments where package updates are frequent)
 #   purge_sources_list - Accepts true or false. Defaults to false If set to
-#     true, Puppet will purge all unmanaged entries from sources.list"
+#     true, Puppet will purge all unmanaged entries from sources.list
 #   purge_sources_list_d - Accepts true or false. Defaults to false. If set
-#     to false, Puppet will purge all unmanaged entries from sources.list.d
+#     to true, Puppet will purge all unmanaged entries from sources.list.d
 #
 # Actions:
 #
 # Requires:
-#
+#   puppetlabs/stdlib
 # Sample Usage:
 #  class { 'apt': }
+
 class apt(
-  $always_apt_update = false,
-  $disable_keys = undef,
-  $proxy_host = false,
-  $proxy_port = '8080',
-  $purge_sources_list = false,
-  $purge_sources_list_d = false
+  $always_apt_update    = false,
+  $disable_keys         = undef,
+  $proxy_host           = false,
+  $proxy_port           = '8080',
+  $purge_sources_list   = false,
+  $purge_sources_list_d = false,
+  $purge_preferences_d  = false
 ) {
 
   include apt::params
+  include apt::update
 
-  validate_bool($purge_sources_list, $purge_sources_list_d)
+  validate_bool($purge_sources_list, $purge_sources_list_d, $purge_preferences_d)
 
-  $refresh_only_apt_update = $always_apt_update? {
-    true => false,
-    false => true
+  $sources_list_content = $purge_sources_list ? {
+    false => undef,
+    true  => "# Repos managed by puppet.\n",
   }
 
-  if ! defined(Package["python-software-properties"]) {
-    package { "python-software-properties": }
+  if $always_apt_update == true {
+    Exec <| title=='apt_update' |> {
+      refreshonly => false,
+    }
   }
 
-  file { "sources.list":
-    path => "${apt::params::root}/sources.list",
-    ensure => present,
-    owner => root,
-    group => root,
-    mode => 644,
-    content => $purge_sources_list ? {
-      false =>  undef,
-      true  => "# Repos managed by puppet.\n",
-    },
+  $root           = $apt::params::root
+  $apt_conf_d     = $apt::params::apt_conf_d
+  $sources_list_d = $apt::params::sources_list_d
+  $preferences_d  = $apt::params::preferences_d
+  $provider       = $apt::params::provider
+
+  file { 'sources.list':
+    ensure  => present,
+    path    => "${root}/sources.list",
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => $sources_list_content,
+    notify  => Exec['apt_update'],
   }
 
-  file { "sources.list.d":
-    path => "${apt::params::root}/sources.list.d",
-    ensure => directory,
-    owner => root,
-    group => root,
-    purge => $purge_sources_list_d,
+  file { 'sources.list.d':
+    ensure  => directory,
+    path    => $sources_list_d,
+    owner   => root,
+    group   => root,
+    purge   => $purge_sources_list_d,
     recurse => $purge_sources_list_d,
+    notify  => Exec['apt_update'],
   }
 
-  exec { "apt_update":
-    command => "${apt::params::provider} update",
-    subscribe => [ File["sources.list"], File["sources.list.d"] ],
-    refreshonly => $refresh_only_apt_update,
+  file { 'preferences.d':
+    ensure  => directory,
+    path    => $preferences_d,
+    owner   => root,
+    group   => root,
+    purge   => $purge_preferences_d,
+    recurse => $purge_preferences_d,
   }
 
   case $disable_keys {
     true: {
-      file { "99unauth":
-        content => "APT::Get::AllowUnauthenticated 1;\n",
+      file { '99unauth':
         ensure  => present,
-        path    => "/etc/apt/apt.conf.d/99unauth",
+        content => "APT::Get::AllowUnauthenticated 1;\n",
+        path    => "${apt_conf_d}/99unauth",
       }
     }
     false: {
-      file { "99unauth":
+      file { '99unauth':
         ensure => absent,
-        path   => "/etc/apt/apt.conf.d/99unauth",
+        path   => "${apt_conf_d}/99unauth",
       }
     }
-    undef: { } # do nothing
-    default: { fail("Valid values for disable_keys are true or false") }
+    undef:   { } # do nothing
+    default: { fail('Valid values for disable_keys are true or false') }
   }
 
-  if($proxy_host) {
+  if ($proxy_host) {
     file { 'configure-apt-proxy':
-      path    => '/etc/apt/apt.conf.d/proxy',
+      path    => "${apt_conf_d}/proxy",
       content => "Acquire::http::Proxy \"http://${proxy_host}:${proxy_port}\";",
+      notify  => Exec['apt_update'],
     }
+  }
+
+  # Need anchor to provide containment for dependencies.
+  anchor { 'apt::update':
+    require => Class['apt::update'],
   }
 }
