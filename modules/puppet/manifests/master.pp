@@ -155,7 +155,6 @@ class puppet::master (
     Package[$passenger_package]
     -> Apache::Vhost["puppet-${puppet_site}"]
 
-    include apache
     apache::vhost { "puppet-${puppet_site}":
       port        => $puppet_passenger_port,
       priority    => '40',

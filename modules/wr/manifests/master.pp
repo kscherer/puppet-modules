@@ -8,6 +8,8 @@ class wr::master {
   -> Class['mysql::ruby']
   -> Class['wr::master']
 
+  include apache
+
   class { 'wr::mcollective': client => true }
 
   class {
