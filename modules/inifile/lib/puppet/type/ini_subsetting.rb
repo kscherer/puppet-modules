@@ -1,4 +1,4 @@
-Puppet::Type.newtype(:ini_setting) do
+Puppet::Type.newtype(:ini_subsetting) do
 
   ensurable do
     defaultvalues
@@ -15,6 +15,15 @@ Puppet::Type.newtype(:ini_setting) do
 
   newparam(:setting) do
     desc 'The name of the setting to be defined.'
+  end
+
+  newparam(:subsetting) do
+    desc 'The name of the subsetting to be defined.'
+  end
+
+  newparam(:subsetting_separator) do
+    desc 'The separator string between subsettings. Defaults to " "'
+    defaultto(" ")
   end
 
   newparam(:path) do
@@ -40,8 +49,7 @@ Puppet::Type.newtype(:ini_setting) do
   end
 
   newproperty(:value) do
-    desc 'The value of the setting to be defined.'
+    desc 'The value of the subsetting to be defined.'
   end
-
 
 end
