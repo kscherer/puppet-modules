@@ -7,7 +7,7 @@ class wr::yow_lpd_monitor {
   -> class { 'graphite': }
 
   #nagios class notifies httpd service so -> relationship creates cycles
-  class { 'apache': }
+  include apache
 
   realize( Redhat::Yum_repo['graphite'] )
   Yumrepo['graphite'] -> Class['graphite']

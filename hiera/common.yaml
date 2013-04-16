@@ -8,3 +8,5 @@ graphite::carbon::service::aggregator_ensure: "running"
 graphite::carbon::service::aggregator_enable: true
 packages:
   - screen
+apache::purge_vdir: false
+apache::serveradmin: Konrad.Scherer@windriver.com
