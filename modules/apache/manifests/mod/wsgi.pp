@@ -8,5 +8,6 @@ class apache::mod::wsgi {
   }
 
   a2mod { 'wsgi': ensure => present; }
+
 }
 
