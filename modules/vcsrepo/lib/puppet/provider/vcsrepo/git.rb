@@ -54,7 +54,7 @@ Puppet::Type.type(:vcsrepo).provide(:git, :parent => Puppet::Provider::Vcsrepo) 
     return current unless @resource.value(:revision)
 
     if tag_revision?(@resource.value(:revision))
-      canonical = at_path { git_with_identity('show', @resource.value(:revision)).scan(/commit (.*)/).to_s }
+      canonical = at_path { git_with_identity('show', @resource.value(:revision)).scan(/^commit (.*)/).to_s }
     else
       canonical = at_path { git_with_identity('rev-parse', @resource.value(:revision)).chomp }
     end
@@ -93,8 +93,18 @@ Puppet::Type.type(:vcsrepo).provide(:git, :parent => Puppet::Provider::Vcsrepo) 
     working_copy_exists? || bare_exists?
   end
 
+  def update_remote_origin_url
+    current = git_with_identity('config', 'remote.origin.url')
+    unless @resource.value(:source).nil?
+      if current.nil? or current.strip != @resource.value(:source)
+        git_with_identity('config', 'remote.origin.url', @resource.value(:source))
+      end
+    end
+  end
+
   def update_references
     at_path do
+      update_remote_origin_url
       git_with_identity('fetch', @resource.value(:remote))
       git_with_identity('fetch', '--tags', @resource.value(:remote))
       update_owner_and_excludes
@@ -115,7 +125,9 @@ Puppet::Type.type(:vcsrepo).provide(:git, :parent => Puppet::Provider::Vcsrepo) 
     end
     if !File.exist?(File.join(@resource.value(:path), '.git'))
       args.push(source, path)
-      git_with_identity(*args)
+      Dir.chdir("/") do
+        git_with_identity(*args)
+      end
     else
       notice "Repo has already been cloned"
     end
@@ -141,6 +153,7 @@ Puppet::Type.type(:vcsrepo).provide(:git, :parent => Puppet::Provider::Vcsrepo) 
     else
       # normal init
       FileUtils.mkdir(@resource.value(:path))
+      FileUtils.chown(@resource.value(:user), nil, @resource.value(:path)) if @resource.value(:user)
       args = ['init']
       if @resource.value(:ensure) == :bare
         args << '--bare'
@@ -250,6 +263,7 @@ Puppet::Type.type(:vcsrepo).provide(:git, :parent => Puppet::Provider::Vcsrepo) 
       create
     end
     at_path do
+      update_remote_origin_url
       git_with_identity('fetch', @resource.value(:remote))
       git_with_identity('fetch', '--tags', @resource.value(:remote))
     end
