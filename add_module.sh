@@ -15,6 +15,12 @@ if [ "$?" == "0" ]; then
     exit 1
 fi
 
+#make sure directory doesn't already exist
+if [ -d "modules/$module" ]; then
+    echo "Directory modules/$module already exists."
+    exit 1
+fi
+
 set -x
 
 #add remote and fetch repos
