@@ -47,6 +47,20 @@ class nagios(
       path    => "${nagios_dir}/passwd",
       source  => 'puppet:///modules/nagios/passwd',
       notify  => Service['httpd'],
-      mode    => '0640', owner => root, group => apache;
+      mode    => '0640',
+      owner   => root,
+      group   => apache;
+    'nagios_http_conf':
+      ensure  => 'present',
+      path    => '/etc/httpd/conf.d/nagios.conf',
+      mode    => '0644',
+      owner   => root,
+      group   => root;
+    'nagios_php_conf':
+      ensure  => 'present',
+      path    => '/etc/httpd/conf.d/php.conf',
+      mode    => '0644',
+      owner   => root,
+      group   => root;
   }
 }

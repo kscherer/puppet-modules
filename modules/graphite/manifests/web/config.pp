@@ -21,5 +21,11 @@ class graphite::web::config ($time_zone = undef){
     mode      => '0644',
     notify    => Service['httpd'],
     content   => template('graphite/local_settings.py.erb');
+  'graphite_http_conf':
+    ensure  => 'present',
+    path    => '/etc/httpd/conf.d/graphite-web.conf',
+    mode    => '0644',
+    owner   => root,
+    group   => root;
   }
 }
