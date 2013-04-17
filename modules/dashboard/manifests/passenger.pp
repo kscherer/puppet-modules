@@ -22,13 +22,10 @@ class dashboard::passenger (
   Package[$passenger_package]
   -> Apache::Vhost["dashboard-$dashboard_site"]
 
-  ensure_resource( 'package', $passenger_package, {'ensure' => $passenger_ensure })
-
   file { '/etc/init.d/puppet-dashboard':
     ensure => absent,
   }
 
-  include apache
   apache::vhost { "dashboard-$dashboard_site":
     port        => $dashboard_port,
     priority    => '50',

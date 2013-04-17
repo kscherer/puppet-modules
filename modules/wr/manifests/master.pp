@@ -9,6 +9,7 @@ class wr::master {
   -> Class['wr::master']
 
   include apache
+  include apache::mod::passenger
 
   class { 'wr::mcollective': client => true }
 
