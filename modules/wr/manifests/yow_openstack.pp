@@ -2,7 +2,6 @@
 class wr::yow_openstack {
 
   include wr::yow-common
-  include dell
 
   user {
     'root':
