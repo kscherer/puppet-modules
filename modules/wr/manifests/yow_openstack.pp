@@ -14,6 +14,10 @@ class wr::yow_openstack {
       content => 'This machine is a test OpenStack machine.';
   }
 
+  redhat::yum_repo {
+    'openstack':
+      baseurl  => 'http://yow-mirror.wrs.com/mirror/openstack';
+  } ->
   class {
     'openstack::all':
       public_address       => $::ipaddress,
@@ -34,5 +38,6 @@ class wr::yow_openstack {
       libvirt_type         => 'kvm',
       fixed_range          => '10.0.0.0/24',
       secret_key           => 'dummy_secret_key',
+      quantum              => false,
   }
 }
