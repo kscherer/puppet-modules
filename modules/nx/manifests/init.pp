@@ -179,6 +179,7 @@ class nx {
       minute  => 0,
       require => User[ 'nxadm' ];
     'clean_really_old_nx_processes':
+      ensure  => absent,
       command => 'ps -U nxadm -o pid,etime,command | awk \'$2~/-/ {if ($2>11) print $1}\' | xargs kill -9',
       user    => nxadm,
       hour    => 20,
