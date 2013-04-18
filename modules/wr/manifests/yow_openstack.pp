@@ -1,7 +1,22 @@
 #
 class wr::yow_openstack {
 
-  include wr::yow-common
+  include wr::yow_dns
+  include redhat
+  include ntp
+
+  class { 'puppet':
+    puppet_server               => $wr::common::puppet_server,
+    puppet_agent_ensure         => $wr::common::puppet_version,
+    puppet_agent_service_enable => false,
+    agent                       => true,
+  }
+  include sudo
+
+  sudo::conf {
+    'admin':
+      source  => 'puppet:///modules/wr/sudoers.d/admin';
+  }
 
   user {
     'root':
