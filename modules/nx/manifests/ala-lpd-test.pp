@@ -2,7 +2,6 @@
 class nx::ala-lpd-test {
 
   case $::hostname {
-    'ala-lpd-test3': { nx::setup { ['1','2','3']: } }
     default: {  nx::setup { ['1','2']: } }
   }
 
@@ -24,8 +23,7 @@ class nx::ala-lpd-test {
     '/home/nxadm/nx':
       ensure  => link,
       target  => '/buildarea/nxadm/nx';
-    [ "/home/nxadm/nx/${::hostname}.1", "/home/nxadm/nx/${::hostname}.2",
-      "/home/nxadm/nx/${::hostname}.3" ]:
+    [ "/home/nxadm/nx/${::hostname}.1", "/home/nxadm/nx/${::hostname}.2" ]:
       ensure  => directory,
       owner   => 'nxadm',
       group   => 'nxadm',

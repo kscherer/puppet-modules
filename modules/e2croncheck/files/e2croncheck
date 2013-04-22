@@ -52,7 +52,7 @@ traps="$traps"'; lvremove -f "$vg/$lv_snap"'
 trap "$traps" 0
 
 if nice ionice -c 3 logsave -as "$fscklog" e2fsck -p  $fsckopts "$dev_snap" && \
-   nice ionice -c 3 logsave -as "$fscklog" e2fsck -fy -tt $fsckopts "$dev_snap"; then
+   nice ionice -c 3 logsave -as "$fscklog" e2fsck -fy $fsckopts "$dev_snap"; then
   end_timestamp=$(date --rfc-3339=ns)
   printf "%s: Background fsck succeeded at %s\n" "$vg/$lv" "$end_timestamp"
 
