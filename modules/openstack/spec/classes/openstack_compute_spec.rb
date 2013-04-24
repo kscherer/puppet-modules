@@ -8,6 +8,7 @@ describe 'openstack::compute' do
       :internal_address      => '0.0.0.0',
       :nova_user_password    => 'nova_pass',
       :rabbit_password       => 'rabbit_pw',
+      :rabbit_host           => '127.0.0.1',
       :rabbit_virtual_host   => '/',
       :sql_connection        => 'mysql://user:pass@host/dbname/',
       :cinder_sql_connection => 'mysql://user:pass@host/dbname/',
@@ -48,8 +49,8 @@ describe 'openstack::compute' do
         :libvirt_type     => 'kvm',
         :vncserver_listen => '0.0.0.0'
       )
-      should contain_nova_config('multi_host').with( :value => 'False' )
-      should contain_nova_config('send_arp_for_ha').with( :value => 'False' )
+      should contain_nova_config('DEFAULT/multi_host').with( :value => 'False' )
+      should contain_nova_config('DEFAULT/send_arp_for_ha').with( :value => 'False' )
       should_not contain_class('nova::api')
       should contain_class('nova::network').with({
         :enabled           => false,
@@ -110,8 +111,8 @@ describe 'openstack::compute' do
         :libvirt_type     => 'qemu',
         :vncserver_listen => '127.0.0.1'
       )
-      should contain_nova_config('multi_host').with( :value => 'False' )
-      should contain_nova_config('send_arp_for_ha').with( :value => 'False' )
+      should contain_nova_config('DEFAULT/multi_host').with( :value => 'False' )
+      should contain_nova_config('DEFAULT/send_arp_for_ha').with( :value => 'False' )
       should_not contain_class('nova::api')
       should contain_class('nova::network').with({
         :enabled           => false,
@@ -133,7 +134,7 @@ describe 'openstack::compute' do
     end
 
     it do
-      should contain_nova_config('multi_host').with({ 'value' => 'False'})
+      should contain_nova_config('DEFAULT/multi_host').with({ 'value' => 'False'})
       should_not contain_class('nova::api')
       should contain_class('nova::network').with({
         'enabled' => false,
@@ -154,8 +155,8 @@ describe 'openstack::compute' do
 
       it 'should configure nova for multi-host' do
         #should contain_class('keystone::python')
-        should contain_nova_config('multi_host').with(:value => 'True')
-        should contain_nova_config('send_arp_for_ha').with( :value => 'True')
+        should contain_nova_config('DEFAULT/multi_host').with(:value => 'True')
+        should contain_nova_config('DEFAULT/send_arp_for_ha').with( :value => 'True')
         should contain_class('nova::network').with({
           'enabled' => true,
           'install_service' => true
@@ -219,13 +220,47 @@ describe 'openstack::compute' do
     end
 
     it {
-      should contain_nova_config('multi_host').with({ 'value' => 'True'})
+      should contain_nova_config('DEFAULT/multi_host').with({ 'value' => 'True'})
       should contain_class('nova::api')
       should contain_class('nova::network').with({
         'enabled' => true,
         'install_service' => true
       })
     }
+  end
+
+  describe 'when configuring quantum' do
+    let :params do
+      default_params.merge({
+        :internal_address      => '127.0.0.1',
+        :public_interface      => 'eth3',
+        :quantum               => true,
+        :keystone_host         => '127.0.0.1',
+        :quantum_host          => '127.0.0.1',
+        :quantum_user_password => 'quantum_user_password',
+      })
+    end
+    it 'should configure quantum' do
+      should contain_class('quantum').with(
+        :verbose         => 'False',
+        :debug           => 'False',
+        :rabbit_host     => default_params[:rabbit_host],
+        :rabbit_password => default_params[:rabbit_password]
+      )
+      should contain_class('quantum::agents::ovs').with(
+        :enable_tunneling => true,
+        :local_ip         => '127.0.0.1'
+      )
+      should contain_class('nova::compute::quantum')
+      should contain_class('nova::network::quantum').with(
+        :quantum_admin_password    => 'quantum_user_password',
+        :quantum_auth_strategy     => 'keystone',
+        :quantum_url               => "http://127.0.0.1:9696",
+        :quantum_admin_tenant_name => 'services',
+        :quantum_admin_username    => 'quantum',
+        :quantum_admin_auth_url    => "http://127.0.0.1:35357/v2.0"
+      )
+    end
   end
 
 end

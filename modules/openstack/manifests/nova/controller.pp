@@ -60,6 +60,7 @@ class openstack::nova::controller (
   $glance_api_servers        = undef,
   # VNC
   $vnc_enabled               = true,
+  $vncproxy_host             = undef,
   # General
   $keystone_host             = '127.0.0.1',
   $verbose                   = 'False',
@@ -78,7 +79,12 @@ class openstack::nova::controller (
   } else {
     $real_glance_api_servers = $glance_api_servers
   }
-
+  if $vncproxy_host {
+    $vncproxy_host_real = $vncproxy_host
+  } else {
+    $vncproxy_host_real = $public_address
+  }
+  
   $sql_connection    = $nova_db
   $glance_connection = $real_glance_api_servers
   $rabbit_connection = $internal_address
@@ -120,7 +126,7 @@ class openstack::nova::controller (
   if $quantum == false {
     # Configure nova-network
     if $multi_host {
-      nova_config { 'multi_host': value => 'True' }
+      nova_config { 'DEFAULT/multi_host': value => 'True' }
       $enable_network_service = false
     } else {
       if $enabled {
@@ -160,11 +166,11 @@ class openstack::nova::controller (
     class { 'quantum::plugins::ovs':
       sql_connection      => $quantum_sql_connection,
       tenant_network_type => 'gre',
-      enable_tunneling    => true,
     }
 
     class { 'quantum::agents::ovs':
-      bridge_uplinks   => ["br-virtual:${private_interface}"],
+      bridge_uplinks   => ["br-ex:${public_interface}"],
+      bridge_mappings  => ['external:br-ex'],
       enable_tunneling => true,
       local_ip         => $internal_address,
     }
@@ -173,32 +179,23 @@ class openstack::nova::controller (
       use_namespaces => False,
     }
 
-
-#    class { 'quantum::agents::dhcp':
-#      use_namespaces => False,
-#    }
-#
-#
-#    class { 'quantum::agents::l3':
-#      auth_password => $quantum_user_password,
-#    }
+    class { 'quantum::agents::l3':
+      external_network_bridge => 'br-ex',
+      auth_password           => $quantum_user_password,
+    }
 
     class { 'nova::network::quantum':
-    #$fixed_range,
       quantum_admin_password    => $quantum_user_password,
-    #$use_dhcp                  = 'True',
-    #$public_interface          = undef,
-      quantum_connection_host   => 'localhost',
       quantum_auth_strategy     => 'keystone',
       quantum_url               => "http://${keystone_host}:9696",
       quantum_admin_tenant_name => 'services',
-      #quantum_admin_username    => 'quantum',
+      quantum_admin_username    => 'quantum',
       quantum_admin_auth_url    => "http://${keystone_host}:35357/v2.0",
     }
   }
 
   if $auto_assign_floating_ip {
-    nova_config { 'auto_assign_floating_ip': value => 'True' }
+    nova_config { 'DEFAULT/auto_assign_floating_ip': value => 'True' }
   }
 
   # a bunch of nova services that require no configuration
@@ -213,7 +210,7 @@ class openstack::nova::controller (
 
   if $vnc_enabled {
     class { 'nova::vncproxy':
-      host    => $public_address,
+      host    => $vncproxy_host_real,
       enabled => $enabled,
     }
   }

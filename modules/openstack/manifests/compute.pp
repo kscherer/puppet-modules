@@ -33,7 +33,6 @@ class openstack::compute (
   $multi_host                    = false,
   # Quantum
   $quantum                       = false,
-  $quantum_sql_connection        = false,
   $quantum_host                  = false,
   $quantum_user_password         = false,
   $keystone_host                 = false,
@@ -119,8 +118,8 @@ class openstack::compute (
     if $multi_host {
       include keystone::python
       nova_config {
-        'multi_host':      value => 'True';
-        'send_arp_for_ha': value => 'True';
+        'DEFAULT/multi_host':      value => 'True';
+        'DEFAULT/send_arp_for_ha': value => 'True';
       }
       if ! $public_interface {
         fail('public_interface must be defined for multi host compute nodes')
@@ -136,8 +135,8 @@ class openstack::compute (
     } else {
       $enable_network_service = false
       nova_config {
-        'multi_host':      value => 'False';
-        'send_arp_for_ha': value => 'False';
+        'DEFAULT/multi_host':      value => 'False';
+        'DEFAULT/send_arp_for_ha': value => 'False';
       }
     }
 
@@ -154,9 +153,6 @@ class openstack::compute (
     }
   } else {
 
-    if ! $quantum_sql_connection {
-      fail('quantum sql connection must be specified when quantum is installed on compute instances')
-    }
     if ! $quantum_host {
       fail('quantum host must be specified when quantum is installed on compute instances')
     }
@@ -176,23 +172,9 @@ class openstack::compute (
       #sql_connection  => $quantum_sql_connection,
     }
 
-    class { 'quantum::plugins::ovs':
-      tenant_network_type => 'gre',
-      enable_tunneling    => true,
-    }
-
     class { 'quantum::agents::ovs':
-      bridge_uplinks   => ["br-virtual:${private_interface}"],
       enable_tunneling => true,
       local_ip         => $internal_address,
-    }
-
-    class { 'quantum::agents::dhcp':
-      use_namespaces => False,
-    }
-
-    class { 'quantum::agents::l3':
-      auth_password => $quantum_user_password,
     }
 
     class { 'nova::compute::quantum': }
@@ -200,21 +182,17 @@ class openstack::compute (
     # does this have to be installed on the compute node?
     # NOTE
     class { 'nova::network::quantum':
-    #$fixed_range,
       quantum_admin_password    => $quantum_user_password,
-    #$use_dhcp                  = 'True',
-    #$public_interface          = undef,
-      quantum_connection_host   => $quantum_host,
-      #quantum_auth_strategy     => 'keystone',
+      quantum_auth_strategy     => 'keystone',
       quantum_url               => "http://${keystone_host}:9696",
       quantum_admin_tenant_name => 'services',
-      #quantum_admin_username    => 'quantum',
+      quantum_admin_username    => 'quantum',
       quantum_admin_auth_url    => "http://${keystone_host}:35357/v2.0"
     }
 
     nova_config {
-      'linuxnet_interface_driver':       value => 'nova.network.linux_net.LinuxOVSInterfaceDriver';
-      'linuxnet_ovs_integration_bridge': value => 'br-int';
+      'DEFAULT/linuxnet_interface_driver':       value => 'nova.network.linux_net.LinuxOVSInterfaceDriver';
+      'DEFAULT/linuxnet_ovs_integration_bridge': value => 'br-int';
     }
   }
 
@@ -232,8 +210,8 @@ class openstack::compute (
     }
 
     # set in nova::api
-    if ! defined(Nova_config['volume_api_class']) {
-      nova_config { 'volume_api_class': value => 'nova.volume.cinder.API' }
+    if ! defined(Nova_config['DEFAULT/volume_api_class']) {
+      nova_config { 'DEFAULT/volume_api_class': value => 'nova.volume.cinder.API' }
     }
   } else {
     # Set up nova-volume
