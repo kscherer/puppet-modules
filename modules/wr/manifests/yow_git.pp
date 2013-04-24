@@ -12,4 +12,11 @@ class wr::yow_git {
       ensure  => installed,
       require => Yumrepo['git'];
   }
+
+  sudo::conf {
+    'it':
+      source  => 'puppet:///modules/wr/sudoers.d/it';
+    'scmg':
+      source  => 'puppet:///modules/wr/sudoers.d/scmg';
+    }
 }
