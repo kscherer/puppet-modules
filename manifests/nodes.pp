@@ -89,7 +89,7 @@ node /pek-hostel-vm(19|2[0-9]|3[0-6])\.wrs\.com$/ {
 
 node /pek-hostel-vm(0[1-9]|1[0-3])\.wrs\.com/ {
   class { 'wr::pek-hostel': }
-  -> class { 'nx::pek-hostel': }
+  -> class { 'nis': }
 }
 
 node /ala-blade\d+\.wrs\.com/ {
