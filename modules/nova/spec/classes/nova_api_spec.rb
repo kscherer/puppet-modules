@@ -15,9 +15,10 @@ describe 'nova::api' do
       { :osfamily => 'Debian' }
     end
     it { should contain_service('nova-api').with(
-      'name'    => 'nova-api',
-      'ensure'  => 'stopped',
-      'enable'  => false
+      'name'      => 'nova-api',
+      'ensure'    => 'stopped',
+      'hasstatus' => 'true',
+      'enable'    => false
     )}
     it { should contain_package('nova-api').with(
       'name'   => 'nova-api',
@@ -29,9 +30,10 @@ describe 'nova::api' do
         {:admin_password => 'passw0rd', :enabled => true}
       end
     it { should contain_service('nova-api').with(
-      'name'    => 'nova-api',
-      'ensure'  => 'running',
-      'enable'  => true
+      'name'      => 'nova-api',
+      'ensure'    => 'running',
+      'hasstatus' => 'true',
+      'enable'    => true
     )}
     end
     describe 'with package version' do
@@ -57,10 +59,10 @@ describe 'nova::api' do
         should contain_nova_paste_api_ini(
           'filter:authtoken/admin_password').with_value('passw0rd')
       end
-      it { should contain_nova_config('ec2_listen').with('value' => '0.0.0.0') }
-      it { should contain_nova_config('osapi_compute_listen').with('value' => '0.0.0.0') }
-      it { should contain_nova_config('metadata_listen').with('value' => '0.0.0.0') }
-      it { should contain_nova_config('osapi_volume_listen').with('value' => '0.0.0.0') }
+      it { should contain_nova_config('DEFAULT/ec2_listen').with('value' => '0.0.0.0') }
+      it { should contain_nova_config('DEFAULT/osapi_compute_listen').with('value' => '0.0.0.0') }
+      it { should contain_nova_config('DEFAULT/metadata_listen').with('value' => '0.0.0.0') }
+      it { should contain_nova_config('DEFAULT/osapi_volume_listen').with('value' => '0.0.0.0') }
     end
     describe 'with params' do
       let :params do
@@ -90,10 +92,10 @@ describe 'nova::api' do
         should contain_nova_paste_api_ini(
           'filter:authtoken/admin_password').with_value('passw0rd2')
       end
-      it { should contain_nova_config('ec2_listen').with('value' => '192.168.56.210') }
-      it { should contain_nova_config('osapi_compute_listen').with('value' => '192.168.56.210') }
-      it { should contain_nova_config('metadata_listen').with('value' => '192.168.56.210') }
-      it { should contain_nova_config('osapi_volume_listen').with('value' => '192.168.56.210') }
+      it { should contain_nova_config('DEFAULT/ec2_listen').with('value' => '192.168.56.210') }
+      it { should contain_nova_config('DEFAULT/osapi_compute_listen').with('value' => '192.168.56.210') }
+      it { should contain_nova_config('DEFAULT/metadata_listen').with('value' => '192.168.56.210') }
+      it { should contain_nova_config('DEFAULT/osapi_volume_listen').with('value' => '192.168.56.210') }
     end
   end
   describe 'on rhel' do

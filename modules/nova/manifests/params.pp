@@ -33,10 +33,17 @@ class nova::params {
       $tgt_service_name         = 'tgtd'
       $vncproxy_service_name    = 'openstack-nova-novncproxy'
       $volume_service_name      = 'openstack-nova-volume'
-      $special_service_provider = 'init'
       # redhat specific config defaults
       $root_helper              = 'sudo nova-rootwrap'
       $lock_path                = '/var/lib/nova/tmp'
+      case $::operatingsystem {
+        'RedHat': {
+          $special_service_provider = 'init'
+        }
+        default: {
+          $special_service_provider = undef
+        }
+      }
     }
     'Debian': {
       # package names
@@ -45,6 +52,7 @@ class nova::params {
       $common_package_name      = 'nova-common'
       $compute_package_name     = 'nova-compute'
       $conductor_package_name   = 'nova-conductor'
+      $consoleauth_package_name = 'nova-consoleauth'
       $doc_package_name         = 'nova-doc'
       $libvirt_package_name     = 'libvirt-bin'
       $network_package_name     = 'nova-network'
@@ -70,14 +78,12 @@ class nova::params {
       $lock_path                = '/var/lock/nova'
       case $::operatingsystem {
         'Debian': {
-          $consoleauth_package_name = 'nova-console'
           $vncproxy_package_name    = 'novnc'
           $vncproxy_service_name    = 'novnc'
           # Use default provider on Debian
           $special_service_provider = undef
         }
         default: {
-          $consoleauth_package_name = 'nova-consoleauth'
           $vncproxy_package_name    = ['novnc', 'nova-novncproxy']
           $vncproxy_service_name    = 'nova-novncproxy'
           # some of the services need to be started form the special upstart provider

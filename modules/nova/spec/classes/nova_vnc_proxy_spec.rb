@@ -20,16 +20,17 @@ describe 'nova::vncproxy' do
       :name   => 'python-numpy'
     )}
 
-    it { should contain_nova_config('novncproxy_host').with(:value => '0.0.0.0') }
-    it { should contain_nova_config('novncproxy_port').with(:value => '6080') }
+    it { should contain_nova_config('DEFAULT/novncproxy_host').with(:value => '0.0.0.0') }
+    it { should contain_nova_config('DEFAULT/novncproxy_port').with(:value => '6080') }
 
     it { should contain_package('nova-vncproxy').with(
       :name   => ["novnc", "nova-novncproxy"],
       :ensure => 'present'
     ) }
     it { should contain_service('nova-vncproxy').with(
-      :name   => 'nova-novncproxy',
-      :ensure => 'running'
+      :name      => 'nova-novncproxy',
+      :hasstatus => 'true',
+      :ensure    => 'running'
     )}
 
     describe 'with package version' do
@@ -52,8 +53,9 @@ describe 'nova::vncproxy' do
         :ensure => 'present'
       )}
       it { should contain_service('nova-vncproxy').with(
-        :name   => 'novnc',
-        :ensure => 'running'
+        :name      => 'novnc',
+        :hasstatus => 'true',
+        :ensure    => 'running'
       )}
   end
 

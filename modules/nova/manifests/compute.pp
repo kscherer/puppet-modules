@@ -15,21 +15,18 @@ class nova::compute(
   include nova::params
 
   if ($vnc_enabled) {
-    if !($vncproxy_host) {
-      warning("VNC is enabled and \$vncproxy_host must be specified nova::compute assumes that it can collect the exported resource: Nova_config[novncproxy_base_url]")
-      Nova_config <<| title == 'novncproxy_base_url' |>>
-    } else {
+    if ($vncproxy_host) {
       $vncproxy_base_url = "${vncproxy_protocol}://${vncproxy_host}:${vncproxy_port}${vncproxy_path}"
       # config for vnc proxy
       nova_config {
-        'novncproxy_base_url': value => $vncproxy_base_url;
+        'DEFAULT/novncproxy_base_url': value => $vncproxy_base_url;
       }
     }
   }
 
   nova_config {
-    'vnc_enabled': value => $vnc_enabled;
-    'vncserver_proxyclient_address': value => $vncserver_proxyclient_address;
+    'DEFAULT/vnc_enabled': value => $vnc_enabled;
+    'DEFAULT/vncserver_proxyclient_address': value => $vncserver_proxyclient_address;
   }
 
   package { 'bridge-utils':
@@ -47,7 +44,7 @@ class nova::compute(
 
   if $virtio_nic {
     # Enable the virtio network card for instances
-    nova_config { 'libvirt_use_virtio_for_bridges': value => 'True' }
+    nova_config { 'DEFAULT/libvirt_use_virtio_for_bridges': value => 'True' }
   }
 
 }
