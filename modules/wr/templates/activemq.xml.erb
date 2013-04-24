@@ -14,7 +14,9 @@
   </bean>
   
 <% end -%>
-  <broker xmlns="http://activemq.apache.org/schema/core" brokerName="<%= broker_name -%>" useJmx="true" schedulePeriodForDestinationPurge="60000">
+  <broker xmlns="http://activemq.apache.org/schema/core"
+          brokerName="<%= broker_name -%>" useJmx="true"
+          schedulePeriodForDestinationPurge="60000" deleteAllMessagesOnStartup="true" >
     <destinationPolicy>
       <policyMap>
         <policyEntries>
