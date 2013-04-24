@@ -39,6 +39,7 @@ class cinder::api (
     name      => $::cinder::params::api_service,
     enable    => $enabled,
     ensure    => $ensure,
+    hasstatus => true,
     require   => Package['cinder'],
   }
 
@@ -69,6 +70,7 @@ class cinder::api (
     user        => 'cinder',
     refreshonly => true,
     logoutput   => 'on_failure',
+    require     => Package['cinder'],
   }
 
 }
