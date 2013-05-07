@@ -15,7 +15,7 @@ class e2croncheck {
   cron {
     'e2croncheck':
       ensure      => present,
-      command     => 'PATH=/bin:/sbin/:/usr/bin /root/e2croncheck vg/data',
+      command     => 'PATH=/bin:/sbin/:/usr/bin /root/e2croncheck vg/data > /dev/null',
       environment => 'MAILTO=konrad.scherer@windriver.com',
       user        => root,
       hour        => 22,
