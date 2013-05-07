@@ -31,6 +31,10 @@ node 'yow-lpg-amqp.wrs.com' {
 node 'yow-blade2.wrs.com' {
 }
 
+node 'yow-blade3.wrs.com' {
+  class { 'wr::yow_openstack': }
+}
+
 node /yow-blade[1-3].wrs.com/ {
   class { 'wr::yow-common': }
 }
