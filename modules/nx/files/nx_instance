@@ -103,6 +103,7 @@ start() {
         stop
     elif [ "$RETVAL" -eq "151" ]; then
         echo "Warning: Nx is experiencing external glitches. Start request ignored ."
+        RETVAL=0
         return 0
     elif [ "$RETVAL" -eq "4" ]; then
         echo "Nx is in unknown state, restarting..."
