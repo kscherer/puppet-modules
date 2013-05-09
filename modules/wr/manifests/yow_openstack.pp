@@ -14,6 +14,8 @@ class wr::yow_openstack inherits wr::mcollective {
   sudo::conf {
     'admin':
       source  => 'puppet:///modules/wr/sudoers.d/admin';
+    'openstack':
+      source  => 'puppet:///modules/wr/sudoers.d/openstack';
   }
 
   user {
