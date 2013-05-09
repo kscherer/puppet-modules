@@ -1,8 +1,6 @@
 #
 class wr::yow_openstack {
 
-  include wr::yow_dns
-  include redhat
   include ntp
 
   class { 'puppet':
@@ -28,16 +26,27 @@ class wr::yow_openstack {
       content => 'This machine is a test OpenStack machine.';
   }
 
-  redhat::yum_repo {
-    'openstack':
-      baseurl  => 'http://yow-mirror.wrs.com/mirror/openstack';
-  } ->
+  package {
+    'ubuntu-cloud-keyring':
+      ensure => installed;
+  }
+
+  include debian
+
+  apt::source {
+    'ubuntu_cloud_archive':
+      location    => 'http://ubuntu-cloud.archive.canonical.com/ubuntu',
+      release     => 'precise-updates/grizzly',
+      repos       => 'main',
+      include_src => false;
+  }
+
   class {
     'openstack::all':
       public_address       => $::ipaddress,
-      public_interface     => 'em1',
-      private_interface    => 'p3p1',
-      floating_range       => '128.224.137.128/26',
+      public_interface     => 'eth0',
+      private_interface    => 'eth2',
+      floating_range       => '128.224.137.192/27',
       admin_email          => 'Konrad.Scherer@windriver.com',
       admin_password       => 'admin_password',
       mysql_root_password  => 'mysql_pass',
@@ -50,7 +59,7 @@ class wr::yow_openstack {
       rabbit_password      => 'rabbit_password',
       rabbit_user          => 'openstack',
       libvirt_type         => 'kvm',
-      fixed_range          => '10.0.0.0/24',
+      fixed_range          => '10.193.219.0/24',
       secret_key           => 'dummy_secret_key',
       quantum              => false,
   }
