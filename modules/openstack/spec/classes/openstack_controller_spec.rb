@@ -5,33 +5,38 @@ describe 'openstack::controller' do
   # minimum set of default parameters
   let :default_params do
     {
-      :private_interface     => 'eth0',
-      :public_interface      => 'eth1',
-      :internal_address      => '127.0.0.1',
-      :public_address        => '10.0.0.1',
-      :admin_email           => 'some_user@some_fake_email_address.foo',
-      :admin_password        => 'ChangeMe',
-      :rabbit_password       => 'rabbit_pw',
-      :rabbit_virtual_host   => '/',
-      :keystone_db_password  => 'keystone_pass',
-      :keystone_admin_token  => 'keystone_admin_token',
-      :glance_db_password    => 'glance_pass',
-      :glance_user_password  => 'glance_pass',
-      :nova_db_password      => 'nova_pass',
-      :nova_user_password    => 'nova_pass',
-      :secret_key            => 'secret_key',
-      :quantum               => false,
-      :vncproxy_host         => '10.0.0.1'
+     :private_interface       => 'eth0',
+      :public_interface        => 'eth1',
+      :internal_address        => '127.0.0.1',
+      :public_address          => '10.0.0.1',
+      :admin_email             => 'some_user@some_fake_email_address.foo',
+      :admin_password          => 'ChangeMe',
+      :rabbit_password         => 'rabbit_pw',
+      :rabbit_virtual_host     => '/',
+      :keystone_db_password    => 'keystone_pass',
+      :keystone_admin_token    => 'keystone_admin_token',
+      :glance_db_password      => 'glance_pass',
+      :glance_user_password    => 'glance_pass',
+      :nova_db_password        => 'nova_pass',
+      :nova_user_password      => 'nova_pass',
+      :secret_key              => 'secret_key',
+      :quantum                 => false,
+      :vncproxy_host           => '10.0.0.1',
+      :nova_admin_tenant_name  => 'services',
+      :nova_admin_user         => 'nova',
+      :enabled_apis            => 'ec2,osapi_compute,metadata',
     }
   end
 
   let :facts do
     {
-      :operatingsystem => 'Ubuntu',
-      :osfamily        => 'Debian',
-      :puppetversion   => '2.7.x',
-      :memorysize      => '2GB',
-      :processorcount  => '2'
+      :operatingsystem        => 'Ubuntu',
+      :osfamily               => 'Debian',
+      :operatingsystemrelease => '12.04',
+      :puppetversion          => '2.7.x',
+      :memorysize             => '2GB',
+      :processorcount         => '2',
+      :concat_basedir         => '/var/lib/puppet/concat',
     }
   end
 
@@ -321,11 +326,13 @@ describe 'openstack::controller' do
   context 'config for nova' do
     let :facts do
       {
-        :operatingsystem => 'Ubuntu',
-        :osfamily        => 'Debian',
-        :puppetversion   => '2.7.x',
-        :memorysize      => '2GB',
-        :processorcount  => '2'
+        :operatingsystem        => 'Ubuntu',
+        :osfamily               => 'Debian',
+        :operatingsystemrelease => '12.04',
+        :puppetversion          => '2.7.x',
+        :memorysize             => '2GB',
+        :processorcount         => '2',
+        :concat_basedir         => '/var/lib/puppet/concat',
       }
     end
 
@@ -352,7 +359,8 @@ describe 'openstack::controller' do
           :enabled           => true,
           :admin_tenant_name => 'services',
           :admin_user        => 'nova',
-          :admin_password    => 'nova_pass'
+          :admin_password    => 'nova_pass',
+          :enabled_apis      => 'ec2,osapi_compute,metadata'
         )
         should contain_class('nova::cert').with(:enabled => true)
         should contain_class('nova::consoleauth').with(:enabled => true)
