@@ -61,5 +61,6 @@ class wr::yow_openstack inherits wr::mcollective {
       libvirt_type         => 'kvm',
       fixed_range          => '10.193.219.0/24',
       secret_key           => 'dummy_secret_key',
+      quantum              => false,
   }
 }
