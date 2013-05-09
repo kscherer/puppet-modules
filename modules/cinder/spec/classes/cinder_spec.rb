@@ -12,7 +12,7 @@ describe 'cinder' do
     let :params do
       req_params
     end
-    
+
     it { should contain_class('cinder::params') }
 
     it 'should contain default config' do
@@ -46,6 +46,9 @@ describe 'cinder' do
       should contain_cinder_config('DEFAULT/verbose').with(
         :value => 'False'
       )
+      should contain_cinder_config('DEFAULT/debug').with(
+        :value => 'False'
+      )
       should contain_cinder_config('DEFAULT/api_paste_config').with(
         :value => '/etc/cinder/api-paste.ini'
       )
@@ -55,14 +58,14 @@ describe 'cinder' do
       :owner   => 'cinder',
       :group   => 'cinder',
       :mode    => '0600',
-      :require => 'Package[cinder-common]'
+      :require => 'Package[cinder]'
     ) }
 
     it { should contain_file('/etc/cinder/api-paste.ini').with(
       :owner   => 'cinder',
       :group   => 'cinder',
       :mode    => '0600',
-      :require => 'Package[cinder-common]'
+      :require => 'Package[cinder]'
     ) }
 
   end
