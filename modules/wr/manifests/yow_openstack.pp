@@ -1,5 +1,5 @@
 #
-class wr::yow_openstack {
+class wr::yow_openstack inherits wr::mcollective {
 
   include ntp
 
@@ -9,7 +9,6 @@ class wr::yow_openstack {
     puppet_agent_service_enable => false,
     agent                       => true,
   }
-  include wr::mcollective
   include sudo
 
   sudo::conf {
