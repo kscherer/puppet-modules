@@ -32,6 +32,7 @@ class wr::yow_openstack inherits wr::mcollective {
   }
 
   include debian
+  include apache
 
   apt::source {
     'ubuntu_cloud_archive':
