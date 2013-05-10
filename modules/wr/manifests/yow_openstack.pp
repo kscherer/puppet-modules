@@ -10,6 +10,7 @@ class wr::yow_openstack inherits wr::mcollective {
     agent                       => true,
   }
   include sudo
+  include nrpe
 
   sudo::conf {
     'admin':
