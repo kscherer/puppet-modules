@@ -9,9 +9,7 @@ node default {
       client       => true,
       registration => false,
   }
-  -> class { 'ntp':
-    servers    => $wr::common::ntp_servers,
-  }
+  -> class { 'ntp': }
   -> class { 'puppet':
     puppet_server               => $wr::common::puppet_server,
     puppet_agent_ensure         => 'latest',

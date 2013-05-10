@@ -28,9 +28,7 @@ node default {
 
   class { 'wr::common': }
   -> class { 'debian': }
-  -> class { 'ntp':
-    servers    => $wr::common::ntp_servers,
-  }
+  -> class { 'ntp': }
   -> class { 'nis': }
   -> class { 'yocto': }
 }

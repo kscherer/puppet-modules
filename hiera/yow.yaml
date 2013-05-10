@@ -1,7 +1,7 @@
 ---
 amqp_server: yow-lpg-amqp.wrs.com
 puppet_server: yow-lpd-puppet.wrs.com
-ntp_servers:
+ntp::servers:
   - yow-lpggp2.wrs.com
 mirror: yow-mirror.wrs.com
 graphite::web::time_zone: US/Eastern

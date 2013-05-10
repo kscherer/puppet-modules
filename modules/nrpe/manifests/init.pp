@@ -86,7 +86,8 @@ class nrpe {
       ensure => present;
   }
 
-  $first_ntp_server = $wr::common::ntp_servers[0]
+  $ntp_servers = hiera('ntp::servers')
+  $first_ntp_server = $ntp_servers[0]
 
   nrpe::command {
     'check_disks':

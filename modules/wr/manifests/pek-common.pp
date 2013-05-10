@@ -3,9 +3,6 @@ class wr::pek-common {
   class { 'redhat': }
   -> class { 'wr::mcollective': }
   -> class { 'redhat::autoupdate': }
-  -> class { 'ntp':
-    servers => $wr::common::ntp_servers,
-  }
   -> class { 'puppet':
     puppet_server               => $wr::common::puppet_server,
     puppet_agent_ensure         => $wr::common::puppet_version,

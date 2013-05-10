@@ -3,6 +3,7 @@ class wr::common {
 
   #Create standard base motd
   include motd
+  include ntp
 
   #Make sure that the machine is in the hosts file
   host {
@@ -84,14 +85,6 @@ class wr::common {
 
   #set the puppet server based on hostname
   $puppet_server = hiera('puppet_server')
-
-  $ala_ntp_servers = ['ntp-1.wrs.com','ntp-2.wrs.com','ntp-3.wrs.com']
-
-  $ntp_servers = $::hostname ? {
-    yow-lpggp2        => $ala_ntp_servers,
-    pek-lpd-puppet    => $ala_ntp_servers,
-    default           => hiera_array('ntp_servers')
-  }
 
   #add my configs to all machines
   file {

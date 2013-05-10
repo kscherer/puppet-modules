@@ -5,9 +5,6 @@ class wr::xenserver(
 
   class { 'debian': }
   -> class { 'wr::mcollective': client => $client }
-  -> class { 'ntp':
-    servers    => $wr::common::ntp_servers,
-  }
   -> class { 'puppet':
     puppet_server               => $wr::common::puppet_server,
     puppet_agent_ensure         => $wr::common::puppet_version,

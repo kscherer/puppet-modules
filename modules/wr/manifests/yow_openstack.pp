@@ -1,8 +1,6 @@
 #
 class wr::yow_openstack inherits wr::mcollective {
 
-  include ntp
-
   class { 'puppet':
     puppet_server               => $wr::common::puppet_server,
     puppet_agent_ensure         => $wr::common::puppet_version,

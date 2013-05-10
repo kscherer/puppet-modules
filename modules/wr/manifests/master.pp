@@ -13,13 +13,14 @@ class wr::master {
 
   class { 'wr::mcollective': client => true }
 
+  #choose a hierachy from most specific to least specific
   class {
     'hiera':
-      hierarchy  => [ '%{operatingsystem}-%{lsbmajdistrelease}-%{architecture}',
+      hierarchy  => [ '%{hostname}',
+                      '%{location}',
+                      '%{operatingsystem}-%{lsbmajdistrelease}-%{architecture}',
                       '%{operatingsystem}-%{lsbmajdistrelease}',
                       '%{osfamily}',
-                      '%{location}',
-                      '%{hostname}',
                       'common' ],
       hiera_yaml => '/etc/puppet/hiera.yaml',
       datadir    => '/etc/puppet/environments/%{environment}/hiera',
