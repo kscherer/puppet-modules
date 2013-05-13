@@ -8,12 +8,24 @@ class wr::pek-hostel inherits wr::common {
     default: { fail("Unsupported OS: $::operatingsystem")}
   }
 
-  class { $base_class: }
-  -> class { 'puppet':
-    puppet_server               => $wr::common::puppet_server,
-    puppet_agent_ensure         => $wr::common::puppet_version,
-    puppet_agent_service_enable => false,
-    agent                       => true,
+  case $base_class {
+    /suse/: {
+      class { 'puppet':
+        puppet_server               => $wr::common::puppet_server,
+        puppet_agent_ensure         => $wr::common::puppet_version,
+        puppet_agent_service_enable => false,
+        agent                       => true,
+      }
+    }
+    default: {
+      class { $base_class: }
+      -> class { 'puppet':
+        puppet_server               => $wr::common::puppet_server,
+        puppet_agent_ensure         => $wr::common::puppet_version,
+        puppet_agent_service_enable => false,
+        agent                       => true,
+      }
+    }
   }
 
   ssh_authorized_key {
