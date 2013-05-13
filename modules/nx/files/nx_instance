@@ -183,7 +183,14 @@ nx_status(){
         return $RETVAL
     fi
 
-    local pid=$(cat $pidfile)
+    local last_line=$(tail -n 1 $nx_log)
+    if $(echo $last_line | grep -q "Goodbye Cruel World"); then
+        nx_status_string="Nx instance $instance is stopped"
+        RETVAL=3
+        return $RETVAL
+    fi
+
+    local pid=$(cat $pidfile | tr -d '\n')
     local fifteen_sec=15
     local fifteen_min=900 #15 * 60 seconds
     local timeout=3600 #60 * 60 seconds
@@ -191,48 +198,47 @@ nx_status(){
     #When nx is building is makes a link to the current build
     local wrbuildlog="${nx_builddir}/current_build/00-wrbuild.log"
     local now=$(date +%s)
+    local nxlog_age=$(($now - $(stat -c '%Y' "$nx_log")))
 
     #check if pid in pidfile is valid
-    if [ "${#pid}" -gt "2" ] && [ -d "/proc/$pid" ]; then
-        local nxlog_age=$(($now - $(stat -c '%Y' "$nx_log")))
-
+    if [ "$pid" -gt "20" ] && [ -d "/proc/$pid" ]; then
         if [ -f "/var/tmp/STFU" ]; then
             nx_status_string="STFU deployed. Nx waiting"
             RETVAL=0
-        elif $(tail -n 1 $nx_log | grep -q "Build blackout"); then
+        elif $(echo $last_line | grep -q "Build blackout"); then
             nx_status_string="Build blackout. Nx waiting"
             RETVAL=0
-        elif $(tail -n 1 $nx_log | grep -q "No new commits"); then
+        elif $(echo $last_line | grep -q "No new commits"); then
             nx_status_string="Waiting for commits."
             RETVAL=0
-        elif $(tail -n 1 $nx_log | grep -q "Cloning wrlinux-x"); then
+        elif $(echo $last_line | grep -q "Cloning wrlinux-x"); then
             nx_status_string="Waiting for initial clone."
             RETVAL=0
-        elif $(tail -n 1 $nx_log | grep -q "Updating"); then
+        elif $(echo $last_line | grep -q "Updating"); then
             nx_status_string="Updating git repos."
             RETVAL=0
-        elif $(tail -n 1 $nx_log | grep -q "Checking for new commits"); then
+        elif $(echo $last_line | grep -q "Checking for new commits"); then
             nx_status_string="Checking for new commits."
             RETVAL=0
-        elif $(tail -n 1 $nx_log | egrep -q "(deleting passed|Removing)"); then
+        elif $(echo $last_line | egrep -q "(deleting passed|Removing)"); then
             nx_status_string="Long delete. Nx busy."
             RETVAL=0
-        elif $(tail -n 1 $nx_log | egrep -q "(Running .*fix-config)"); then
+        elif $(echo $last_line | egrep -q "(Running .*fix-config)"); then
             nx_status_string="Running fix-config. Nx busy."
             RETVAL=0
-        elif $(tail -n 1 $nx_log | grep -q "Network glitch"); then
+        elif $(echo $last_line | grep -q "Network glitch"); then
             nx_status_string="Something messed up - repo corrupt, network might be down, etc."
             RETVAL=151 # Reserved for application return code
         elif [ -f $wrbuildlog ]; then
             local wrbuildlog_age=$(($now - $(stat -c '%Y' "$wrbuildlog")))
             #If the 00-wrbuild.log was modified recently then build is not hung
-            if [ $nxlog_age -lt $timeout ]; then
+            if [ "$nxlog_age" -lt "$timeout" ]; then
                 nx_status_string="Nx instance $instance is running"
                 RETVAL=0
-            elif [ $wrbuildlog_age -lt $timeout ]; then
+            elif [ "$wrbuildlog_age" -lt "$timeout" ]; then
                 nx_status_string="Nx instance $instance is running"
                 RETVAL=0
-            elif [ $wrbuildlog_age -lt $second_timeout ]; then
+            elif [ "$wrbuildlog_age" -lt "$second_timeout" ]; then
                 nx_status_string="Nx instance $instance is probably hung"
                 RETVAL=0
             else
@@ -240,23 +246,32 @@ nx_status(){
                 RETVAL=1
             fi
         #nx is running but busy doing something that is not building
-        elif [ $nxlog_age -lt $fifteen_min ]; then
+        elif [ "$nxlog_age" -lt "$fifteen_min" ]; then
             nx_status_string="Nx is preparing a build"
             RETVAL=0
         else
             nx_status_string="I have no idea what nx is doing: $(tail ${nx_log})"
             RETVAL=4 # Unknown state
         fi
-    elif $(tail -n 1 $nx_log | grep -q "Goodbye Cruel World"); then
-        nx_status_string="Nx instance $instance is stopped"
-        RETVAL=3
-    elif [ $(($now - $(stat -c '%Y' "$nx_log"))) -lt $fifteen_sec ]; then
+    elif [ "$nxlog_age" -lt "$fifteen_sec" ]; then
         #it is possible that the pidfile is out of date as it auto restarts
         nx_status_string="Nx instance $instance is running"
         RETVAL=0
     else
         nx_status_string="Nx instance $instance is stopped"
         RETVAL=3
+    fi
+
+    #Some debugging help when status reports nx as stopped and it isn't
+    if [ "$RETVAL" -gt "0" ]; then
+        local file_date=$(date +%F)
+        local file="${nx_builddir}/log/nx_instance.$file_date.log"
+        echo "Return: $RETVAL" >> $file
+        echo "Return string: $nx_status_string" >> $file
+        echo "PID: $pid" >> $file
+        echo "Last Line: $last_line" >> $file
+        echo "Nx.log age: $nxlog_age" >> $file
+        echo "" >> $file
     fi
     return $RETVAL
 }
