@@ -272,6 +272,7 @@ nx_status(){
         echo "Last Line: $last_line" >> $file
         echo "Nx.log age: $nxlog_age" >> $file
         echo "" >> $file
+        chown nxadm:nxadm $file
     fi
     return $RETVAL
 }
