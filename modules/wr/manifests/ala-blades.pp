@@ -2,7 +2,10 @@
 class wr::ala-blades {
 
   class { 'wr::ala-common': }
-  -> class { 'nx': }
+
+  if $::hostname != 'ala-blade1' {
+    include 'nx'
+  }
 
   class { 'dell': }
 
