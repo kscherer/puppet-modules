@@ -142,9 +142,6 @@ class wr::ala-blades {
       ensure => installed;
   }
 
-  #This package is needed to build IDP
-  package {
-    'e2fsprogs-devel':
-      ensure => installed;
-  }
+  #To build 4.3 on ala-blades install required packages
+  include wrlinux
 }
