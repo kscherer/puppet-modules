@@ -141,4 +141,10 @@ class wr::ala-blades {
     ['libxml2.i386','compat-libstdc++-33.i386']:
       ensure => installed;
   }
+
+  #This package is needed to build IDP
+  package {
+    'e2fsprogs-devel':
+      ensure => installed;
+  }
 }
