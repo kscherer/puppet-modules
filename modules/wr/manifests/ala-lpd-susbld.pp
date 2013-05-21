@@ -32,4 +32,10 @@ class wr::ala-lpd-susbld {
       key    => extlookup('buildadmin@ala-blade9'),
       type   => 'ssh-rsa';
   }
+
+  service {
+    'httpd':
+      ensure => running,
+      enable => true,
+  }
 }
