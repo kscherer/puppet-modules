@@ -33,7 +33,7 @@
 #  [verbose] If the services should log verbosely. Optional. Defaults to false.
 #  [purge_nova_config] Whether unmanaged nova.conf entries should be purged. Optional. Defaults to true.
 #  [libvirt_type] The virualization type being controlled by libvirt.  Optional. Defaults to 'kvm'.
-#  [nova_volume] The name of the volume group to use for nova volume allocation. Optional. Defaults to 'nova-volumes'.
+#  [volume_group] The name of the volume group to use for nova volume allocation. Optional. Defaults to 'cinder-volumes'.
 #  [horizon] (bool) is horizon installed. Defaults to: true
 # === Examples
 #
@@ -112,7 +112,6 @@ class openstack::all (
   $horizon                 = true,
   $cache_server_ip         = '127.0.0.1',
   $cache_server_port       = '11211',
-  $swift                   = false,
   $horizon_app_links       = undef,
   # if the cinder management components should be installed
   $cinder                  = true,
@@ -315,7 +314,7 @@ class openstack::all (
   }
 
   if $auto_assign_floating_ip {
-    nova_config { 'DEFUALT/auto_assign_floating_ip': value => 'True' }
+    nova_config { 'DEFAULT/auto_assign_floating_ip': value => 'True' }
   }
 
   class { [
@@ -351,7 +350,7 @@ class openstack::all (
     class { 'cinder::volume': }
     class { 'cinder::volume::iscsi':
       iscsi_ip_address => '127.0.0.1',
-      volume_group     => $nova_volume,
+      volume_group     => $volume_group,
     }
   } else {
     # Set up nova-volume
@@ -377,8 +376,6 @@ class openstack::all (
       secret_key        => $secret_key,
       cache_server_ip   => $cache_server_ip,
       cache_server_port => $cache_server_port,
-      swift             => $swift,
-      quantum           => $quantum,
       horizon_app_links => $horizon_app_links,
     }
   }

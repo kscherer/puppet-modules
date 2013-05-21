@@ -5,7 +5,7 @@ describe 'openstack::controller' do
   # minimum set of default parameters
   let :default_params do
     {
-     :private_interface       => 'eth0',
+      :private_interface       => 'eth0',
       :public_interface        => 'eth1',
       :internal_address        => '127.0.0.1',
       :public_address          => '10.0.0.1',
@@ -403,8 +403,6 @@ describe 'openstack::controller' do
         :secret_key        => 'secret_key',
         :cache_server_ip   => '127.0.0.1',
         :cache_server_port => '11211',
-        :swift             => false,
-        :quantum           => false,
         :horizon_app_links => false
       )
     end
