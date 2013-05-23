@@ -46,6 +46,7 @@ class wr::yow_openstack inherits wr::mcollective {
   class {
     'openstack::all':
       public_address          => $::ipaddress_eth0,
+      internal_address        => $::ipaddress_eth0,
       public_interface        => 'eth0',
       private_interface       => 'eth2',
       floating_range          => '128.224.137.192/27',
