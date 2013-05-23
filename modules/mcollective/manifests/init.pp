@@ -227,5 +227,15 @@ class mcollective(
     }
   }
 
+  if $::operatingsystem == 'Debian' {
+    file {
+      '/usr/lib/ruby/1.9.1/mcollective.rb':
+        ensure => link,
+        target => '/usr/lib/ruby/1.8/mcollective.rb';
+      '/usr/lib/ruby/1.9.1/mcollective':
+        ensure => link,
+        target => '/usr/lib/ruby/1.8/mcollective';
+    }
+  }
 }
 
