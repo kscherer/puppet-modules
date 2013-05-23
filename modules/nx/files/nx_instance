@@ -190,7 +190,6 @@ nx_status(){
         return $RETVAL
     fi
 
-    local pid=$(cat $pidfile | tr -d '\n')
     local fifteen_sec=15
     local fifteen_min=900 #15 * 60 seconds
     local timeout=3600 #60 * 60 seconds
@@ -200,8 +199,13 @@ nx_status(){
     local now=$(date +%s)
     local nxlog_age=$(($now - $(stat -c '%Y' "$nx_log")))
 
-    #check if pid in pidfile is valid
-    if [ "$pid" -gt "20" ] && [ -d "/proc/$pid" ]; then
+    local nxpid=$(cat $pidfile | tr -d '\n')
+    local isPidValid="false"
+    if [ -d "/proc/$nxpid" ]; then
+        isPidValid="true"
+    fi
+
+    if [ "$isPidValid" == "true" ]; then
         if [ -f "/var/tmp/STFU" ]; then
             nx_status_string="STFU deployed. Nx waiting"
             RETVAL=0
@@ -266,11 +270,14 @@ nx_status(){
     if [ "$RETVAL" -gt "0" ]; then
         local file_date=$(date +%F)
         local file="${nx_builddir}/log/nx_instance.$file_date.log"
+        local timestamp=$(date --rfc-3339=ns)
         echo "Return: $RETVAL" >> $file
         echo "Return string: $nx_status_string" >> $file
         echo "PID: $pid" >> $file
+        echo "Is PID valid: $isPidValid" >> $file
         echo "Last Line: $last_line" >> $file
         echo "Nx.log age: $nxlog_age" >> $file
+        echo "Now: $timestamp" >> $file
         echo "" >> $file
         chown nxadm:nxadm $file
     fi
