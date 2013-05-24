@@ -273,7 +273,7 @@ nx_status(){
         local timestamp=$(date --rfc-3339=ns)
         echo "Return: $RETVAL" >> $file
         echo "Return string: $nx_status_string" >> $file
-        echo "PID: $pid" >> $file
+        echo "PID: $nxpid" >> $file
         echo "Is PID valid: $isPidValid" >> $file
         echo "Last Line: $last_line" >> $file
         echo "Nx.log age: $nxlog_age" >> $file
