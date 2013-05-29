@@ -3,22 +3,16 @@ Listen <%= port %>
 <VirtualHost *:<%= port %>>
   ServerName <%= name %>
   DocumentRoot <%= docroot %>
-  RailsBaseURI <%= rails_base_uri %>
+  RailsBaseURI /
   <Directory <%= docroot %>>
     Options None
     AllowOverride AuthConfig
     Order allow,deny
     allow from all
   </Directory>
-  <% case operatingsystem
-			when 'Debian', 'Ubuntu'
-				apachename = 'apache2'
-			else
-				apachename = 'httpd'
-			end -%>
-  ErrorLog /var/log/<%= apachename %>/<%= name %>_error.log
+  ErrorLog /var/log/<%= apache_name %>/<%= name %>_error.log
   LogLevel warn
-  CustomLog /var/log/<%= apachename %>/<%= name %>_access.log combined
+  CustomLog /var/log/<%= apache_name %>/<%= name %>_access.log combined
   ServerSignature On
 </VirtualHost>
 
