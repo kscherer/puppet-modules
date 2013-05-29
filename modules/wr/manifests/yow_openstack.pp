@@ -39,7 +39,7 @@ class wr::yow_openstack inherits wr::mcollective {
     'ubuntu_cloud_archive':
       location    => 'http://ubuntu-cloud.archive.canonical.com/ubuntu',
       release     => 'precise-updates/grizzly',
-      repos       => 'main',
+      repos       => 'main dependencies',
       include_src => false;
   }
 
