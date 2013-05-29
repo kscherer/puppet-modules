@@ -20,7 +20,7 @@
 #  [network_config] Used to specify network manager specific parameters .Optional. Defualts to {}.
 #  [mysql_root_password] The root password to set for the mysql database. Optional. Defaults to sql_pass'.
 #  [rabbit_password] The password to use for the rabbitmq user. Optional. Defaults to rabbit_pw'
-#  [rabbit_user] The rabbitmq user to use for auth. Optional. Defaults to nova'.
+#  [rabbit_user] The rabbitmq user to use for auth. Optional. Defaults to openstack.
 #  [admin_email] The admin's email address. Optional. Defaults to someuser@some_fake_email_address.foo'.
 #  [admin_password] The default password of the keystone admin. Optional. Defaults to ChangeMe'.
 #  [keystone_db_password] The default password for the keystone db user. Optional. Defaults to keystone_pass'.
@@ -31,7 +31,7 @@
 #  [glance_user_password] The password of the glance service user. Optional. Defaults to 'glance_pass'.
 #  [secret_key] The secret key for horizon. Optional. Defaults to 'dummy_secret_key'.
 #  [verbose] If the services should log verbosely. Optional. Defaults to false.
-#  [purge_nova_config] Whether unmanaged nova.conf entries should be purged. Optional. Defaults to true.
+#  [purge_nova_config] Whether unmanaged nova.conf entries should be purged. Optional. Defaults to false.
 #  [libvirt_type] The virualization type being controlled by libvirt.  Optional. Defaults to 'kvm'.
 #  [volume_group] The name of the volume group to use for nova volume allocation. Optional. Defaults to 'cinder-volumes'.
 #  [horizon] (bool) is horizon installed. Defaults to: true
@@ -96,7 +96,7 @@ class openstack::all (
   # Nova
   $nova_db_user            = 'nova',
   $nova_db_dbname          = 'nova',
-  $purge_nova_config       = true,
+  $purge_nova_config       = false,
   # Network
   $network_manager         = 'nova.network.manager.FlatDHCPManager',
   $fixed_range             = '10.0.0.0/24',
@@ -107,7 +107,7 @@ class openstack::all (
   $network_config          = {},
   $quantum                 = true,
   # Rabbit
-  $rabbit_user             = 'nova',
+  $rabbit_user             = 'openstack',
   # Horizon
   $horizon                 = true,
   $cache_server_ip         = '127.0.0.1',
