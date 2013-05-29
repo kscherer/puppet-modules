@@ -114,20 +114,7 @@ class puppet::agent(
   }
 
   if $puppet_agent_ensure =~ /(present|installed|latest)/ {
-
-    include puppet::common
-
-    #ensure that the /etc/puppet directory is available
-    if defined(File['/etc/puppet']) {
-      File ['/etc/puppet'] {
-        require +> Package[$puppet_agent_name],
-        notify  +> $service_notify,
-      }
-    }
-
-    realize(Concat[$puppet_conf])
-    Package[$puppet_agent_name]
-    -> Concat[$puppet_conf]
-
+    Package[$puppet_agent_name] -> File['/etc/puppet'] ~> $service_notify
+    Package[$puppet_agent_name] -> Concat[$puppet_conf]
   }
 }

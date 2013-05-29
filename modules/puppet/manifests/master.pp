@@ -98,8 +98,6 @@ class puppet::master (
   $activerecord_ensure     = $puppet::params::activerecord_ensure
 ) inherits puppet::params {
 
-  include puppet::common
-
   #all files for the puppet master are owned by puppet user
   File {
     require => Package[$puppet_master_package],
@@ -148,7 +146,6 @@ class puppet::master (
 
     #httpd service is setup in apache class
     $service_notify  = Service['httpd']
-    $service_require = Package[$puppet_master_package]
 
     Concat::Fragment['puppet.conf-master'] -> Service['httpd']
 
@@ -177,8 +174,6 @@ class puppet::master (
       content => template('puppet/puppet.conf-master.erb'),
     }
   } else {
-
-    $service_require = Package[$puppet_master_package]
 
     concat::fragment { 'puppet.conf-master':
       order   => '05',
@@ -212,16 +207,12 @@ class puppet::master (
       }
     }
   }
-  realize(Concat[$puppet::params::puppet_conf])
-  Concat<| title == $puppet::params::puppet_conf |> {
-    require +> $service_require,
-  }
+
+  Package[$puppet_master_package] -> Concat[$puppet_conf]
 
   #for some reason puppet cannot handle undef with +>
-  if $puppet::master::service_notify != '' {
-    Concat<| title == $puppet::params::puppet_conf |> {
-      notify  +> $service_notify,
-    }
+  if $service_notify != '' {
+    Concat[$puppet_conf] ~> $service_notify
   }
 
   file { $puppet_vardir:
@@ -231,10 +222,5 @@ class puppet::master (
     notify       => $puppet::master::service_notify,
   }
 
-  if defined(File['/etc/puppet']) {
-    File ['/etc/puppet'] {
-      require +> Package[$puppet_master_package],
-      notify  +> $puppet::master::service_notify
-    }
-  }
+  Package[$puppet_master_package] -> File['/etc/puppet'] ~> $service_notify
 }

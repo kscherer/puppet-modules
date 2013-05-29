@@ -54,6 +54,8 @@ class puppet (
   $autosign                    = false,
   $puppet_master_package       = $puppet::params::puppet_master_package,
   $package_provider            = $puppet::params::package_provider,
+  $user_id                     = undef,
+  $group_id                    = undef,
   $dashboard                   = false,
   $dashboard_ensure            = undef,
   $dashboard_user              = undef,
@@ -163,5 +165,41 @@ class puppet (
       package_provider            => $package_provider,
       puppet_agent_service_enable => $puppet_agent_service_enable,
     }
+  }
+
+  user { 'puppet':
+    ensure => present,
+    uid    => $user_id,
+    gid    => 'puppet',
+  }
+
+  group { 'puppet':
+    ensure => present,
+    gid    => $group_id,
+  }
+
+  if ! defined(File['/etc/puppet']) {
+    file { '/etc/puppet':
+      ensure       => directory,
+      group        => 'puppet',
+      owner        => 'puppet',
+      recurse      => true,
+      recurselimit => '1',
+    }
+  }
+
+  include concat::setup
+
+  concat {
+    '/etc/puppet/puppet.conf':
+      owner => 'puppet',
+      group => 'puppet',
+      mode  => '0644',
+  }
+
+  concat::fragment { 'puppet.conf-common':
+    order   => '00',
+    target  => '/etc/puppet/puppet.conf',
+    content => template('puppet/puppet.conf-common.erb'),
   }
 }
