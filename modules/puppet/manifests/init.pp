@@ -42,6 +42,7 @@ class puppet (
   $passenger_ensure            = undef,
   $passenger_package           = undef,
   $puppet_docroot              = $puppet::params::puppet_docroot,
+  $puppet_environment          = 'production',
   $storeconfigs                = false,
   $thinstoreconfigs            = false,
   $storeconfigs_dbadapter      = $puppet::params::storeconfigs_dbadapter,
@@ -151,6 +152,7 @@ class puppet (
       activerecord_provider     => $activerecord_provider,
       activerecord_package      => $activerecord_package,
       activerecord_ensure       => $activerecord_ensure,
+      puppet_environment        => $puppet_environment,
     }
   }
 
@@ -164,6 +166,7 @@ class puppet (
       puppet_agent_name           => $puppet_agent_name,
       package_provider            => $package_provider,
       puppet_agent_service_enable => $puppet_agent_service_enable,
+      puppet_environment          => $puppet_environment,
     }
   }
 
