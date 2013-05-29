@@ -96,7 +96,9 @@ class puppet::master (
   $activerecord_provider   = $puppet::params::activerecord_provider,
   $activerecord_package    = $puppet::params::activerecord_package,
   $activerecord_ensure     = $puppet::params::activerecord_ensure
-) inherits puppet::config {
+) inherits puppet::params {
+
+  include puppet::common
 
   #all files for the puppet master are owned by puppet user
   File {
@@ -219,14 +221,6 @@ class puppet::master (
   if $puppet::master::service_notify != '' {
     Concat<| title == $puppet::params::puppet_conf |> {
       notify  +> $service_notify,
-    }
-  }
-
-  if ! defined(Concat::Fragment['puppet.conf-common']) {
-    concat::fragment { 'puppet.conf-common':
-      order   => '00',
-      target  => $puppet::params::puppet_conf,
-      content => template('puppet/puppet.conf-common.erb'),
     }
   }
 

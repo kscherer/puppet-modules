@@ -39,7 +39,15 @@ class puppet::agent(
   $puppet_environment          = 'production',
   $puppet_agent_ensure         = present,
   $puppet_agent_service_enable = true
-) inherits puppet::config {
+) inherits puppet::params {
+
+  $v_alphanum = '^[._0-9a-zA-Z:-]+$'
+  $v_path = '^[/$]'
+  validate_re($puppet_agent_ensure, $v_alphanum)
+  validate_re($puppet_conf, $v_path)
+  validate_re($puppet_defaults, $v_path)
+  validate_re($puppet_agent_name, $v_alphanum)
+  validate_re($puppet_server, $v_alphanum)
 
   if $::kernel == 'Linux' {
     file { $puppet_defaults:
@@ -107,6 +115,8 @@ class puppet::agent(
 
   if $puppet_agent_ensure =~ /(present|installed|latest)/ {
 
+    include puppet::common
+
     #ensure that the /etc/puppet directory is available
     if defined(File['/etc/puppet']) {
       File ['/etc/puppet'] {
@@ -119,16 +129,5 @@ class puppet::agent(
     Package[$puppet_agent_name]
     -> Concat[$puppet_conf]
 
-    # if $service_notify != '' {
-    #   Concat[$puppet_conf] ~> $service_notify
-    # }
-
-    if ! defined(Concat::Fragment['puppet.conf-common']) {
-      concat::fragment { 'puppet.conf-common':
-        order   => '00',
-        target  => $puppet_conf,
-        content => template('puppet/puppet.conf-common.erb'),
-      }
-    }
   }
 }
