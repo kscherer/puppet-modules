@@ -91,6 +91,7 @@ class puppet::agent(
         subscribe => Package[$puppet_agent_name],
       }
     }
+    File['/etc/puppet'] ~> $service_notify
   } elsif $puppet_agent_service_enable == false and $puppet_agent_ensure =~ /(present|installed|latest)/ {
 
     #if puppet agent is run using cron or puppet commander, the service
@@ -114,7 +115,7 @@ class puppet::agent(
   }
 
   if $puppet_agent_ensure =~ /(present|installed|latest)/ {
-    Package[$puppet_agent_name] -> File['/etc/puppet'] ~> $service_notify
+    Package[$puppet_agent_name] -> File['/etc/puppet']
     Package[$puppet_agent_name] -> Concat[$puppet_conf]
   }
 }

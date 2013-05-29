@@ -208,13 +208,6 @@ class puppet::master (
     }
   }
 
-  Package[$puppet_master_package] -> Concat[$puppet_conf]
-
-  #for some reason puppet cannot handle undef with +>
-  if $service_notify != '' {
-    Concat[$puppet_conf] ~> $service_notify
-  }
-
   file { $puppet_vardir:
     ensure       => directory,
     recurse      => true,
@@ -222,5 +215,6 @@ class puppet::master (
     notify       => $puppet::master::service_notify,
   }
 
+  Package[$puppet_master_package] -> Concat[$puppet_conf] ~> $service_notify
   Package[$puppet_master_package] -> File['/etc/puppet'] ~> $service_notify
 }
