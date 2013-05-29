@@ -4,14 +4,14 @@ describe 'quantum' do
 
   let :params do
     { :package_ensure      => 'present',
-      :verbose             => 'False',
-      :debug               => 'False',
+      :verbose             => false,
+      :debug               => false,
       :core_plugin         => 'quantum.plugins.linuxbridge.lb_quantum_plugin.LinuxBridgePluginV2',
       :rabbit_host         => '127.0.0.1',
       :rabbit_port         => 5672,
       :rabbit_user         => 'guest',
-      :rabbit_password     => '',
-      :rabbit_virtual_host => '/',
+      :rabbit_password     => 'guest',
+      :rabbit_virtual_host => '/'
     }
   end
 
@@ -65,13 +65,6 @@ describe 'quantum' do
       )
     end
 
-    it 'creates rootwrap.conf' do
-      should contain_file('/etc/quantum/rootwrap.conf').with(
-        :ensure => 'present',
-        :source => 'puppet:///modules/quantum/rootwrap.conf'
-      )
-    end
-
     it 'installs quantum package' do
       should contain_package('quantum').with(
         :ensure => 'present',
@@ -79,7 +72,7 @@ describe 'quantum' do
       )
     end
 
-    it 'configures rabbit' do
+    it 'configures credentials for rabbit' do
       should contain_quantum_config('DEFAULT/rabbit_userid').with_value( params[:rabbit_user] )
       should contain_quantum_config('DEFAULT/rabbit_password').with_value( params[:rabbit_password] )
       should contain_quantum_config('DEFAULT/rabbit_virtual_host').with_value( params[:rabbit_virtual_host] )
@@ -94,33 +87,40 @@ describe 'quantum' do
       should contain_quantum_config('DEFAULT/base_mac').with_value('fa:16:3e:00:00:00')
       should contain_quantum_config('DEFAULT/mac_generation_retries').with_value(16)
       should contain_quantum_config('DEFAULT/dhcp_lease_duration').with_value(120)
-      should contain_quantum_config('DEFAULT/allow_bulk').with_value('True')
-      should contain_quantum_config('DEFAULT/allow_overlapping_ips').with_value('False')
+      should contain_quantum_config('DEFAULT/allow_bulk').with_value(true)
+      should contain_quantum_config('DEFAULT/allow_overlapping_ips').with_value(false)
       should contain_quantum_config('DEFAULT/control_exchange').with_value('quantum')
-      should contain_quantum_config('DEFAULT/rootwrap_conf').with_value('/etc/quantum/rootwrap.conf')
+      should contain_quantum_config('DEFAULT/root_helper').with_value('sudo quantum-rootwrap /etc/quantum/rootwrap.conf')
     end
   end
 
   shared_examples_for 'rabbit without HA support (with backward compatibility)' do
-    it { should contain_quantum_config('DEFAULT/rabbit_host').with_value( params[:rabbit_host] ) }
-    it { should contain_quantum_config('DEFAULT/rabbit_port').with_value( params[:rabbit_port] ) }
-    it { should contain_quantum_config('DEFAULT/rabbit_hosts').with_value( "#{params[:rabbit_host]}:#{params[:rabbit_port]}" ) }
-    it { should contain_quantum_config('DEFAULT/rabbit_ha_queues').with_value('false') }
+    it 'in quantum.conf' do
+      should contain_quantum_config('DEFAULT/rabbit_host').with_value( params[:rabbit_host] )
+      should contain_quantum_config('DEFAULT/rabbit_port').with_value( params[:rabbit_port] )
+      should contain_quantum_config('DEFAULT/rabbit_hosts').with_value( "#{params[:rabbit_host]}:#{params[:rabbit_port]}" )
+      should contain_quantum_config('DEFAULT/rabbit_ha_queues').with_value(false)
+    end
   end
 
   shared_examples_for 'rabbit without HA support (without backward compatibility)' do
-    it { should contain_quantum_config('DEFAULT/rabbit_host').with_ensure('absent') }
-    it { should contain_quantum_config('DEFAULT/rabbit_port').with_ensure('absent') }
-    it { should contain_quantum_config('DEFAULT/rabbit_hosts').with_value( params[:rabbit_hosts].join(',') ) }
-    it { should contain_quantum_config('DEFAULT/rabbit_ha_queues').with_value('false') }
+    it 'in quantum.conf' do
+      should contain_quantum_config('DEFAULT/rabbit_host').with_ensure('absent')
+      should contain_quantum_config('DEFAULT/rabbit_port').with_ensure('absent')
+      should contain_quantum_config('DEFAULT/rabbit_hosts').with_value( params[:rabbit_hosts].join(',') )
+      should contain_quantum_config('DEFAULT/rabbit_ha_queues').with_value(false)
+    end
   end
 
   shared_examples_for 'rabbit with HA support' do
-    it { should contain_quantum_config('DEFAULT/rabbit_host').with_ensure('absent') }
-    it { should contain_quantum_config('DEFAULT/rabbit_port').with_ensure('absent') }
-    it { should contain_quantum_config('DEFAULT/rabbit_hosts').with_value( params[:rabbit_hosts].join(',') ) }
-    it { should contain_quantum_config('DEFAULT/rabbit_ha_queues').with_value('true') }
+    it 'in quantum.conf' do
+      should contain_quantum_config('DEFAULT/rabbit_host').with_ensure('absent')
+      should contain_quantum_config('DEFAULT/rabbit_port').with_ensure('absent')
+      should contain_quantum_config('DEFAULT/rabbit_hosts').with_value( params[:rabbit_hosts].join(',') )
+      should contain_quantum_config('DEFAULT/rabbit_ha_queues').with_value(true)
+    end
   end
+
 
   context 'on Debian platforms' do
     let :facts do
@@ -129,6 +129,18 @@ describe 'quantum' do
 
     let :platform_params do
       { :common_package_name => 'quantum-common' }
+    end
+
+    it_configures 'quantum'
+  end
+
+  context 'on RedHat platforms' do
+    let :facts do
+      { :osfamily => 'RedHat' }
+    end
+
+    let :platform_params do
+      { :common_package_name => 'openstack-quantum' }
     end
 
     it_configures 'quantum'

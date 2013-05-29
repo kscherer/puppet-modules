@@ -1,9 +1,9 @@
-Puppet::Type.newtype(:quantum_api_config) do
+Puppet::Type.newtype(:quantum_plugin_linuxbridge) do
 
   ensurable
 
   newparam(:name, :namevar => true) do
-    desc 'Section/setting name to manage from api-paste.ini'
+    desc 'Section/setting name to manage from linuxbridge_conf.ini'
     newvalues(/\S+\/\S+/)
   end
 

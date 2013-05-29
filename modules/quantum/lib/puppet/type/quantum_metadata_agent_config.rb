@@ -1,9 +1,9 @@
-Puppet::Type.newtype(:quantum_api_config) do
+Puppet::Type.newtype(:quantum_metadata_agent_config) do
 
   ensurable
 
   newparam(:name, :namevar => true) do
-    desc 'Section/setting name to manage from api-paste.ini'
+    desc 'Section/setting name to manage from metadata_agent.ini'
     newvalues(/\S+\/\S+/)
   end
 
