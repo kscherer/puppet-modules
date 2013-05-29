@@ -158,7 +158,7 @@ class puppet::master (
       port        => $puppet_passenger_port,
       priority    => '40',
       docroot     => $puppet_docroot,
-      template    => 'puppet/apache2.conf.erb',
+      content     => template('puppet/apache2.conf.erb'),
       require     => [ File['/etc/puppet/rack/config.ru'], File['/etc/puppet/puppet.conf'] ],
       ssl         => true,
       serveradmin => 'Konrad.Scherer@windriver.com',

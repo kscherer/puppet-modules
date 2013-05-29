@@ -56,6 +56,7 @@ define apache::vhost(
     $vhost_name         = $apache::params::vhost_name,
     $logroot            = "/var/log/$apache::params::apache_name",
     $access_log         = true,
+    $content            = 'UNSET',
     $ensure             = 'present'
   ) {
 
@@ -99,6 +100,12 @@ define apache::vhost(
     }
   }
 
+  #User can supply either a template or direct content
+  $content_real = $content ? {
+    'UNSET' => template($template),
+    default => $content,
+  }
+
   # Template uses:
   # - $vhost_name
   # - $port
@@ -114,7 +121,7 @@ define apache::vhost(
   file { "${priority}-${name}.conf":
     ensure  => $ensure,
     path    => "${apache::params::vdir}/${priority}-${name}.conf",
-    content => template($template),
+    content => $content_real,
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
