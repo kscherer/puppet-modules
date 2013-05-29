@@ -1,9 +1,9 @@
 LoadModule ssl_module modules/mod_ssl.so
 
-Listen <%= puppet_passenger_port %>
+Listen <%= port %>
 
-<VirtualHost *:<%= puppet_passenger_port %>>
-    ServerName <%= puppet_site %>
+<VirtualHost *:<%= port %>>
+    ServerName <%= srvname %>
     SSLEngine on
 
     # Only allow high security cryptography. Alter if needed for compatibility.
@@ -32,7 +32,7 @@ Listen <%= puppet_passenger_port %>
     # Recycle master processes after they service 1000 requests
     PassengerMaxRequests 1000
 
-    DocumentRoot <%= puppet_docroot %>
+    DocumentRoot <%= docroot %>
     RackAutoDetect On
     <Directory /etc/puppet/rack/>
         Options None

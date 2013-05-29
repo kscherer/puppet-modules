@@ -152,11 +152,13 @@ class puppet::master (
     Package[$passenger_package]
     -> Apache::Vhost["puppet-${puppet_site}"]
 
+    include apache
+
     apache::vhost { "puppet-${puppet_site}":
       port        => $puppet_passenger_port,
       priority    => '40',
       docroot     => $puppet_docroot,
-      template    => template('puppet/apache2.conf.erb'),
+      template    => 'puppet/apache2.conf.erb',
       require     => [ File['/etc/puppet/rack/config.ru'], File['/etc/puppet/puppet.conf'] ],
       ssl         => true,
       serveradmin => 'Konrad.Scherer@windriver.com',
