@@ -2,7 +2,6 @@
 class profile::base {
   include motd
   include ntp
-  include sudo
   include nrpe
   include wr::common::repos
   include wr::common::ssh_root_keys
@@ -16,14 +15,8 @@ class profile::base {
   Class['wr::common::repos'] -> Class['ntp']
   Class['wr::common::repos'] -> Class['nrpe']
   Class['wr::common::repos'] -> Class['puppet']
-  Class['wr::common::repos'] -> Class['sudo']
   Class['wr::common::repos'] -> Class['mcollective']
   Class['wr::common::repos'] -> Class['puppet']
-
-  sudo::conf {
-    'admin':
-      source  => 'puppet:///modules/wr/sudoers.d/admin';
-  }
 }
 
 #
