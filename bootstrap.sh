@@ -55,7 +55,7 @@ cat > $sources_dir/$location-mirror_ubuntu_updates.list <<EOF
 deb http://${location}-mirror.wrs.com/mirror/ubuntu.com/ubuntu ${release}-updates main restricted universe
 EOF
 
-cat > $sources_dir/$location-mirror_ubuntu_updates.list <<EOF
+cat > $sources_dir/$location-mirror_puppetlabs.list <<EOF
 # ${location}_puppetlabs_mirror
 deb http://${location}-mirror.wrs.com/mirror/puppetlabs/apt ${release} main dependencies
 EOF
@@ -63,6 +63,9 @@ EOF
 curl --silent --output /tmp/puppetlabs-release-$release.deb \
   http://${location}-mirror.wrs.com/mirror/puppetlabs/apt/puppetlabs-release-${release}.deb
 dpkg --install /tmp/puppetlabs-release-${release}.deb
+
+#puppetlabs release package installs sources file
+rm -f $sources_dir/puppetlabs.list
 
 apt-get -qq update
 apt-get -y install puppet facter hiera

@@ -14,7 +14,6 @@ class profile::base {
   #make sure classes the may install packages come after repo info is updated
   Class['wr::common::repos'] -> Class['ntp']
   Class['wr::common::repos'] -> Class['nrpe']
-  Class['wr::common::repos'] -> Class['puppet']
   Class['wr::common::repos'] -> Class['mcollective']
   Class['wr::common::repos'] -> Class['puppet']
 }
