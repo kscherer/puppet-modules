@@ -40,22 +40,22 @@ echo "# Repos managed by puppet." > /etc/apt/sources.list
 sources_dir=/etc/apt/sources.list.d
 rm -f $sources_dir/*.list
 
-cat > $sources_dir/$location-mirror_ubuntu.list <<EOF
+cat > $sources_dir/${location}-mirror_ubuntu.list <<EOF
 # ${location}-mirror_ubuntu
 deb http://${location}-mirror.wrs.com/mirror/ubuntu.com/ubuntu ${release} main restricted universe
 EOF
 
-cat > $sources_dir/$location-mirror_ubuntu_security.list <<EOF
+cat > $sources_dir/${location}-mirror_ubuntu_security.list <<EOF
 # ${location}-mirror_ubuntu_security
 deb http://${location}-mirror.wrs.com/mirror/ubuntu.com/ubuntu ${release}-security main restricted universe
 EOF
 
-cat > $sources_dir/$location-mirror_ubuntu_updates.list <<EOF
+cat > $sources_dir/${location}-mirror_ubuntu_updates.list <<EOF
 # ${location}-mirror_ubuntu_updates
 deb http://${location}-mirror.wrs.com/mirror/ubuntu.com/ubuntu ${release}-updates main restricted universe
 EOF
 
-cat > $sources_dir/$location_puppetlabs_mirror.list <<EOF
+cat > $sources_dir/${location}_puppetlabs_mirror.list <<EOF
 # ${location}_puppetlabs_mirror
 deb http://${location}-mirror.wrs.com/mirror/puppetlabs/apt ${release} main dependencies
 EOF
