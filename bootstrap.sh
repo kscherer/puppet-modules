@@ -51,11 +51,11 @@ deb http://${location}-mirror.wrs.com/mirror/ubuntu.com/ubuntu ${release}-securi
 EOF
 
 cat > $sources_dir/$location-mirror_ubuntu_updates.list <<EOF
-# ${location}-mirror_ubuntu_security
+# ${location}-mirror_ubuntu_updates
 deb http://${location}-mirror.wrs.com/mirror/ubuntu.com/ubuntu ${release}-updates main restricted universe
 EOF
 
-cat > $sources_dir/$location-mirror_puppetlabs.list <<EOF
+cat > $sources_dir/$location_puppetlabs_mirror.list <<EOF
 # ${location}_puppetlabs_mirror
 deb http://${location}-mirror.wrs.com/mirror/puppetlabs/apt ${release} main dependencies
 EOF
