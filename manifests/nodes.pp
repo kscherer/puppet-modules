@@ -7,7 +7,7 @@ node 'ala-lpd-puppet.wrs.com' {
 
 node 'pek-lpd-puppet.wrs.com' {
   class { 'redhat': }
-  -> class { 'ntp': servers          => ['ntp-1.wrs.com','ntp-2.wrs.com'] }
+  -> class { 'ntp': servers => ['ntp-1.wrs.com','ntp-2.wrs.com'] }
   -> class { 'wr::activemq': broker_name => 'pek-broker' }
   -> class { 'wr::master': }
   -> class { 'nrpe': }
@@ -24,11 +24,20 @@ node 'yow-lpd-puppet.wrs.com' {
   -> class { 'git::stomp_listener': }
 }
 
+node 'git-master.wrs.com' {
+  include role::git::master
+}
+
+node 'git-mirror.wrs.com' {
+  include role::git::mirror
+}
+
 node 'yow-lpg-amqp.wrs.com' {
   class { 'wr::yow-amqp': }
 }
 
 node 'yow-blade2.wrs.com' {
+  include role::openstack::compute
 }
 
 node 'yow-blade3.wrs.com' {

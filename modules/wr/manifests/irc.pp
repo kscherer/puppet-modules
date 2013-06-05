@@ -3,12 +3,7 @@ class wr::irc {
   class { "wr::${::location}_dns": }
   -> class { 'redhat': }
   -> class { 'wr::mcollective': }
-  -> class { 'puppet':
-    puppet_server               => $wr::common::puppet_server,
-    puppet_agent_ensure         => $wr::common::puppet_version,
-    puppet_agent_service_enable => false,
-    agent                       => true,
-  }
+  -> class { 'puppet': }
   -> class { 'nrpe': }
   -> class { 'nis': }
   -> class { 'collectd::disable': }

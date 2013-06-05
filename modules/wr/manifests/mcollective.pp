@@ -18,8 +18,6 @@ class wr::mcollective (
   }
 
   anchor { 'wr::mcollective::begin': }
-  -> class { 'wr::common': }
-
   -> class {
     '::mcollective':
       version                 => 'latest',
@@ -42,11 +40,6 @@ class wr::mcollective (
   -> anchor { 'wr::mcollective::end': }
 
   cron {
-    'restart_mcollective':
-      ensure  => absent,
-      command => '/sbin/service mcollective restart &> /dev/null',
-      minute  => '0',
-      hour    => '0';
     'generate_facts':
       command => '/usr/bin/facter --puppet --yaml > /etc/mcollective/facter.yaml 2> /dev/null',
       minute  => '0';

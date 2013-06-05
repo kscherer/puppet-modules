@@ -34,7 +34,7 @@ class wr::master {
   }
   -> class {
     'puppetdb::master::config':
-      puppetdb_server     => $wr::common::puppet_server,
+      puppetdb_server     => hiera('puppet::puppet_server'),
       manage_storeconfigs => false,
       restart_puppet      => false,
   }
@@ -42,10 +42,7 @@ class wr::master {
   class {
     'puppet':
       agent                       => true,
-      puppet_server               => $wr::common::puppet_server,
-      puppet_master_ensure        => $wr::common::puppet_version,
-      puppet_agent_ensure         => $wr::common::puppet_version,
-      puppet_agent_service_enable => false,
+      puppet_master_ensure        => 'latest',
       master                      => true,
       autosign                    => true,
       manifest                    => '$confdir/environments/$environment/manifests/site.pp',

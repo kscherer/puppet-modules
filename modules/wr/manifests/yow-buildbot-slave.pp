@@ -9,12 +9,7 @@ class wr::yow-buildbot-slave inherits wr::mcollective {
   }
 
   class { $base_class: }
-  -> class { 'puppet':
-    puppet_server               => $wr::common::puppet_server,
-    puppet_agent_ensure         => $wr::common::puppet_version,
-    puppet_agent_service_enable => false,
-    agent                       => true,
-  }
+  -> class { 'puppet': }
   -> class { 'nrpe': }
   -> class { 'nis': }
   -> class { 'yocto': }

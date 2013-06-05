@@ -1,5 +1,6 @@
-#
+#This class is currently only used by ala-lpd-rcpl.
 class git::git-daemon {
+
   package {
     'git-daemon':
       ensure => latest;

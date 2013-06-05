@@ -14,11 +14,6 @@ filebucket {
 # Specify it as the default target
 File { backup => main }
 
-#force the provider on RH 4 to be yum, not uptodate
-if $::operatingsystem == 'RedHat' and $::operatingsystemrelease == '4' {
-  Package { provider => yum }
-}
-
 #force the provider on Suse to be zypper
 if $::osfamily == 'Suse' {
   Package { provider => zypper }
@@ -27,7 +22,9 @@ if $::osfamily == 'Suse' {
 case $::location {
   undef: {
     #This path is used for stdlib facter_dot_d module
-    #if location fact is not set by pluginsync, use default from hostname
+    #if location fact is not set by pluginsync, use default from puppet server used
+    $location = regsubst($::server, '^(\w\w\w).*','\1')
+    notice("Using calculated location of ${::location}")
     file {
       '/etc/facter/':
         ensure => directory;
@@ -35,10 +32,8 @@ case $::location {
         ensure => directory;
       '/etc/facter/facts.d/location.txt':
         ensure  => present,
-        content => inline_template( 'location=<%= hostname[0..2] %>' );
+        content => inline_template( 'location=<%= server[0..2] %>' );
     }
-    $location = regsubst($::hostname, '^(\w\w\w).*','\1')
-    notice("Using calculated location of ${::location}")
   }
   default: { } #location properly set, Nothing to do
 }

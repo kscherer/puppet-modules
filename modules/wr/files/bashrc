@@ -126,8 +126,8 @@ function edit()
         local REMOTEIP=$(echo ${SSH_CONNECTION} | cut -d" " -f 1)
         local LOCALIP=$(echo ${SSH_CONNECTION} | cut -d" " -f 3)
 
-        echo "Connecting to $REMOTEUSER@$REMOTEIP as $USER@LOCALIP"
-        ssh -l $REMOTEUSER $REMOTEIP emacsclient -n /$USER@$LOCALIP:$FILE
+        echo "Connecting to ${REMOTEUSER}@${REMOTEIP} as ${USER}@${LOCALIP}"
+        ssh -l $REMOTEUSER $REMOTEIP emacsclient -n /${USER}@${LOCALIP}:$FILE
     elif [ -n "$EMACS_SERVER" ]; then
         local IP=$(/sbin/ifconfig | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}')
         local ME=$USER@$IP
@@ -235,6 +235,38 @@ function r() {
             SSH_AUTH_SOCK=$NEW_SSH_AUTH_SOCK
         fi
     fi
+}
+
+# make dir and cd into it
+function mcd() {
+    mkdir -p "$1" && cd "$1";
+}
+
+# Add sudo to last command or current commands
+s(){
+    if [[ $# == 0 ]]; then
+        sudo $(history -p '!!')
+    else
+        sudo "$@"
+    fi
+}
+
+servedir(){
+    port=8080
+    if [ $1 -gt 70 ]; then
+        port=$1
+    fi
+    python -m SimpleHTTPServer $port
+}
+
+# Used to simplify logging into my vms
+function sshvm() {
+    num=$1
+    ssh root@yow-lpgbld-vm$num
+}
+
+function yblade() {
+    ssh root@yow-blade$1
 }
 
 #prompt related functionality

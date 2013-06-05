@@ -1,12 +1,10 @@
 #
-class wr::yow_openstack inherits wr::mcollective {
+class wr::yow_openstack {
 
-  class { 'puppet':
-    puppet_server               => $wr::common::puppet_server,
-    puppet_agent_ensure         => $wr::common::puppet_version,
-    puppet_agent_service_enable => false,
-    agent                       => true,
-  }
+  class { 'wr::common': }
+  -> class { 'wr::mcollective': }
+
+  include puppet
   include sudo
   include nrpe
 
