@@ -2,14 +2,15 @@
 :backends:
   - yaml
 
-:logger: noop
+:logger: puppet
 
 :hierarchy:
-  - "%{operatingsystem}-%{lsbmajdistrelease}-%{architecture}"
-  - "%{operatingsystem}-%{lsbmajdistrelease}"
-  - "%{osfamily}"
-  - "%{location}"
+  - "%{::hostname}"
+  - "%{::location}"
+  - "%{::operatingsystem}-%{::lsbmajdistrelease}-%{::architecture}"
+  - "%{::operatingsystem}-%{::lsbmajdistrelease}"
+  - "%{::osfamily}"
   - common
 
 :yaml:
-   :datadir: "/home/kscherer/repos/wr-puppet-modules/hiera"
+   :datadir: "%{::settings::confdir}"
