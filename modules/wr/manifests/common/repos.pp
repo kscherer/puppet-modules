@@ -1,9 +1,9 @@
 #Setup all puppet managed machines to use internal mirrors
 class wr::common::repos {
-  case $::osfamily {
-    Debian: { include debian }
-    RedHat: { include redhat }
-    Suse:   { include suse }
-    default:{ fail("Unsupported OS: ${::osfamily}")}
-  }
+  $family=downcase($::osfamily)
+  include $family
+
+  anchor{'wr::common::repos::begin':}
+  -> Class[$family]
+  -> anchor{'wr::common::repos::end':}
 }

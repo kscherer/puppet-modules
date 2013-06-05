@@ -8,13 +8,13 @@ class profile::base {
   include wr::common::etc_host_setup
   include wr::common::bash_configs
   include wr::workaround::xen
-  include mcollective
+  include wr::mcollective
   include puppet
 
   #make sure classes the may install packages come after repo info is updated
   Class['wr::common::repos'] -> Class['ntp']
   Class['wr::common::repos'] -> Class['nrpe']
-  Class['wr::common::repos'] -> Class['mcollective']
+  Class['wr::common::repos'] -> Class['wr::mcollective']
   Class['wr::common::repos'] -> Class['puppet']
 }
 
