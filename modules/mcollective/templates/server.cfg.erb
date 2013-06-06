@@ -16,7 +16,7 @@ plugin.psk       = <%= @mc_security_psk_real %>
 # Registration
 registerinterval = 300
 registration     = Meta
-<% if registration_collective != 'UNSET' -%>
+<% if @registration_collective != 'UNSET' -%>
 registration_collective = <%= @registration_collective %>
 <% end -%>
 <% end -%>
@@ -33,7 +33,7 @@ plugin.stomp.password = <%= @stomp_passwd %>
 plugin.<%= @connector -%>.pool.size = <%= @pool_size %>
 <% @pool_real.each do |pool_num,configs| -%>
 <% configs.to_a.sort.each do |key,value| -%>
-plugin.<%= @connector -%>.pool.<%= @key -%><%= @pool_num -%> = <%= @value %>
+plugin.<%= @connector -%>.pool.<%= key -%><%= pool_num -%> = <%= value %>
 <% end -%>
 <% end -%>
 <% end -%>
@@ -41,7 +41,7 @@ plugin.<%= @connector -%>.pool.<%= @key -%><%= @pool_num -%> = <%= @value %>
 plugin.<%= @connector -%>.pool.size = <%= @pool_size %>
 <% @pool_real.each do |pool_num,configs| -%>
 <% configs.to_a.sort.each do |key,value| -%>
-plugin.<%= @connector -%>.pool.<%= @pool_num -%>.<%= @key -%> = <%= @value %>
+plugin.<%= @connector -%>.pool.<%= pool_num -%>.<%= key -%> = <%= value %>
 <% end -%>
 <% end -%>
 <% end -%>
@@ -52,7 +52,7 @@ direct_addressing = 1
 <% end -%>
 
 <% @plugin_params.each do |param,value| -%>
-plugin.<%= @param -%> = <%= @value %>
+plugin.<%= param -%> = <%= value %>
 <% end -%>
 
 # NRPE
