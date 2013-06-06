@@ -71,4 +71,10 @@ class wr::yow_openstack {
     controller_node      => $::ipaddress_eth0,
     keystone_admin_token => 'keystone_admin_token',
   }
+
+  #Protect this file which is needed by cinder-common package from puppet purge of sudoers.d
+  file {
+    '/etc/sudoers.d/cinder_sudoers':
+      ensure => present;
+  }
 }
