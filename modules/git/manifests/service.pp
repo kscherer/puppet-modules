@@ -7,7 +7,9 @@ class git::service(
 
   user {
     'git':
-      ensure => 'present';
+      ensure     => 'present',
+      groups     => 'users',
+      managehome => true;
   }
 
   group {
