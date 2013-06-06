@@ -1,5 +1,9 @@
 #Install and manage grokmirror
-class git::grokmirror {
+class git::grokmirror::base {
+
+  #use apache to serve git repo manifest
+  include apache
+
   vcsrepo {
     '/git/grokmirror':
       ensure   => 'latest',

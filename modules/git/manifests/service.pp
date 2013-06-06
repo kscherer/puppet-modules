@@ -1,7 +1,7 @@
 #
 class git::service(
   $gitdir = '/git',
-  $daemon = '/usr/bin/git-daemon',
+  $daemon = 'UNSET',
 ) {
   include git
 
@@ -27,15 +27,20 @@ class git::service(
 
   include git::params
 
+  $daemon_real = $daemon ? {
+    'UNSET' => $git::params::daemon,
+    default => $daemon,
+  }
+
   ensure_resource('package', $git::params::daemon_package, {'ensure' => 'installed' })
 
   include xinetd
 
   xinetd::service {
-    'tftp':
+    'git':
       disable        => 'no',
       port           => '9418',
-      server         => $daemon,
+      server         => $daemon_real,
       server_args    => "--base-path=${gitdir} --max-connections=64 --export-all --syslog --inetd --enable=upload-archive --enable=upload-pack --reuseaddr ${gitdir}",
       socket_type    => 'stream',
       protocol       => 'tcp',

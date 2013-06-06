@@ -20,7 +20,6 @@ class profile::git::base {
   include wr::mcollective
   include git::service
   include git::wr_bin_repo
-  include git::grokmirror
   Class['wr::common::repos'] -> Class['git']
   Class['wr::common::repos'] -> Class['nrpe']
   Class['wr::common::repos'] -> Class['wr::mcollective']
@@ -28,8 +27,10 @@ class profile::git::base {
 
 #
 class profile::git::master inherits profile::git::base {
+  include git::grokmirror::master
 }
 
 #
 class profile::git::mirror inherits profile::git::base {
+  include git::grokmirror::mirror
 }
