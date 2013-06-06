@@ -9,6 +9,7 @@ class git::service(
     'git':
       ensure     => 'present',
       groups     => 'users',
+      shell      => '/bin/bash',
       managehome => true;
   }
 
