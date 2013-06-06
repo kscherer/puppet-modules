@@ -10,29 +10,32 @@ fi
 release=$(lsb_release --codename --short)
 echo "Bootstrap of $distribution $release"
 
-#try to figure out location by tracking external ip address
-#Currently only works for Ottawa and Alameda
-location=""
-
-echo "Retrieving external ip address to determine location. May take a minute."
-external_ip=$(curl --silent http://ifconfig.me)
-#external_ip=$(dig +short @resolver1.opendns.com myip.opendns.com)
-
-if [ "x$external_ip" == "x128.224.252.2" ]; then
-    location="yow"
-elif [ "x$external_ip" == "x147.11.105.23" ]; then
-    location="ala"
-else
-    echo "Unable to determine location"
-    exit 1
-fi
-
-echo "Using location $location"
-
 facter_dir=/etc/facter/facts.d/
-mkdir -p $facter_dir
-echo "location=$location" > /tmp/location.txt
-mv /tmp/location.txt $facter_dir/location.txt
+if [ -f ${facter_dir}/location.txt ]; then
+    echo "Using existing location $(cat ${facter_dir}/location.txt)"
+else
+    #try to figure out location by tracking external ip address
+    #Currently only works for Ottawa and Alameda
+    location=""
+
+    echo "Retrieving external ip address to determine location. May take a minute."
+    external_ip=$(curl --silent http://ifconfig.me)
+    #external_ip=$(dig +short @resolver1.opendns.com myip.opendns.com)
+
+    if [ "x$external_ip" == "x128.224.252.2" ]; then
+        location="yow"
+    elif [ "x$external_ip" == "x147.11.105.23" ]; then
+        location="ala"
+    else
+        echo "Unable to determine location"
+        exit 1
+    fi
+    echo "Using location $location"
+
+    mkdir -p $facter_dir
+    echo "location=$location" > /tmp/location.txt
+    mv /tmp/location.txt $facter_dir/location.txt
+fi
 
 #setup local apt repos to make sure installation of puppet is successful
 echo "# Repos managed by puppet." > /etc/apt/sources.list
