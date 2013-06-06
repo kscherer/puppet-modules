@@ -10,7 +10,7 @@ class role::git::master inherits role {
 
 #
 class role::git::mirror inherits role {
-  include profile::git::master
+  include profile::git::mirror
 }
 
 
