@@ -1,6 +1,8 @@
 #Install and manage grokmirror
 class git::grokmirror::base {
 
+  ensure_resource('package', 'python-git', {'ensure' => 'installed' })
+
   vcsrepo {
     '/git/grokmirror':
       ensure   => 'latest',
