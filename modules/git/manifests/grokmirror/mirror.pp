@@ -1,6 +1,6 @@
 #Setup grok mirror on the mirror
 class git::grokmirror::mirror(
-  $site = 'git://git.kernel.org',
+  $site = 'git.kernel.org',
   $toplevel = '/var/lib/git/mirror',
   $projectslist_symlinks = 'no',
   $post_update_hook = '',
@@ -22,7 +22,7 @@ class git::grokmirror::mirror(
 
   grokmirror_repos_config {
     "${site}/site":
-      value   => $site;
+      value   => "git://${site}";
     "${site}/manifest":
       value => "http://${site}/grokmirror/manifest.js.gz";
     "${site}/toplevel":
