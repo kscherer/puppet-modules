@@ -15,7 +15,7 @@ class git::grokmirror::mirror(
   file {
     "${toplevel}/log":
       ensure => directory,
-      user   => 'git',
+      owner  => 'git',
       group  => 'git',
       before => Grokmirror_repos_config["${site}/log"];
   }
@@ -24,7 +24,7 @@ class git::grokmirror::mirror(
     "${site}/site":
       value   => $site;
     "${site}/manifest":
-      value => "http://${site}/manifest.js.gz";
+      value => "http://${site}/grokmirror/manifest.js.gz";
     "${site}/toplevel":
       value   => $toplevel;
     "${site}/mymanifest":
