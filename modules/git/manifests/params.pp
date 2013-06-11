@@ -12,6 +12,12 @@ class git::params {
       $daemon_package = 'git-daemon'
       $docroot        = '/var/www/html'
     }
+    'Suse': {
+      $package_name   = 'git'
+      $daemon         = '/usr/bin/git-daemon'
+      $daemon_package = 'git-daemon'
+      $docroot        = '/var/www/html'
+    }
     default: {
       fail("Unsupported platform: ${::osfamily}")
     }
