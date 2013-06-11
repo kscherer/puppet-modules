@@ -3,11 +3,11 @@ class git::grokmirror::mirror(
   $site = 'git.kernel.org',
   $toplevel = '/var/lib/git/mirror',
   $projectslist_symlinks = 'no',
-  $post_update_hook = '',
+  $post_update_hook = undef,
   $default_owner = 'Grokmirror',
   $loglevel = 'info',
   $include = '*',
-  $exclude = ''
+  $exclude = undef
 ) {
 
   include git::grokmirror::base
