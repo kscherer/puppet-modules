@@ -20,6 +20,13 @@ class git::grokmirror::mirror(
       before => Grokmirror_repos_config["${site}/log"];
   }
 
+  #Clean unused entries from grokmirror config repo
+  resources {
+    'grokmirror_repos_config':
+      purge => true;
+  }
+
+  #Create the entries for the grokmirror config file
   grokmirror_repos_config {
     "${site}/site":
       value   => "git://${site}";
