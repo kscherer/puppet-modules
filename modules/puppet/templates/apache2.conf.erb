@@ -1,22 +1,22 @@
 LoadModule ssl_module modules/mod_ssl.so
 
-Listen <%= puppet_passenger_port %>
+Listen <%= @puppet_passenger_port %>
 
-<VirtualHost *:<%= puppet_passenger_port %>>
-    ServerName <%= puppet_site %>
+<VirtualHost *:<%= @puppet_passenger_port %>>
+    ServerName <%= @puppet_site %>
     SSLEngine on
 
     # Only allow high security cryptography. Alter if needed for compatibility.
     SSLProtocol             All -SSLv2
     SSLCipherSuite          HIGH:!ADH:RC4+RSA:-MEDIUM:-LOW:-EXP
 
-    SSLCertificateFile      <%= puppet_ssldir %>/certs/<%= certname %>.pem
-    SSLCertificateKeyFile   <%= puppet_ssldir %>/private_keys/<%= certname %>.pem
-    SSLCertificateChainFile <%= puppet_ssldir %>/ca/ca_crt.pem
-    SSLCACertificateFile    <%= puppet_ssldir %>/ca/ca_crt.pem
+    SSLCertificateFile      <%= @puppet_ssldir %>/certs/<%= @certname %>.pem
+    SSLCertificateKeyFile   <%= @puppet_ssldir %>/private_keys/<%= @certname %>.pem
+    SSLCertificateChainFile <%= @puppet_ssldir %>/ca/ca_crt.pem
+    SSLCACertificateFile    <%= @puppet_ssldir %>/ca/ca_crt.pem
     # If Apache complains about invalid signatures on the CRL, you can try disabling
     # CRL checking by commenting the next line, but this is not recommended.
-    SSLCARevocationFile     <%= puppet_ssldir %>/ca/ca_crl.pem
+    SSLCARevocationFile     <%= @puppet_ssldir %>/ca/ca_crl.pem
     SSLVerifyClient         optional
     SSLVerifyDepth          1
     SSLOptions              +StdEnvVars +ExportCertData
@@ -32,7 +32,7 @@ Listen <%= puppet_passenger_port %>
     # Recycle master processes after they service 1000 requests
     PassengerMaxRequests 1000
 
-    DocumentRoot <%= puppet_docroot %>
+    DocumentRoot <%= @puppet_docroot %>
     RackAutoDetect On
     <Directory /etc/puppet/rack/>
         Options None

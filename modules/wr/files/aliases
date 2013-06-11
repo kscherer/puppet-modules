@@ -22,7 +22,8 @@ alias m='make'
 alias gs='git status'
 alias gl='git log -3'
 alias gd='git diff'
-alias gc='git commit'
+alias gdw='git diff --word-diff'
+alias gc='git commit --signoff'
 alias ga='git add -A'
 alias gg='git grep'
 alias gdc='git diff --cached'
@@ -48,7 +49,14 @@ alias ack='ack-grep'
 alias svi='sudo vi'
 alias xm='sudo xm'
 
+alias upgrade='sudo apt-get update && apt-get upgrade && apt-get clean'
+
 ## Ottawa git
-alias yow-git-init='if [ ! -d bin ] ; then git clone git://yow-git.ottawa.wrs.com/git/bin ; fi ; (cd bin ; ./wrgit pull) ; export PATH=`pwd`/bin:$PATH;'
-alias yow-git-clone='wrgit clone git://yow-git.ottawa.wrs.com/git/wrlinux-x'
+alias yow-git-init='if [ ! -d bin ] ; then git clone git://yow-git.wrs.com/git/bin ; fi ; (cd bin ; ./wrgit pull) ; export PATH=`pwd`/bin:$PATH;'
+alias yow-git-clone='wrgit clone git://yow-git.wrs.com/git/wrlinux-x'
 alias et="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
+
+alias yow-mirror='ssh svc-mirror@yow-lpggp1'
+alias ala-mirror='ssh svc-mirror@ala-lpggp4'
+alias yow-puppet='ssh root@yow-lpd-puppet'
+alias ala-puppet='ssh root@ala-lpd-puppet'

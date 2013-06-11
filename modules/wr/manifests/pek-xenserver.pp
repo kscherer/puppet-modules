@@ -1,14 +1,11 @@
 #
-class wr::pek-xenserver inherits wr::mcollective {
+class wr::pek-xenserver {
 
   class { 'apt': purge_sources_list => true }
   class { 'debian': }
-  -> class { 'puppet':
-    puppet_server               => $wr::common::puppet_server,
-    puppet_agent_ensure         => $wr::common::puppet_version,
-    puppet_agent_service_enable => false,
-    agent                       => true,
-  }
+  -> class { 'wr::common': }
+  -> class { 'wr::mcollective': }
+  -> class { 'puppet': }
   -> class { 'nrpe': }
   -> class { 'xen': }
 

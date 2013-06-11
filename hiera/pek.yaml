@@ -1,6 +1,6 @@
 ---
 amqp_server: pek-lpd-puppet.wrs.com
-puppet_server: pek-lpd-puppet.wrs.com
+puppet::puppet_server: pek-lpd-puppet.wrs.com
 ntp::servers:
   - pek-lpd-puppet.wrs.com
 mirror: pek-mirror.wrs.com

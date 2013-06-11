@@ -1,20 +1,17 @@
 #
-class wr::yow-hostel inherits wr::mcollective {
+class wr::yow-hostel {
 
   case $::operatingsystem {
     Debian,Ubuntu: { $base_class='debian' }
     CentOS,RedHat,Fedora: { $base_class='redhat' }
     OpenSuSE,SLED: { $base_class='suse'}
-    default: { fail("Unsupported OS: $::operatingsystem")}
+    default: { fail("Unsupported OS: ${::operatingsystem}")}
   }
 
   class { $base_class: }
-  -> class { 'puppet':
-    puppet_server               => $wr::common::puppet_server,
-    puppet_agent_ensure         => $wr::common::puppet_version,
-    puppet_agent_service_enable => false,
-    agent                       => true,
-  }
+  -> class { 'wr::common': }
+  -> class { 'wr::mcollective': }
+  -> class { 'puppet': }
   -> class { 'nrpe': }
   -> class { 'nis': }
   -> class { 'yocto': }

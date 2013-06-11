@@ -1,11 +1,11 @@
-storeconfigs              = <%= storeconfigs %>
-thinstoreconfigs          = <%= thinstoreconfigs %>
+storeconfigs              = <%= @storeconfigs %>
+thinstoreconfigs          = <%= @thinstoreconfigs %>
 <% if dbadapter != 'puppetdb' -%>
-dbadapter                 = <%= dbadapter %>
-dbuser                    = <%= dbuser %>
-dbpassword                = <%= dbpassword %>
-dbserver                  = <%= dbserver %>
-dbsocket                  = <%= dbsocket %>
+dbadapter                 = <%= @dbadapter %>
+dbuser                    = <%= @dbuser %>
+dbpassword                = <%= @dbpassword %>
+dbserver                  = <%= @dbserver %>
+dbsocket                  = <%= @dbsocket %>
 dbmigrate                 = true
 <% else -%>
 storeconfigs_backend      = puppetdb

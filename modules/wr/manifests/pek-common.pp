@@ -1,14 +1,10 @@
 #
 class wr::pek-common {
   class { 'redhat': }
-  -> class { 'wr::mcollective': }
   -> class { 'redhat::autoupdate': }
-  -> class { 'puppet':
-    puppet_server               => $wr::common::puppet_server,
-    puppet_agent_ensure         => $wr::common::puppet_version,
-    puppet_agent_service_enable => false,
-    agent                       => true,
-  }
+  -> class { 'wr::common': }
+  -> class { 'wr::mcollective': }
+  -> class { 'puppet': }
   -> class { 'nrpe': }
   -> class { 'nis': }
 

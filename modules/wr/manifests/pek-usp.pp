@@ -9,12 +9,7 @@ class wr::pek-usp inherits wr::common {
   }
 
   class { $base_class: }
-  -> class { 'puppet':
-    puppet_server               => $wr::common::puppet_server,
-    puppet_agent_ensure         => $wr::common::puppet_version,
-    puppet_agent_service_enable => false,
-    agent                       => true,
-  }
+  -> class { 'puppet': }
 
   ssh_authorized_key {
     'wenzong':

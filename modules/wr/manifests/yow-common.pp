@@ -3,13 +3,9 @@ class wr::yow-common( $mcollective_client = false ) {
   class { 'wr::yow_dns': }
   class { 'redhat': }
   -> class { 'redhat::autoupdate': }
+  -> class { 'wr::common': }
   -> class { 'wr::mcollective': client => $mcollective_client }
-  -> class { 'puppet':
-    puppet_server               => $wr::common::puppet_server,
-    puppet_agent_ensure         => $wr::common::puppet_version,
-    puppet_agent_service_enable => false,
-    agent                       => true,
-  }
+  -> class { 'puppet': }
   -> class { 'nrpe': }
   -> class { 'nis': }
   -> class { 'nagios::target': }

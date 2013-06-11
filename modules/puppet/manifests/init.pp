@@ -43,6 +43,7 @@ class puppet (
   $passenger_package           = undef,
   $puppet_docroot              = $puppet::params::puppet_docroot,
   $puppet_environment          = 'production',
+  $facter_ensure               = 'latest',
   $storeconfigs                = false,
   $thinstoreconfigs            = false,
   $storeconfigs_dbadapter      = $puppet::params::storeconfigs_dbadapter,
@@ -189,6 +190,12 @@ class puppet (
       recurse      => true,
       recurselimit => '1',
     }
+  }
+
+  #The puppet package get handled by puppet module, but not facter
+  package {
+    'facter':
+      ensure   => $facter_ensure;
   }
 
   include concat::setup
