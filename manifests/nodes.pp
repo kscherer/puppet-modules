@@ -146,6 +146,10 @@ node 'ala-lpd-susbld.wrs.com' {
   class { 'wr::ala-lpd-susbld': }
 }
 
+node 'svl-tuxlab.wrs.com' {
+  class { 'wr::svl_tuxlab': }
+}
+
 node /ala-lp.*\.wrs\.com/ {
   class { 'wr::ala-common': }
 }
