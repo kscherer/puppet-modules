@@ -10,21 +10,25 @@ fi
 release=$(lsb_release --codename --short)
 echo "Bootstrap of $distribution $release"
 
+location=""
+
 facter_dir=/etc/facter/facts.d/
 if [ -f ${facter_dir}/location.txt ]; then
-    echo "Using existing location $(cat ${facter_dir}/location.txt)"
+    location=$(cat ${facter_dir}/location.txt | cut -d= -f2)
+    echo "Using existing location $location"
 else
     #try to figure out location by tracking external ip address
     #Currently only works for Ottawa and Alameda
-    location=""
 
     echo "Retrieving external ip address to determine location. May take a minute."
     external_ip=$(curl --silent http://ifconfig.me)
     #external_ip=$(dig +short @resolver1.opendns.com myip.opendns.com)
 
-    if [ "x$external_ip" == "x128.224.252.2" ]; then
+    #only look at first 2 parts of ip address
+    classB_subnet=$(echo ${external_ip} | cut -d. -f1-2)
+    if [ "x$classB_subnet" == "x128.224" ]; then
         location="yow"
-    elif [ "x$external_ip" == "x147.11.105.23" ]; then
+    elif [ "x$classB_subnet" == "x147.11" ]; then
         location="ala"
     else
         echo "Unable to determine location"
@@ -35,6 +39,12 @@ else
     mkdir -p $facter_dir
     echo "location=$location" > /tmp/location.txt
     mv /tmp/location.txt $facter_dir/location.txt
+fi
+
+#Make sure bootstrap uses valid mirror
+if [ "x$location" != "xala" ] || [ "x$location" != "xyow" ]; then
+    echo "Bootstrap currently only supports Ottawa and Alameda mirrors, defaulting to Alameda"
+    location="ala"
 fi
 
 #setup local apt repos to make sure installation of puppet is successful
