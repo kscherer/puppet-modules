@@ -107,7 +107,7 @@ class puppet::agent(
       #sure that puppet is not running as a service
       cron {
         'puppet_cron':
-          command => '/usr/bin/puppet agent --onetime --logdest syslog > /dev/null 2>&1',
+          command => '/usr/bin/puppet agent --onetime > /dev/null 2>&1',
           user    => 'root',
           minute  => fqdn_rand(58)+1,
           require => File['/etc/puppet/puppet.conf'];
