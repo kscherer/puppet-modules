@@ -3,8 +3,7 @@ class nomachine {
   if $::osfamily == 'RedHat' {
     redhat::yum_repo {
       'nomachine':
-        baseurl => 'http://yow-mirror.wrs.com/mirror/nomachine',
-        descr   => 'Local mirror of nomachine packages';
+        baseurl => 'http://yow-mirror.wrs.com/mirror/nomachine';
     }
   }
 
