@@ -1,7 +1,7 @@
 #install nomachine nx for usable X forwarding over WAN
 class nomachine {
   if $::osfamily == 'RedHat' {
-    yumrepo {
+    redhat::yum_repo {
       'nomachine':
         baseurl => 'http://yow-mirror.wrs.com/mirror/nomachine',
         descr   => 'Local mirror of nomachine packages';
