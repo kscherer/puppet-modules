@@ -103,14 +103,20 @@ class puppet::agent(
           onlyif    => '/bin/ps -ef | grep -v grep | /bin/grep \'.*puppet agent$\'',
       }
     } else {
-      #Make sure puppet agent service is not running. Assume puppet runs
-      #are triggered manually or using something like puppet commander
-      #This will cause the current puppet run to exit with an error
-      # service { $puppet_agent_service:
-      #   ensure   => stopped,
-      #   pattern  => '.*puppet agent(?! --onetime)',
-      #   enable   => false;
-      # }
+      #Run puppet from cron once an hour. At the beginning of the hour make
+      #sure that puppet is not running as a service
+      cron {
+        'puppet_cron':
+          command => '/usr/bin/puppet agent --onetime --logdest syslog > /dev/null 2>&1',
+          user    => 'root',
+          minute  => fqdn_rand(58)+1,
+          require => File['/etc/puppet/puppet.conf'];
+        'stop_service':
+          command => 'service puppet stop',
+          user    => 'root',
+          minute  => '0',
+          require => Package[$puppet_agent_name];
+      }
     }
   }
 
