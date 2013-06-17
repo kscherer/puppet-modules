@@ -112,7 +112,7 @@ class puppet::agent(
           minute  => fqdn_rand(58)+1,
           require => File['/etc/puppet/puppet.conf'];
         'stop_service':
-          command => 'service puppet stop',
+          command => 'PATH=/bin:/sbin:/usr/sbin:/usr/bin service puppet stop',
           user    => 'root',
           minute  => '0',
           require => Package[$puppet_agent_name];
