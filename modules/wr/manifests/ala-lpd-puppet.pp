@@ -6,7 +6,6 @@ class wr::ala-lpd-puppet {
   -> class { 'wr::activemq': broker_name => 'ala-broker' }
   -> class { 'wr::master': }
   -> class { 'git::stomp_listener': }
-  -> class { 'wr::puppetcommander': }
   -> class { 'graphite': }
 
   Class['redhat'] -> class { 'nrpe': }

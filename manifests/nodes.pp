@@ -12,12 +12,11 @@ node 'pek-lpd-puppet.wrs.com' {
   -> class { 'wr::master': }
   -> class { 'nrpe': }
   -> class { 'git::stomp_listener': }
-  -> class { 'wr::puppetcommander': }
 }
 
 node 'yow-lpd-puppet.wrs.com' {
   class { 'redhat': }
-  -> class { 'ntp': servers => ['yow-lpggp1.wrs.com'] }
+  -> class { 'ntp': }
   -> class { 'wr::master': }
   -> class { 'nrpe': }
   -> class { 'nagios::target': }

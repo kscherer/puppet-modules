@@ -3,7 +3,6 @@ class wr::yow_lpd_monitor {
 
   class { 'wr::yow-common': mcollective_client => true}
   -> class { 'nagios': }
-  -> class { 'wr::puppetcommander': }
   -> class { 'graphite': }
 
   #nagios class notifies httpd service so -> relationship creates cycles
