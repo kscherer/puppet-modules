@@ -60,6 +60,7 @@ class wr::irc {
       require => [File['ircd.conf'],File['ircd.motd'],File['m_opme.so']];
   }
 
+  include motd
   motd::register{
     'irc':
       content => 'This machine is reserved for the internal Wind River IRC network.';
