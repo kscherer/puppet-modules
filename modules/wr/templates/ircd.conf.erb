@@ -65,9 +65,9 @@ auth {
 
 <% @operators.to_a.sort.each do |name,params| -%>
 operator {
-    name = "<%= @name -%>";
-    user = "<%= @params['user'] -%>";
-    password = "<%= @params['password'] -%>";
+    name = "<%= name -%>";
+    user = "<%= params['user'] -%>";
+    password = "<%= params['password'] -%>";
     encrypted = yes;
     class = "opers";
     flags = global_kill, remote, kline, unkline, xline,
