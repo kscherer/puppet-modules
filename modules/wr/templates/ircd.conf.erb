@@ -1,7 +1,7 @@
 
 serverinfo {
-    name = "<%= fqdn -%>";
-    sid = "0<%= hostname[0..1].upcase -%>";
+    name = "<%= @fqdn -%>";
+    sid = "0<%= @hostname[0..1].upcase -%>";
     description = "Wind River IRC";
     network_name = "WRS";
     network_desc = "Wind River Internal";
@@ -63,11 +63,11 @@ auth {
     class = "users";
 };
 
-<% operators.each do |name,params| -%>
+<% @operators.to_a.sort.each do |name,params| -%>
 operator {
-    name = "<%= name -%>";
-    user = "<%= params['user'] -%>";
-    password = "<%= params['password'] -%>";
+    name = "<%= @name -%>";
+    user = "<%= @params['user'] -%>";
+    password = "<%= @params['password'] -%>";
     encrypted = yes;
     class = "opers";
     flags = global_kill, remote, kline, unkline, xline,
@@ -195,7 +195,7 @@ glines {
     action = block;
 };
 
-<% if hostname != 'yow-irc' -%>
+<% if @hostname != 'yow-irc' -%>
 connect "yow-irc.wrs.com" {
     host = "128.224.195.111";
     send_password = "password";
@@ -207,7 +207,7 @@ connect "yow-irc.wrs.com" {
 };
 <% end -%>
 
-<% if hostname != 'pek-git.wrs.com' -%>
+<% if @hostname != 'pek-git.wrs.com' -%>
 connect "pek-git.wrs.com" {
     host = "128.224.153.11";
     send_password = "password";
@@ -219,7 +219,7 @@ connect "pek-git.wrs.com" {
 };
 <% end -%>
 
-<% if hostname != 'ala-irc' -%>
+<% if @hostname != 'ala-irc' -%>
 connect "ala-irc.wrs.com" {
     host = "147.11.146.102";
     send_password = "password";
