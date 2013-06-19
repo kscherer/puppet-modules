@@ -6,6 +6,7 @@ define motd::register($content='', $order=10) {
     $body = $content
   }
 
+  include motd
   concat::fragment{"motd_fragment_${name}":
     target  => $motd::motd,
     content => "\n${body}\n"
