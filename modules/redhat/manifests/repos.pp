@@ -82,6 +82,8 @@ class redhat::repos {
       baseurl => 'http://ala-mirror.wrs.com/mirror/graphite';
     'collectd':
       baseurl => "${mirror}/collectd/${::lsbmajdistrelease}";
+    'megacli':
+      baseurl => 'http://yow-mirror.wrs.com/mirror/megacli';
   }
 
   #setup repos depending on which flavour of redhat
@@ -91,6 +93,7 @@ class redhat::repos {
       realize( Yum_repo['centos-updates'] )
       realize( Yum_repo['epel'] )
       realize( Yum_repo['collectd'] )
+      realize( Yum_repo['megacli'] )
       if ( $::lsbmajdistrelease == '6' ) {
         realize( Yum_repo['passenger'] )
         realize( Yum_repo['foreman'] )
