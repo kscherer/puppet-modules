@@ -16,5 +16,7 @@ class wr::ala-common {
       source  => 'puppet:///modules/wr/sudoers.d/admin';
     'leads':
       source  => 'puppet:///modules/wr/sudoers.d/leads';
+    'it':
+      source  => 'puppet:///modules/wr/sudoers.d/it';
   }
 }
