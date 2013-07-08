@@ -83,6 +83,7 @@ class redhat::repos {
     'collectd':
       baseurl => "${mirror}/collectd/${::lsbmajdistrelease}";
     'megacli':
+      ensure  => absent,
       baseurl => 'http://yow-mirror.wrs.com/mirror/megacli';
   }
 
