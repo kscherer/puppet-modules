@@ -147,4 +147,27 @@ class wr::ala-blades {
 
   #To build 4.3 on ala-blades install required packages
   include wrlinux
+
+  #setup ssmtp to forward all email sent to root to Konrad
+  class {
+    'ssmtp':
+      mailhub => 'mail.windriver.com',
+      root    => 'konrad.scherer@windriver.com';
+  }
+
+  #make sure sendmail is not on the machine and ssmtp is installed afterwards
+  #to ensure the alternatives links are setup properly
+  package {
+    'sendmail':
+      ensure => absent;
+  }
+  Package['sendmail'] -> Package['ssmtp']
+
+  #monitor
+  class {
+    'smart':
+      devices  => ['/dev/sg0', '/dev/sg1',],
+      email    => 'konrad.scherer@windriver.com',
+      schedule => '(S/../.././02|L/../../6/03)';
+  }
 }
