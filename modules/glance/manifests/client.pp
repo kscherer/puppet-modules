@@ -8,7 +8,9 @@ class glance::client (
   $ensure = 'present'
 ) {
 
-  package { 'python-glance':
+  include glance::params
+
+  package { 'python-glanceclient':
     name   => $::glance::params::client_package_name,
     ensure => $ensure,
   }
