@@ -14,6 +14,7 @@
 #  [*config*] - contents of config file
 #  [*env_config*] - contents of env-config file
 #  [*config_cluster*] - whether to configure a RabbitMQ cluster
+#  [*config_mirrored_queues*] - whether to configure RabbitMQ mirrored queues within a Rabbit Cluster.
 #  [*cluster_disk_nodes*] - which nodes to cluster with (including the current one)
 #  [*erlang_cookie*] - erlang cookie, must be the same for all nodes in a cluster
 #  [*wipe_db_on_cookie_change*] - whether to wipe the RabbitMQ data if the specified
@@ -25,7 +26,7 @@
 #  stdlib
 # Sample Usage:
 #
-#  
+#
 #
 #
 # [Remember: No empty lines between comments and class definition]
@@ -36,9 +37,11 @@ class rabbitmq::server(
   $version = 'UNSET',
   $service_name = 'rabbitmq-server',
   $service_ensure = 'running',
+  $manage_service = true,
   $config_stomp = false,
   $stomp_port = '6163',
   $config_cluster = false,
+  $config_mirrored_queues = false,
   $cluster_disk_nodes = [],
   $node_ip_address = 'UNSET',
   $config='UNSET',
@@ -70,11 +73,6 @@ class rabbitmq::server(
   }
 
   $plugin_dir = "/usr/lib/rabbitmq/lib/rabbitmq_server-${version_real}/plugins"
-
-  package { $package_name:
-    ensure => $pkg_ensure_real,
-    notify => Class['rabbitmq::service'],
-  }
 
   file { '/etc/rabbitmq':
     ensure  => directory,
@@ -121,6 +119,35 @@ class rabbitmq::server(
         unless  => "/bin/grep -qx ${erlang_cookie} /var/lib/rabbitmq/.erlang.cookie"
       }
     }
+    if $config_mirrored_queues {
+
+      $mirrored_queues_pkg_name = $rabbitmq::params::mirrored_queues_pkg_name
+      $mirrored_queues_pkg_url  = $rabbitmq::params::mirrored_queues_pkg_url
+      $erlang_pkg_name          = $rabbitmq::params::erlang_pkg_name
+
+      exec { 'download-rabbit':
+        command => "wget -O /tmp/${mirrored_queues_pkg_name} ${mirrored_queues_pkg_url}${mirrored_queues_pkg_name} --no-check-certificate",
+        path    => '/usr/bin:/usr/sbin:/bin:/sbin',
+        creates => "/tmp/${mirrored_queues_pkg_name}",
+      }
+
+      package { $erlang_pkg_name:
+        ensure   => $pkg_ensure_real,
+      }
+
+      package { $package_name:
+        ensure   => $pkg_ensure_real,
+        provider => 'dpkg',
+        require  => [Exec['download-rabbit'],Package[$erlang_pkg_name]],
+        source   => "/tmp/${mirrored_queues_pkg_name}",
+        notify   => Class['rabbitmq::service'],
+      }
+    }
+  } else {
+    package { $package_name:
+      ensure => $pkg_ensure_real,
+      notify => Class['rabbitmq::service'],
+    }
   }
 
   file { 'rabbitmq-env.config':
@@ -134,8 +161,9 @@ class rabbitmq::server(
   }
 
   class { 'rabbitmq::service':
-    service_name => $service_name,
-    ensure       => $service_ensure,
+    ensure         => $service_ensure,
+    service_name   => $service_name,
+    manage_service => $manage_service
   }
 
   if $delete_guest_user {
@@ -144,6 +172,27 @@ class rabbitmq::server(
       ensure   => absent,
       provider => 'rabbitmqctl',
     }
+  }
+
+  rabbitmq_plugin { 'rabbitmq_management':
+    ensure => present,
+  }
+
+  exec { 'Download rabbitmqadmin':
+    command => "curl http://${default_user}:${default_pass}@localhost:5${port}/cli/rabbitmqadmin -o /var/tmp/rabbitmqadmin",
+    creates => '/var/tmp/rabbitmqadmin',
+    require => [
+      Class['rabbitmq::service'],
+      Rabbitmq_plugin['rabbitmq_management']
+    ],
+  }
+
+  file { '/usr/local/bin/rabbitmqadmin':
+    owner   => 'root',
+    group   => 'root',
+    source  => '/var/tmp/rabbitmqadmin',
+    mode    => '0755',
+    require => Exec['Download rabbitmqadmin'],
   }
 
 }
