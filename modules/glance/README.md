@@ -1,11 +1,11 @@
-glance
+keystone
 =======
 
 #### Table of Contents
 
-1. [Overview - What is the glance module?](#overview)
+1. [Overview - What is the keystone module?](#overview)
 2. [Module Description - What does the module do?](#module-description)
-3. [Setup - The basics of getting started with glance](#setup)
+3. [Setup - The basics of getting started with keystone](#setup)
 4. [Implementation - An under-the-hood peek at what the module is doing](#implementation)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
@@ -15,92 +15,136 @@ glance
 Overview
 --------
 
-The glance module is a part of [Stackforge](https://github.com/stackfoge), an effort by the Openstack infrastructure team to provide continuous integration testing and code review for Openstack and Openstack community projects not part of the core software.  The module its self is used to flexibly configure and manage the image service for Openstack.
+The keystone module is a part of [Stackforge](https://github.com/stackfoge), an effort by the Openstack infrastructure team to provide continuous integration testing and code review for Openstack and Openstack community projects not part of the core software.  The module its self is used to flexibly configure and manage the identify service for Openstack.
 
 Module Description
 ------------------
 
-The glance module is a thorough attempt to make Puppet capable of managing the entirety of glance.  This includes manifests to provision such things as keystone endpoints, RPC configurations specific to glance, and database connections.  Types are shipped as part of the glance module to assist in manipulation of configuration files.
+The keystone module is a thorough attempt to make Puppet capable of managing the entirety of keystone.  This includes manifests to provision region specific endpoint and database connections.  Types are shipped as part of the keystone module to assist in manipulation of configuration files.
 
 This module is tested in combination with other modules needed to build and leverage an entire Openstack software stack.  These modules can be found, all pulled together in the [openstack module](https://github.com/stackfoge/puppet-openstack).
 
 Setup
 -----
 
-**What the glance module affects**
+**What the keystone module affects**
 
-* glance, the image service for Openstack.
+* keystone, the identify service for Openstack.
 
-### Installing glance
+### Installing keystone
 
-    example% puppet module install puppetlabs/glance
+    example% puppet module install puppetlabs/keystone
 
-### Beginning with glance
+### Beginning with keystone
 
-To utilize the glance module's functionality you will need to declare multiple resources.  The following is a modified excerpt from the [openstack module](https://github.com/stackfoge/puppet-openstack).  This is not an exhaustive list of all the components needed, we recommend you consult and understand the [openstack module](https://github.com/stackforge/puppet-openstack) and the [core openstack](http://docs.openstack.org) documentation.
+To utilize the keystone module's functionality you will need to declare multiple resources.  The following is a modified excerpt from the [openstack module](https://github.com/stackfoge/puppet-openstack).  This is not an exhaustive list of all the components needed, we recommend you consult and understand the [openstack module](https://github.com/stackforge/puppet-openstack) and the [core openstack](http://docs.openstack.org) documentation.
 
-**Define a glance node**
-
-```puppet
-class { 'glance::api':
-  verbose           => 'True',
-  keystone_tenant   => 'services',
-  keystone_user     => 'glance',
-  keystone_password => '12345',
-  sql_connection    => 'mysql://glance:12345@127.0.0.1/glance',
-}
-
-class { 'glance::registry':
-  verbose           => 'True',
-  keystone_tenant   => 'services',
-  keystone_user     => 'glance',
-  keystone_password => '12345',
-  sql_connection    => 'mysql://glance:12345@127.0.0.1/glance',
-}
-
-class { 'glance::backend::file': }
-```
-
-**Setup postgres node glance**
+**Define a keystone node**
 
 ```puppet
-class { 'glance::db::postgresql':
-  password => '12345',
+class { 'keystone':
+  verbose        => 'True',
+  catalog_type   => 'sql',
+  admin_token    => 'random_uuid',
+  sql_connection => 'mysql://keystone:secret_identity_password@openstack-controller.example.com/keystone',
+}
+
+# Adds the admin credential to keystone.
+class { 'keystone::roles::admin':
+  email        => 'admin@example.com',
+  password     => 'super_secret',
+}
+
+# Installs the service user endpoint.
+class { 'keystone::endpoint':
+  public_address   => '10.16.0.101',
+  admin_address    => '10.16.1.101',
+  internal_address => '10.16.2.101',
+  region           => 'example-1',
 }
 ```
 
-**Setup mysql node for glance**
+**Leveraging the Native Types**
+
+Keystone ships with a collection of native types that can be used to interact with the data stored in keystone.  The following, related to user management could live throughout your Puppet code base.  They even support puppet's ability to introspect the current environment much the same as `puppet resource user`, `puppet resouce keystone_tenant` will print out all the currently stored tenants and their parameters.
 
 ```puppet
-class { 'glance::db::mysql':
-  password      => '12345',
+keystone_tenant { 'openstack':
+  ensure  => present,
+  enabled => 'True',
+}
+keystone_user { 'openstack':
+  ensure  => present,
+  enabled => 'True'
+}
+keystone_role { 'admin':
+  ensure => present,
+}
+keystone_user_role { 'admin@openstack':
+  roles => ['admin', 'superawesomedude'],
+  ensure => present
+}
+```
+
+These two will seldom be used outside openstack related classes, like nova or cinder.  These are modified examples form Class['nova::keystone::auth'].
+
+```puppet
+# Setup the nova keystone service
+keystone_service { 'nova'
+  ensure      => present,
+  type        => 'compute',
+  description => 'Openstack Compute Service',
+}
+
+# Setup nova keystone endpoint
+keystone_endpoint { 'example-1-west/nova':
+   ensure       => present,
+   public_url   => "http://127.0.0.1:8774/v2/%(tenant_id)s",
+   admin_url    => "http://127.0.0.1:8774/v2/%(tenant_id)s",
+   internal_url => "http://127.0.0.1:8774/v2/%(tenant_id)s",
+}
+```
+
+**Setting up a database for keystone**
+
+A keystone database can be configured separately from the keystone services.
+
+If one needs to actually install a fresh database they have the choice of mysql or postgres.  Use the mysql::server or postgreql::server classes to do this setup then the Class['keystone::db::mysql'] or Class['keystone::db::postgresql'] for adding the needed databases and users that will be needed by keystone.
+
+* For mysql
+
+```puppet
+class { 'mysql::server': }
+
+class { 'keystone::db::mysql':
+  password      => 'super_secret_db_password',
   allowed_hosts => '%',
 }
 ```
 
-**Setup up keystone endpoints for glance on keystone node**
+* For postgresql
 
 ```puppet
-class { 'glance::keystone::auth':
-  password         => '12345'
-  public_address   => '172.17.0.3',
-  admin_address    => 'admin@example.com',
-  internal_address => '172.17.1.3',
-  region           => 'example-west-1',
-}
+class { 'postgresql::server': }
+
+class { 'keystone::db::postgresql': password => 'super_secret_db_password', }
 ```
 
 Implementation
 --------------
 
-### glance
+### keystone
 
-glance is a combination of Puppet manifest and ruby code to deliver configuration and extra functionality through types and providers.
+keystone is a combination of Puppet manifest and ruby code to delivery configuration and extra functionality through types and providers.
 
 Limitations
 ------------
 
-* Only supports configuring the file and swift storage backends.
+* All the keystone types use the CLI tools and so need to be ran on the keystone node.
+
+### Upgrade warning
+
+* If you've setup Openstack using previous versions of this module you need to be aware that it used UUID as the dedault to the token_format parameter but now defaults to PKI.  If you're using this module to manage a Grizzly Openstack deployment that was set up using a development release of the modules or are attempting an upgrade from Folsom then you'll need to make sure you set the token_format to UUID at classification time.
 
 Development
 -----------
@@ -112,7 +156,7 @@ Developer documentation for the entire puppet-openstack project.
 Contributors
 ------------
 
-* https://github.com/stackforge/puppet-glance/graphs/contributors
+* https://github.com/stackforge/puppet-keystone/graphs/contributors
 
 Release Notes
 -------------
@@ -120,5 +164,8 @@ Release Notes
 **2.0.0**
 
 * Upstream is now part of stackfoge.
-* Added postgresql support.
+* keystone_user can be used to change passwords.
+* service tenant name now configurable.
+* keystone_user is now idempotent.
 * Various cleanups and bug fixes.
+* 

@@ -1,18 +1,17 @@
+# == Class: keystone::client
 #
-# Installs the glance python library.
+# Installs Keystone client.
 #
-# == parameters
-#  * ensure - ensure state for pachage.
+# === Parameters
 #
-class glance::client (
+# [*ensure*]
+#   (optional) Ensure state of the package. Defaults to 'present'.
+#
+class keystone::client (
   $ensure = 'present'
 ) {
 
-  include glance::params
-
-  package { 'python-glanceclient':
-    name   => $::glance::params::client_package_name,
+  package { 'python-keystoneclient':
     ensure => $ensure,
   }
-
 }

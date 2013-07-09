@@ -1,7 +1,9 @@
-#
-# Used to grant access to the glance mysql DB
-#
-define glance::db::mysql::host_access ($user, $password, $database)  {
+define keystone::db::mysql::host_access(
+  $user,
+  $password,
+  $database
+) {
+
   database_user { "${user}@${name}":
     password_hash => mysql_password($password),
     provider      => 'mysql',
@@ -13,4 +15,5 @@ define glance::db::mysql::host_access ($user, $password, $database)  {
     provider   => 'mysql',
     require    => Database_user["${user}@${name}"]
   }
+
 }
