@@ -72,8 +72,10 @@
 #   (optional) Various rabbitmq settings
 #
 # [*rabbit_hosts*]
-#   (optional) array of rabbitmq servers for HA
-#   Defaults to empty
+#   (optional) array of rabbitmq servers for HA.
+#   A single IP address, such as a VIP, can be used for load-balancing
+#   multiple RabbitMQ Brokers.
+#   Defaults to false
 #
 # [*qpid_hostname*]
 # [*qpid_port*]
@@ -109,7 +111,7 @@ class quantum (
   $rpc_backend                 = 'quantum.openstack.common.rpc.impl_kombu',
   $rabbit_password             = false,
   $rabbit_host                 = 'localhost',
-  $rabbit_hosts                = undef,
+  $rabbit_hosts                = false,
   $rabbit_port                 = '5672',
   $rabbit_user                 = 'guest',
   $rabbit_virtual_host         = '/',
@@ -166,27 +168,23 @@ class quantum (
     'DEFAULT/root_helper':            value => $root_helper;
     'DEFAULT/control_exchange':       value => $control_exchange;
     'DEFAULT/rpc_backend':            value => $rpc_backend;
+    'AGENT/root_helper':              value => $root_helper;
   }
 
   if $rpc_backend == 'quantum.openstack.common.rpc.impl_kombu' {
     if ! $rabbit_password {
-      fail("When rpc_backend is rabbitmq, you must set rabbit password")
+      fail('When rpc_backend is rabbitmq, you must set rabbit password')
     }
     if $rabbit_hosts {
-      quantum_config { 'DEFAULT/rabbit_host':  ensure => absent }
-      quantum_config { 'DEFAULT/rabbit_port':  ensure => absent }
-      quantum_config { 'DEFAULT/rabbit_hosts': value => join($rabbit_hosts, ',') }
-    } else {
-      quantum_config { 'DEFAULT/rabbit_host':  value => $rabbit_host }
-      quantum_config { 'DEFAULT/rabbit_port':  value => $rabbit_port }
-      quantum_config { 'DEFAULT/rabbit_hosts': value => "${rabbit_host}:${rabbit_port}" }
-    }
-
-    if size($rabbit_hosts) > 1 {
-      quantum_config { 'DEFAULT/rabbit_ha_queues': value => true }
-    } else {
+      quantum_config { 'DEFAULT/rabbit_hosts':     value  => join($rabbit_hosts, ',') }
+      quantum_config { 'DEFAULT/rabbit_ha_queues': value  => true }
+    } else  {
+      quantum_config { 'DEFAULT/rabbit_host':      value => $rabbit_host }
+      quantum_config { 'DEFAULT/rabbit_port':      value => $rabbit_port }
+      quantum_config { 'DEFAULT/rabbit_hosts':     value => "${rabbit_host}:${rabbit_port}" }
       quantum_config { 'DEFAULT/rabbit_ha_queues': value => false }
     }
+
     quantum_config {
       'DEFAULT/rabbit_userid':       value => $rabbit_user;
       'DEFAULT/rabbit_password':     value => $rabbit_password;
@@ -210,20 +208,6 @@ class quantum (
       'DEFAULT/qpid_reconnect_interval_max': value => $qpid_reconnect_interval_max;
       'DEFAULT/qpid_reconnect_interval':     value => $qpid_reconnect_interval;
     }
-  }
-
-  # Any machine using Quantum / OVS endpoints with certain nova networking configs will
-  # have protetion issues writing unexpected files unless qemu is changed appropriately.
-  # See: https://bugs.launchpad.net/openstack-cisco/+bug/1086255
-  # TODO: this feels dirty. Maybe it should be moved elsewhere?
-  @file { '/etc/libvirt/qemu.conf':
-    ensure => present,
-    notify => Exec[ '/etc/init.d/libvirt-bin restart'],
-    source => 'puppet:///modules/quantum/qemu.conf',
-  }
-
-  @exec { '/etc/init.d/libvirt-bin restart':
-    refreshonly => true,
   }
 
 }
