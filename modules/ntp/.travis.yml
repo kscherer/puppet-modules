@@ -1,25 +1,33 @@
----
+language: ruby
+bundler_args: --without development
+before_script:
+  - echo $PUPPET_GEM_VERSION | grep '2.6' && git clone git://github.com/puppetlabs/puppetlabs-create_resources.git spec/fixtures/modules/create_resources || true
+script: "bundle exec rake spec SPEC_OPTS='--format documentation'"
+rvm:
+  - 1.8.7
+  - 1.9.3
+  - ruby-head
 branches:
   only:
-  - master
+   - master
+   - folsom
+   - essex
+env:
+  - PUPPET_GEM_VERSION="~> 2.6"
+  - PUPPET_GEM_VERSION="~> 2.7"
+  - PUPPET_GEM_VERSION="~> 3.0"
+  - PUPPET_GEM_VERSION="~> 3.1"
+matrix:
+  allow_failures:
+    - rvm: ruby-head
+  exclude:
+    - rvm: 1.9.3
+      env: PUPPET_GEM_VERSION="~> 2.7"
+    - rvm: ruby-head
+      env: PUPPET_GEM_VERSION="~> 2.7"
+    - rvm: 1.9.3
+      env: PUPPET_GEM_VERSION="~> 2.6"
+    - rvm: ruby-head
+      env: PUPPET_GEM_VERSION="~> 2.6"
 notifications:
   email: false
-language: ruby
-script: 'rake spec'
-after_success:
-- git clone -q git://github.com/puppetlabs/ghpublisher.git .forge-releng
-- .forge-releng/publish
-rvm:
-- 1.8.7
-- 1.9.3
-env:
-  matrix:
-  - PUPPET_VERSION=2.6.18
-  - PUPPET_VERSION=2.7.21
-  - PUPPET_VERSION=3.1.1
-  global:
-  - PUBLISHER_LOGIN=puppetlabs
-  - secure: |-
-      ZiIkYd9+CdPzpwSjFPnVkCx1FIlipxpbdyD33q94h2Tj5zXjNb1GXizVy0NR
-      kVxGhU5Ld8y9z8DTqKRgCI1Yymg3H//OU++PKLOQj/X5juWVR4URBNPeBOzu
-      IJBDl1MADKA4i1+jAZPpz4mTvTtKS4pWKErgCSmhSfsY1hs7n6c=
