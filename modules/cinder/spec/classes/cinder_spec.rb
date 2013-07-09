@@ -45,6 +45,9 @@ describe 'cinder' do
         :value  => 'mysql://user:password@host/database',
         :secret => true
       )
+      should contain_cinder_config('DEFAULT/sql_idle_timeout').with(
+        :value => '3600'
+      )
       should contain_cinder_config('DEFAULT/verbose').with(
         :value => false
       )
@@ -81,6 +84,23 @@ describe 'cinder' do
       should_not contain_cinder_config('DEFAULT/rabbit_port')
       should contain_cinder_config('DEFAULT/rabbit_hosts').with(
         :value => 'rabbit1:5672,rabbit2:5672'
+      )
+      should contain_cinder_config('DEFAULT/rabbit_ha_queues').with(
+        :value => true
+      )
+    end
+  end
+
+  describe 'with a single rabbit_hosts entry' do
+    let :params do
+      req_params.merge({'rabbit_hosts' => ['rabbit1:5672']})
+    end
+
+    it 'should contain many' do
+      should_not contain_cinder_config('DEFAULT/rabbit_host')
+      should_not contain_cinder_config('DEFAULT/rabbit_port')
+      should contain_cinder_config('DEFAULT/rabbit_hosts').with(
+        :value => 'rabbit1:5672'
       )
       should contain_cinder_config('DEFAULT/rabbit_ha_queues').with(
         :value => true
