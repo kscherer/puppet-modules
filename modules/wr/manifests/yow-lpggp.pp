@@ -18,6 +18,11 @@ class wr::yow-lpggp inherits wr::yow-common {
       'git-upload-archive','git-recieve-pack']:
   }
 
+  package {
+    ['quilt', 'wiggle']:
+      ensure => 'latest';
+  }
+
   motd::register{
     'yow-lpggp':
       content => "This machine is for Linux Products developers manual

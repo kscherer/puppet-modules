@@ -21,7 +21,7 @@ class wr::ala-lpggp inherits wr::ala-common {
   }
 
   package {
-    'quilt':
+    ['quilt', 'wiggle']:
       ensure => 'latest';
   }
 
