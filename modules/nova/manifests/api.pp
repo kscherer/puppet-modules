@@ -8,6 +8,10 @@
 # * auth_host
 # * auth_port
 # * auth_protocol
+# * auth_admin_prefix: path part of the auth url. Optional.
+#     This allow admin auth URIs like http://auth_host:35357/keystone/admin.
+#     (where '/keystone' is the admin prefix)
+#     Defaults to false for empty. If defined, should be a string with a leading '/' and no trailing '/'.
 # * admin_tenant_name
 # * admin_user
 # * enabled_apis
@@ -21,6 +25,7 @@ class nova::api(
   $auth_host         = '127.0.0.1',
   $auth_port         = 35357,
   $auth_protocol     = 'http',
+  $auth_admin_prefix = false,
   $admin_tenant_name = 'services',
   $admin_user        = 'nova',
   $api_bind_address  = '0.0.0.0',
@@ -42,8 +47,8 @@ class nova::api(
   Nova_paste_api_ini<| |> ~> Exec['post-nova_config']
   Nova_paste_api_ini<| |> ~> Service['nova-api']
 
-  class {'cinder::client':
-     notify         => Service[$::nova::params::api_service_name],
+  class { 'cinder::client':
+    notify => Service[$::nova::params::api_service_name],
   }
 
   nova::generic_service { 'api':
@@ -83,35 +88,47 @@ class nova::api(
     'filter:authtoken/auth_protocol':     value => $auth_protocol;
     'filter:authtoken/admin_tenant_name': value => $admin_tenant_name;
     'filter:authtoken/admin_user':        value => $admin_user;
-    'filter:authtoken/admin_password':    value => $admin_password;
+    'filter:authtoken/admin_password':    value => $admin_password, secret => true;
+  }
+
+  if $auth_admin_prefix {
+    validate_re($auth_admin_prefix, '^(/.+[^/])?$')
+    nova_paste_api_ini {
+      'filter:authtoken/auth_admin_prefix': value => $auth_admin_prefix;
+    }
+  } else {
+    nova_paste_api_ini {
+      'filter:authtoken/auth_admin_prefix': ensure => absent;
+    }
   }
 
   if 'occiapi' in $enabled_apis {
     if !defined(Package['python-pip']) {
-        package {'python-pip':
-                ensure => latest,
-        }
+      package { 'python-pip':
+        ensure => latest,
+      }
     }
-    if !defined(Package['pyssf']){
-        package {'pyssf':
-            provider => pip,
-            ensure   => latest,
-            require  => Package['python-pip']
-        }
+    if !defined(Package['pyssf']) {
+      package { 'pyssf':
+        provider => pip,
+        ensure   => latest,
+        require  => Package['python-pip']
+      }
     }
-    package { 'openstackocci' :
-      provider  => 'pip',
-      ensure    => latest,
-      require => Package['python-pip'],
+    package { 'openstackocci':
+      provider => 'pip',
+      ensure   => latest,
+      require  => Package['python-pip'],
     }
   }
 
-  # Added arg and if statement prevents this from being run where db is not active i.e. the compute
+  # Added arg and if statement prevents this from being run
+  # where db is not active i.e. the compute
   if $sync_db {
     Package<| title == 'nova-api' |> -> Exec['nova-db-sync']
-    exec { "nova-db-sync":
-      command     => "/usr/bin/nova-manage db sync",
-      refreshonly => "true",
+    exec { 'nova-db-sync':
+      command     => '/usr/bin/nova-manage db sync',
+      refreshonly => true,
       subscribe   => Exec['post-nova_config'],
     }
   }

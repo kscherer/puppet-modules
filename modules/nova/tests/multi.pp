@@ -100,8 +100,8 @@ node /controller/ {
   }
 
   class { 'glance::api':
-    verbose           => 'True',
-    debug             => 'True',
+    verbose           => true,
+    debug             => true,
     auth_type         => 'keystone',
     auth_host         => '127.0.0.1',
     auth_port         => '35357',
@@ -112,8 +112,8 @@ node /controller/ {
   class { 'glance::backend::file': }
 
   class { 'glance::registry':
-    verbose           => 'True',
-    debug             => 'True',
+    verbose           => true,
+    debug             => true,
     auth_type         => 'keystone',
     auth_host         => '127.0.0.1',
     auth_port         => '35357',
@@ -167,20 +167,20 @@ node /controller/ {
     enabled => true,
   }
 
-  nova::manage::network { "nova-vm-net":
+  nova::manage::network { 'nova-vm-net':
     network       => '11.0.0.0/24',
     available_ips => 128,
   }
 
-  nova::manage::floating { "nova-vm-floating":
-    network       => '10.128.0.0/24',
+  nova::manage::floating { 'nova-vm-floating':
+    network => '10.128.0.0/24',
   }
 
   class { 'nova::objectstore':
     enabled => true
   }
 
-  class { 'nova::volume': 
+  class { 'nova::volume':
     enabled => true,
   }
 

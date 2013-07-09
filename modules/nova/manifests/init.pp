@@ -4,10 +4,12 @@
 # ==Parameters
 #
 # [sql_connection] Connection url to use to connect to nova sql database.
+# [sql_idle_timeout] Timeout before idle sql connections are reaped.
 # [image_service] Service used to search for and retrieve images. Optional.
 #   Defaults to 'nova.image.local.LocalImageService'
 # [glance_api_servers] List of addresses for api servers. Optional.
 #   Defaults to localhost:9292.
+# [memcached_servers] Use memcached instead of in-process cache. Supply a list of memcached server IP's:Memcached Port. Optional. Defaults to false.
 # [rabbit_host] Location of rabbitmq installation. Optional. Defaults to localhost.
 # [rabbit_port] Port for rabbitmq instance. Optional. Defaults to 5672.
 # [rabbit_hosts] Location of rabbitmq installation. Optional. Defaults to undef.
@@ -33,13 +35,15 @@ class nova(
   # this is how to query all resources from our clutser
   $nova_cluster_id='localcluster',
   $sql_connection = false,
+  $sql_idle_timeout = '3600',
   $rpc_backend = 'nova.openstack.common.rpc.impl_kombu',
   $image_service = 'nova.image.glance.GlanceImageService',
   # these glance params should be optional
   # this should probably just be configured as a glance client
   $glance_api_servers = 'localhost:9292',
+  $memcached_servers = false,
   $rabbit_host = 'localhost',
-  $rabbit_hosts = undef,
+  $rabbit_hosts = false,
   $rabbit_password='guest',
   $rabbit_port='5672',
   $rabbit_userid='guest',
@@ -91,7 +95,7 @@ class nova(
     ensure => present,
   }
   package { 'python-greenlet':
-    ensure => present,
+    ensure  => present,
     require => Package['python'],
   }
 
@@ -109,7 +113,7 @@ class nova(
   package { 'nova-common':
     name    => $::nova::params::common_package_name,
     ensure  => $ensure_package,
-    require => [Package["python-nova"], Anchor['nova-start']]
+    require => [Package['python-nova'], Anchor['nova-start']]
   }
 
   group { 'nova':
@@ -134,9 +138,9 @@ class nova(
 
   # used by debian/ubuntu in nova::network_bridge to refresh
   # interfaces based on /etc/network/interfaces
-  exec { "networking-refresh":
-    command     => "/sbin/ifdown -a ; /sbin/ifup -a",
-    refreshonly => "true",
+  exec { 'networking-refresh':
+    command     => '/sbin/ifdown -a ; /sbin/ifup -a',
+    refreshonly => true,
   }
 
 
@@ -152,7 +156,10 @@ class nova(
     } else {
       fail("Invalid db connection ${sql_connection}")
     }
-    nova_config { 'DEFAULT/sql_connection': value => $sql_connection }
+    nova_config {
+      'DEFAULT/sql_connection':   value => $sql_connection, secret => true;
+      'DEFAULT/sql_idle_timeout': value => $sql_idle_timeout;
+    }
   }
 
   nova_config { 'DEFAULT/image_service': value => $image_service }
@@ -165,26 +172,28 @@ class nova(
 
   nova_config { 'DEFAULT/auth_strategy': value => $auth_strategy }
 
+  if $memcached_servers {
+    nova_config { 'DEFAULT/memcached_servers': value  => join($memcached_servers, ',') }
+  } else {
+    nova_config { 'DEFAULT/memcached_servers': ensure => absent }
+  }
+
   if $rpc_backend == 'nova.openstack.common.rpc.impl_kombu' {
     # I may want to support exporting and collecting these
     nova_config {
-      'DEFAULT/rabbit_password':     value => $rabbit_password;
+      'DEFAULT/rabbit_password':     value => $rabbit_password, secret => true;
       'DEFAULT/rabbit_userid':       value => $rabbit_userid;
       'DEFAULT/rabbit_virtual_host': value => $rabbit_virtual_host;
     }
 
-    if size($rabbit_hosts) > 1 {
-      nova_config { 'DEFAULT/rabbit_ha_queues': value => 'true' }
-    } else {
-      nova_config { 'DEFAULT/rabbit_ha_queues': value => 'false' }
-    }
-
     if $rabbit_hosts {
-      nova_config { 'DEFAULT/rabbit_hosts': value => join($rabbit_hosts, ',') }
-    } elsif $rabbit_host {
-      nova_config { 'DEFAULT/rabbit_host': value => $rabbit_host }
-      nova_config { 'DEFAULT/rabbit_port': value => $rabbit_port }
-      nova_config { 'DEFAULT/rabbit_hosts': value => "${rabbit_host}:${rabbit_port}" }
+      nova_config { 'DEFAULT/rabbit_hosts':     value  => join($rabbit_hosts, ',') }
+      nova_config { 'DEFAULT/rabbit_ha_queues': value  => true }
+    } else {
+      nova_config { 'DEFAULT/rabbit_host':      value  => $rabbit_host }
+      nova_config { 'DEFAULT/rabbit_port':      value  => $rabbit_port }
+      nova_config { 'DEFAULT/rabbit_hosts':     value => "${rabbit_host}:${rabbit_port}" }
+      nova_config { 'DEFAULT/rabbit_ha_queues': value => false }
     }
   }
 
@@ -193,7 +202,7 @@ class nova(
       'DEFAULT/qpid_hostname':               value => $qpid_hostname;
       'DEFAULT/qpid_port':                   value => $qpid_port;
       'DEFAULT/qpid_username':               value => $qpid_username;
-      'DEFAULT/qpid_password':               value => $qpid_password;
+      'DEFAULT/qpid_password':               value => $qpid_password, secret => true;
       'DEFAULT/qpid_reconnect':              value => $qpid_reconnect;
       'DEFAULT/qpid_reconnect_timeout':      value => $qpid_reconnect_timeout;
       'DEFAULT/qpid_reconnect_limit':        value => $qpid_reconnect_limit;
@@ -215,17 +224,17 @@ class nova(
     'DEFAULT/state_path':        value => $state_path;
     'DEFAULT/lock_path':         value => $lock_path;
     'DEFAULT/service_down_time': value => $service_down_time;
-    'DEFAULT/rootwrap_config':  value => $rootwrap_config;
+    'DEFAULT/rootwrap_config':   value => $rootwrap_config;
   }
 
   if $monitoring_notifications {
     nova_config {
-      'DEFAULT/notification_driver': value => 'nova.notifier.rabbit_notifier'
+      'DEFAULT/notification_driver': value => 'nova.openstack.common.notifier.rpc_notifier'
     }
   }
 
   exec { 'post-nova_config':
-    command => '/bin/echo "Nova config has changed"',
+    command     => '/bin/echo "Nova config has changed"',
     refreshonly => true,
   }
 

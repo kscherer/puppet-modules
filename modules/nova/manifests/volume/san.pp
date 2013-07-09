@@ -1,6 +1,6 @@
 # Class: nova::volume::san
 #
-# This class assumes that you have already configured your 
+# This class assumes that you have already configured your
 # volume group - either by another module or during the server
 # provisioning
 #
@@ -24,7 +24,7 @@ class nova::volume::san (
   } else {
     nova_config {
       'DEFAULT/san_login':    value => $san_login;
-      'DEFAULT/san_password': value => $san_password;
+      'DEFAULT/san_password': value => $san_password, secret => true;
     }
   }
 
