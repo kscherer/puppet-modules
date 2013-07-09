@@ -44,10 +44,8 @@ class wr::yow-blades {
   package {
     'sendmail':
       ensure => absent;
-    'ssmtp':
-      ensure  => installed,
-      require => Package['sendmail'];
   }
+  Package['sendmail'] -> Package['ssmtp']
 
   #monitor
   class {
