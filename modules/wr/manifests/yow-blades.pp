@@ -50,8 +50,8 @@ class wr::yow-blades {
   #monitor
   class {
     'smart':
-      devices    => ['/dev/sg0', '/dev/sg1',],
-      email      => 'konrad.scherer@windriver.com',
-      scheldule  => '(S/../.././02|L/../../6/03)';
+      devices  => ['/dev/sg0', '/dev/sg1',],
+      email    => 'konrad.scherer@windriver.com',
+      schedule => '(S/../.././02|L/../../6/03)';
   }
 }
