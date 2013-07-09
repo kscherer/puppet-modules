@@ -17,7 +17,7 @@ function merge_module() {
     local module=$1
 
     #merge changes into production
-    git merge -no-edit -s subtree -Xtheirs $module
+    git merge --no-edit -s subtree -Xtheirs $module
 }
 
 modules="openstack cinder glance horizon keystone nova quantum rabbitmq swift vswitch"
