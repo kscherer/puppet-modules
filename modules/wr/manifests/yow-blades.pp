@@ -31,4 +31,29 @@ class wr::yow-blades {
       ensure => stopped,
       enable => false;
   }
+
+  #setup ssmtp to forward all email sent to root to Konrad
+  class {
+    'ssmtp':
+      mailhub => 'mail.windriver.com',
+      root    => 'konrad.scherer@windriver.com';
+  }
+
+  #make sure sendmail is not on the machine and ssmtp is installed afterwards
+  #to ensure the alternatives links are setup properly
+  package {
+    'sendmail':
+      ensure => absent;
+    'ssmtp':
+      ensure  => installed,
+      require => Package['sendmail'];
+  }
+
+  #monitor
+  class {
+    'smart':
+      devices    => ['/dev/sg0', '/dev/sg1',],
+      email      => 'konrad.scherer@windriver.com',
+      scheldule  => '(S/../.././02|L/../../6/03)';
+  }
 }

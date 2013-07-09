@@ -76,31 +76,27 @@ class smart(
   $default_file   = '/etc/default/smartmontools',
   $default_string = 'start_smartd=',
   $conf_file      = '/etc/smartd.conf',
-  $service        = 'smartmontools',
+  $service        = 'UNSET',
   $package        = 'smartmontools'
 ) {
-
-  case $::osfamily {
-    'debian': { }
-    default: {
-      fail("Module smart is not supported on ${::operatingsystem}")
-    }
-  }
 
   #install
   package{$package:
     ensure => installed,
   }
 
-  #configure
-  if $enabled{$yesno='yes'}
-  else {$yesno='no'}
+  if $::osfamily == 'Debian' {
+    #configure
+    if $enabled{$yesno='yes'}
+    else {$yesno='no'}
 
-  file {$default_file:
-    content => "${default_string}${yesno}",
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
+    file {$default_file:
+      content => "${default_string}${yesno}",
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+    }
+    Package[$package]->File[$default_file]->File[$conf_file]
   }
 
   file {$conf_file:
@@ -110,14 +106,21 @@ class smart(
     mode    => '0644',
   }
 
-  service {$service:
+  if $service == 'UNSET' {
+    case $::osfamily {
+      'Debian': { $service_real = 'smartmontools' }
+      default : { $service_real = 'smartd' }
+    }
+  }
+
+  service {$service_real:
     ensure     => $enabled,
     enable     => $enabled,
     hasrestart => true,
     hasstatus  => true,
   }
 
-  Package[$package]->File[$default_file]->File[$conf_file]~>Service[$service]
+  Package[$package]->File[$conf_file]~>Service[$service]
 }
 
 
