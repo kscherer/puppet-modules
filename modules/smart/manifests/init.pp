@@ -120,7 +120,7 @@ class smart(
     hasstatus  => true,
   }
 
-  Package[$package]->File[$conf_file]~>Service[$service]
+  Package[$package]->File[$conf_file]~>Service[$service_real]
 }
 
 
