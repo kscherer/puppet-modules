@@ -57,6 +57,8 @@ class wr::yow_openstack {
       nova_user_password      => 'nova_user_password',
       glance_user_password    => 'glance_user_password',
       glance_db_password      => 'glance_db_password',
+      cinder_user_password    => 'cinder_user_password',
+      cinder_db_password      => 'cinder_db_password',
       rabbit_password         => 'rabbit_password',
       rabbit_user             => 'openstack',
       libvirt_type            => 'kvm',
