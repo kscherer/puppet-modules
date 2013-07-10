@@ -5,7 +5,7 @@ class git::grokmirror::mirror(
   $projectslist_symlinks = 'no',
   $post_update_hook = undef,
   $default_owner = 'Grokmirror',
-  $loglevel = 'info',
+  $log_level = 'info',
   $include = '*',
   $exclude = undef
 ) {
@@ -49,7 +49,7 @@ class git::grokmirror::mirror(
     "${site}/log":
       value   => "${toplevel}/log/${site}.log";
     "${site}/loglevel":
-      value   => $loglevel;
+      value   => $log_level;
     "${site}/lock":
       value   => "${toplevel}/${site}.lock";
     "${site}/include":
