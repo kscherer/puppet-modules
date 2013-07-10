@@ -177,6 +177,7 @@ class rabbitmq::server(
   rabbitmq_plugin { 'rabbitmq_management':
     ensure => present,
     notify => Class['rabbitmq::service'],
+    provider => 'rabbitmqplugins';
   }
 
   exec { 'Download rabbitmqadmin':
