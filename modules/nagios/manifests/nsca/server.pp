@@ -10,7 +10,7 @@ class nagios::nsca::server {
     require    => Package['nsca'],
   }
 
-  file { '/etc/nsca.cfg':
+  file { '/etc/nagios/nsca.cfg':
     source => 'puppet:///modules/nagios/nsca/nsca.cfg',
     owner  => 'nagios',
     group  => 'nogroup',

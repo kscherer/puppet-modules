@@ -6,7 +6,7 @@ class nagios::service(
   @@nagios_service {
     'generic-service':
       active_checks_enabled        => '1',
-      passive_checks_enabled       => '1',
+      passive_checks_enabled       => '0',
       parallelize_check            => '1',
       obsess_over_service          => '1',
       check_freshness              => '0',
@@ -27,48 +27,47 @@ class nagios::service(
       notification_interval        => '60',
       notification_period          => '24x7',
       register                     => '0';
+    'passive-service':
+      active_checks_enabled        => '0',
+      passive_checks_enabled       => '1',
+      flap_detection_enabled       => '0',
+      is_volatile                  => '0',
+      check_command                => 'check_dummy!0',
+      notification_options         => 'w,u,c,r',
+      notification_interval        => '60',
+      notification_period          => '24x7',
+      stalking_options             => 'w,c,u',
+      register                     => '0';
     'puppet':
       use                 => 'generic-service',
       host_name           => $::fqdn,
       service_description => 'mc_puppet_run',
-      check_command       => 'check_mc_nrpe!puppet!check_puppet',
-      notification_period => 'workhours',
-      contact_groups      => 'admins';
+      check_command       => 'check_mc_nrpe!puppet!check_puppet';
     'puppet_failures':
       use                 => 'generic-service',
       host_name           => $::fqdn,
       service_description => 'mc_puppet_failures_run',
-      check_command       => 'check_mc_nrpe!puppet!check_puppet_failures',
-      notification_period => 'workhours',
-      contact_groups      => 'admins';
+      check_command       => 'check_mc_nrpe!puppet!check_puppet_failures';
     'clock_check':
       use                 => 'generic-service',
       host_name           => $::fqdn,
       service_description => 'mc_ntp_run',
-      check_command       => 'check_mc_nrpe!ntp!check_ntp',
-      notification_period => 'workhours',
-      contact_groups      => 'admins';
+      check_command       => 'check_mc_nrpe!ntp!check_ntp';
     'disk_check':
       use                 => 'generic-service',
       host_name           => $::fqdn,
       service_description => 'mc_disk_check_run',
-      check_command       => 'check_mc_nrpe!settings!check_disks',
-      notification_period => 'workhours',
-      contact_groups      => 'admins';
+      check_command       => 'check_mc_nrpe!settings!check_disks';
     'nx_check':
       use                 => 'generic-service',
       host_name           => $::fqdn,
       service_description => 'mc_nx_blades_run',
-      check_command       => 'check_mc_nrpe!nx!check_nx_instance',
-      notification_period => 'workhours',
-      contact_groups      => 'admins';
+      check_command       => 'check_mc_nrpe!nx!check_nx_instance';
     'check_mcollective':
       use                 => 'generic-service',
       host_name           => $::fqdn,
       service_description => 'check_mcollective_registration',
-      check_command       => 'check_mcollective',
-      notification_period => 'workhours',
-      contact_groups      => 'admins';
+      check_command       => 'check_mcollective';
   }
 
   #make sure that entries no longer in storedconfigs are cleaned out

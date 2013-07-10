@@ -2,8 +2,10 @@
 class wr::yow_lpd_monitor {
 
   class { 'wr::yow-common': mcollective_client => true}
-  -> class { 'nagios': }
-  -> class { 'graphite': }
+
+  include nagios
+  include nagios::nsca::server
+  include graphite
 
   #nagios class notifies httpd service so -> relationship creates cycles
   include apache

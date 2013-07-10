@@ -20,6 +20,8 @@ class nagios::command(
     command_line => "/usr/sbin/check-mc-nrpe --config ${nagios_dir}/client.cfg -W \$ARG1\$ -T ${::location} \$ARG2\$";
   'check_mcollective':
     command_line => '/usr/sbin/check_mcollective.rb --interval 450 --verbose';
+  'check_dummy':
+    command_line => '$USER1$/check_dummy $ARG1$';
   }
 
   #make sure that entries no longer in storedconfigs are cleaned out

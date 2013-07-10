@@ -26,4 +26,11 @@ class nagios::target {
       host_name           => $::fqdn,
   }
 
+  include nagios::nsca::client
+  @@nagios_service {
+    "check_ntp_${::hostname}":
+      use                 => 'passive-service',
+      service_description => 'Passive NTP',
+      host_name           => $::fqdn,
+  }
 }
