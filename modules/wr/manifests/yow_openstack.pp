@@ -42,7 +42,6 @@ class wr::yow_openstack {
   }
 
   class { 'rabbitmq::repo::apt':
-    pin    => 900,
     before => Class['rabbitmq::server']
   }
 
