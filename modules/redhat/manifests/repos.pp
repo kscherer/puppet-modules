@@ -96,7 +96,6 @@ class redhat::repos {
       realize( Yum_repo['epel'] )
       realize( Yum_repo['epel-testing'] )
       realize( Yum_repo['collectd'] )
-      realize( Yum_repo['megacli'] )
       if ( $::lsbmajdistrelease == '6' ) {
         realize( Yum_repo['passenger'] )
         realize( Yum_repo['foreman'] )
