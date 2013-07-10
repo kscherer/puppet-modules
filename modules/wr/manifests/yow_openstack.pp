@@ -41,6 +41,11 @@ class wr::yow_openstack {
       include_src => false;
   }
 
+  class { 'rabbitmq::repo::apt':
+    pin    => 900,
+    before => Class['rabbitmq::server']
+  }
+
   class {
     'openstack::all':
       public_address          => $::ipaddress_eth0,
