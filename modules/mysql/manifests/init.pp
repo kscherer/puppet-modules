@@ -16,6 +16,8 @@
 #
 # [*datadir*]               - The directory MySQL's datafiles are stored
 #
+# [*tmpdir*]                - The directory MySQL's tmpfiles are stored
+#
 # [*default_engine*]        - The default engine to use for tables
 #
 # [*etc_root_password*]     - Whether or not to add the mysql root password to /etc/my.cnf
@@ -24,13 +26,21 @@
 #
 # [*log_error*]             - Where to log errors
 #
+# [*manage_config_file*]    - if the config file should be managed (default: true)
+#
 # [*manage_service*]        - Boolean dictating if mysql::server should manage the service
+#
+# [*max_allowed_packet*]    - Maximum network packet size mysqld will accept
 #
 # [*old_root_password*]     - Previous root user password,
 #
 # [*package_ensure*]        - ensure value for packages.
 #
 # [*package_name*]          - legacy parameter used to specify the client package. Should not be used going forward
+#
+# [*perl_package_name*]     - The name of the perl mysql package to install
+#
+# [*perl_package_provider*] - The installation suite to use when installing the perl package.
 #
 # [*php_package_name*]      - The name of the phpmysql package to install
 #
@@ -84,19 +94,25 @@ class mysql(
   $config_file           = $mysql::params::config_file,
   $config_template       = $mysql::params::config_template,
   $datadir               = $mysql::params::datadir,
+  $tmpdir                = $mysql::params::tmpdir,
   $default_engine        = $mysql::params::default_engine,
   $etc_root_password     = $mysql::params::etc_root_password,
   $java_package_name     = $mysql::params::java_package_name,
   $log_error             = $mysql::params::log_error,
+  $manage_config_file    = true,
   $manage_service        = $mysql::params::manage_service,
+  $max_allowed_packet    = $mysql::params::max_allowed_packet,
   $old_root_password     = $mysql::params::old_root_password,
   $package_ensure        = $mysql::params::package_ensure,
   $package_name          = undef,
+  $perl_package_name     = $mysql::params::perl_package_name,
+  $perl_package_provider = $mysql::params::perl_package_provider,
   $php_package_name      = $mysql::params::php_package_name,
   $pidfile               = $mysql::params::pidfile,
   $port                  = $mysql::params::port,
   $purge_conf_dir        = $mysql::params::purge_conf_dir,
   $python_package_name   = $mysql::params::python_package_name,
+  $max_connections       = $mysql::params::max_connections,
   $restart               = $mysql::params::restart,
   $root_group            = $mysql::params::root_group,
   $root_password         = $mysql::params::root_password,
@@ -121,5 +137,7 @@ class mysql(
     ensure => $package_ensure,
     name   => $client_package_name_real,
   }
+
+  Class['mysql::config'] -> Mysql::Db <| |>
 
 }
