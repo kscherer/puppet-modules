@@ -55,7 +55,7 @@
 <%- if @temperature then -%>-W <%= @temperature %><%- end -%> \
 <%- if @offline_test then -%>-o on<%- end -%> \
 <%- if @attr_autosave then -%>-S on<%- end -%> \
-<%- if @email then -%>-m <%= email %><%- end -%> \
-<%- if @email_type then -%>-M <%= email_type %><%- end -%>
+<%- if @email then -%>-m <%= @email %><%- end -%> \
+<%- if @email_type then -%>-M <%= @email_type %><%- end -%>
 #########################################################
 <% end -%>
