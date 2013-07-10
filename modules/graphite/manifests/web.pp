@@ -15,11 +15,10 @@
 # * Update documentation
 #
 class graphite::web (
-  $time_zone = $::graphite::params::time_zone,
-  $manage_httpd = $::graphite::params::manage_httpd)
+  $time_zone = $graphite::params::time_zone,
+  $manage_httpd = $graphite::params::manage_httpd)
   {
 
-  require graphite::params
   include graphite::web::package
   class {'graphite::web::config':
     time_zone => $time_zone,
