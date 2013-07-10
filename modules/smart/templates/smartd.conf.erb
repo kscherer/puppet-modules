@@ -49,7 +49,7 @@
 <%- if @dev_type then -%>-d <%= @dev_type %><%- end -%> \
 <%- if @prefailure then -%>-p<%- end -%> \
 <%- if @default then -%>-a<%- end -%> \
-<%- if @schedule then -%>-s <%= @schedule %><%- end -%> \
+<%- if @test_schedule then -%>-s <%= @test_schedule %><%- end -%> \
 <%- if @monitor_params then -%><% @monitor_params.each do |monitor_param| -%>-R <%= monitor_param %><% end -%><%- end -%> \
 <%- if @ignor_params then -%><% @ignor_params.each do |ignor_param| -%>-I <%= ignor_param %><% end -%><%- end -%> \
 <%- if @temperature then -%>-W <%= @temperature %><%- end -%> \

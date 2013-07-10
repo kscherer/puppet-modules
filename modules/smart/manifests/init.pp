@@ -13,7 +13,7 @@
 #   (-p) Report changes in 'Prefailure' Normalized Attributes
 # [*default*]
 #   (-a) Default: equivalent to -H -f -t -l error -l selftest -C 197 -U 198
-# [*schedule*]
+# [*test_schedule*]
 #   (-s) Start self-test when type/date matches regular expression (see man smartd.conf)
 # [*monitor_params*]
 #   (-R) Track changes in Attribute ID Raw value with -p, -u or -t
@@ -51,7 +51,7 @@
 #    devices    => ['/dev/sda', '/dev/sdb',],
 #    email      => 'mail@example.org',
 #    email_type => 'diminishing',
-#    schedule   => '(S/../../(1|2|4|5|6)/01|L/../../(3|7)/01)',
+#    test_schedule   => '(S/../../(1|2|4|5|6)/01|L/../../(3|7)/01)',
 #  }
 #
 # === Authors
@@ -63,7 +63,7 @@ class smart(
   $dev_type       = false,                                       # -d
   $prefailure     = true,                                        # -p
   $default        = true,                                        # -a
-  $schedule       = '(S/../../(1|2|4|5|6)/01|L/../../(3|7)/01)', # -s
+  $test_schedule  = '(S/../../(1|2|4|5|6)/01|L/../../(3|7)/01)', # -s
   $monitor_params = ['194'],                                     # -R
   $ignor_params   = false,                                       # -I
   $temperature    = false,                                       # -W
