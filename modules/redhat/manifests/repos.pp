@@ -50,6 +50,10 @@ class redhat::repos {
     'epel':
       repo_gpgkey => "${mirror}/epel/RPM-GPG-KEY-EPEL-${::lsbmajdistrelease}",
       baseurl     => "${mirror}/epel/${::lsbmajdistrelease}/${::architecture}";
+    'epel-testing':
+      enabled     => '0',
+      repo_gpgkey => "${mirror}/epel/RPM-GPG-KEY-EPEL-${::lsbmajdistrelease}",
+      baseurl     => "${mirror}/epel/testing/${::lsbmajdistrelease}/${::architecture}";
     'redhat-dvd':
       baseurl => "${mirror}/repos/${redhat_dvd_repo}";
     'fedora-updates':
@@ -82,9 +86,6 @@ class redhat::repos {
       baseurl => 'http://ala-mirror.wrs.com/mirror/graphite';
     'collectd':
       baseurl => "${mirror}/collectd/${::lsbmajdistrelease}";
-    'megacli':
-      ensure  => absent,
-      baseurl => 'http://yow-mirror.wrs.com/mirror/megacli';
   }
 
   #setup repos depending on which flavour of redhat
@@ -93,6 +94,7 @@ class redhat::repos {
       realize( Yum_repo['centos-os'] )
       realize( Yum_repo['centos-updates'] )
       realize( Yum_repo['epel'] )
+      realize( Yum_repo['epel-testing'] )
       realize( Yum_repo['collectd'] )
       realize( Yum_repo['megacli'] )
       if ( $::lsbmajdistrelease == '6' ) {
