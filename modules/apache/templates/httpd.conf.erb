@@ -361,7 +361,7 @@ HostnameLookups Off
 # filesystems.  Please see
 # http://httpd.apache.org/docs/2.2/mod/core.html#enablesendfile
 #
-<% if sendfile %>
+<% if @sendfile %>
 EnableSendfile <%= @sendfile %>
 <% end %>
 
