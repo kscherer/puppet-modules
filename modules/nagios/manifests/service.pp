@@ -28,6 +28,7 @@ class nagios::service(
       notification_period          => '24x7',
       register                     => '0';
     'passive-service':
+      use                          => 'generic-service',
       active_checks_enabled        => '0',
       passive_checks_enabled       => '1',
       flap_detection_enabled       => '0',
