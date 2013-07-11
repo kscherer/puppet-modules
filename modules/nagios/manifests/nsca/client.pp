@@ -9,7 +9,8 @@ class nagios::nsca::client {
   user {
     'nagios':
       ensure     => present,
-      shell      => '/bin/false',
+      shell      => '/bin/sh',
+      home       => '/etc/nagios',
       groups     => 'nagios',
       managehome => false;
   }
