@@ -14,9 +14,12 @@ class nagios::nsca::client {
       managehome => false;
   }
 
-  case $::operatingsystem {
-    'OpenSuse': { $nsca_package = 'nagios-nsca-client' }
-    default: { $nsca_package = 'nsca-client' }
+  if $::operatingsystem == 'Ubuntu' and $::operatingsystemrelease == '10.04' {
+    $nsca_package = 'nsca'
+  } elsif $::operatingsystem == 'OpenSuse' {
+    $nsca_package = 'nagios-nsca-client'
+  } else {
+    $nsca_package = 'nsca-client'
   }
 
   package { $nsca_package: ensure => installed }
