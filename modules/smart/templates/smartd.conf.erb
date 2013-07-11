@@ -51,9 +51,11 @@
 <%= scope.function_template(['smart/params.erb']) -%>
 <% end -%>
 <% elsif @devices.is_a? Hash -%>
-<% @devices.to_a.sort.each do |device,devtype| -%>
+<% @devices.to_a.sort.each do |device,devtypes| -%>
+<% devtypes.each do |devtype| -%>
 <%= device %> \
--d <%= dev_type %> \
+-d <%= devtype %> \
 <%= scope.function_template(['smart/params.erb']) -%>
+<% end -%>
 <% end -%>
 <% end -%>

@@ -163,7 +163,7 @@ class wr::ala-blades {
   if $::blockdevice_sda_model == 'PERC 6/i' {
     class {
       'smart':
-        devices => {'/dev/sda'=>'megaraid,0', '/dev/sda'=>'megaraid,1'};
+        devices => {'/dev/sda'=>['megaraid,0', 'megaraid,1']};
     }
   }  else {
     class {
