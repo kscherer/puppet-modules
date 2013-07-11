@@ -13,7 +13,7 @@ class nagios::nsca::server {
   file { '/etc/nagios/nsca.cfg':
     source => 'puppet:///modules/nagios/nsca/nsca.cfg',
     owner  => 'nagios',
-    group  => 'nogroup',
+    group  => 'nagios',
     mode   => '0400',
     notify => Service['nsca'],
   }
