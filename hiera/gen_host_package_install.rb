@@ -7,9 +7,9 @@ require 'puppet'
 $hiera = Hiera.new(:config => "./hiera.yaml")
 
 def lookup(family, os, release, arch)
-  scope = { 'osfamily' => family, 'lsbmajdistrelease' => release,
-    'operatingsystem' => os, 'architecture' => arch,
-    'environment' => 'production',
+  scope = { '::osfamily' => family, '::lsbmajdistrelease' => release,
+    '::operatingsystem' => os, '::architecture' => arch,
+    '::environment' => 'production',
   }
   $hiera.lookup("packages", nil, scope, nil, :array )
 end

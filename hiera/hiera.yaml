@@ -5,12 +5,10 @@
 :logger: puppet
 
 :hierarchy:
-  - "%{::hostname}"
-  - "%{::location}"
   - "%{::operatingsystem}-%{::lsbmajdistrelease}-%{::architecture}"
   - "%{::operatingsystem}-%{::lsbmajdistrelease}"
   - "%{::osfamily}"
   - common
 
 :yaml:
-   :datadir: "%{::settings::confdir}"
+   :datadir: /home/kscherer/repos/wr-puppet-modules/hiera
