@@ -1,6 +1,19 @@
 #Install the nsca client and wrapper
 class nagios::nsca::client {
 
+  group {
+    'nagios':
+      ensure => present;
+  }
+
+  user {
+    'nagios':
+      ensure     => present,
+      shell      => '/bin/false',
+      group      => 'nagios',
+      managehome => false;
+  }
+
   package { 'nsca-client': ensure => installed }
 
   file {
