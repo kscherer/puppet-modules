@@ -121,7 +121,6 @@ class nrpe {
   exec {
     'generate_passive_ntpcheck_script':
       command => "cat ${defaultdir}/check_ntp_time.cfg | cut -d= -f2 > /etc/nagios/check_ntp.sh",
-      user    => 'nagios',
       creates => '/etc/nagios/check_ntp.sh',
       require => Nrpe::Command['check_ntp'];
   }
