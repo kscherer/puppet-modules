@@ -26,7 +26,7 @@ class nagios::nsca::client {
 
   file {
     '/etc/nagios/send_nsca.cfg':
-      source => 'puppet:///modules/nagios/nsca/nsca.cfg',
+      source => 'puppet:///modules/nagios/nsca/send_nsca.cfg',
       owner  => 'nagios',
       group  => 'nagios',
       mode   => '0400';
