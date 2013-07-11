@@ -10,7 +10,7 @@ class nagios::nsca::client {
     'nagios':
       ensure     => present,
       shell      => '/bin/false',
-      group      => 'nagios',
+      groups     => 'nagios',
       managehome => false;
   }
 
