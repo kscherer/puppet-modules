@@ -35,11 +35,12 @@ class nagios::target {
   }
 
   $nsca_server=hiera('nsca')
+  $min=fqdn_rand(10)
 
   cron {
     'nsca_ntp_check':
       command => "PATH=/usr/sbin/:/usr/bin /etc/nagios/nsca_wrapper -H ${::fqdn} -S 'Passive NTP' -N ${nsca_server} -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_ntp.sh",
       user    => 'nagios',
-      minute  => fqdn_rand(10),
+      minute  => '*/5';
   }
 }
