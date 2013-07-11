@@ -9,8 +9,10 @@ class wr::ala-lpd-puppet {
   -> class { 'graphite': }
 
   Class['redhat'] -> class { 'nrpe': }
-  class { 'nagios': }
-  class { 'nagios::target': }
+
+  include nagios
+  include nagios::target
+  include nagios::nsca::server
 
   realize( Redhat::Yum_repo['graphite'] )
   Yumrepo['graphite'] -> Class['graphite']
