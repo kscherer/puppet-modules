@@ -89,4 +89,8 @@ class redhat::workarounds {
 
   #Enable mosh for a better remote ssh login
   ensure_resource('package', 'mosh', {'ensure' => 'present' })
+
+  #logwatch output is annoying
+  ensure_resource('package', 'logwatch', {'ensure' => 'absent' })
+
 }
