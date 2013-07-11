@@ -35,9 +35,9 @@ define nrpe::command ($command, $parameters='', $cplugdir='auto', $ensure='prese
 class nrpe {
 
   #this allows system to use both nrpe and mcollective
-  $nrpe_dir = $::operatingsystem ? {
-      /(?i-mx:centos|fedora|redhat|oel)/ => '/etc/nrpe.d',
-      default                            => '/etc/nagios/nrpe.d',
+  $nrpe_dir = $::osfamily ? {
+      'RedHat' => '/etc/nrpe.d',
+      default  => '/etc/nagios/nrpe.d',
   }
 
   # find out the default nagios paths for plugins
@@ -115,5 +115,23 @@ class nrpe {
     'check_nx_proc':
       command    => 'check_procs',
       parameters => '-c 1:4 -C nx';
+  }
+
+  #Create ntp check script for passive check
+  exec {
+    'generate_passive_ntpcheck_script':
+      command => "cat ${defaultdir}/check_ntp_time.cfg | cut -d= -f2 > /etc/nagios/check_ntp.sh",
+      user    => 'nagios',
+      creates => '/etc/nagios/check_ntp.sh',
+      require => Nrpe::Command['check_ntp'];
+  }
+
+  file {
+    '/etc/nagios/check_ntp.sh':
+      ensure  => present,
+      owner   => 'nagios',
+      group   => 'nagios',
+      mode    => '0755',
+      require => Exec['generate_passive_ntpcheck_script'];
   }
 }

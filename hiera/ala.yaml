@@ -4,4 +4,4 @@ puppet::puppet_server: ala-lpd-puppet.wrs.com
 graphite::web::time_zone: America/Los_Angeles
 collectd::plugin::write_graphite::host: ala-lpd-puppet.wrs.com
 mirror: ala-mirror.wrs.com
-
+nsca: 147.11.106.55

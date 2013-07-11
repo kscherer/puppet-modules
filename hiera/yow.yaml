@@ -6,5 +6,5 @@ ntp::servers:
 mirror: yow-mirror.wrs.com
 graphite::web::time_zone: US/Eastern
 collectd::plugin::write_graphite::host: yow-lpd-monitor.wrs.com
-
+nsca: 128.224.194.15
 

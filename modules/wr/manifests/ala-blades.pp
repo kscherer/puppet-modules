@@ -7,9 +7,9 @@ class wr::ala-blades {
     include 'nx'
   }
 
-  class { 'dell': }
+  include dell
+  include yocto
 
-  class { 'yocto': }
   Class['redhat'] -> Class['yocto']
 
   user {

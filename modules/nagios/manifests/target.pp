@@ -33,4 +33,13 @@ class nagios::target {
       service_description => 'Passive NTP',
       host_name           => $::fqdn,
   }
+
+  $nsca_server=hiera('nsca')
+
+  cron {
+    'nsca_ntp_check':
+      command => "/etc/nagios/nsca_wrapper -H ${::fqdn} -S 'Passive NTP' -N ${nsca_server} -C /etc/nagios/check_ntp.sh",
+      user    => 'nagios',
+      minute  => fqdn_rand(10),
+  }
 }
