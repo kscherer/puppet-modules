@@ -7,12 +7,12 @@ class nagios::nsca::client {
     '/etc/nagios/send_nsca.cfg':
       source => 'puppet:///modules/nagios/nsca/nsca.cfg',
       owner  => 'nagios',
-      group  => 'nogroup',
+      group  => 'nagios',
       mode   => '0400';
     '/etc/nagios/nsca_wrapper':
       source => 'puppet:///modules/nagios/nsca/nsca_wrapper',
       owner  => 'nagios',
-      group  => 'nogroup',
+      group  => 'nagios',
       mode   => '0755',
   }
 }
