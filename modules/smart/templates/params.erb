@@ -1,0 +1,12 @@
+<%- if @prefailure then -%>-p<%- end -%> \
+<%- if @default then -%>-a<%- end -%> \
+<%- if @test_schedule then -%>-s <%= @test_schedule %><%- end -%> \
+<%- if @monitor_params then -%><% @monitor_params.each do |monitor_param| -%>-R <%= monitor_param %><% end -%><%- end -%> \
+<%- if @ignor_params then -%><% @ignor_params.each do |ignor_param| -%>-I <%= ignor_param %><% end -%><%- end -%> \
+<%- if @temperature then -%>-W <%= @temperature %><%- end -%> \
+<%- if @offline_test then -%>-o on<%- end -%> \
+<%- if @attr_autosave then -%>-S on<%- end -%> \
+<%- if @email then -%>-m <%= @email %><%- end -%> \
+<%- if @email_type then -%>-M <%= @email_type %><%- end -%>
+
+#########################################################
