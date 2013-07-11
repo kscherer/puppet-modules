@@ -14,7 +14,12 @@ class nagios::nsca::client {
       managehome => false;
   }
 
-  package { 'nsca-client': ensure => installed }
+  case $::operatingsystem {
+    'OpenSuse': { $nsca_package = 'nagios-nsca-client' }
+    default: { $nsca_package = 'nsca-client' }
+  }
+
+  package { $nsca_package: ensure => installed }
 
   file {
     '/etc/nagios/send_nsca.cfg':
