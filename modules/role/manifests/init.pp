@@ -5,7 +5,6 @@ class role {
 
 #
 class role::git::master inherits role {
-  include profile::git::master
 }
 
 #

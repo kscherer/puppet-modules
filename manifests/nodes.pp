@@ -141,6 +141,10 @@ node 'yow-git.wrs.com' {
   include wr::yow_git
 }
 
+node 'ala-git.wrs.com' {
+  include role::git::master
+}
+
 node 'ala-lpd-susbld.wrs.com' {
   class { 'wr::ala-lpd-susbld': }
 }
