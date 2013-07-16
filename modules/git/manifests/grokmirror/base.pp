@@ -11,6 +11,6 @@ class git::grokmirror::base {
       provider => 'git',
       source   => 'git://github.com/mricon/grokmirror.git',
       user     => 'git',
-      revision => 'master';
+      revision => 'wr';
   }
 }
