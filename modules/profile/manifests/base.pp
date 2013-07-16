@@ -1,7 +1,7 @@
 #The common configuration for all systems
 class profile::base {
-  include dns
-  Class['dns'] -> Class['wr::common::repos']
+  include wr::dns
+  Class['wr::dns'] -> Class['wr::common::repos']
 
   include motd
   include ntp
