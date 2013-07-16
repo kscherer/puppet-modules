@@ -9,7 +9,7 @@ class git::grokmirror::base {
     '/git/grokmirror':
       ensure   => 'latest',
       provider => 'git',
-      source   => 'git://github.com/mricon/grokmirror.git',
+      source   => 'git://ala-git.wrs.com/external/github.com.mricon.grokmirror.git',
       user     => 'git',
       revision => 'wr';
   }
