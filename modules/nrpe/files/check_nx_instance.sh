@@ -16,8 +16,8 @@ function email_me() {
     old_processes=$(ps -U nxadm -o pid,etime,command | awk '$2~/-/ {if ($2>2) print $0}')
     echo "" >> $TMP_EMAIL
     echo "$old_processes" >> $TMP_EMAIL
-    git send-email --smtp-server prod-webmail.wrs.com --to konrad.scherer@windriver.com  \
-        --to randy.macleod@windriver.com --to joe.macdonald@windriver.com \
+    git send-email --smtp-server prod-webmail.wrs.com \
+        --to randy.macleod@windriver.com \
         --to Kai.Kang@windriver.com \
         --from nxadm@windriver.com $TMP_EMAIL
     rm $TMP_EMAIL
