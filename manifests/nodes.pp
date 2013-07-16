@@ -138,7 +138,7 @@ node 'yow-lpg-md3000.wrs.com' {
 }
 
 node 'yow-git.wrs.com' {
-  include wr::yow_git
+  include role::git::mirror
 }
 
 node 'ala-git.wrs.com' {

@@ -4,3 +4,7 @@ puppet::puppet_server: pek-lpd-puppet.wrs.com
 ntp::servers:
   - pek-lpd-puppet.wrs.com
 mirror: pek-mirror.wrs.com
+nameservers:
+  - 128.224.160.12
+  - 128.224.160.11
+  - 147.11.57.128
