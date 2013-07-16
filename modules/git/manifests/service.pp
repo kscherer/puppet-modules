@@ -18,11 +18,13 @@ class git::service(
       ensure => 'present';
   }
 
+  #Only create the directory if not already created
   file {
     $gitdir:
-      ensure => directory,
-      owner  => 'git',
-      group  => 'git',
+      ensure  => directory,
+      owner   => 'git',
+      group   => 'git',
+      replace => false;
   }
 
   include git::params
