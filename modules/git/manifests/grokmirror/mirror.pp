@@ -56,6 +56,8 @@ class git::grokmirror::mirror(
       value   => $include;
     "${site}/exclude":
       value   => $exclude;
+    "${site}/pull_threads":
+      value   => '2';
   }
 
   #run the command to actually do the mirroring
