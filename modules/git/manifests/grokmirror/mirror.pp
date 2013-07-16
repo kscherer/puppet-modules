@@ -31,7 +31,7 @@ class git::grokmirror::mirror(
     "${site}/site":
       value   => "git://${site}";
     "${site}/manifest":
-      value => "http://${site}/grokmirror/manifest.js.gz";
+      value => "http://${site}/manifest.js.gz";
     "${site}/toplevel":
       value   => $toplevel;
     "${site}/mymanifest":

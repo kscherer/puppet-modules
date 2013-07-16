@@ -24,7 +24,7 @@ class git::grokmirror::master(
       ensure => directory,
       owner  => 'git',
       group  => 'git';
-    "${docroot_real}/grokmirror/manifest.js.gz":
+    "${docroot_real}/manifest.js.gz":
       ensure => link,
       target => '/git/manifest.js.gz';
   }
