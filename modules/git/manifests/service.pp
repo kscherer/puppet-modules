@@ -49,6 +49,7 @@ class git::service(
       user           => 'git',
       group          => 'git',
       flags          => 'IPv6',
+      wait           => 'no',
       log_on_failure => 'USERID',
   }
 
