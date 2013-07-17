@@ -67,4 +67,17 @@ class git::grokmirror::mirror(
       command => '/git/grokmirror/grok-pull.py --reuse-existing-repos --config /git/repos.conf',
       user    => 'git';
   }
+
+  include logrotate::base
+
+  #rotate the grokmirror log file
+  logrotate::rule {
+    'grokmirror':
+      path         => "${toplevel}/log/${site}.log",
+      rotate       => 7,
+      rotate_every => 'day',
+      missingok    => true,
+      ifempty      => false,
+      dateext      => true,
+  }
 }
