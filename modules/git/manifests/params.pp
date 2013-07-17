@@ -6,7 +6,6 @@ class git::params {
       $daemon_package = 'git-daemon-sysvinit'
       $docroot        = '/var/www'
       $python_git     = 'python-git'
-      $python_json    = 'python-simplejson'
     }
     'RedHat': {
       $package_name   = 'git'
@@ -14,7 +13,6 @@ class git::params {
       $daemon_package = 'git-daemon'
       $docroot        = '/var/www/html'
       $python_git     = 'GitPython'
-      $python_json    = 'python-json'
     }
     'Suse': {
       $package_name   = 'git'
@@ -22,7 +20,6 @@ class git::params {
       $daemon_package = 'git-daemon'
       $docroot        = '/var/www/html'
       $python_git     = 'python-GitPython'
-      $python_json    = 'python-simplejson'
     }
     default: {
       fail("Unsupported platform: ${::osfamily}")
