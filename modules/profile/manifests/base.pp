@@ -37,7 +37,6 @@ class profile::git::base inherits profile::monitored {
   }
 
   include git::service
-  include git::wr_bin_repo
   include nis
   include sudo
 
@@ -64,5 +63,6 @@ class profile::git::master inherits profile::git::base {
 
 #
 class profile::git::mirror inherits profile::git::base {
+  include git::wr_bin_repo
   include git::grokmirror::mirror
 }

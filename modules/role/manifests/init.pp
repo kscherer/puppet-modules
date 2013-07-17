@@ -5,7 +5,11 @@ class role {
 
 #
 class role::git::master inherits role {
-  #only use base for now. Hopefully will be extended to include more resources
+  include git
+  include nis
+
+  Class['wr::common::repos'] -> Class['git']
+  Class['wr::common::repos'] -> Class['nis']
 }
 
 #

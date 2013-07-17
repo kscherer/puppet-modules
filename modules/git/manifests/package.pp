@@ -6,7 +6,8 @@ class git::package {
     redhat::yum_repo {
       'git':
         baseurl => 'http://yow-mirror.wrs.com/mirror/git/5',
-        before  => Package[$git::params::package_name];
+        before  => [ Package[$git::params::package_name],
+                    Package['git-email'] ];
     }
   }
 
