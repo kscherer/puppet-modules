@@ -2,7 +2,7 @@
 class nx {
 
   # git is a must install
-  require git
+  include git
 
   # Add anchor resources for containment
   anchor { 'nx::begin': }
