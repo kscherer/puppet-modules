@@ -64,7 +64,7 @@ class git::grokmirror::mirror(
   cron {
     'grokmirror_pull':
       ensure  => present,
-      command => '/git/grokmirror/grok-pull.py --reuse-existing-repos --config /git/repos.conf',
+      command => '/git/grokmirror/grok-pull.py --reuse-existing-repos --config /git/repos.conf > /dev/null 2>&1',
       user    => 'git';
   }
 
