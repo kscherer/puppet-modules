@@ -60,11 +60,17 @@ class git::grokmirror::mirror(
       value   => '2';
   }
 
+  if $::osfamily == 'RedHat' and $::lsbmajdistrelease == '5' {
+    $python = '/usr/bin/python26'
+  } else {
+    $python = undef
+  }
+
   #run the command to actually do the mirroring
   cron {
     'grokmirror_pull':
       ensure  => present,
-      command => '/git/grokmirror/grok-pull.py --reuse-existing-repos --config /git/repos.conf > /dev/null 2>&1',
+      command => "${python} /git/grokmirror/grok-pull.py --reuse-existing-repos --config /git/repos.conf > /dev/null 2>&1",
       user    => 'git';
   }
 
