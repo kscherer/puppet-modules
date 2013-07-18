@@ -4,8 +4,10 @@ class wr::ala-lpd-rcpl {
   -> class { 'redhat::autoupdate': }
   -> class { 'yocto': }
   -> class { 'nx': }
-  -> class { 'git::git-daemon': }
-  -> class { 'git::cgit': }
+
+  include git::service
+  include git::cgit
+  include git::grokmirror::mirror
 
   include e2croncheck
 
@@ -40,27 +42,6 @@ class wr::ala-lpd-rcpl {
       fstype   => 'ext4',
       options  => 'defaults',
       remounts => true;
-  }
-
-  redhat::yum_repo {
-    'git':
-      baseurl  => 'http://ala-mirror.wrs.com/mirror/git';
-  }
-  Yumrepo['git'] -> Package['git']
-
-  user {
-    'git':
-      ensure     => present,
-      groups     => 'git',
-      managehome => true,
-      home       => '/home/git',
-      shell      => '/bin/bash';
-  }
-
-  group {
-    'git':
-      ensure  => present,
-      require => User['git'];
   }
 
   file {
