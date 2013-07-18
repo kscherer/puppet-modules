@@ -9,7 +9,11 @@ class git::params {
     }
     'RedHat': {
       $package_name   = 'git'
-      $daemon         = '/usr/bin/git-daemon'
+      if $::lsbmajdistrelease == '5' {
+        $daemon         = '/usr/bin/git-daemon'
+      } elsif $::lsbmajdistrelease == '6' {
+        $daemon         = '/usr/libexec/git-core/git-daemon'
+      }
       $daemon_package = 'git-daemon'
       $docroot        = '/var/www/html'
       $python_git     = 'GitPython'
