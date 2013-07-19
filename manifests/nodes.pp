@@ -7,7 +7,7 @@ node 'ala-lpd-puppet.wrs.com' {
 
 node 'pek-lpd-puppet.wrs.com' {
   class { 'redhat': }
-  -> class { 'ntp': servers => ['ntp-1.wrs.com','ntp-2.wrs.com'] }
+  -> class { 'ntp': }
   -> class { 'wr::activemq': broker_name => 'pek-broker' }
   -> class { 'wr::master': }
   -> class { 'nrpe': }
