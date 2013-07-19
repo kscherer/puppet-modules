@@ -23,14 +23,6 @@ node 'yow-lpd-puppet.wrs.com' {
   -> class { 'git::stomp_listener': }
 }
 
-node 'git-master.wrs.com' {
-  include role::git::master
-}
-
-node 'git-mirror.wrs.com' {
-  include role::git::mirror
-}
-
 node 'yow-lpg-amqp.wrs.com' {
   class { 'wr::yow-amqp': }
 }
@@ -138,6 +130,10 @@ node 'yow-lpg-md3000.wrs.com' {
 }
 
 node 'yow-git.wrs.com' {
+  include role::git::mirror
+}
+
+node 'pek-git.wrs.com' {
   include role::git::mirror
 }
 
