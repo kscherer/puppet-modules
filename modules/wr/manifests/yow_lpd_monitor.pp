@@ -9,6 +9,7 @@ class wr::yow_lpd_monitor {
 
   #nagios class notifies httpd service so -> relationship creates cycles
   include apache
+  include apache::mod::wsgi
 
   graphite::carbon::storage {
     'nx_build_stats':

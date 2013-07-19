@@ -1,4 +1,11 @@
 class graphite::web::service {
 
-  include apache::mod::wsgi
+  service { 'httpd':
+    ensure     => running,
+    enable     => true,
+    hasrestart => true,
+    hasstatus  => true,
+  }
+
+
 }

@@ -1,12 +1,14 @@
 #
 class wr::ala-lpd-puppet {
-  class {'wr::ala_dns': }
+  class {'wr::dns': }
   -> class { 'redhat': }
   -> class { 'ntp': }
   -> class { 'wr::activemq': broker_name => 'ala-broker' }
   -> class { 'wr::master': }
   -> class { 'git::stomp_listener': }
   -> class { 'graphite': }
+
+  include apache::mod::wsgi
 
   Class['redhat'] -> class { 'nrpe': }
 
