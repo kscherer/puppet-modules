@@ -83,6 +83,7 @@ class redhat::repos {
     'activemq':
       baseurl => 'http://yow-mirror.wrs.com/mirror/activemq';
     'graphite':
+      ensure  => absent,
       baseurl => 'http://ala-mirror.wrs.com/mirror/graphite';
     'collectd':
       baseurl => "${mirror}/collectd/${::lsbmajdistrelease}";
