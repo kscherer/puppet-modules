@@ -14,9 +14,6 @@ class wr::ala-lpd-puppet {
   include nagios::target
   include nagios::nsca::server
 
-  realize( Redhat::Yum_repo['graphite'] )
-  Yumrepo['graphite'] -> Class['graphite']
-
   graphite::carbon::storage {
     'default_10s_for_2weeks':
       pattern    => '.*',

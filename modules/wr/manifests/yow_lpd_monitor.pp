@@ -10,9 +10,6 @@ class wr::yow_lpd_monitor {
   #nagios class notifies httpd service so -> relationship creates cycles
   include apache
 
-  realize( Redhat::Yum_repo['graphite'] )
-  Yumrepo['graphite'] -> Class['graphite']
-
   graphite::carbon::storage {
     'nx_build_stats':
       pattern    => '^nx\.',
