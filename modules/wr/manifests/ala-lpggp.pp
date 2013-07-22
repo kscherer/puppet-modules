@@ -1,7 +1,9 @@
 #
 class wr::ala-lpggp inherits wr::ala-common {
-  class { 'yocto': }
-  class { 'git': }
+  include yocto
+  include git
+  include dell
+
   Class['redhat'] -> Class['yocto']
   Class['redhat'] -> Class['git']
 
