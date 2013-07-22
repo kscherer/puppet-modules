@@ -16,6 +16,8 @@ class dell {
     $dell_repo:
       ensure  => file,
       require => Exec['dell_repo'];
+    '/opt/dell/srvadmin/lib64/openmanage/IGNORE_GENERATION':
+      ensure => present;
   }
 
   #package has to depend on file, not yum repo
