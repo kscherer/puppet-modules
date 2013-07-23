@@ -18,6 +18,7 @@ function email_me() {
     echo "$old_processes" >> $TMP_EMAIL
     git send-email --smtp-server prod-webmail.wrs.com \
         --to randy.macleod@windriver.com \
+        --to joe.macdonald@windriver.com \
         --to Kai.Kang@windriver.com \
         --from nxadm@windriver.com $TMP_EMAIL
     rm $TMP_EMAIL
