@@ -22,10 +22,17 @@ class dell {
 
   #package has to depend on file, not yum repo
   package {
-    ['srvadmin-base','srvadmin-storage','srvadmin-server-cli','srvadmin-storage-cli']:
+    [ 'srvadmin-base','srvadmin-storage','srvadmin-server-cli',
+      'srvadmin-storage-cli','srvadmin-omcommon']:
       ensure  => latest,
       notify  => Service['dataeng'],
       require => File[$dell_repo];
+  }
+
+  #This plugin bridges nagios and openmanage
+  package {
+    'nagios-plugins-openmanage':
+      ensure => installed;
   }
 
   #This service is necessary to run omreport cli tool
