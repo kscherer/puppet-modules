@@ -11,12 +11,17 @@ class dell {
       creates => $dell_repo;
   }
 
+  case $::architecture {
+    /i.86/: { $libdir = 'lib' }
+    default:{ $libdir = 'lib64'}
+  }
+
   #need this to ensure dell repo is not deleted
   file {
     $dell_repo:
       ensure  => file,
       require => Exec['dell_repo'];
-    '/opt/dell/srvadmin/lib64/openmanage/IGNORE_GENERATION':
+    "/opt/dell/srvadmin/${libdir}/openmanage/IGNORE_GENERATION":
       ensure => present;
   }
 
