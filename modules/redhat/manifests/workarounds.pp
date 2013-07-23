@@ -93,4 +93,10 @@ class redhat::workarounds {
   #logwatch output is annoying
   ensure_resource('package', 'logwatch', {'ensure' => 'absent' })
 
+  #make sure dmesg includes timestamps
+  exec {
+    'dmesg_printk_timestamp':
+      command  => 'echo 1 > /sys/module/printk/parameters/printk_time',
+      onlyif   => 'test `cat /sys/module/printk/parameters/printk_time` = \'0\'';
+  }
 }
