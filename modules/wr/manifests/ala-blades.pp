@@ -106,7 +106,7 @@ class wr::ala-blades {
       '/stored_builds':
         ensure   => mounted,
         atboot   => true,
-        device   => 'ala-lpgnas2-nfs:/vol/vol1',
+        device   => 'ala-lpgnas2:/vol/vol1',
         fstype   => 'nfs',
         options  => 'bg,vers=3,nointr,timeo=600,_netdev',
         require  => File['/stored_builds'],
