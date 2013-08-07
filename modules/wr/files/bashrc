@@ -449,9 +449,9 @@ elif [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
     # a case would tend to support setf rather than setaf.)
 
     # Enable 256 color support if the terminfo is installed
-    if [ -e /lib/terminfo/x/xterm-256color ]; then
-        export TERM=xterm-256color
-    fi
+    #if [ -e /lib/terminfo/x/xterm-256color ]; then
+    #    export TERM=xterm-256color
+    #fi
 fi
 
 export PROMPT_COMMAND=setTruncatedPwd
