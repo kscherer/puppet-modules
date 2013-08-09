@@ -9,7 +9,7 @@ class nomachine {
   }
 
   package {
-    'nxserver':
+    ['nxserver','xorg-x11-xauth','xterm']:
       ensure => installed;
   }
 
