@@ -7,6 +7,7 @@ class wr::ala-lpd-test {
   -> class { 'nx': }
 
   include e2croncheck
+  include nomachine
 
   motd::register {
     'ala-lpd-test':
