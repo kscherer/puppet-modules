@@ -16,6 +16,18 @@
 
 set -e
 
+#add ability to delay check for up to one week
+delay=/var/tmp/e2croncheck_delay
+one_week=604800 #7 * 24 * 60 * 60
+if [ -f "$delay" ]; then
+    now=$(date +%s)
+    delay_age=$(($now - $(stat -c '%Y' "$delay")))
+    if [ "$delay_age" -lt "$one_week" ];
+        >&2 echo "e2croncheck has been delayed"
+        false
+    fi
+fi
+
 if [ "$#" -ne 1 ]; then
   >&2 printf "USAGE: %s vg/lv\n" "$0"
   false
