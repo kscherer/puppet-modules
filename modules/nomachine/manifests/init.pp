@@ -5,6 +5,7 @@ class nomachine {
       'nomachine':
         baseurl => 'http://yow-mirror.wrs.com/mirror/nomachine';
     }
+    Yumrepo['nomachine'] -> Package['nxserver']
   }
 
   package {
@@ -19,4 +20,6 @@ class nomachine {
       status    => '/usr/NX/bin/nxserver --status',
       hasstatus => true;
   }
+
+  Package['nxserver'] -> Service['nxserver']
 }
