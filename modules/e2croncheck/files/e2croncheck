@@ -22,7 +22,7 @@ one_week=604800 #7 * 24 * 60 * 60
 if [ -f "$delay" ]; then
     now=$(date +%s)
     delay_age=$(($now - $(stat -c '%Y' "$delay")))
-    if [ "$delay_age" -lt "$one_week" ];
+    if [ "$delay_age" -lt "$one_week" ]; then
         >&2 echo "e2croncheck has been delayed"
         false
     fi
