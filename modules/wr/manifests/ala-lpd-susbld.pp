@@ -2,19 +2,6 @@
 class wr::ala-lpd-susbld {
   class { 'wr::ala-common': }
 
-  group {
-    'buildadmin':
-      ensure => present,
-  }
-
-  user {
-    'buildadmin':
-      ensure     => present,
-      home       => '/home/buildadmin',
-      gid        => 'buildadmin',
-      managehome => true;
-  }
-
   ssh_authorized_key {
     'pkennedy_buildadmin':
       ensure => 'present',
