@@ -31,6 +31,7 @@ class mcollective::plugins(
   # $plugin_base and $plugin_subs are meant to be arrays.
   file { $plugin_base:
     ensure  => directory,
+    replace => false,
     require => Class['mcollective::server::package'],
   }
   file { $plugin_subs:
