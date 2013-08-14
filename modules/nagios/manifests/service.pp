@@ -74,6 +74,7 @@ class nagios::service(
   #make sure that entries no longer in storedconfigs are cleaned out
   resources {
     'nagios_service':
+      notify  => Service['nagios'],
       purge => true;
   }
 

@@ -29,6 +29,7 @@ class nagios::contact(
   #make sure that entries no longer in storedconfigs are cleaned out
   resources {
     ['nagios_contact','nagios_contactgroup']:
+      notify  => Service['nagios'],
       purge => true;
   }
 

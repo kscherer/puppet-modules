@@ -30,6 +30,7 @@ class nagios::host(
   #make sure that entries no longer in storedconfigs are cleaned out
   resources {
     ['nagios_host','nagios_hostextinfo']:
+      notify  => Service['nagios'],
       purge => true;
   }
 
