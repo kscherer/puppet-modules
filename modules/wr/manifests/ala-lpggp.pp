@@ -115,19 +115,19 @@ class wr::ala-lpggp inherits wr::ala-common {
     motd::register{
       'ala-lpggp':
         content => "This machine will be decommisioned soon!
-        Please contact Konrad.Scherer@windriver.com if you require
-        a 32bit CentOS 5.9 builder after August 26th.";
+Please contact Konrad.Scherer@windriver.com if you require
+a 32bit CentOS 5.9 builder after August 26th.";
     }
   } else {
     motd::register{
       'ala-lpggp':
         content => "This machine is for Linux Products developers manual compiles.
-        It is not to be used for automated testing, automated builds or
-        other uses. Please limit compiles to --enable-jobs=5.
-        Use /${::hostname}[1-2] as local storage.
-        It is not backed up, make sure you have a secure copy
-        of your data.  Clean up after yourself, this F/S will be cleaned
-        up periodically.";
+It is not to be used for automated testing, automated builds or
+other uses. Please limit compiles to --enable-jobs=5.
+Use /${::hostname}[1-2] as local storage.
+It is not backed up, make sure you have a secure copy
+of your data.  Clean up after yourself, this F/S will be cleaned
+up periodically.";
     }
   }
 }
