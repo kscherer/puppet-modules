@@ -224,6 +224,9 @@ nx_status(){
         elif $(echo $last_line | grep -q "Checking for new commits"); then
             nx_status_string="Checking for new commits."
             RETVAL=0
+        elif $(echo $last_line | grep -q "PTest"); then
+            nx_status_string="Running PTest."
+            RETVAL=0
         elif $(echo $last_line | egrep -q "(deleting passed|Removing)"); then
             nx_status_string="Long delete. Nx busy."
             RETVAL=0
