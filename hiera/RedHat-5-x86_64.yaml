@@ -5,3 +5,4 @@ packages:
   - glibc-devel.x86_64
   - libgcc.i386
   - ncurses.i386
+  - binutils220
