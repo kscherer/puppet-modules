@@ -159,7 +159,8 @@ class nx {
 
   nx::script {
     [ 'hostel-fix-config','ice_check.sh','pull-multicore-layer','hostel-make',
-      'pull-toolchain.sh','send_stats_to_graphite.sh']:
+      'pull-toolchain.sh','send_stats_to_graphite.sh',
+      'sstate-cache-management.sh']:
   }
 
   case $::hostname {
@@ -175,16 +176,28 @@ class nx {
     default:           { fail("Unsupported nx configuration for ${::hostname}") }
   }
 
+  $sstate_dir = '/home/nxadm/nx/sstate_cache'
+
   cron {
+    #Delete log files older that 10 days
     'clean_nx_logs':
       command => "/usr/bin/find /home/nxadm/nx/${::location}*/log -mtime +10 -exec rm {} \\; &> /dev/null",
       user    => nxadm,
       hour    => 23,
       minute  => 0,
       require => User[ 'nxadm' ];
+    #kill any build processes that are older than 2 days (except notxylo)
     'clean_old_nx_processes':
       command => 'ps -U nxadm -o pid,etime,command | grep -v notxylo | awk \'$2~/-/ {if ((0+$2)>3) print $1}\' | xargs -r kill -9',
       user    => nxadm,
+      hour    => 20,
+      minute  => 0,
+      require => User[ 'nxadm' ];
+    #Clean out the sstate cache to avoid running out of disk
+    'clean_sstate_cache':
+      command => "if [ -d ${sstate_dir} ]; then /home/nxadm/bin/sstate-cache-management.sh --yes --duplicate --cache-dir=${sstate_dir}; fi",
+      user    => nxadm,
+      weekday => 6,
       hour    => 20,
       minute  => 0,
       require => User[ 'nxadm' ];
