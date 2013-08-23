@@ -71,7 +71,7 @@ class nx {
       ensure => 'present',
       user   => 'nxadm',
       key    => hiera('polk@delos.com'),
-      type   => 'ssh-rsa';
+      type   => 'ssh-dss';
   }
 
   File {
