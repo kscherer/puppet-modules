@@ -41,13 +41,13 @@ class wr::yow_openstack {
       include_src => false;
   }
 
-  class { 'rabbitmq::repo::apt':
-    before => Class['rabbitmq::server']
-  }
-
   if $::hostname == 'yow-blade1' {
     include openstack::controller
     include openstack::auth_file
+
+    class { 'rabbitmq::repo::apt':
+      before => Class['rabbitmq::server']
+    }
   } else {
     include openstack::compute
   }
