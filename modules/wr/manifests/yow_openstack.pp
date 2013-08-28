@@ -56,4 +56,12 @@ class wr::yow_openstack {
     '/etc/sudoers.d/cinder_sudoers':
       ensure => present;
   }
+
+  ssh_authorized_key {
+    'bruce@yow-bashfiel-d1':
+      ensure => 'present',
+      user   => 'root',
+      key    => hiera('bruce@yow-bashfiel-d1'),
+      type   => 'ssh-dss';
+  }
 }
