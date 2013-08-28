@@ -10,3 +10,102 @@ nsca: 128.224.194.15
 nameservers:
   - 128.224.144.130
   - 147.11.57.128
+
+# The IP and interface that external sources will use to communicate with the instance and hypervisors.
+openstack::compute::public_interface:   'eth0'
+openstack::compute::internal_address:   "%{ipaddress_eth0}"
+openstack::compute::iscsi_ip_address:   "%{ipaddress_eth0}"
+
+# The interface that will handle instance to intance communication and instance outbound traffic.
+openstack::compute::private_interface:  'eth2'
+
+# It most all cases the libvirt_type will be kvm for production clusters.
+openstack::compute::libvirt_type:       'kvm'
+
+# This adds networking deamon so that we remove single points of failure.
+openstack::compute::multi_host:         true
+
+# IP or hostname of the controller node
+openstack::compute::db_host:            'yow-blade1.wrs.com'
+openstack::compute::rabbit_host:        'yow-blade1.wrs.com'
+openstack::compute::keystone_host:      'yow-blade1.wrs.com'
+openstack::compute::vncproxy_host:      'yow-blade1.wrs.com'
+openstack::compute::glance_api_servers:
+  - 'yow-blade1.wrs.com:9292'
+
+# An IP address range tha Openstack can use for distributing internal DHCP addresses.
+openstack::compute::fixed_range:        '192.168.100.0/24'
+
+# Password and users for the plumbing components of Openstack.
+openstack::compute::nova_user_password: 'qr9A2mzc)@C&4wQ'
+openstack::compute::nova_db_password:   '4g#Xzfv8%*GA4Wv'
+openstack::compute::cinder_db_password: '4g#Xzfv8%*GA4Wv'
+openstack::compute::rabbit_password:    'RYiTg4{f8e2*{hL'
+
+# VNC is helpful for troubleshooting but not all cloud images allow you to login via a console.
+openstack::compute::vnc_enabled:        true
+
+# Verbose just makes life easier.
+openstack::compute::verbose:            true
+
+# The quantum module wasn't ready at time of release of the openstack module.
+openstack::compute::quantum:            false
+
+# Data needed for Class['openstack::controller']
+
+# The IP and interface that external sources will use to communicate with the instance and hypervisors.
+openstack::controller::public_address:       "%{ipaddress_eth0}"
+openstack::controller::public_interface:     'eth0'
+
+# The interface that will handle instance to intance communication and instance outbound traffic.
+openstack::controller::private_interface:    'eth2'
+
+# The initial admin account created by Puppet.
+openstack::controller::admin_email:          admin@example.com
+openstack::controller::admin_password:       '.F}k86U4PG,TcyY'
+
+# The initial region this controller will manage.
+openstack::controller::region:               'yow'
+
+# Password and users for the plumbing components of Openstack.
+openstack::controller::mysql_root_password:  'B&6p,JoC4B%2CJo'
+openstack::controller::keystone_db_password: '4g#Xzfv8%*GA4Wv'
+openstack::controller::keystone_admin_token: '$9*uKaa3mdn7eQMVoGVBKwZ+C'
+openstack::controller::glance_db_password:   '4g#Xzfv8%*GA4Wv'
+openstack::controller::glance_user_password: 'qr9A2mzc)@C&4wQ'
+openstack::controller::nova_db_password:     '4g#Xzfv8%*GA4Wv'
+openstack::controller::nova_user_password:   'qr9A2mzc)@C&4wQ'
+openstack::controller::cinder_db_password:   '4g#Xzfv8%*GA4Wv'
+openstack::controller::cinder_user_password: 'qr9A2mzc)@C&4wQ'
+openstack::controller::secret_key:           'LijkVnU9bwGmUhnLBZvuB49hAETfQ(M,hg*AYoxcxcj'
+openstack::controller::rabbit_password:      'RYiTg4{f8e2*{hL'
+
+# The memcache, DB, and glance hosts are the controller node so just talk to them over localhost.
+openstack::controller::db_host:              '127.0.0.1'
+openstack::controller::db_type:              'mysql'
+openstack::controller::glance_api_servers:
+   - '127.0.0.1:9292'
+openstack::controller::cache_server_ip:      '127.0.0.1'
+openstack::controller::cache_server_port:    '11211'
+
+# An IP address range that Openstack can use for distributing internal DHCP addresses.
+openstack::controller::fixed_range:          '192.168.100.0/24'
+
+# An IP address range that Openstack can use for assigning "publicly" accesible IP addresses.  In a simple case this can  be a subset of the IP subnet that you put your public interface on, e.g. 10.0.0.1/23 and 10.0.1.1/24.
+openstack::controller::floating_range:       '128.224.137.192/27'
+openstack::controller::auto_assign_floating_ip: true
+
+# This adds networking deamon so that we remove single points of failure.
+openstack::controller::multi_host:           true
+
+# Verbose just makes life easier.
+openstack::controller::verbose:              true
+
+# The quantum module wasn't ready at time of release of the openstack module.
+openstack::controller::quantum:              false
+
+# Data needed for Class['openstack::auth_file']
+
+opentack::auth_file::admin_password:       '.F}k86U4PG,TcyY'
+opentack::auth_file::keystone_admin_token: '$9*uKaa3mdn7eQMVoGVBKwZ+C'
+opentack::auth_file::controller_node:      '127.0.0.1'

@@ -27,16 +27,8 @@ node 'yow-lpg-amqp.wrs.com' {
   class { 'wr::yow-amqp': }
 }
 
-node 'yow-blade2.wrs.com' {
-  include role::openstack::compute
-}
-
-node 'yow-blade3.wrs.com' {
-  class { 'wr::yow_openstack': }
-}
-
 node /yow-blade[1-3].wrs.com/ {
-  class { 'wr::yow-common': }
+  class { 'wr::yow_openstack': }
 }
 
 node /yow-blade.*.wrs.com/ {
