@@ -31,7 +31,6 @@ class wr::yow_openstack {
   }
 
   include debian
-  include apache
 
   apt::source {
     'ubuntu_cloud_archive':
@@ -44,7 +43,7 @@ class wr::yow_openstack {
   if $::hostname == 'yow-blade1' {
     include openstack::controller
     include openstack::auth_file
-
+    include apache
     class { 'rabbitmq::repo::apt':
       before => Class['rabbitmq::server']
     }
