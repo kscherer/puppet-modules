@@ -106,6 +106,6 @@ openstack::controller::quantum:              false
 
 # Data needed for Class['openstack::auth_file']
 
-opentack::auth_file::admin_password:       '.F}k86U4PG,TcyY'
-opentack::auth_file::keystone_admin_token: '$9*uKaa3mdn7eQMVoGVBKwZ+C'
-opentack::auth_file::controller_node:      '127.0.0.1'
+openstack::auth_file::admin_password:       '.F}k86U4PG,TcyY'
+openstack::auth_file::keystone_admin_token: '$9*uKaa3mdn7eQMVoGVBKwZ+C'
+openstack::auth_file::controller_node:      '127.0.0.1'
