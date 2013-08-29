@@ -25,20 +25,8 @@ class wr::yow_openstack {
       content => 'This machine is a test OpenStack machine.';
   }
 
-  package {
-    'ubuntu-cloud-keyring':
-      ensure => installed;
-  }
-
   include debian
-
-  apt::source {
-    'ubuntu_cloud_archive':
-      location    => 'http://ubuntu-cloud.archive.canonical.com/ubuntu',
-      release     => 'precise-updates/grizzly',
-      repos       => 'main',
-      include_src => false;
-  }
+  include openstack::repo
 
   if $::hostname == 'yow-blade1' {
     include openstack::controller
