@@ -70,7 +70,7 @@ openstack::controller::region:               'yow'
 # Password and users for the plumbing components of Openstack.
 openstack::controller::mysql_root_password:  'B&6p,JoC4B%2CJo'
 openstack::controller::keystone_db_password: '4g#Xzfv8%*GA4Wv'
-openstack::controller::keystone_admin_token: '$9*uKaa3mdn7eQMVoGVBKwZ+C'
+openstack::controller::keystone_admin_token: '9*uKaa3mdn7eQMVoGVBKwZ+C'
 openstack::controller::glance_db_password:   '4g#Xzfv8%*GA4Wv'
 openstack::controller::glance_user_password: 'qr9A2mzc)@C&4wQ'
 openstack::controller::nova_db_password:     '4g#Xzfv8%*GA4Wv'
@@ -107,6 +107,6 @@ openstack::controller::quantum:              false
 # Data needed for Class['openstack::auth_file']
 
 openstack::auth_file::admin_password:       '.F}k86U4PG,TcyY'
-openstack::auth_file::keystone_admin_token: '$9*uKaa3mdn7eQMVoGVBKwZ+C'
+openstack::auth_file::keystone_admin_token: '9*uKaa3mdn7eQMVoGVBKwZ+C'
 openstack::auth_file::controller_node:      '127.0.0.1'
 openstack::auth_file::region_name:          'yow'
