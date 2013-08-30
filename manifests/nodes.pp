@@ -144,3 +144,7 @@ node 'svl-tuxlab.wrs.com' {
 node /ala-lp.*\.wrs\.com/ {
   class { 'wr::ala-common': }
 }
+
+node /yow-cgts\d+-lx\.wrs\.com/ {
+  include wr::cgts
+}
