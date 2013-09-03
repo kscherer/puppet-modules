@@ -7,5 +7,6 @@ class wr::cgts {
   include debian
   include nis
   include yocto
+  include nrpe
 
 }
