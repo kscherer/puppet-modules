@@ -8,3 +8,4 @@ nsca: 147.11.106.55
 nameservers:
   - 147.11.57.128
   - 147.11.57.133
+foreman_url: 'https://ala-lpd-provision.wrs.com/'

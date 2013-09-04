@@ -29,4 +29,15 @@ class wr::ala-lpd-puppet {
       order   => 1,
       source  => 'puppet:///modules/wr/cpu-aggregation.conf';
   }
+
+  $foreman_url = hiera('foreman_url')
+
+  file {
+    '/usr/lib/ruby/site_ruby/1.8/puppet/reports/foreman.rb':
+      ensure  => file,
+      owner   => 'puppet',
+      group   => 'puppet',
+      mode    => '0644',
+      content => template('wr/foreman.rb.erb');
+  }
 }
