@@ -23,7 +23,7 @@ case $::location {
   undef: {
     #This path is used for stdlib facter_dot_d module
     #if location fact is not set by pluginsync, use default from puppet server used
-    $location = regsubst($::server, '^(\w\w\w).*','\1')
+    $location = regsubst($::servername, '^(\w\w\w).*','\1')
     notice("Using calculated location of ${::location}")
     file {
       '/etc/facter/':
@@ -32,7 +32,7 @@ case $::location {
         ensure => directory;
       '/etc/facter/facts.d/location.txt':
         ensure  => present,
-        content => inline_template( "location=<%= scope.lookupvar('::server')[0..2] %>" );
+        content => inline_template( 'location=<%= @servername[0..2] %>' );
     }
   }
   default: { } #location properly set, Nothing to do
