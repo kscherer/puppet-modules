@@ -32,7 +32,7 @@ case $::location {
         ensure => directory;
       '/etc/facter/facts.d/location.txt':
         ensure  => present,
-        content => inline_template( 'location=<%= @server[0..2] %>' );
+        content => inline_template( "location=<%= scope.lookupvar('::server')[0..2] %>" );
     }
   }
   default: { } #location properly set, Nothing to do
