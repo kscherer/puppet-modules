@@ -3,6 +3,7 @@ class wr::common::repos {
   $family=downcase($::osfamily)
   include $family
 
+  notice("Using internal repos for ${family}")
   anchor{'wr::common::repos::begin':}
   -> Class[$family]
   -> anchor{'wr::common::repos::end':}
