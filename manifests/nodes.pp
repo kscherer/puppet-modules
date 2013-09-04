@@ -137,7 +137,7 @@ node 'ala-lpd-susbld.wrs.com' {
   class { 'wr::ala-lpd-susbld': }
 }
 
-node 'ala-lpd-provisioner.wrs.com' {
+node 'ala-lpd-provision.wrs.com' {
   include role::provisioner
 }
 
