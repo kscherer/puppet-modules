@@ -18,37 +18,6 @@ class profile::base {
 }
 
 #
-class profile::monitored inherits profile::base {
-  include nrpe
-  include wr::mcollective
-  include nagios::target
-
-  Class['wr::common::repos'] -> Class['nrpe']
-  Class['wr::common::repos'] -> Class['wr::mcollective']
-  Class['wr::common::repos'] -> Class['nagios::target']
-}
-
-#
-class profile::nis inherits profile::monitored {
-  include nis
-  include sudo
-
-  sudo::conf {
-    'admin':
-      source  => 'puppet:///modules/wr/sudoers.d/admin';
-    'leads':
-      source  => 'puppet:///modules/wr/sudoers.d/leads';
-    'it':
-      source  => 'puppet:///modules/wr/sudoers.d/it';
-    'scmg':
-      source  => 'puppet:///modules/wr/sudoers.d/scmg';
-  }
-
-  Class['wr::common::repos'] -> Class['nis']
-  Class['wr::common::repos'] -> Class['sudo']
-}
-
-#
 class profile::git::base inherits profile::nis {
 
   if $::operatingsystem == 'CentOS' {
