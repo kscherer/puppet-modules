@@ -1,6 +1,6 @@
 #
 class profile::nis inherits profile::monitored {
-
+  include ::nis
   include sudo
 
   sudo::conf {
@@ -13,8 +13,6 @@ class profile::nis inherits profile::monitored {
     'scmg':
       source  => 'puppet:///modules/wr/sudoers.d/scmg';
   }
-
-  include nis
 
   Class['wr::common::repos'] -> Class['nis']
   Class['wr::common::repos'] -> Class['sudo']
