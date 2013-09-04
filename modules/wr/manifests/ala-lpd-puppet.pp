@@ -31,6 +31,9 @@ class wr::ala-lpd-puppet {
   }
 
   $foreman_url = hiera('foreman_url')
+  $foreman_ssl_ca = hiera('foreman_ssl_ca')
+  $foreman_ssl_cert = hiera('foreman_ssl_cert')
+  $foreman_ssl_key = hiera('foreman_ssl_key')
 
   file {
     '/usr/lib/ruby/site_ruby/1.8/puppet/reports/foreman.rb':
