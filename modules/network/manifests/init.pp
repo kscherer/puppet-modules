@@ -3,15 +3,13 @@
 class network {
 
   #simple way to restart network after making config changes
-  case $operatingsystem {
-    RedHat,Fedora,CentOS : {
-      service {
-        'network':
-          ensure     => running,
-          enable     => true,
-          hasstatus  => true,
-          hasrestart => true;
-      }
+  if $::osfamily == 'RedHat' {
+    service {
+      'network':
+        ensure     => running,
+        enable     => true,
+        hasstatus  => true,
+        hasrestart => true;
     }
   }
 }
