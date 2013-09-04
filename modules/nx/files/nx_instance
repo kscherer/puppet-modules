@@ -247,12 +247,6 @@ nx_status(){
                 RETVAL=0
             elif [ "$wrbuildlog_age" -lt "$second_timeout" ]; then
                 nx_status_string="Nx instance $instance is probably hung"
-
-                # Debug: allow nx_instance call debug script after hung detected
-                post_hung=${nx_builddir}/notxylo/post_hung.sh
-                if [ -f $post_hung ]; then
-                    sh $post_hung
-                fi
                 RETVAL=0
             else
                 nx_status_string="Nx is hung"
