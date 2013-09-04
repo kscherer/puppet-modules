@@ -29,14 +29,7 @@ class profile::monitored inherits profile::base {
 }
 
 #
-class profile::git::base inherits profile::monitored {
-
-  if $::operatingsystem == 'CentOS' {
-    include redhat::autoupdate
-    Class['wr::common::repos'] -> Class['redhat::autoupdate']
-  }
-
-  include git::service
+class profile::nis inherits profile::monitored {
   include nis
   include sudo
 
@@ -51,9 +44,20 @@ class profile::git::base inherits profile::monitored {
       source  => 'puppet:///modules/wr/sudoers.d/scmg';
   }
 
-  Class['wr::common::repos'] -> Class['git']
   Class['wr::common::repos'] -> Class['nis']
   Class['wr::common::repos'] -> Class['sudo']
+}
+
+#
+class profile::git::base inherits profile::nis {
+
+  if $::operatingsystem == 'CentOS' {
+    include redhat::autoupdate
+    Class['wr::common::repos'] -> Class['redhat::autoupdate']
+  }
+
+  include git::service
+  Class['wr::common::repos'] -> Class['git']
 }
 
 #

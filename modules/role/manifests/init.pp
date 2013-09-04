@@ -17,4 +17,7 @@ class role::git::mirror inherits role {
   include profile::git::mirror
 }
 
-
+#
+class role::provisioner {
+  include profile::nis
+}
