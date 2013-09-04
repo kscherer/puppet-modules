@@ -192,7 +192,7 @@ nx_status(){
 
     local fifteen_sec=15
     local fifteen_min=900 #15 * 60 seconds
-    local timeout=3600 #60 * 60 seconds
+    local timeout=7200 #2 * 60 * 60 seconds
     local second_timeout=10800 #3 * 60 * 60 seconds
     #When nx is building is makes a link to the current build
     local wrbuildlog="${nx_builddir}/current_build/00-wrbuild.log"
