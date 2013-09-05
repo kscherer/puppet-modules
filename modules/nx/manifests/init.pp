@@ -27,6 +27,7 @@ class nx {
       gid        => 'nxadm',
       managehome => true,
       home       => '/home/nxadm',
+      shell      => '/bin/bash',
       password   => $nxadm_password_hash,
       require    => Group [ 'nxadm' ];
   }
