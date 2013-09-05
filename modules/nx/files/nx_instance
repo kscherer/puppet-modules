@@ -274,6 +274,7 @@ nx_status(){
         local file_date=$(date +%F)
         local file="${nx_builddir}/log/nx_instance.$file_date.log"
         local timestamp=$(date --rfc-3339=ns)
+        mkdir -p "${nx_buildir}/log"
         echo "Return: $RETVAL" >> $file
         echo "Return string: $nx_status_string" >> $file
         echo "PID: $nxpid" >> $file
