@@ -146,7 +146,7 @@ node 'svl-tuxlab.wrs.com' {
 }
 
 node /ala-lpgweb.*\.wrs\.com/ {
-  include role::nis
+  include profile::nis
 }
 
 node /ala-lp.*\.wrs\.com/ {
