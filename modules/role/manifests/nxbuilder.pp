@@ -1,4 +1,4 @@
 #
 class role::nxbuilder {
-  include profile::nis
+  include profile::nxbuilder
 }
