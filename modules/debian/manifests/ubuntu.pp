@@ -36,4 +36,9 @@ class debian::ubuntu ( $mirror_base ) {
       command => 'echo \'dash    dash/sh boolean true\' | debconf-set-selections; dpkg-reconfigure -pcritical dash',
       onlyif  => 'test `readlink /bin/sh` = bash'
   }
+
+  #Make sure vmware tools are installed on Ubuntu
+  if $::virtual == 'vmware' {
+    ensure_resource('package', 'open-vm-tools', {'ensure' => 'installed' })
+  }
 }
