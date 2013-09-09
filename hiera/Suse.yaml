@@ -2,3 +2,4 @@
 packages:
   - git
   - python-gtk
+  - xz

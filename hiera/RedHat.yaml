@@ -18,3 +18,4 @@ packages:
   - wget
   - tar
   - patch
+  - xz

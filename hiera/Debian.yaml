@@ -15,3 +15,4 @@ packages:
   - git-core
   - python-gtk2
   - bash
+  - xz-utils
