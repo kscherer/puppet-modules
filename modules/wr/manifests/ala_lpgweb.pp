@@ -8,4 +8,7 @@ class wr::ala_lpgweb {
   ensure_resource{'package', 'libxml-simple-perl', {'ensure' => 'latest'}}
   ensure_resource{'package', 'libxml-twig-perl', {'ensure' => 'latest'}}
 
+  #some packages needed by jch's personal scripts
+  ensure_resource{'package', 'libnet-ldap-perl', {'ensure' => 'latest'}}
+
 }
