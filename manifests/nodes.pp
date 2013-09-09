@@ -149,6 +149,10 @@ node 'svl-tuxlab.wrs.com' {
   class { 'wr::svl_tuxlab': }
 }
 
+node 'ala-lpgweb2.wrs.com' {
+  class { 'wr::ala_lpgweb': }
+}
+
 node /ala-lpgweb.*\.wrs\.com/ {
   include profile::nis
 }
