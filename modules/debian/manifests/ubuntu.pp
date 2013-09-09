@@ -37,6 +37,9 @@ class debian::ubuntu ( $mirror_base ) {
       onlyif  => 'test `readlink /bin/sh` = bash'
   }
 
+  #add emacs for Jeff
+  ensure_resource('package', 'emacs', {'ensure' => 'installed' })
+
   #Make sure vmware tools are installed on Ubuntu
   if $::virtual == 'vmware' {
     ensure_resource('package', 'open-vm-tools', {'ensure' => 'installed' })
