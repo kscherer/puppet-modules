@@ -1,4 +1,4 @@
 #
-class wr::ala_lpgweb2 {
+class wr::ala_lpgweb {
   include profile::nis
 }
