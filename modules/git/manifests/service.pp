@@ -39,9 +39,9 @@ class git::service(
       protocol       => 'tcp',
       user           => 'git',
       group          => 'git',
-      flags          => 'IPv6',
       wait           => 'no',
       log_on_failure => 'USERID',
+      cps            => '100 2',
   }
 
   Class['git::service'] -> Anchor['git::end']
