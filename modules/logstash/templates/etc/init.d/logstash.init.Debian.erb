@@ -3,7 +3,7 @@
 # /etc/init.d/logstash -- startup script for LogStash.
 #
 ### BEGIN INIT INFO
-# Provides:          logstash-<%=name%>
+# Provides:          logstash-<%=@name%>
 # Required-Start:    $all
 # Required-Stop:     $all
 # Default-Start:     2 3 4 5
@@ -15,8 +15,8 @@
 set -e
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
-NAME=logstash-<%=name%>
-DESC="Logstash Daemon <%=name%>"
+NAME=logstash-<%=@name%>
+DESC="Logstash Daemon <%=@name%>"
 DEFAULT=/etc/default/$NAME
 
 if [ `id -u` -ne 0 ]; then
@@ -33,8 +33,8 @@ fi
 # The following variables can be overwritten in $DEFAULT
 
 # Run logstash as this user ID and group ID
-LS_USER=root
-LS_GROUP=root
+LS_USER=<%= scope.lookupvar('logstash::logstash_user') %>
+LS_GROUP=<%= scope.lookupvar('logstash::logstash_group') %>
 
 JAVA=/usr/bin/java
 
@@ -48,7 +48,7 @@ LS_JAVA_OPTS=" -Djava.io.tmpdir=$LS_HOME/tmp"
 LOG_DIR=/var/log/logstash
 
 # logstash configuration directory
-CONF_DIR=<%= configdir %>
+CONF_DIR=<%= @configdir %>
 
 # logstash log file
 LOG_FILE=$LOG_DIR/$NAME.log

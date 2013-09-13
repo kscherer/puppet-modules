@@ -61,6 +61,18 @@ define logstash::configdir {
     }
 
   } else {
-    #### Do we need to do anything to remove directories?
+    #### If logstash::ensure != present, purge config and sincedb directory
+    file { $config_dir :
+      ensure  => 'absent',
+      recurse => true,
+      force   => true,
+    }
+
+    file { $sincedb_dir :
+      ensure  => 'absent',
+      recurse => true,
+      force   => true,
+    }
+
   }
 }
