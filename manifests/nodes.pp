@@ -143,6 +143,7 @@ node 'ala-lpd-susbld.wrs.com' {
 
 node 'ala-lpd-provision.wrs.com' {
   include role::provisioner
+  include ssmtp
   include profile::logstash
 }
 
