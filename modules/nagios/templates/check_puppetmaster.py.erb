@@ -1,0 +1,197 @@
+#!/usr/bin/python -tt
+#
+# Copyright 2012 Todd Zullinger <tmz@pobox.com>
+# 
+# Permission to use, copy, modify, distribute, and sell this software and its
+# documentation for any purpose is hereby granted without fee, provided that
+# the above copyright notice appear in all copies and that both that
+# copyright notice and this permission notice appear in supporting
+# documentation.  No representations are made about the suitability of this
+# software for any purpose.  It is provided "as is" without express or
+# implied warranty.
+
+"""Check puppetmaster via the REST API.
+
+http://docs.puppetlabs.com/guides/rest_api.html
+"""
+
+import os
+import re
+import sys
+import socket
+import optparse
+import cStringIO
+
+# Handle import failures for non-standard modules
+try:
+    import pycurl
+    import simplejson
+except ImportError, error:
+    print 'UNKNOWN: Python import failure: %s' % error
+    sys.exit(3)
+
+fqdn = socket.getfqdn()
+ssldir = '<%= Puppet[:ssldir] %>'
+
+defaults = {
+    'cacert': os.path.join(ssldir, 'certs/ca.pem'),
+    'cert': os.path.join(ssldir, 'certs/%s.pem' % fqdn),
+    'key': os.path.join(ssldir, 'private_keys/%s.pem' % fqdn),
+    'url': 'https://<%= scope['puppet::puppetserver'] %>:8140 %>/production/status/test',
+    'warn': 1.0,
+    'crit': 5.0,
+    'timeout': 10.0,
+}
+
+# Helper functions for nagios
+def unknown(msg):
+    print 'UNKNOWN: %s' % msg
+    sys.exit(3)
+
+def crit(msg):
+    print 'CRIT: %s' % msg
+    sys.exit(2)
+
+def warn(msg):
+    print 'WARN: %s' % msg
+    sys.exit(1)
+
+def ok(msg):
+    print 'OK: %s' % msg
+    sys.exit(0)
+
+class CertError(StandardError):
+    """Exception raised on certificate errors."""
+    pass
+
+def certtest(path):
+    """Check whether a cert/key file exists and can be accessed."""
+    if not os.path.exists(path):
+        parts = os.path.dirname(path).split(os.sep)
+        while parts:
+            testpath = os.sep.join(parts) or '/'
+            dummy = parts.pop()
+            status = os.access(testpath, os.R_OK)
+            if not status:
+                raise CertError('%s cannot be read' % testpath)
+        raise CertError('%s does not exist' % path)
+    if not os.access(path, os.R_OK):
+        raise CertError('%s cannot be read' % path)
+    if not os.path.getsize(path):
+        raise CertError('%s is empty' % path)
+    return True
+
+def main():
+    formatter = optparse.IndentedHelpFormatter(width=100)
+    parser = optparse.OptionParser(formatter=formatter)
+    parser.add_option('--cacert', metavar='PATH', default=defaults['cacert'],
+                      help='CA Certificate [%default]')
+    parser.add_option('--cert', metavar='PATH', default=defaults['cert'],
+                      help='Client Certificate [%default]')
+    parser.add_option('--key', metavar='PATH', default=defaults['key'],
+                      help='Client Key [%default]')
+    parser.add_option('--url', metavar='URL', default=defaults['url'],
+                      help='Puppetmaster URL [%default]')
+    parser.add_option('-w', '--warn', metavar='DOUBLE', type='float',
+                      default=defaults['warn'],
+                      help='Warning level, in seconds [%default]')
+    parser.add_option('-c', '--crit', metavar='DOUBLE', type='float',
+                      default=defaults['crit'],
+                      help='Critical level, in seconds [%default]')
+    parser.add_option('-t', '--timeout', metavar='DOUBLE', type='float',
+                      default=defaults['timeout'],
+                      help='Timeout, in seconds [%default]')
+    parser.add_option('-U', '--unknown', action='store_true',
+                      help='Return UNKNOWN instead of CRITICAL on timeouts')
+    parser.add_option('-v', '--verbose', action='store_true',
+                      help='Be verbose')
+    opts, args = parser.parse_args()
+
+    # Check if the cert/key files are accessible.
+    for path in (opts.cacert, opts.cert, opts.key):
+        try:
+            certtest(path)
+        except CertError, error:
+            warn(error)
+
+    # Call curl to perform the URL request
+    response = cStringIO.StringIO()
+    c = pycurl.Curl()
+    c.setopt(c.URL, opts.url)
+    c.setopt(c.CAINFO, opts.cacert)
+    c.setopt(c.SSLCERT, opts.cert)
+    c.setopt(c.SSLKEY, opts.key)
+    c.setopt(c.HTTPHEADER, ['Accept: pson'])
+    c.setopt(c.WRITEFUNCTION, response.write)
+    if hasattr(c, 'TIMEOUT_MS'):
+        c.setopt(c.TIMEOUT_MS, int(round(opts.timeout * 1000)))
+    else:
+        import math
+        c.setopt(c.TIMEOUT, int(math.ceil(opts.timeout)))
+        if opts.verbose:
+            ver = pycurl.version_info()[1]
+            warning = 'Warn: curl-%s lacks timeout_ms, using seconds.' % (ver)
+            print >> sys.stderr, '%s\n' % warning
+
+    if opts.verbose:
+        c.setopt(c.VERBOSE, 1)
+
+    try:
+        c.perform()
+    except pycurl.error, error:
+        if error[0] == 28:
+            msg = 'puppetmaster timed out after %0.3f seconds' % opts.timeout
+            if opts.unknown:
+                unknown(msg)
+            else:
+                crit(msg)
+        else:
+            unknown(error[1].replace('\n', ' '))
+    except Exception, ex:
+        unknown('Failure: %s' % ex)
+
+    # Ensure we get a proper response code
+    response_code = c.getinfo(c.RESPONSE_CODE)
+    msg = 'Received %s response code' % response_code
+    if re.match('^[45]\d\d$', str(response_code)):
+        crit(msg)
+    elif not re.match('^2\d\d$', str(response_code)):
+        warn(msg)
+
+    # Save the response time
+    response_time = c.getinfo(c.TOTAL_TIME)
+
+    # Close the curl handle
+    c.close()
+
+    # Read the json output
+    response_str = response.getvalue()
+    try:
+        output = simplejson.loads(response_str)
+    except Exception, error:
+        unknown('Failed to read puppetmaster output: %s' % error)
+
+    # Test for proper output and response time
+    msg = 'puppetmaster responded with status code %s in %0.3f seconds' % (
+            response_code, response_time)
+
+    if 'is_alive' not in output:
+        crit('puppetmaster output does not include is_alive: %s' %
+                response_str)
+    elif not output['is_alive']:
+        unknown('puppetmaster responded that it was not alive: %s' %
+                response_str)
+    elif response_time > opts.crit:
+        crit(msg)
+    elif response_time > opts.warn:
+        warn(msg)
+    else:
+        ok(msg)
+
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        raise SystemExit()
+
+# vim: ft=python

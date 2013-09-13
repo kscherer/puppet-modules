@@ -27,8 +27,8 @@ class nagios::command(
   #make sure that entries no longer in storedconfigs are cleaned out
   resources {
     'nagios_command':
-      notify  => Service['nagios'],
-      purge => true;
+      notify => Service['nagios'],
+      purge  => true;
   }
 
   $command_cfg = "${nagios_dir}/nagios_command.cfg"
@@ -53,6 +53,10 @@ class nagios::command(
       path   => '/usr/sbin/check_mcollective.rb',
       mode   => '0755',
       source => 'puppet:///modules/nagios/check_mcollective.rb';
+    'check_puppetmaster.py':
+      path    => '/usr/sbin/check_puppetmaster.py',
+      mode    => '0755',
+      content => template('nagios/check_puppetmaster.py.erb');
     'mc-nrpe_cfg':
       path    => "${nagios_dir}/client.cfg",
       require => Exec['mc_client_cfg_copy'],
