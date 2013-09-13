@@ -13,3 +13,5 @@ foreman_ssl_ca: '/var/lib/puppet/ssl/ca/ca_crt.pem'
 foreman_ssl_cert: '/var/lib/puppet/ssl/certs/ala-lpd-puppet.wrs.com.pem'
 foreman_ssl_key: '/var/lib/puppet/ssl/private_keys/ala-lpd-puppet.wrs.com.pem'
 logstash::multi_instance: false
+logstash::logstash_user: logstash
+logstash::logstash_group: logstash
