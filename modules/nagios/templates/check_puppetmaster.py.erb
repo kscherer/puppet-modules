@@ -37,7 +37,7 @@ defaults = {
     'cacert': os.path.join(ssldir, 'certs/ca.pem'),
     'cert': os.path.join(ssldir, 'certs/%s.pem' % fqdn),
     'key': os.path.join(ssldir, 'private_keys/%s.pem' % fqdn),
-    'url': 'https://<%= scope['puppet::puppetserver'] %>:8140 %>/production/status/test',
+    'url': 'https://<%= scope['puppet::puppet_server'] %>:8140 %>/production/status/test',
     'warn': 1.0,
     'crit': 5.0,
     'timeout': 10.0,
