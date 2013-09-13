@@ -1,5 +1,7 @@
 #
-class debian::ubuntu ( $mirror_base ) {
+class debian::ubuntu (
+  $mirror_base,
+  $dash = true) {
 
   $ubuntu_mirror = "${mirror_base}/ubuntu.com/ubuntu"
 
@@ -29,12 +31,18 @@ class debian::ubuntu ( $mirror_base ) {
       repos       => 'main dependencies';
   }
 
+  if $dash == true {
+    $shell='dash'
+  } else {
+    $shell='bash'
+  }
+
   #force the default shell to be bash
   exec {
     'bash_setup':
       path    => '/usr/bin:/usr/sbin:/bin',
-      command => 'echo \'dash    dash/sh boolean true\' | debconf-set-selections; dpkg-reconfigure -pcritical dash',
-      onlyif  => 'test `readlink /bin/sh` = bash'
+      command => "echo 'dash    dash/sh boolean ${dash}' | debconf-set-selections; dpkg-reconfigure -pcritical dash",
+      onlyif  => "test `readlink /bin/sh` = ${shell}"
   }
 
   #add emacs for Jeff
