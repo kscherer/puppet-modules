@@ -1,6 +1,6 @@
 #
 class profile::logstash {
-  include logstash
+  include ::logstash
 
-  #logstash::output::elasticsearch { 'elasticsearch': }
+  logstash::output::elasticsearch { 'elasticsearch': }
 }
