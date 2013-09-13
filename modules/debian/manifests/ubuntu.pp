@@ -42,7 +42,7 @@ class debian::ubuntu (
     'bash_setup':
       path    => '/usr/bin:/usr/sbin:/bin',
       command => "echo 'dash    dash/sh boolean ${dash}' | debconf-set-selections; dpkg-reconfigure -pcritical dash",
-      onlyif  => "test `readlink /bin/sh` = ${shell}"
+      unless  => "test `readlink /bin/sh` = ${shell}"
   }
 
   #add emacs for Jeff
