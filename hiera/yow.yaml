@@ -2,7 +2,7 @@
 amqp_server: yow-lpg-amqp.wrs.com
 puppet::puppet_server: yow-lpd-puppet.wrs.com
 ntp::servers:
-  - yow-lpggp2.wrs.com
+  - yow-lpggp1.wrs.com
 mirror: yow-mirror.wrs.com
 graphite::web::time_zone: US/Eastern
 collectd::plugin::write_graphite::host: yow-lpd-monitor.wrs.com
