@@ -5,18 +5,8 @@ class wr::yow-lpggp inherits wr::yow-common {
 
   include git
   include dell
-
-  define wr::yow-lpggp::local_file() {
-    file {
-      "/usr/local/bin/$name":
-        ensure => 'absent';
-    }
-  }
-
-  wr::yow-lpggp::local_file {
-    [ '/git','gitk','git-cvsserver','git-shell','git-upload-pack',
-      'git-upload-archive','git-recieve-pack']:
-  }
+  include dell::openmanage
+  include dell::warranty
 
   package {
     ['quilt', 'wiggle']:
