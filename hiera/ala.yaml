@@ -15,3 +15,5 @@ foreman_ssl_key: '/var/lib/puppet/ssl/private_keys/ala-lpd-puppet.wrs.com.pem'
 logstash::multi_instance: false
 logstash::logstash_user: logstash
 logstash::logstash_group: logstash
+dell::omsa_url_base: 'http://ala-mirror.wrs.com/mirror/dell/hardware/'
+

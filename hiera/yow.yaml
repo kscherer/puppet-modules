@@ -10,6 +10,7 @@ nsca: 128.224.194.15
 nameservers:
   - 128.224.144.130
   - 147.11.57.128
+dell::omsa_url_base: 'http://yow-mirror.wrs.com/mirror/dell/hardware/'
 
 # The IP and interface that external sources will use to communicate with the instance and hypervisors.
 openstack::compute::public_interface:   'eth0'
@@ -105,7 +106,6 @@ openstack::controller::verbose:              true
 openstack::controller::quantum:              false
 
 # Data needed for Class['openstack::auth_file']
-
 openstack::auth_file::admin_password:       '.F}k86U4PG,TcyY'
 openstack::auth_file::keystone_admin_token: '9*uKaa3mdn7eQMVoGVBKwZ+C'
 openstack::auth_file::controller_node:      '127.0.0.1'
