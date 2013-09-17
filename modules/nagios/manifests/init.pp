@@ -28,6 +28,7 @@ class nagios(
   include nagios::command
   include nagios::contact
   include nagios::host
+  include nagios::hostgroup
   include nagios::service
   include nagios::servicegroup
   include nagios::timeperiod
