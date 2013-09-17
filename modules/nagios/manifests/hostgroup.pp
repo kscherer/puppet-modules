@@ -21,20 +21,20 @@ class nagios::hostgroup(
     #make sure that entries no longer in storedconfigs are cleaned out
     resources {
       'nagios_hostgroup':
-        notify => Host['nagios'],
+        notify => Service['nagios'],
         purge  => true;
     }
 
     $hostgroup_cfg = "${nagios_dir}/nagios_hostgroup.cfg"
     Nagios_hostgroup <<||>> {
-      notify  => Host['nagios'],
+      notify  => Service['nagios'],
       require => File[$nagios_dir],
       before  => File[$hostgroup_cfg],
     }
 
     file {
       $hostgroup_cfg:
-        notify  => Host['nagios'],
+        notify  => Service['nagios'],
         require => Package['nagios'],
         owner   => 'root',
         group   => 'nagios',
