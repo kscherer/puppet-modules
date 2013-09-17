@@ -27,3 +27,4 @@ smart::email: "konrad.scherer@windriver.com"
 smart::test_schedule: "(S/../.././02|L/../../6/03)"
 git::grokmirror::mirror::site: ala-git.wrs.com
 git::grokmirror::mirror::toplevel: /git
+dell::omsa_version: 'latest'
