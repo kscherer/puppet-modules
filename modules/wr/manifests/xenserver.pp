@@ -1,7 +1,11 @@
 #
 class wr::xenserver(
   $client = false
-  ) {
+) {
+
+  include dell
+  include dell::openmanage
+  include dell::warranty
 
   class { 'debian': }
   -> class { 'wr::common': }

@@ -2,6 +2,8 @@
 class wr::yow-blades {
 
   include dell
+  include dell::openmanage
+  include dell::warranty
   Class['redhat'] -> Class['yocto']
 
   class { 'wr::yow-common': }

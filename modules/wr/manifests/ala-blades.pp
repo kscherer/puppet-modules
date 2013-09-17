@@ -8,6 +8,8 @@ class wr::ala-blades {
   }
 
   include dell
+  include dell::openmanage
+  include dell::warranty
   include yocto
 
   Class['redhat'] -> Class['yocto']

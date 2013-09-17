@@ -3,6 +3,8 @@ class wr::ala-lpggp inherits wr::ala-common {
   include yocto
   include git
   include dell
+  include dell::openmanage
+  include dell::warranty
 
   Class['redhat'] -> Class['yocto']
   Class['redhat'] -> Class['git']
