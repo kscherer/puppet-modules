@@ -60,6 +60,7 @@ node /pek-blade(2|3|4|5|7|8|22)\.wrs\.com/ {
 node /pek-blade(17|18|19|20|21)\.wrs\.com/ {
   class { 'wr::pek-blades': }
   -> class { 'xylo': }
+  -> class { 'nx': }
 }
 
 node /pek-usp-\d+\.wrs\.com/ {
