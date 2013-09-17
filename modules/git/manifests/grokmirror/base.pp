@@ -17,6 +17,6 @@ class git::grokmirror::base {
       provider => 'git',
       source   => 'git://ala-git.wrs.com/external/github.com.mricon.grokmirror.git',
       user     => 'git',
-      revision => 'wr';
+      revision => 'master';
   }
 }
