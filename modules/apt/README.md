@@ -101,6 +101,16 @@ Adds an apt pin for a certain release.
     apt::pin { 'karmic-updates': priority => 700 }
     apt::pin { 'karmic-security': priority => 700 }
 
+Note you can also specifying more complex pins using distribution properties.
+
+    apt::pin { 'stable':
+      priority        => -10,
+      originator      => 'Debian',
+      release_version => '3.0',
+      component       => 'main',
+      label           => 'Debian'
+    }
+
 ###apt::ppa
 
 Adds a ppa repository using `add-apt-repository`.
@@ -213,10 +223,3 @@ A lot of great people have contributed to this module. A somewhat current list f
 * Spencer Krum <spencer@puppetlabs.com>  
 * William Van Hevelingen <blkperl@cat.pdx.edu> <wvan13@gmail.com>  
 * Zach Leslie <zach@puppetlabs.com>  
-
-Release Notes
--------------
-
-**1.1.0**
-
-This release includes Ubuntu 12.10 (Quantal) support for PPAs.
