@@ -58,4 +58,7 @@ class debian::debian( $mirror_base ) {
       owner  => 'root', group => 'root', mode => '0700',
       source => 'puppet:///modules/debian/partition_drives.sh';
   }
+
+  #lsb facts require the following
+  ensure_resource('package', 'lsb-core', {'ensure' => 'installed' })
 }
