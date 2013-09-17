@@ -44,7 +44,7 @@ class wr::ala-lpd-test {
 
   #another developer request
   package {
-    ['screen','wiggle']:
+    ['screen','wiggle','ccache']:
       ensure => installed;
   }
 
