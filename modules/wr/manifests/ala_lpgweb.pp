@@ -1,6 +1,7 @@
 #
 class wr::ala_lpgweb {
   include profile::nis
+  include ssmtp
 
   #some packages needed to run perl CQ scripts
   ensure_resource('package', 'libdate-manip-perl', {'ensure' => 'latest'})
