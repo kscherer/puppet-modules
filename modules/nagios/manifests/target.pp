@@ -1,11 +1,20 @@
 class nagios::target {
 
+  case $::hostname {
+    /yow-lpgbld-vm/: { $hostgroup='hostel'}
+    /yow-lppgp/: { $hostgroup='yow-lpggp'}
+    /yow-blade/: { $hostgroup='yow-blades'}
+    /ala-blade/: { $hostgroup='ala-blades'}
+    default: {}
+  }
+
   @@nagios_host {
     $::fqdn:
-      ensure             => present,
-      alias              => $::hostname,
-      address            => $::ipaddress,
-      use                => 'linux-server',
+      ensure     => present,
+      alias      => $::hostname,
+      address    => $::ipaddress,
+      hostgroups => $hostgroup,
+      use        => 'linux-server',
   }
 
   $os = downcase($::operatingsystem)
