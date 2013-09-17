@@ -29,6 +29,7 @@ class nagios(
   include nagios::contact
   include nagios::host
   include nagios::service
+  include nagios::servicegroup
   include nagios::timeperiod
 
   file {

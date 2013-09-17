@@ -32,6 +32,7 @@ class nagios::target {
       use                 => 'passive-service',
       service_description => 'Passive NTP',
       host_name           => $::fqdn,
+      servicegroups       => 'ntp',
   }
 
   $nsca_server=hiera('nsca')
