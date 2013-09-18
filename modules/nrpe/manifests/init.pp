@@ -76,7 +76,7 @@ class nrpe {
         'check_openmanage':
           ensure  => present,
           source  => 'puppet:///modules/nrpe/check_openmanage',
-          path    => "${nagios_plugin_base}/check_openmanage",
+          path    => "${defaultdir}/check_openmanage",
           mode    => '0755',
           require => Package['nagios-plugins-basic'];
       }
