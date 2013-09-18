@@ -2,6 +2,7 @@
 class wr::yow_openstack {
 
   include profile::monitored
+  include sudo
 
   sudo::conf {
     'admin':
