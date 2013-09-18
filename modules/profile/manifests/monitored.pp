@@ -4,7 +4,7 @@ class profile::monitored inherits profile::base {
   include wr::mcollective
   include nagios::target
 
-  if $::isvirtual == false and $::manufacturer =~ /dell/ {
+  if $::isvirtual == false and $::manufacturer == 'Dell Inc.' {
     include profile::bare_metal
   }
 
