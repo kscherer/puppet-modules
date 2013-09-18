@@ -5,7 +5,7 @@ class profile::monitored inherits profile::base {
   include nagios::target
 
   $is_virtual_bool = any2bool($::is_virtual)
-  if $::is_virtual_bool == false and $::manufacturer == 'Dell Inc.' {
+  if $::is_virtual_bool == false and $::manufacturer =~ /Dell/ {
     include profile::bare_metal
   }
 
