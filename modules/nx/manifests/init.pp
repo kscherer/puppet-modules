@@ -68,6 +68,11 @@ class nx {
       user   => 'nxadm',
       key    => extlookup('kai@pek-kkang-d1'),
       type   => 'ssh-rsa';
+    'jackie_nxadm':
+      ensure => 'present',
+      user   => 'nxadm',
+      key    => extlookup('jhuang0@pek-cc-pb05l.wrs.com'),
+      type   => 'ssh-rsa';
     'polk_nxadm':
       ensure => 'present',
       user   => 'nxadm',
