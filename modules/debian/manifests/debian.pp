@@ -25,13 +25,14 @@ class debian::debian( $mirror_base ) {
       repos       => 'main contrib non-free',
       include_src => false;
     'yow_apt_mirror':
+      ensure      => absent,
       location    => "${mirror_base}/apt",
       release     => 'squeeze',
       include_src => false,
       repos       => 'main';
     'yow_puppetlabs_mirror':
       location    => "${mirror_base}/puppetlabs/apt",
-      release     => 'squeeze',
+      release     => $::lsbdistcodename,
       include_src => false,
       repos       => 'main dependencies';
   }
