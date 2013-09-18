@@ -5,6 +5,6 @@ class profile::nxbuilder inherits profile::nis {
 
   motd::register{
     'nxbuilder':
-      content => 'This machine is reserved for WR Linux release and coverage builds.';
+      content => 'This machine is reserved for WR Linux coverage builds.';
   }
 }
