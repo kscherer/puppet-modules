@@ -15,15 +15,16 @@ class profile::base {
   #make sure classes the may install packages come after repo info is updated
   Class['wr::common::repos'] -> Class['ntp']
   Class['wr::common::repos'] -> Class['puppet']
-}
 
-#
-class profile::git::base inherits profile::nis {
-
+  #enable autoupdate on all CentOS systems
   if $::operatingsystem == 'CentOS' {
     include redhat::autoupdate
     Class['wr::common::repos'] -> Class['redhat::autoupdate']
   }
+}
+
+#
+class profile::git::base inherits profile::nis {
 
   include git::service
   Class['wr::common::repos'] -> Class['git']
