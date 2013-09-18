@@ -1,15 +1,11 @@
 #
 class wr::yow-blades {
 
-  include dell
-  include dell::openmanage
-  include dell::warranty
-  Class['redhat'] -> Class['yocto']
+  include profile::monitored
 
-  class { 'wr::yow-common': }
-  -> class { 'yocto': }
-  -> class { 'nx': }
-  -> class{ 'collectd': }
+  include yocto
+  include nx
+  include collectd
 
   user {
     'root':
