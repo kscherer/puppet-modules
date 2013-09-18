@@ -1,12 +1,7 @@
 #
 class wr::yow_openstack {
 
-  class { 'wr::common': }
-  -> class { 'wr::mcollective': }
-
-  include puppet
-  include sudo
-  include nrpe
+  include profile::monitored
 
   sudo::conf {
     'admin':
@@ -25,7 +20,6 @@ class wr::yow_openstack {
       content => 'This machine is a test OpenStack machine.';
   }
 
-  include debian
   include openstack::repo
 
   if $::hostname == 'yow-blade1' {
