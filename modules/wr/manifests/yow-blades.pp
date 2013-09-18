@@ -1,20 +1,12 @@
 #
 class wr::yow-blades {
 
-  include profile::monitored
-
-  include yocto
-  include nx
+  include profile::nxbuilder
   include collectd
 
   user {
     'root':
       password => '$1$5VSxF7IZ$.yx57bNrz.RCFQRnz3KYV0';
-  }
-
-  motd::register{
-    'yow-blade':
-      content => 'This machine is reserved for WR Linux coverage builds.';
   }
 
   #this package is needed for Dell bios upgrade software

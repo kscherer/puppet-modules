@@ -4,7 +4,7 @@ class profile::nxbuilder inherits profile::nis {
   include yocto
 
   motd::register{
-    'ala-blade':
+    'nxbuilder':
       content => 'This machine is reserved for WR Linux release and coverage builds.';
   }
 }
