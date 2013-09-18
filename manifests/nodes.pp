@@ -41,11 +41,11 @@ node /yow-lpgbld-[0-2][0-9]\.wrs\.com/ {
 }
 
 node /yow-lpgbld-[3-5][0-9]\.wrs\.com/ {
-  class { 'wr::xenserver': }
+  include wr::xenserver
 }
 
 node 'yow-lpgbld-master.wrs.com' {
-  class { 'wr::xenserver': client => true }
+  include wr::xenserver
 }
 
 node /pek-hostel-deb0[1-6]\.wrs\.com/ {

@@ -7,9 +7,9 @@ class nagios::servicegroup(
     'ntp':
       servicegroup_name => 'ntp',
       alias             => 'NTP Passive';
-    'openmanage':
-      servicegroup_name => 'openmanage',
-      alias             => 'OpenManage';
+    'dell-servers':
+      servicegroup_name => 'dell-servers',
+      alias             => 'Dell Servers';
   }
 
   #make sure that entries no longer in storedconfigs are cleaned out

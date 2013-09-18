@@ -72,10 +72,19 @@ class nrpe {
   case $::operatingsystem {
     Debian,Ubuntu: {
       $nagios_packages = 'nagios-plugins-basic'
+      file {
+        'check_openmanage':
+          ensure  => present,
+          source  => 'puppet:///modules/nrpe/check_openmanage',
+          path    => "${nagios_plugin_base}/check_openmanage",
+          mode    => '0755',
+          require => Package['nagios-plugins-basic'];
+      }
     }
     CentOS,RedHat,Fedora: {
       $nagios_packages = ['nagios-plugins-disk', 'nagios-plugins-file_age',
-                          'nagios-plugins-ntp', 'nagios-plugins-procs']
+                          'nagios-plugins-ntp', 'nagios-plugins-procs',
+                          'nagios-plugins-openmanage']
     }
     OpenSuSE: {
       $nagios_packages = 'nagios-plugins'
@@ -89,7 +98,7 @@ class nrpe {
 
   package {
     $nagios_packages:
-      ensure => present;
+      ensure => latest;
   }
 
   $ntp_servers = hiera('ntp::servers')
@@ -121,5 +130,9 @@ class nrpe {
     'check_nx_proc':
       command    => 'check_procs',
       parameters => '-c 1:4 -C nx';
+    #Check the status of the hardware using dell openmanage
+    'check_openmanage':
+      command    => 'check_openmanage',
+      parameters => '--state --htmlinfo --vdisk-critical';
   }
 }

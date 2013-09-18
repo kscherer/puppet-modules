@@ -1,20 +1,9 @@
 #
-class wr::xenserver(
-  $client = false
-) {
+class wr::xenserver {
 
-  include dell
-  include dell::openmanage
-  include dell::warranty
-
-  class { 'debian': }
-  -> class { 'wr::common': }
-  -> class { 'wr::mcollective': client => $client }
-  -> class { 'puppet': }
-  -> class { 'nrpe': }
-  -> class { 'collectd::disable': }
-  -> class { 'nagios::target': }
-  -> class { 'xen': }
+  include profile::monitored
+  include collectd::disable
+  include xen
 
   #set a strong generated password to encourage use of ssh authorized keys
   user {
