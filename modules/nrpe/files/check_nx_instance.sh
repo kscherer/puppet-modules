@@ -38,12 +38,10 @@ else
         if [ -a $nx ]; then
             output=$($nx status)
             if [ "$?" -eq "0" ]; then
+                # if [ "$output" == "Nx instance $instance is probably hung" ]; then
+                #     email_me $instance
+                # fi
                 num_ok=$(($num_ok+1))
-                if [ "$output" == "Nx instance $instance is probably hung" ]; then
-                    email_me $instance
-                else
-                    num_ok=$(($num_ok+1))
-                fi
             elif [ "$?" -eq "1" ]; then
                 num_warning=$((num_warning+1))
                 longoutput="$longoutput\n$output"
