@@ -33,9 +33,7 @@ class debian::debian( $mirror_base ) {
       repos       => 'main dependencies';
   }
 
-  #don't enable testing and unstable on squeeze
-  if $::kernelmajversion =~ /^3.*/ {
-    apt::source {
+  apt::source {
     'debian_mirror_testing':
       ensure      => absent,
       location    =>  "${mirror_base}/debian",
@@ -48,7 +46,6 @@ class debian::debian( $mirror_base ) {
       release     => 'unstable',
       include_src => false,
       repos       => 'main contrib non-free';
-    }
   }
 
   file {
