@@ -3,7 +3,6 @@ class profile::bare_metal {
   include dell
   include dell::openmanage
   include dell::warranty
-  include smart
 
   @@nagios_service {
     "check_openmanage_${::hostname}":
