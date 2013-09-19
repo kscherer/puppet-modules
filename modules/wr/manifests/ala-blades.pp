@@ -1,23 +1,7 @@
 #
 class wr::ala-blades {
 
-  class { 'wr::ala-common': }
-
-  if $::hostname != 'ala-blade1' {
-    include 'nx'
-  }
-
-  include dell
-  include dell::openmanage
-  include dell::warranty
-  include yocto
-
-  Class['redhat'] -> Class['yocto']
-
-  user {
-    'root':
-      password => '$1$5VSxF7IZ$.yx57bNrz.RCFQRnz3KYV0';
-  }
+  include profile::nxbuilder
 
   #buildadmin user is a nis account, but without a nfs home directory.
   file {
@@ -81,16 +65,13 @@ class wr::ala-blades {
       type    => 'ssh-rsa';
   }
 
-  motd::register{
-    'ala-blade':
-      content => 'This machine is reserved for WR Linux release and coverage builds.';
-  }
-
   host {
     'ala-lpgnas1-nfs':
+      ensure       => absent,
       ip           => '172.17.136.110',
       host_aliases => 'ala-lpgnas1-nfs.wrs.com';
     'ala-lpgnas2-nfs':
+      ensure       => absent,
       ip           => '172.17.136.114',
       host_aliases => 'ala-lpgnas2-nfs.wrs.com';
   }
@@ -141,36 +122,6 @@ class wr::ala-blades {
       require => Yumrepo['xylo'];
   }
 
-  #this package is needed for Dell bios upgrade software
-  package {
-    ['libxml2.i386','compat-libstdc++-33.i386']:
-      ensure => installed;
-  }
-
   #To build 4.3 on ala-blades install required packages
   include wrlinux
-
-  #setup ssmtp to forward all email sent to root to Konrad
-  include ssmtp
-
-  #make sure ssmtp is installed before
-  #to ensure the alternatives links are setup properly
-  package {
-    'sendmail':
-      ensure => absent;
-  }
-  Package['ssmtp'] -> Package['sendmail']
-
-  #ala-blade17-37 have a megaraid controller
-  if 'PERC' in $::blockdevice_sda_model {
-    class {
-      'smart':
-        devices => {'/dev/sda'=>['megaraid,0', 'megaraid,1']};
-    }
-  }  else {
-    class {
-      'smart':
-        devices => ['/dev/sg0', '/dev/sg1',];
-    }
-  }
 }

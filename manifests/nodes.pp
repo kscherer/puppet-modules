@@ -32,7 +32,8 @@ node /yow-blade[1-3].wrs.com/ {
 }
 
 node /yow-blade.*.wrs.com/ {
-  class { 'wr::yow-blades': }
+  include profile::nxbuilder
+  include collectd
 }
 
 #test buildbot cluster
