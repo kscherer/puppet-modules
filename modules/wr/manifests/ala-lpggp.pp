@@ -2,6 +2,7 @@
 class wr::ala-lpggp {
   include profile::nis
   include git
+  include yocto
 
   Class['redhat'] -> Class['yocto']
   Class['redhat'] -> Class['git']
