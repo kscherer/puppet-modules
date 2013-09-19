@@ -1,10 +1,7 @@
 #
-class wr::ala-lpggp inherits wr::ala-common {
-  include yocto
+class wr::ala-lpggp {
+  include profile::nis
   include git
-  include dell
-  include dell::openmanage
-  include dell::warranty
 
   Class['redhat'] -> Class['yocto']
   Class['redhat'] -> Class['git']
