@@ -161,8 +161,8 @@ class wr::ala-blades {
   }
   Package['ssmtp'] -> Package['sendmail']
 
-  #ala-blade17-32 have a megaraid controller
-  if $::blockdevice_sda_model == 'PERC 6/i' {
+  #ala-blade17-37 have a megaraid controller
+  if $::blockdevice_sda_model =~ /PERC/ {
     class {
       'smart':
         devices => {'/dev/sda'=>['megaraid,0', 'megaraid,1']};
