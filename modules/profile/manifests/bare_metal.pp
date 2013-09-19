@@ -22,8 +22,14 @@ class profile::bare_metal {
       minute  => $min;
   }
 
+  if 'sda' in $::blockdevices {
+    $model = $::blockdevice_sda_model
+  } elsif 'sdc' in $::blockdevices {
+    $model = $::blockdevice_sdc_model
+  }
+
   if 'blade' in $::hostname {
-    if 'PERC' in $::blockdevice_sda_model {
+    if 'PERC' in $model {
       $devices = {'/dev/sda'=>['megaraid,0', 'megaraid,1']}
     } elsif $::operatingsystem == 'Ubuntu' {
       $devices = ['/dev/sg3', '/dev/sg4',]
