@@ -27,15 +27,8 @@ class dell::openmanage {
 ",
   }
 
-  case $::architecture {
-    /i.86/: { $libdir = 'lib' }
-    default:{ $libdir = 'lib64'}
-  }
-
   file {'/etc/logrotate.d/perc5logs':
-    ensure  => absent;
-  "/opt/dell/srvadmin/${libdir}/openmanage/IGNORE_GENERATION":
-    ensure => present;
+    ensure  => absent,
   }
 
   tidy {'/var/log':
@@ -59,6 +52,15 @@ class dell::openmanage {
           'set /files/etc/yum/pluginconf.d/dellsysid.conf/main/enabled 0',
         ],
         require => Service['dataeng'],
+      }
+      case $::architecture {
+        /i.86/: { $libdir = 'lib' }
+        default:{ $libdir = 'lib64'}
+      }
+
+      file {
+        "/opt/dell/srvadmin/${libdir}/openmanage/IGNORE_GENERATION":
+          ensure => present;
       }
 
     }
