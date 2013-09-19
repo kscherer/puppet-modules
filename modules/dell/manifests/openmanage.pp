@@ -27,8 +27,15 @@ class dell::openmanage {
 ",
   }
 
+  case $::architecture {
+    /i.86/: { $libdir = 'lib' }
+    default:{ $libdir = 'lib64'}
+  }
+
   file {'/etc/logrotate.d/perc5logs':
-    ensure  => absent,
+    ensure  => absent;
+  "/opt/dell/srvadmin/${libdir}/openmanage/IGNORE_GENERATION":
+    ensure => present;
   }
 
   tidy {'/var/log':
