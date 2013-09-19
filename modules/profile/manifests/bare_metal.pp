@@ -37,7 +37,11 @@ class profile::bare_metal {
       $devices = ['/dev/sg0', '/dev/sg1',]
     }
   } elsif 'yow-lpgbld-3' in $::hostname {
-    $devices = {'/dev/sda'=>['megaraid,0', 'megaraid,1', 'megaraid,2', 'megaraid,3', 'megaraid,4', 'megaraid,5']}
+    $devices = {'/dev/sda'=>[ 'megaraid,0', 'megaraid,1', 'megaraid,2',
+                              'megaraid,3', 'megaraid,4', 'megaraid,5']}
+  } elsif 'ala-lpd-' in $::hostname {
+    $devices = {'/dev/sda'=>['sat+megaraid,0', 'sat+megaraid,1',
+      'sat+megaraid,2', 'sat+megaraid,3', 'sat+megaraid,4', 'sat+megaraid,5']}
   }
 
   class {
