@@ -8,12 +8,8 @@ class debian::debian( $mirror_base ) {
       require => Apt::Source['debian_mirror_stable'];
   }
 
-  #Due to experiments with 3.x kernel with xen dom0 support, some
-  #hosts are debian unstable
-  case $::kernelmajversion {
-    /^3.*/:  { file { '/etc/apt/apt.conf.d/01release': ensure => absent; } }
-    default: { class { 'apt::release' : release_id => 'stable' } }
-  }
+  #Try to get all debian machines to stable
+  class { 'apt::release' : release_id => 'stable' }
 
   #Sources are managed by puppet only
   class {'apt': purge_sources_list => true }
@@ -41,11 +37,13 @@ class debian::debian( $mirror_base ) {
   if $::kernelmajversion =~ /^3.*/ {
     apt::source {
     'debian_mirror_testing':
+      ensure      => absent,
       location    =>  "${mirror_base}/debian",
       release     => 'testing',
       include_src => false,
       repos       => 'main contrib non-free';
     'debian_mirror_unstable':
+      ensure      => absent,
       location    =>  "${mirror_base}/debian",
       release     => 'unstable',
       include_src => false,
