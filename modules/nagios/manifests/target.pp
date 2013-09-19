@@ -12,7 +12,7 @@ class nagios::target {
     $::fqdn:
       ensure     => present,
       alias      => $::hostname,
-      address    => $::ipaddress,
+      address    => $::ipaddress_eth0,
       hostgroups => $hostgroup,
       use        => 'linux-server',
   }
