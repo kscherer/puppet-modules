@@ -1,12 +1,10 @@
 #
-class wr::yow-lpggp inherits wr::yow-common {
+class wr::yow-lpggp {
   class { 'yocto': }
   Class['redhat'] -> Class['yocto']
 
+  include profile::nis
   include git
-  include dell
-  include dell::openmanage
-  include dell::warranty
 
   package {
     ['quilt', 'wiggle']:
