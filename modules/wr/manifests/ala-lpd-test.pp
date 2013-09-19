@@ -1,10 +1,9 @@
 #
 class wr::ala-lpd-test {
-  class { 'wr::ala-common': }
-  -> class { 'redhat::autoupdate': }
-  -> class { 'git': }
-  -> class { 'yocto': }
-  -> class { 'nx': }
+
+  include profile::nxbuilder
+  include git
+  include yocto
 
   include e2croncheck
   include nomachine

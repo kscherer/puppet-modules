@@ -1,6 +1,6 @@
 #
 class nx::ala-lpd-rcpl {
-  nx::setup { ['1','2']: }
+  nx::setup { '1': }
 
   file {
     '/data/nxadm':
@@ -21,11 +21,6 @@ class nx::ala-lpd-rcpl {
       ensure  => link,
       target  => '/buildarea/nxadm/nx';
     "/home/nxadm/nx/${::hostname}.1":
-      ensure  => directory,
-      owner   => 'nxadm',
-      group   => 'nxadm',
-      mode    => '0755';
-    "/home/nxadm/nx/${::hostname}.2":
       ensure  => directory,
       owner   => 'nxadm',
       group   => 'nxadm',

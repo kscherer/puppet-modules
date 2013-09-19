@@ -1,9 +1,6 @@
 #
 class wr::ala-lpd-rcpl {
-  class { 'wr::ala-common': }
-  -> class { 'redhat::autoupdate': }
-  -> class { 'yocto': }
-  -> class { 'nx': }
+  include profile::nxbuilder
 
   include git::service
   include git::cgit
