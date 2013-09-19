@@ -42,7 +42,7 @@ Aptitude::CmdLine::Show-Versions "true";
 Aptitude::CmdLine::Package-Display-Format "%c%a%M %p# - %d%V#";';
       #Prefer package from puppetlabs
     '/etc/apt/preferences.d/01puppetlabs':
-      ensure  => file,
+      ensure  => absent,
       content => 'Package: *
 Pin: release l=PuppetLabs
 Pin-Priority: 900';

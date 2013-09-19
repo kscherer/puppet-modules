@@ -22,4 +22,8 @@ class profile::bare_metal {
       minute  => $min;
   }
 
+  if 'blade' in $::hostname {
+    
+  }
+
 }
