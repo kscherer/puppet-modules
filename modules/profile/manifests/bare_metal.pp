@@ -23,7 +23,21 @@ class profile::bare_metal {
   }
 
   if 'blade' in $::hostname {
-    
+    if 'PERC' in $::blockdevice_sda_model {
+      $devices = {'/dev/sda'=>['megaraid,0', 'megaraid,1']}
+    } elsif $::operatingsystem == 'Ubuntu' {
+      $devices = ['/dev/sg3', '/dev/sg4',]
+    } else {
+      $devices = ['/dev/sg0', '/dev/sg1',]
+    }
+  } elsif 'yow-lpgbld-3' in $::hostname {
+    $devices = {'/dev/sda'=>['megaraid,0', 'megaraid,1', 'megaraid,2', 'megaraid,3', 'megaraid,4', 'megaraid,5']}
   }
 
+  class {
+    'smart':
+      devices => $devices;
+  }
+
+  Class['wr::common::repos'] -> Class['smart']
 }
