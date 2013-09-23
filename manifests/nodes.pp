@@ -141,6 +141,7 @@ node 'ala-git.wrs.com' {
 
 node 'msp-shared1.wrs.com' {
   include puppet
+  include git
   include git::wr_bin_repo
   include git::grokmirror::mirror
 }
