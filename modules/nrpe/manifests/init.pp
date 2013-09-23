@@ -133,6 +133,6 @@ class nrpe {
     #Check the status of the hardware using dell openmanage
     'check_openmanage':
       command    => 'check_openmanage',
-      parameters => '--state --extinfo --htmlinfo --vdisk-critical';
+      parameters => '--state --extinfo --htmlinfo --vdisk-critical --timeout=60';
   }
 }
