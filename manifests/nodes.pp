@@ -139,7 +139,7 @@ node 'ala-git.wrs.com' {
   include role::git::master
 }
 
-node 'msp-git.wrs.com' {
+node 'msp-shared1.wrs.com' {
   include puppet
   include git::wr_bin_repo
   include git::grokmirror::mirror
