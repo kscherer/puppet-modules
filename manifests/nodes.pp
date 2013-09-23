@@ -139,6 +139,12 @@ node 'ala-git.wrs.com' {
   include role::git::master
 }
 
+node 'msp-git.wrs.com' {
+  include puppet
+  include git::wr_bin_repo
+  include git::grokmirror::mirror
+}
+
 node 'ala-lpd-susbld.wrs.com' {
   class { 'wr::ala-lpd-susbld': }
 }
