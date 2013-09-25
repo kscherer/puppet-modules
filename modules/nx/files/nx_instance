@@ -192,6 +192,7 @@ nx_status(){
 
     local fifteen_sec=15
     local fifteen_min=900 #15 * 60 seconds
+    local two_hours=7200 #2 * 60 * 60 seconds
     local timeout=7200 #2 * 60 * 60 seconds
     local second_timeout=10800 #3 * 60 * 60 seconds
     #When nx is building is makes a link to the current build
@@ -252,8 +253,8 @@ nx_status(){
                 nx_status_string="Nx is hung"
                 RETVAL=1
             fi
-        #nx is running but busy doing something that is not building
-        elif [ "$nxlog_age" -lt "$fifteen_min" ]; then
+        #nx is running but busy doing something that is not building like running post_build
+        elif [ "$nxlog_age" -lt "$two_hours" ]; then
             nx_status_string="Nx is preparing a build"
             RETVAL=0
         else
