@@ -31,6 +31,9 @@ class wr::yow_openstack {
       before => Class['rabbitmq::server']
     }
 
+    #controller has an lvm partition for vms as well
+    include cinder::volume::iscsi
+
     #setup cinder service on controller to use netapp
     cinder_config {
       'DEFAULT/enabled_backends': value => "netapp,lvm-${::hostname}";
