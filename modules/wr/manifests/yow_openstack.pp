@@ -32,7 +32,8 @@ class wr::yow_openstack {
     }
 
     #controller has an lvm partition for vms as well
-    class { 'cinder::volume::iscsi': iscsi_ip_address => '127.0.0.1' }
+    include cinder::volume
+    #class { 'cinder::volume::iscsi': iscsi_ip_address => '127.0.0.1' }
 
     #setup cinder service on controller to use netapp
     cinder_config {
