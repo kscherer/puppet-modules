@@ -30,8 +30,28 @@ class wr::yow_openstack {
     class { 'rabbitmq::repo::apt':
       before => Class['rabbitmq::server']
     }
+
+    #setup cinder service on controller to use netapp
+    cinder_config {
+      'DEFAULT/enabled_backends': value => "netapp,lvm-${::hostname}";
+      'netapp/volume_driver': value => 'cinder.volume.drivers.netapp.iscsi.NetAppDirectCmodeISCSIDriver';
+      'netapp/netapp_server_hostname': value => '172.17.137.11';
+      'netapp/netapp_server_port': value => 80;
+      'netapp/netapp_login': value => 'root';
+      'netapp/netapp_password': value => 'netapp';
+    }
   } else {
     include openstack::compute
+    cinder_config {
+      'DEFAULT/enabled_backends': value => "lvm-${::hostname}";
+    }
+  }
+
+  #Give each cinder config a backend name so it can be connected to volume type
+  cinder_config {
+    "lvm-${::hostname}/volume_driver": value => 'cinder.volume.drivers.lvm.LVMISCSIDriver';
+    "lvm-${::hostname}/volume_group": value => 'cinder-volumes';
+    "lvm-${::hostname}/volume_backend_name": value => "lvm-iscsi-${::hostname}";
   }
 
   #Protect this file which is needed by cinder-common package from puppet purge of sudoers.d
