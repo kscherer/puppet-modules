@@ -43,6 +43,12 @@ class wr::yow_openstack {
       'netapp/netapp_login': value => 'root';
       'netapp/netapp_password': value => 'netapp';
     }
+
+    #boot from volume need qemu-img which is not installed on controller
+    package {
+      'qemu-utils':
+        ensure => present
+    }
   } else {
     include openstack::compute
     cinder_config {
