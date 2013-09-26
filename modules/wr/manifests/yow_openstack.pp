@@ -47,6 +47,7 @@ class wr::yow_openstack {
     include openstack::compute
     cinder_config {
       'DEFAULT/enabled_backends': value => "lvm-${::hostname}";
+      'DEFAULT/glance_host': value => 'yow-blade1.wrs.com';
     }
   }
 
