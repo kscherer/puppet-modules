@@ -57,6 +57,11 @@ class wr::yow_openstack {
     "lvm-${::hostname}/volume_backend_name": value => "lvm-iscsi-${::hostname}";
   }
 
+  #Don't bother with secure delete of volumes
+  cinder_config {
+    'DEFAULT/volume_clear': value => 'none';
+  }
+
   #Protect this file which is needed by cinder-common package from puppet purge of sudoers.d
   file {
     '/etc/sudoers.d/cinder_sudoers':
