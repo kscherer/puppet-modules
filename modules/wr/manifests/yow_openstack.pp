@@ -30,7 +30,7 @@ class wr::yow_openstack {
     class { 'rabbitmq::repo::apt':
       before => Class['rabbitmq::server']
     }
-    include openstack::compute
+    include nova::compute
 
     #controller has an lvm partition for vms as well
     include cinder::volume
