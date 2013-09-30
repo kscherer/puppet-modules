@@ -42,8 +42,8 @@ class wr::yow_openstack {
       'netapp/volume_driver': value => 'cinder.volume.drivers.netapp.iscsi.NetAppDirect7modeISCSIDriver';
       'netapp/netapp_server_hostname': value => '172.17.137.11';
       'netapp/netapp_server_port': value => 80;
-      'netapp/netapp_login': value => 'root';
-      'netapp/netapp_password': value => 'netapp';
+      'netapp/netapp_login': value => 'openstack';
+      'netapp/netapp_password': value => 'openstack1';
     }
 
     #boot from volume need qemu-img which is not installed on controller
