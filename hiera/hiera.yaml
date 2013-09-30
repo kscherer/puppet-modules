@@ -2,7 +2,7 @@
 :backends:
   - yaml
 
-:logger: puppet
+:logger: noop
 
 :hierarchy:
   - "%{::operatingsystem}-%{::lsbmajdistrelease}-%{::architecture}"

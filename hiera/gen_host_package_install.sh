@@ -52,8 +52,18 @@ log() {
 #check for redhat/fedora
 if [ -e /usr/bin/yum ]; then
     install_program="yum $opt_yes install"
+
+    #detect Fedora
+    if [ -f /etc/fedora-release ]; then
+        #Retrieve fedora release
+        fedora_release=$(cat /etc/fedora-release | cut -d\  -f 3)
+        if [ "$fedora_release" -ge '19' ]; then
+            distro=F19
+        else
+            distro=RH6
+        fi
     #Look for RedHat 5 kernel
-    if echo $kernel | grep -q '2.6.18'
+    elif echo $kernel | grep -q '2.6.18'
     then
         distro=RH5
     else
@@ -84,6 +94,12 @@ elif [ -e /usr/bin/zypper ]; then
     else
         distro=OS121
     fi
+fi
+
+#Exit if distro cannot be determined
+if [ -z $distro ]; then
+    echo "Could not determine distro and required packages."
+    exit 1
 fi
 
 host="${distro}_${arch}"
