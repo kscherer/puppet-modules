@@ -44,6 +44,7 @@ class wr::yow_openstack {
       'netapp/netapp_server_port': value => 80;
       'netapp/netapp_login': value => 'openstack';
       'netapp/netapp_password': value => 'openstack1';
+      'netapp/nfs_mount_point_base': value => '/mnt';
     }
 
     #boot from volume need qemu-img which is not installed on controller
