@@ -13,7 +13,7 @@ class wr::yow_kscherer_d1 {
   group {
     'kscherer':
       ensure => present,
-      git    => '1000',
+      gid    => '1000',
   }
 
   package {
