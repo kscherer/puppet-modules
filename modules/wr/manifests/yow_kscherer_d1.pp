@@ -28,5 +28,4 @@ class wr::yow_kscherer_d1 {
   include wr::common
   include debian
   include nis
-  include apt::unattended_upgrades
 }
