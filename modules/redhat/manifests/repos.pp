@@ -26,7 +26,16 @@ class redhat::repos {
   }
 
   $mirror_host = hiera('mirror')
-  $mirror = "http://${mirror_host}/mirror"
+
+  #setup archives for old fedora releases
+  if $::operatingsystem == 'Fedora' and $::operatingsystemrelease < '18' {
+    $mirror = 'https://archives.fedoraproject.org/pub/archive/'
+    $fedora_mirror = "${mirror}/fedora/linux"
+  } else {
+    $mirror = "http://${mirror_host}/mirror"
+    $fedora_mirror = "${mirror}/fedora"
+  }
+
   $mrepo_mirror = "${mirror}/mrepo/repos"
   $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
 
@@ -57,9 +66,9 @@ class redhat::repos {
     'redhat-dvd':
       baseurl => "${mirror}/repos/${redhat_dvd_repo}";
     'fedora-updates':
-      baseurl => "${mirror}/fedora/updates/${::operatingsystemrelease}/${::architecture}";
+      baseurl => "${fedora_mirror}/updates/${::operatingsystemrelease}/${::architecture}";
     'fedora-everything':
-      baseurl => "${mirror}/fedora/releases/${::operatingsystemrelease}/Everything/${::architecture}/os";
+      baseurl => "${fedora_mirror}/releases/${::operatingsystemrelease}/Everything/${::architecture}/os";
     'rhel6-optional':
       baseurl => "${mrepo_mirror}/rhel6ws-${::architecture}/RPMS.optional";
     'rhel6-updates':
