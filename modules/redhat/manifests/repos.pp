@@ -116,12 +116,14 @@ class redhat::repos {
     }
     Fedora: {
       realize( Yum_repo['fedora-updates'], Yum_repo['fedora-everything'] )
-      realize( Yum_repo['puppetlabs'] )
-      realize( Yum_repo['puppetlabs-deps'] )
-      package {
-        'puppetlabs-release':
-          ensure  => installed,
-          require => Yumrepo['puppetlabs'];
+      if $::operatingsystem == 'Fedora' and $::operatingsystemrelease < '17' {
+        realize( Yum_repo['puppetlabs'] )
+        realize( Yum_repo['puppetlabs-deps'] )
+        package {
+          'puppetlabs-release':
+            ensure  => installed,
+            require => Yumrepo['puppetlabs'];
+        }
       }
     }
     RedHat: {
