@@ -36,7 +36,7 @@ class profile::bare_metal {
     } else {
       $devices = ['/dev/sg0', '/dev/sg1',]
     }
-  } elsif 'yow-lpgbld-3' in $::hostname or 'ala-lpggp' in $::hostname {
+  } elsif 'yow-lpgbld-3' in $::hostname or 'ala-lpggp' in $::hostname or 'ala-git' in $::hostname {
     $devices = {'/dev/sda'=>[ 'megaraid,0', 'megaraid,1', 'megaraid,2',
                               'megaraid,3', 'megaraid,4', 'megaraid,5']}
   } elsif 'ala-lpd-' in $::hostname {
