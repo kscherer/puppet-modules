@@ -26,13 +26,12 @@ class redhat::repos {
   }
 
   $mirror_host = hiera('mirror')
+  $mirror = "http://${mirror_host}/mirror"
 
   #setup archives for old fedora releases
   if $::operatingsystem == 'Fedora' and $::operatingsystemrelease < '18' {
-    $mirror = 'https://archives.fedoraproject.org/pub/archive/'
-    $fedora_mirror = "${mirror}/fedora/linux"
+    $fedora_mirror = "https://archives.fedoraproject.org/pub/archive/fedora/linux"
   } else {
-    $mirror = "http://${mirror_host}/mirror"
     $fedora_mirror = "${mirror}/fedora"
   }
 
