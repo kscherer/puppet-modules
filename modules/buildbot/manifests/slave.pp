@@ -26,6 +26,7 @@ class buildbot::slave(
     'buildbot':
       ensure     => present,
       managehome => true,
+      shell      => '/bin/bash',
       password   => '$6$Mog25DQbOHdtiE6u$NSKTsfHKy6C1eX.1JVtZC/WaTw.2KflQpfYvM7SzqzAR50Wv/4.ELsnC7lUhkjxSs0et6aqHIqb2MOwmt39JO0';
   }
 
@@ -123,11 +124,11 @@ class buildbot::slave(
   cron {
     'pull_wrlinux':
       command => 'cd /home/buildbot/wrlinux-x; /home/buildbot/bin/wrgit pull &> /dev/null',
-      minute  => '0',
+      minute  => fqdn_rand(60),
       user    => 'buildbot';
     'pull_bin':
       command => 'cd /home/buildbot/bin; /usr/bin/git pull &> /dev/null',
-      minute  => '30',
+      minute  => fqdn_rand(30)+15,
       user    => 'buildbot';
   }
 }
