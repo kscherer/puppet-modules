@@ -62,7 +62,7 @@ class activemq(
   }
 
   $jetty_config_real = $jetty_config ? {
-    'UNSET' => template("${module_name}/jetty_config.erb"),
+    'UNSET' => template("${module_name}/jetty.xml.erb"),
     default => $jetty_config,
   }
 

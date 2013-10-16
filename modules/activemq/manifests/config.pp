@@ -68,7 +68,7 @@ class activemq::config (
   file { 'jetty.xml':
     ensure  => file,
     path    => "${path_real}/jetty.xml",
-    content => template('activemq/default/jetty.xml'),
+    content => $jetty_config,
   }
 
   #If this directory does not exist then /tmp is used and clobbered by tmpwatch
