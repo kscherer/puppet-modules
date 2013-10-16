@@ -400,20 +400,20 @@ testpid() {
 }
 
 console() {
-    echo "Running $APP_NAME..."
+    echo "Running $APP_LONG_NAME..."
     getpid
     if [ "X$pid" = "X" ]
     then
         COMMAND_LINE="$CMDNICE $WRAPPER_CMD $WRAPPER_CONF wrapper.syslog.ident=$APP_NAME wrapper.pidfile=$PIDFILE $ANCHORPROP $LOCKPROP"
         exec $COMMAND_LINE
     else
-        echo "$APP_NAME is already running."
+        echo "$APP_LONG_NAME is already running."
         exit 1
     fi
 }
  
 start() {
-    echo -n "Starting $APP_NAME: "
+    echo -n "Starting $APP_LONG_NAME: "
     getpid
     if [ "X$pid" = "X" ]
     then
@@ -425,18 +425,18 @@ start() {
         echo
         exit $RETVAL 
     else
-        failure "$APP_NAME is already running."
+        failure "$APP_LONG_NAME is already running."
         echo
         exit 1
     fi
 }
  
 stopit() {
-    echo -n "Stopping $APP_NAME: "
+    echo -n "Stopping $APP_LONG_NAME: "
     getpid
     if [ "X$pid" = "X" ]
     then
-        failure "$APP_NAME was not running."
+        failure "$APP_LONG_NAME was not running."
         echo
     else
         if [ "X$IGNORE_SIGNALS" = "X" ]
@@ -446,7 +446,7 @@ stopit() {
             if [ $? -ne 0 ]
             then
                 # An explanation for the failure should have been given
-                failure "Unable to stop $APP_NAME."
+                failure "Unable to stop $APP_LONG_NAME."
                 echo
                 exit 1
             fi
@@ -455,7 +455,7 @@ stopit() {
             if [ -f $ANCHORFILE ]
             then
                 # An explanation for the failure should have been given
-                failure "Unable to stop $APP_NAME."
+                failure "Unable to stop $APP_LONG_NAME."
                 echo
                 exit 1
             fi
@@ -488,11 +488,11 @@ stopit() {
         testpid
         if [ "X$pid" != "X" ]
         then
-            failure "Failed to stop $APP_NAME."
+            failure "Failed to stop $APP_LONG_NAME."
             echo
             exit 1
         else
-            success "Stopped $APP_NAME."
+            success "Stopped $APP_LONG_NAME."
             echo
         fi
     fi
@@ -502,30 +502,30 @@ status() {
     getpid
     if [ "X$pid" = "X" ]
     then
-        echo "$APP_NAME is not running."
+        echo "$APP_LONG_NAME is not running."
         exit 1
     else
-        echo "$APP_NAME is running ($pid)."
+        echo "$APP_LONG_NAME is running ($pid)."
         exit 0
     fi
 }
 
 dump() {
-    echo "Dumping $APP_NAME..."
+    echo "Dumping $APP_LONG_NAME..."
     getpid
     if [ "X$pid" = "X" ]
     then
-        echo "$APP_NAME was not running."
+        echo "$APP_LONG_NAME was not running."
 
     else
         kill -3 $pid
 
         if [ $? -ne 0 ]
         then
-            echo "Failed to dump $APP_NAME."
+            echo "Failed to dump $APP_LONG_NAME."
             exit 1
         else
-            echo "Dumped $APP_NAME."
+            echo "Dumped $APP_LONG_NAME."
             exit 0
         fi
     fi
