@@ -22,6 +22,8 @@
 wrapper.debug=FALSE
 set.default.ACTIVEMQ_HOME=/usr/share/activemq
 set.default.ACTIVEMQ_BASE=/usr/share/activemq
+set.default.ACTIVEMQ_CONF=%ACTIVEMQ_BASE%/conf
+set.default.ACTIVEMQ_DATA=%ACTIVEMQ_BASE%/data
 wrapper.working.dir=/var/log/activemq
 
 # Java Application
@@ -36,7 +38,7 @@ wrapper.java.mainclass=org.tanukisoftware.wrapper.WrapperSimpleApp
 # Java Classpath (include wrapper.jar)  Add class path elements as
 #  needed starting from 1
 wrapper.java.classpath.1=/usr/share/java/tanukiwrapper.jar
-wrapper.java.classpath.2=%ACTIVEMQ_HOME%/bin/run.jar
+wrapper.java.classpath.2=%ACTIVEMQ_HOME%/bin/activemq.jar
 
 # Uncomment to add mysql support
 #wrapper.java.classpath.3=/usr/share/java/mysql-connector-java.jar
@@ -50,8 +52,14 @@ wrapper.java.library.path.2=/usr/lib64
 # note that n is the parameter number starting from 1.
 wrapper.java.additional.1=-Dactivemq.home=%ACTIVEMQ_HOME%
 wrapper.java.additional.2=-Dactivemq.base=%ACTIVEMQ_BASE%
-wrapper.java.additional.3=-Dcom.sun.management.jmxremote
-wrapper.java.additional.4=-Dorg.apache.activemq.UseDedicatedTaskRunner=true
+wrapper.java.additional.3=-Dactivemq.conf=%ACTIVEMQ_CONF%
+wrapper.java.additional.4=-Dactivemq.data=%ACTIVEMQ_DATA%
+wrapper.java.additional.5=-Dcom.sun.management.jmxremote=false
+wrapper.java.additional.6=-Dorg.apache.activemq.UseDedicatedTaskRunner=false
+
+# Garbage Collection
+wrapper.java.additional.7=-XX:+UseConcMarkSweepGC 
+wrapper.java.additional.8=-XX:+CMSIncrementalMode
 
 # Example configuration for SSL
 #wrapper.java.additional.n=-Djavax.net.ssl.keyStorePassword=password
@@ -74,7 +82,7 @@ wrapper.java.additional.4=-Dorg.apache.activemq.UseDedicatedTaskRunner=true
 #wrapper.java.additional.n=-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
 
 # Initial Java Heap Size (in MB)
-#wrapper.java.initmemory=3
+# wrapper.java.initmemory=512
 
 # Maximum Java Heap Size (in MB)
 wrapper.java.maxmemory=512
@@ -106,7 +114,7 @@ wrapper.logfile.loglevel=INFO
 #  the log is rolled. Size is specified in bytes.  The default value
 #  of 0, disables log rolling.  May abbreviate with the 'k' (kb) or
 #  'm' (mb) suffix.  For example: 10m = 10 megabytes.
-wrapper.logfile.maxsize=10m
+wrapper.logfile.maxsize=1m
 
 # Maximum number of rolled log files which will be allowed before old
 #  files are deleted.  The default value of 0 implies no limit.

@@ -16,7 +16,5 @@ class wr::activemq( $broker_name ) {
     broker_name    => $broker_name,
     version        => '5.8.0-1.el6',
     server_config  => template('wr/activemq.xml.erb'),
-    wrapper_config => template('wr/activemq-wrapper.conf.erb'),
-    credentials    => template('wr/credentials.properties.erb')
   }
 }

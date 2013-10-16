@@ -14,6 +14,7 @@ class activemq::config (
   $server_config  = 'UNSET',
   $wrapper_config = 'UNSET',
   $credentials    = 'UNSET',
+  $jetty_config   = 'UNSET',
   $path = '/etc/activemq/'
 ) {
 
@@ -27,6 +28,10 @@ class activemq::config (
 
   if $credentials == 'UNSET' {
     fail('ActiveMQ credentials are not set.')
+  }
+
+  if $jetty_config == 'UNSET' {
+    fail('Jetty configuration not set.')
   }
 
   validate_re($path, '^/')
@@ -47,15 +52,23 @@ class activemq::config (
     path    => "${path_real}/activemq.xml",
     content => $server_config,
   }
+
   file { 'activemq-wrapper.conf':
     ensure  => file,
     path    => "${path_real}/activemq-wrapper.conf",
     content => $wrapper_config,
   }
+
   file { 'credentials.properties':
     ensure  => file,
     path    => "${path_real}/credentials.properties",
     content => $credentials,
+  }
+
+  file { 'jetty.xml':
+    ensure  => file,
+    path    => "${path_real}/jetty.xml",
+    content => template('activemq/default/jetty.xml'),
   }
 
   #If this directory does not exist then /tmp is used and clobbered by tmpwatch

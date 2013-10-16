@@ -31,6 +31,7 @@ class activemq(
   $server_config  = 'UNSET',
   $wrapper_config = 'UNSET',
   $credentials    = 'UNSET',
+  $jetty_config   = 'UNSET',
   $broker_name    = 'localhost'
 ) {
 
@@ -60,6 +61,11 @@ class activemq(
     default => $credentials,
   }
 
+  $jetty_config_real = $jetty_config ? {
+    'UNSET' => template("${module_name}/jetty_config.erb"),
+    default => $jetty_config,
+  }
+
   # Anchors for containing the implementation class
   anchor { 'activemq::begin':
     before => Class['activemq::packages'],
@@ -75,6 +81,7 @@ class activemq(
     server_config  => $server_config_real,
     wrapper_config => $wrapper_config_real,
     credentials    => $credentials_real,
+    jetty_config   => $jetty_config_real,
     require        => Class['activemq::packages'],
     notify         => Class['activemq::service'],
   }
