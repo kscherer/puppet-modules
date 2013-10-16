@@ -1,3 +1,5 @@
 ---
 packages:
   - perl-Text-ParseWords
+  - perl-podlators
+  - perl-autodie
