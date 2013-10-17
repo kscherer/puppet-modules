@@ -127,7 +127,7 @@ class buildbot::slave(
       minute  => fqdn_rand(60),
       user    => 'buildbot';
     'pull_bin':
-      command => 'cd /home/buildbot/bin; /usr/bin/git pull &> /dev/null',
+      command => 'cd /home/buildbot/bin; /usr/bin/git pull; /usr/bin/git reset --hard origin/master &> /dev/null',
       minute  => fqdn_rand(30)+15,
       user    => 'buildbot';
   }
