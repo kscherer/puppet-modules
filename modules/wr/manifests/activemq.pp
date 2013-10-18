@@ -14,7 +14,6 @@ class wr::activemq( $broker_name ) {
   class { 'java': distribution => 'java-1.7.0-openjdk' }
   -> class { '::activemq':
     broker_name    => $broker_name,
-    version        => '5.8.0-2.el6',
     server_config  => template('wr/activemq.xml.erb'),
   }
 }
