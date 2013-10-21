@@ -47,6 +47,7 @@ class debian::ubuntu (
 
   #add emacs for Jeff
   ensure_resource('package', 'emacs', {'ensure' => 'installed' })
+  ensure_resource('package', 'jove', {'ensure' => 'installed' })
 
   #Make sure vmware tools are installed on Ubuntu
   if $::virtual == 'vmware' {
