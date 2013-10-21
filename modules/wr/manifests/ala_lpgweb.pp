@@ -15,4 +15,5 @@ class wr::ala_lpgweb {
   #some packages needed by jch's personal scripts
   ensure_resource('package', 'libnet-ldap-perl', {'ensure' => 'latest'})
   ensure_resource('package', 'liblocale-subcountry-perl', {'ensure' => 'latest'})
+  ensure_resource('package', 'libspreadsheet-read-perl', {'ensure' => 'latest'})
 }
