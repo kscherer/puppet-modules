@@ -85,8 +85,8 @@ class horizon(
 ) {
 
   include horizon::params
-  include apache::mod::wsgi
   include apache
+  include apache::mod::wsgi
 
   if $swift {
     warning('swift parameter is deprecated and has no effect.')
@@ -106,8 +106,8 @@ class horizon(
   Service <| title == 'memcached' |> -> Class['horizon']
 
   package { 'horizon':
-    name    => $::horizon::params::package_name,
     ensure  => $package_ensure,
+    name    => $::horizon::params::package_name,
     require => Package[$::horizon::params::http_service],
   }
 
