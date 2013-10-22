@@ -41,7 +41,7 @@ class git::service(
       group          => 'git',
       wait           => 'no',
       log_on_failure => 'USERID',
-      cps            => '100 2',
+      cps            => '150 2',
   }
 
   Class['git::service'] -> Anchor['git::end']
