@@ -16,7 +16,7 @@ class wr::cgts {
 
   package {
     [ 'nedit', 'tightvncserver', 'gitk', 'konsole', 'motif-clients', 'ddd',
-      'openssh', 'compizconfig-settings-manager', 'gnome', 'kde-full', 'xfce4',
+      'compizconfig-settings-manager', 'gnome', 'kde-full', 'xfce4',
       'ubuntu-desktop', 'openjdk-7-jre-lib', 
       'icedtea-plugin', 'icedtea-7-plugin',
       'eclipse-platform', 'codeblocks', 'doxygen',
