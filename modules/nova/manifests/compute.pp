@@ -10,7 +10,8 @@ class nova::compute (
   $vncproxy_port                 = '6080',
   $vncproxy_path                 = '/vnc_auto.html',
   $force_config_drive            = false,
-  $virtio_nic                    = false
+  $virtio_nic                    = false,
+  $quantum_enabled               = true
 ) {
 
   include nova::params
@@ -30,9 +31,12 @@ class nova::compute (
     'DEFAULT/vncserver_proxyclient_address': value => $vncserver_proxyclient_address;
   }
 
-  package { 'bridge-utils':
-    ensure => present,
-    before => Nova::Generic_service['compute'],
+  if $quantum_enabled != true {
+    # Install bridge-utils if we use nova-network
+    package { 'bridge-utils':
+      ensure => present,
+      before => Nova::Generic_service['compute'],
+    }
   }
 
   nova::generic_service { 'compute':
@@ -52,6 +56,10 @@ class nova::compute (
   if $virtio_nic {
     # Enable the virtio network card for instances
     nova_config { 'DEFAULT/libvirt_use_virtio_for_bridges': value => true }
+  }
+
+  package { 'pm-utils':
+    ensure => present,
   }
 
 }
