@@ -5,10 +5,19 @@
 #   Timeout when db connections should be reaped.
 #   (Optional) Defaults to 3600.
 #
+# [use_syslog]
+#   Use syslog for logging.
+#   (Optional) Defaults to false.
+#
+# [log_facility]
+#   Syslog facility to receive log lines.
+#   (Optional) Defaults to LOG_USER.
+
 class cinder (
   $sql_connection,
   $sql_idle_timeout            = '3600',
   $rpc_backend                 = 'cinder.openstack.common.rpc.impl_kombu',
+  $control_exchange            = 'openstack',
   $rabbit_host                 = '127.0.0.1',
   $rabbit_port                 = 5672,
   $rabbit_hosts                = false,
@@ -30,6 +39,8 @@ class cinder (
   $qpid_tcp_nodelay            = true,
   $package_ensure              = 'present',
   $api_paste_config            = '/etc/cinder/api-paste.ini',
+  $use_syslog                  = false,
+  $log_facility                = 'LOG_USER',
   $verbose                     = false,
   $debug                       = false
 ) {
@@ -75,6 +86,7 @@ class cinder (
       'DEFAULT/rabbit_password':     value => $rabbit_password, secret => true;
       'DEFAULT/rabbit_userid':       value => $rabbit_userid;
       'DEFAULT/rabbit_virtual_host': value => $rabbit_virtual_host;
+      'DEFAULT/control_exchange':    value => $control_exchange;
     }
 
     if $rabbit_hosts {
@@ -120,4 +132,14 @@ class cinder (
     'DEFAULT/rpc_backend':         value => $rpc_backend;
   }
 
+  if $use_syslog {
+    cinder_config {
+      'DEFAULT/use_syslog':           value => true;
+      'DEFAULT/syslog_log_facility':  value => $log_facility;
+    }
+  } else {
+    cinder_config {
+      'DEFAULT/use_syslog':           value => false;
+    }
+  }
 }
