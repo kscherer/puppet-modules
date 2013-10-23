@@ -16,7 +16,7 @@ class wr::master {
   #choose a hierachy from most specific to least specific
   class {
     'hiera':
-      hierarchy  => [ '%{hostname}',
+      hierarchy  => [ 'nodes/%{hostname}',
                       '%{location}',
                       '%{operatingsystem}-%{lsbmajdistrelease}-%{architecture}',
                       '%{operatingsystem}-%{lsbmajdistrelease}',
