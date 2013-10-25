@@ -34,10 +34,15 @@ class nx {
 
   ssh_authorized_key {
     'kscherer_windriver_nxadm':
-      ensure => 'present',
+      ensure => 'absent',
       user   => 'nxadm',
       key    => extlookup('kscherer@yow-kscherer-l1'),
       type   => 'ssh-dss';
+    'kscherer_windriver_nxadm':
+      ensure => 'present',
+      user   => 'nxadm',
+      key    => extlookup('kscherer@yow-kscherer-d1'),
+      type   => 'ssh-rsa';
     'kscherer_home_nxadm':
       ensure => 'present',
       user   => 'nxadm',
