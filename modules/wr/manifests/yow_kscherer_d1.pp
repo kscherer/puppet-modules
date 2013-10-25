@@ -21,7 +21,7 @@ class wr::yow_kscherer_d1 {
       'dmidecode', 'dos2unix', 'ethtool', 'flac', 'firefox', 'flashplugin-installer',
       'fwknop-client', 'gnupg', 'puppet', 'keepassx', 'kpartx', 'konsole',
       'latex-beamer', 'kvpnc', 'nfs-client', 'okular', 'openjdk-7-jre', 'parted',
-      'qemu-kvm', 'rake', 'vim-nox', 'git-email']:
+      'qemu-kvm', 'rake', 'vim-nox', 'git-email', 'rubygems', 'mosh']:
       ensure => latest;
   }
 
