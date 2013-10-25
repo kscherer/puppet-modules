@@ -41,7 +41,7 @@ class nx {
     'kscherer_windriver_nxadm':
       ensure => 'present',
       user   => 'nxadm',
-      key    => extlookup('kscherer@yow-kscherer-d1'),
+      key    => hiera('kscherer@yow-kscherer-d1'),
       type   => 'ssh-rsa';
     'kscherer_home_nxadm':
       ensure => 'present',
