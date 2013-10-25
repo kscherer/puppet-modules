@@ -38,7 +38,7 @@ class nx {
       user   => 'nxadm',
       key    => extlookup('kscherer@yow-kscherer-l1'),
       type   => 'ssh-dss';
-    'kscherer_windriver_nxadm':
+    'kscherer_d1_nxadm':
       ensure => 'present',
       user   => 'nxadm',
       key    => hiera('kscherer@yow-kscherer-d1'),
