@@ -15,7 +15,8 @@ class dell::warranty {
   vcsrepo { "${dell::customplugins}/dell_warranty":
     ensure   => present,
     provider => git,
-    source   => 'https://git.gitorious.org/smarmy/check_dell_warranty.git',
+    #source   => 'https://git.gitorious.org/smarmy/check_dell_warranty.git',
+    source   => 'git://ala-git.wrs.com/external/extra/git.gitorious.org.smarmy.check_dell_warranty.git',
     revision => $dell::check_warranty_revision,
   }
 
