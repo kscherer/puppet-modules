@@ -1,0 +1,3 @@
+---
+mcollective::plugins::enable_registration_collection: true
+mcollective::client: true

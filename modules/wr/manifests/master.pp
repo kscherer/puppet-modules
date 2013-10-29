@@ -11,7 +11,7 @@ class wr::master {
   include apache
   include apache::mod::passenger
 
-  class { 'wr::mcollective': client => true }
+  include wr::mcollective
 
   #choose a hierachy from most specific to least specific
   class {

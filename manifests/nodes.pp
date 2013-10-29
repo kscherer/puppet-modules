@@ -2,7 +2,7 @@ node default {
 }
 
 node 'ala-lpd-puppet.wrs.com' {
-  class { 'wr::ala-lpd-puppet': }
+  include wr::ala-lpd-puppet
 }
 
 node 'pek-lpd-puppet.wrs.com' {
@@ -21,6 +21,10 @@ node 'yow-lpd-puppet.wrs.com' {
   -> class { 'nrpe': }
   -> class { 'nagios::target': }
   -> class { 'git::stomp_listener': }
+}
+
+node 'yow-lpd-puppet2.wrs.com' {
+  include wr::yow-lpd-puppet2
 }
 
 node 'yow-lpg-amqp.wrs.com' {

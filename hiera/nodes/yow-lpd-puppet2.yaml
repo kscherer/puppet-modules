@@ -1,0 +1,6 @@
+---
+mcollective::plugins::enable_registration_collection: true
+mcollective::client: true
+wr::activemq::broker_name: yow-broker2
+puppet_server: yow-lpd-puppet.wrs.com
+
