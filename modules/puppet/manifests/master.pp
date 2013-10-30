@@ -164,10 +164,13 @@ class puppet::master (
       serveradmin => 'Konrad.Scherer@windriver.com',
     }
 
-    file { '/etc/puppet/rack/config.ru':
-      ensure => present,
-      source => 'puppet:///modules/puppet/config.ru',
-      mode   => '0644',
+    file {
+      '/etc/puppet/rack':
+        ensure => directory;
+      '/etc/puppet/rack/config.ru':
+        ensure => present,
+        source => 'puppet:///modules/puppet/config.ru',
+        mode   => '0644';
     }
 
     concat::fragment { 'puppet.conf-master':
