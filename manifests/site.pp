@@ -6,7 +6,7 @@ $extlookup_precedence = [ '%{fqdn}', 'package', 'common']
 Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
 #do not define a filebucket if server is not valid
-if defined($::server) and $::server != 'puppet' {
+if $::server != '' and $::server != 'puppet' {
   # Define the bucket
   filebucket {
     'main':
