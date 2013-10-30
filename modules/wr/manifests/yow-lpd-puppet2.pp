@@ -7,5 +7,13 @@ class wr::yow-lpd-puppet2 {
   Class['wr::common::repos'] -> Class['apache']
   Class['wr::common::repos'] -> Class['apache::mod::passenger']
 
-  include wr::master
+  include hiera
+  include puppetdb
+  include puppetdb::master::config
+  include git::stomp_listener
+
+  Class['wr::common::repos'] -> Class['puppetdb']
+  Class['wr::common::repos'] -> Class['hiera']
+  Class['wr::common::repos'] -> Class['git::stomp_listener']
+
 }

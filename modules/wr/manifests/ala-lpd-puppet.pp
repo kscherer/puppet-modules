@@ -16,6 +16,8 @@ class wr::ala-lpd-puppet {
   include nagios::target
   include nagios::nsca::server
 
+  include wr::common::ssh_root_keys
+
   graphite::carbon::storage {
     'default_10s_for_2weeks':
       pattern    => '.*',

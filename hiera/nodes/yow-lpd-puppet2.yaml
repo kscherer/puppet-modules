@@ -2,5 +2,21 @@
 mcollective::plugins::enable_registration_collection: true
 mcollective::client: true
 wr::activemq::broker_name: yow-broker2
-puppet_server: yow-lpd-puppet.wrs.com
+puppet::puppet_server: yow-lpd-puppet2.wrs.com
+puppetdb::master::config::puppetdb_server: yow-lpd-puppet2.wrs.com
+puppet::master: true
+puppet::autosign: true
+puppet::manifest: '$confdir/environments/$environment/manifests/site.pp'
+puppet::modulepath: '$confdir/environments/$environment/modules'
+puppet::puppet_passenger: true
+puppet::passenger_package: 'mod_passenger'
+puppet::passenger_ensure: 'present'
+puppet::dashboard: true
+puppet::dashboard_passenger: true
+puppet::dashboard_port: '3000'
+puppet::dashboard_password: 'dashb0ard'
+puppet::storeconfigs: true
+puppet::storeconfigs_dbadapter: 'puppetdb'
+puppet::mysql_root_pw: 'r00t'
+
 
