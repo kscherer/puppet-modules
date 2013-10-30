@@ -13,6 +13,7 @@ class wr::yow-lpd-puppet2 {
   include git::stomp_listener
 
   Class['wr::common::repos'] -> Class['puppetdb']
+  Class['wr::common::repos'] -> Class['dashboard']
   Class['wr::common::repos'] -> Class['hiera']
   Class['wr::common::repos'] -> Class['git::stomp_listener']
 
