@@ -9,6 +9,8 @@ class wr::irc {
   -> class { 'collectd::disable': }
   -> class { 'nagios::target': }
 
+  include wr::common::ssh_root_keys
+
   #enable auto update using cron
   package {
     ['yum-cron', 'bash-completion', 'ircd-hybrid']:

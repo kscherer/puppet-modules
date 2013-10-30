@@ -6,6 +6,7 @@ node 'ala-lpd-puppet.wrs.com' {
 }
 
 node 'pek-lpd-puppet.wrs.com' {
+  include wr::common::ssh_root_keys
   class { 'redhat': }
   -> class { 'ntp': }
   -> class { 'wr::activemq': broker_name => 'pek-broker' }
