@@ -24,6 +24,7 @@ class wr::yow-lpd-puppet2 {
 
   include nagios
   include nagios::nsca::server
+  Class['wr::mcollective'] -> Class['nagios']
 
   graphite::carbon::storage {
     'default_10s_for_2weeks':
