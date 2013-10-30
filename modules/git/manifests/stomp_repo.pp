@@ -6,7 +6,7 @@ class git::stomp_repo {
 
   vcsrepo {
     $local:
-      ensure   => 'present',
+      ensure   => 'latest',
       provider => 'git',
       source   => $remote,
       user     => 'puppet',
