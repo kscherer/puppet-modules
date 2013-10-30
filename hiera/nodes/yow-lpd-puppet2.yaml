@@ -1,6 +1,6 @@
 ---
 mcollective::plugins::enable_registration_collection: true
-mcollective::client: true
+wr::mcollective::client: true
 wr::activemq::broker_name: yow-broker2
 puppet::puppet_server: yow-lpd-puppet2.wrs.com
 puppetdb::master::config::puppetdb_server: yow-lpd-puppet2.wrs.com
@@ -13,6 +13,3 @@ puppet::passenger_package: 'mod_passenger'
 puppet::passenger_ensure: 'present'
 puppet::storeconfigs: true
 puppet::storeconfigs_dbadapter: 'puppetdb'
-puppet::mysql_root_pw: 'r00t'
-
-
