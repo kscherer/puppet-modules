@@ -5,6 +5,8 @@
 :logger: noop
 
 :hierarchy:
+  - "nodes/%{::hostname}"
+  - "%{::location}"
   - "%{::operatingsystem}-%{::lsbmajdistrelease}-%{::architecture}"
   - "%{::operatingsystem}-%{::lsbmajdistrelease}"
   - "%{::osfamily}"
