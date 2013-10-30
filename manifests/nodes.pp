@@ -15,9 +15,13 @@ node 'pek-lpd-puppet.wrs.com' {
 }
 
 node 'yow-lpd-puppet.wrs.com' {
-  include profile::monitored
-  include wr::master
-  include git::stomp_listener
+  include wr::common::ssh_root_keys
+  class { 'redhat': }
+  -> class { 'ntp': }
+  -> class { 'wr::master': }
+  -> class { 'nrpe': }
+  -> class { 'nagios::target': }
+  -> class { 'git::stomp_listener': }
 }
 
 node 'yow-lpd-puppet2.wrs.com' {
