@@ -175,6 +175,7 @@ class puppet (
     ensure => present,
     uid    => $user_id,
     gid    => 'puppet',
+    shell  => '/bin/bash';
   }
 
   group { 'puppet':
