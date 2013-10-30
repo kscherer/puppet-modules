@@ -5,14 +5,17 @@ $extlookup_precedence = [ '%{fqdn}', 'package', 'common']
 #set the default path for all exec resources
 Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
-# Define the bucket
-filebucket {
-  'main':
-    server => $::server, path => false
-}
+#do not define a filebucket if server is not valid
+if defined($::server) and $::server != 'puppet' {
+  # Define the bucket
+  filebucket {
+    'main':
+      server => $::server, path => false
+  }
 
-# Specify it as the default target
-File { backup => main }
+  # Specify it as the default target
+  File { backup => main }
+}
 
 #force the provider on Suse to be zypper
 if $::osfamily == 'Suse' {
