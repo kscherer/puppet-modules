@@ -2,9 +2,7 @@
 
 class wr::master {
 
-  Class['redhat']
-  -> Class['wr::mcollective']
-  -> Class['mysql']
+  Class['mysql']
   -> Class['mysql::ruby']
   -> Class['wr::master']
 
