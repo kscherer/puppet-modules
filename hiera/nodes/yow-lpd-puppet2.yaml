@@ -11,10 +11,6 @@ puppet::modulepath: '$confdir/environments/$environment/modules'
 puppet::puppet_passenger: true
 puppet::passenger_package: 'mod_passenger'
 puppet::passenger_ensure: 'present'
-puppet::dashboard: true
-puppet::dashboard_passenger: true
-puppet::dashboard_port: '3000'
-puppet::dashboard_password: 'dashb0ard'
 puppet::storeconfigs: true
 puppet::storeconfigs_dbadapter: 'puppetdb'
 puppet::mysql_root_pw: 'r00t'
