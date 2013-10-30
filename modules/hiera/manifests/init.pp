@@ -1,10 +1,15 @@
 #
 class hiera (
-  $hierarchy  = [],
+  $hierarchy  = [ 'nodes/%{hostname}',
+                  '%{location}',
+                  '%{operatingsystem}-%{lsbmajdistrelease}-%{architecture}',
+                  '%{operatingsystem}-%{lsbmajdistrelease}',
+                  '%{osfamily}',
+                  'common' ],
   $backends   = ['yaml'],
   $logger     = 'console',
   $hiera_yaml = '/etc/puppet/hiera.yaml',
-  $datadir    = '/etc/puppet/hieradata',
+  $datadir    = '/etc/puppet/environments/%{environment}/hiera',
   $owner      = 'puppet',
   $group      = 'puppet'
   ) {

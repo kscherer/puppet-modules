@@ -11,20 +11,7 @@ class wr::master {
 
   include wr::mcollective
 
-  #choose a hierachy from most specific to least specific
-  class {
-    'hiera':
-      hierarchy  => [ 'nodes/%{hostname}',
-                      '%{location}',
-                      '%{operatingsystem}-%{lsbmajdistrelease}-%{architecture}',
-                      '%{operatingsystem}-%{lsbmajdistrelease}',
-                      '%{osfamily}',
-                      'common' ],
-      hiera_yaml => '/etc/puppet/hiera.yaml',
-      datadir    => '/etc/puppet/environments/%{environment}/hiera',
-      logger     => 'puppet',
-      backends   => ['yaml'],
-  }
+  include hiera
 
   class { 'puppetdb':
     open_ssl_listen_port => false,
