@@ -33,11 +33,11 @@ dell::omsa_version: 'latest'
 dell::check_warranty_revision: 'b6438fbef45ba22be3bf0aa2e0aa2e444a384813'
 java::distribution: 'java-1.7.0-openjdk'
 hiera::hierarchy:
-  - 'nodes/%{hostname}'
-  - '%{location}'
-  - '%{operatingsystem}-%{lsbmajdistrelease}-%{architecture}'
-  - '%{operatingsystem}-%{lsbmajdistrelease}'
-  - '%{osfamily}'
+  - 'nodes/\%{hostname}'
+  - '\%{location}'
+  - '\%{operatingsystem}-\%{lsbmajdistrelease}-\%{architecture}'
+  - '\%{operatingsystem}-\%{lsbmajdistrelease}'
+  - '\%{osfamily}'
   - 'common'
 puppetdb::open_ssl_listen_port: false
 puppetdb::open_postgres_port: false
