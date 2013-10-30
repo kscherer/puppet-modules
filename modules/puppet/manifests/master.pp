@@ -222,4 +222,12 @@ class puppet::master (
 
   Package[$puppet_master_package] -> Concat[$puppet_conf] ~> $service_notify
   Package[$puppet_master_package] -> File['/etc/puppet'] ~> $service_notify
+
+  cron {
+    'report_clean':
+      command => '/usr/bin/find /var/lib/puppet/reports -ctime +7 -name \'*.yaml\' -exec rm {} \; &> /dev/null',
+      user    => 'puppet',
+      minute  => '0',
+      hour    => '2';
+  }
 }

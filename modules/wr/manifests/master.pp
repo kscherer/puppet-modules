@@ -59,20 +59,7 @@ class wr::master {
                                       Yumrepo['passenger']],
   }
 
-  file {
-    'puppet_env':
-      ensure => directory,
-      path   => '/etc/puppet/environments',
-      owner  => 'puppet',
-      group  => 'puppet';
-  }
-
   cron {
-    'report_clean':
-      command => '/usr/bin/find /var/lib/puppet/reports -ctime +7 -name \'*.yaml\' -exec rm {} \; &> /dev/null',
-      user    => 'puppet',
-      minute  => '0',
-      hour    => '2';
     'clean_dashboard':
       command => 'cd /usr/share/puppet-dashboard; rake RAILS_ENV=production reports:prune upto=1 unit=wk &> /dev/null',
       minute  => '0',
