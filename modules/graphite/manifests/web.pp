@@ -26,6 +26,9 @@ class graphite::web (
   if $manage_httpd {
     include graphite::web::service
   }
+  Class['graphite::web::package']
+  -> Class['graphite::web::config']
+  -> Class['graphite::web::service']
 }
 
 
