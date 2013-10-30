@@ -11,7 +11,7 @@ class wr::yow-lpd-puppet2 {
   include puppetdb
   include puppetdb::master::config
   Class['wr::common::repos'] -> Class['puppetdb']
-  Class['wr::common::repos'] -> Class['hiera'] -> Class['puppet']
+  Class['wr::common::repos'] -> Class['hiera']
   Class['puppetdb'] -> Class['puppetdb::master::config']
 
 
