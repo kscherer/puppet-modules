@@ -1,5 +1,5 @@
 ---
-amqp_server: yow-lpg-amqp.wrs.com
+amqp_server: ala-lpd-puppet.wrs.com
 puppet::puppet_server: yow-lpd-puppet.wrs.com
 ntp::servers:
   - yow-lpggp1.wrs.com
