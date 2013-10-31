@@ -5,7 +5,7 @@ BDIR=$1
 PASSFAIL=$2
 
 #This is the graphite server TODO Make location aware
-SERVER=yow-lpd-monitor
+SERVER=yow-lpd-puppet2
 
 #This is the graphite aggregator port
 PORT=2023

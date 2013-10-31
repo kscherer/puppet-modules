@@ -5,8 +5,8 @@ ntp::servers:
   - yow-lpggp1.wrs.com
 mirror: yow-mirror.wrs.com
 graphite::web::time_zone: US/Eastern
-collectd::plugin::write_graphite::host: yow-lpd-monitor.wrs.com
-nsca: 128.224.194.15
+collectd::plugin::write_graphite::host: yow-lpd-puppet2.wrs.com
+nsca: 128.224.195.118
 nameservers:
   - 128.224.144.130
   - 147.11.57.128
