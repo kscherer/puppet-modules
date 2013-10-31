@@ -1,7 +1,7 @@
 ---
 mcollective::plugins::enable_registration_collection: true
 wr::mcollective::client: true
-wr::activemq::broker_name: yow-broker2
+wr::activemq::broker_name: yow-broker
 puppet::puppet_server: yow-lpd-puppet2.wrs.com
 puppetdb::master::config::puppetdb_server: yow-lpd-puppet2.wrs.com
 puppet::master: true
