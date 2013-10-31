@@ -1,6 +1,6 @@
 ---
 amqp_server: yow-lpd-puppet2.wrs.com
-puppet::puppet_server: yow-lpd-puppet.wrs.com
+puppet::puppet_server: yow-lpd-puppet2.wrs.com
 ntp::servers:
   - yow-lpggp1.wrs.com
 mirror: yow-mirror.wrs.com
