@@ -5,7 +5,7 @@ class wr::activemq( $broker_name ) {
   #will move when I fix the activemq class
   $webconsole_real = true
   $collectives = ['yow','ala','pek']
-  $activemq_servers = { 'yow' => 'yow-lpg-amqp.wrs.com',
+  $activemq_servers = { 'yow' => 'yow-lpd-puppet2.wrs.com',
     'ala' => 'ala-lpd-puppet.wrs.com', 'pek' => 'pek-lpd-puppet.wrs.com' }
 
   include java
