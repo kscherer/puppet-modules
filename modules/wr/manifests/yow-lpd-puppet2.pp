@@ -39,4 +39,6 @@ class wr::yow-lpd-puppet2 {
       order   => 1,
       source  => 'puppet:///modules/wr/cpu-aggregation.conf';
   }
+
+  include wr::activemq
 }
