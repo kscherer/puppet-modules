@@ -156,7 +156,7 @@ node 'ala-lpd-susbld.wrs.com' {
   class { 'wr::ala-lpd-susbld': }
 }
 
-node 'ala-lpd-provision.wrs.com' {
+node /(yow|ala)-lpd-provision.wrs.com/ {
   include role::provisioner
   include ssmtp
   include profile::logstash

@@ -10,6 +10,13 @@ nsca: 128.224.195.118
 nameservers:
   - 128.224.144.130
   - 147.11.57.128
+foreman_url: 'https://yow-lpd-provision.wrs.com/'
+foreman_ssl_ca: '/var/lib/puppet/ssl/ca/ca_crt.pem'
+foreman_ssl_cert: '/var/lib/puppet/ssl/certs/yow-lpd-puppet2.wrs.com.pem'
+foreman_ssl_key: '/var/lib/puppet/ssl/private_keys/yow-lpd-puppet2.wrs.com.pem'
+logstash::multi_instance: false
+logstash::logstash_user: logstash
+logstash::logstash_group: logstash
 dell::omsa_url_base: 'http://yow-mirror.wrs.com/mirror/dell/hardware/'
 
 # The IP and interface that external sources will use to communicate with the instance and hypervisors.
