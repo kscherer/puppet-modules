@@ -96,12 +96,13 @@ node /pek-hostel-vm(0[1-9]|1[0-3])\.wrs\.com/ {
   -> class { 'nis': }
 }
 
-node /ala-blade3[3-9]\.wrs\.com/ {
-  include role::nxbuilder
-}
-
 node /ala-blade\d+\.wrs\.com/ {
-  class { 'wr::ala-blades': }
+  if $::operatingsystem == 'Ubuntu' {
+    include role::nxbuilder
+  } else {
+    #Keep old config for CentOS builders
+    include wr::ala-blades
+  }
 }
 
 node /ala-lpggp\d+\.wrs\.com/ {
