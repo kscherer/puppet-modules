@@ -15,7 +15,7 @@ class wr::cgts {
       'icedtea-plugin', 'icedtea-7-plugin',
       'eclipse-platform', 'codeblocks', 'doxygen',
       'quilt', 'iotop',
-      'nfs-common', 'okular', 'openjdk-7-jre', 'parted',
+      'okular', 'openjdk-7-jre', 'parted',
       'qemu-kvm', 'rake', 'vim-nox', 'git-email']:
       ensure => latest;
   }
