@@ -5,6 +5,8 @@ class profile::nxbuilder inherits profile::nis {
     include 'nx'
   }
   include yocto
+  Class['wr::common::repos'] -> Class['git']
+  Class['wr::common::repos'] -> Class['yocto']
 
   motd::register{
     'nxbuilder':
