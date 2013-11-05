@@ -1,12 +1,6 @@
 class wr::cgts {
-  class { 'wr::common': }
-  -> class { 'wr::mcollective': }
-
-  include puppet
-  include debian
-  include nis
+  include profile::nis
   include yocto
-  include nrpe
 
   include sudo
   sudo::conf {
@@ -17,11 +11,11 @@ class wr::cgts {
   package {
     [ 'nedit', 'tightvncserver', 'gitk', 'konsole', 'motif-clients', 'ddd',
       'compizconfig-settings-manager', 'gnome', 'kde-full', 'xfce4',
-      'ubuntu-desktop', 'openjdk-7-jre-lib', 
+      'ubuntu-desktop', 'openjdk-7-jre-lib',
       'icedtea-plugin', 'icedtea-7-plugin',
       'eclipse-platform', 'codeblocks', 'doxygen',
-      'quilt', 'iotop', 
-      'nfs-client', 'okular', 'openjdk-7-jre', 'parted',
+      'quilt', 'iotop',
+      'nfs-common', 'okular', 'openjdk-7-jre', 'parted',
       'qemu-kvm', 'rake', 'vim-nox', 'git-email']:
       ensure => latest;
   }
