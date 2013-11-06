@@ -16,11 +16,7 @@ class wr::foreman {
       mode    => '0644',
       content => template('wr/foreman.rb.erb');
     $inventory_upload:
-      ensure  => absent,
-      owner   => 'puppet',
-      group   => 'puppet',
-      mode    => '0755',
-      content => template('wr/foreman_upload_inventory.rb.erb');
+      ensure  => absent;
     $foreman_external_node:
       ensure  => file,
       owner   => 'puppet',
@@ -34,8 +30,7 @@ class wr::foreman {
       ensure  => absent,
       command => $inventory_upload,
       user    => puppet,
-      minute  => '*/5',
-      require => File[$inventory_upload];
+      minute  => '*/5';
     'delete_foreman_reports':
       ensure  => present,
       user    => 'root',
