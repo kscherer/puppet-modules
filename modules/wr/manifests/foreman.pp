@@ -6,6 +6,7 @@ class wr::foreman {
   $foreman_ssl_key = hiera('foreman_ssl_key')
 
   $inventory_upload = '/var/lib/puppet/foreman_upload_inventory.rb'
+  $foreman_external_node = '/etc/puppet/foreman_external_node.rb'
 
   file {
     '/usr/lib/ruby/site_ruby/1.8/puppet/reports/foreman.rb':
@@ -15,11 +16,17 @@ class wr::foreman {
       mode    => '0644',
       content => template('wr/foreman.rb.erb');
     $inventory_upload:
-      ensure  => file,
+      ensure  => absent,
       owner   => 'puppet',
       group   => 'puppet',
       mode    => '0755',
       content => template('wr/foreman_upload_inventory.rb.erb');
+    $foreman_external_node:
+      ensure  => file,
+      owner   => 'puppet',
+      group   => 'puppet',
+      mode    => '0755',
+      content => template('wr/foreman_external_node.rb.erb');
   }
 
   cron {
@@ -29,6 +36,11 @@ class wr::foreman {
       user    => puppet,
       minute  => '*/5',
       require => File[$inventory_upload];
+    'delete_foreman_reports':
+      ensure  => present,
+      user    => 'root',
+      hour    => '0',
+      command => 'foreman-rake reports:expire days=1 status=0; foreman-rake reports:expire days=7';
   }
 
 }
