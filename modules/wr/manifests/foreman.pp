@@ -31,7 +31,7 @@ class wr::foreman {
 
   cron {
     'upload_inventory_to_foreman':
-      ensure  => present,
+      ensure  => absent,
       command => $inventory_upload,
       user    => puppet,
       minute  => '*/5',
