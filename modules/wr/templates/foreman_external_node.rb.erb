@@ -3,9 +3,21 @@
 # If copying this template by hand, replace the settings below including the angle brackets
 SETTINGS = {
   :url          => "<%= @foreman_url %>",  # e.g. https://foreman.example.com
+<% if @puppet_home -%>
   :puppetdir    => "<%= @puppet_home %>",  # e.g. /var/lib/puppet
+<% else -%>
+  :puppetdir    => "/var/lib/puppet",
+<% end -%>
+<% if @puppet_user -%>
   :puppetuser   => "<%= @puppet_user %>",  # e.g. puppet
+<% else -%>
+  :puppetuser   => "puppet",
+<% end -%>
+<% if @facts -%>
   :facts        => <%= @facts %>,          # true/false to upload facts
+<% else -%>
+  :facts        => true,
+<% end -%>
   :timeout      => 10,
   # if CA is specified, remote Foreman host will be verified
   :ssl_ca       => "<%= @foreman_ssl_ca -%>",      # e.g. /var/lib/puppet/ssl/certs/ca.pem
