@@ -17,8 +17,12 @@ class wrlinux {
   }
 
   #Enable package list for Ubuntu 10.10
-  $osrelease = $::operatingsystem ? {
+  $osrelease = $os ? {
     Ubuntu  => $::lsbdistrelease,
+    RedHat  => $::operatingsystemrelease ? {
+      /5.1\d/ => '5.9',
+      default => $::operatingsystemrelease,
+    },
     default => $::operatingsystemrelease,
   }
 
