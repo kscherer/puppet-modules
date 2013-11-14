@@ -1,2 +1,5 @@
 .#*
 *.swp
+.bundle
+modules/*/spec/fixtures/modules/*
+modules/*/spec/fixtures/manifests/*

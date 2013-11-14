@@ -1,0 +1,5 @@
+fixtures:
+  symlinks:
+    'nis': "#{source_dir}"
+    'network': "#{source_dir}/../network"
+    'nfs': "#{source_dir}/../nfs"

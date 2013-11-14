@@ -8,25 +8,22 @@ class nis {
   include nfs
 
   $nis_server = $::hostname ? {
-    /^pek.*$/ => '128.224.160.17',
-    /^ala.*$/ => '147.11.49.57',
-    /^yow.*$/ => '128.224.144.20',
+    /^pek.*$/ => ['128.224.160.17'],
+    /^ala.*$/ => ['ala-adnis1','ala-adnis2'],
+    /^yow.*$/ => ['yow-adnis1','yow-adnis2'],
   }
 
   if $::operatingsystem == 'Ubuntu' {
     $nis_package = 'nis'
-    if $::lsbdistrelease == '10.04' {
-      $ypconf = "domain swamp server ${nis_server}"
+    if $::operatingsystemrelease == '10.04' {
       $nis_hasstatus = false
       $nis_service = 'nis'
       $nis_status = 'ypbind'
     } else {
-      $ypconf = "ypserver ${nis_server}\n"
       $nis_service = 'ypbind'
       $nis_hasstatus = true
     }
   } else {
-    $ypconf = "domain swamp server ${nis_server}"
     $nis_package = 'ypbind'
     $nis_service = 'ypbind'
     $nis_hasstatus = true
@@ -67,7 +64,7 @@ class nis {
 
   file {
     '/etc/yp.conf':
-      content => $ypconf,
+      content => template('nis/yp.conf.erb'),
       owner   => root,
       group   => root,
       mode    => '0644',
