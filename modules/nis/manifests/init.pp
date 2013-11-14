@@ -16,17 +16,17 @@ class nis {
   if $::operatingsystem == 'Ubuntu' {
     $nis_package = 'nis'
     if $::lsbdistrelease == '10.04' {
-      $ypconf = "domain swamp server $nis_server"
+      $ypconf = "domain swamp server ${nis_server}"
       $nis_hasstatus = false
       $nis_service = 'nis'
       $nis_status = 'ypbind'
     } else {
-      $ypconf = "ypserver $nis_server\n"
+      $ypconf = "ypserver ${nis_server}\n"
       $nis_service = 'ypbind'
       $nis_hasstatus = true
     }
   } else {
-    $ypconf = "domain swamp server $nis_server"
+    $ypconf = "domain swamp server ${nis_server}"
     $nis_package = 'ypbind'
     $nis_service = 'ypbind'
     $nis_hasstatus = true
@@ -68,15 +68,21 @@ class nis {
   file {
     '/etc/yp.conf':
       content => $ypconf,
-      owner   => root, group => root, mode => '0644',
+      owner   => root,
+      group   => root,
+      mode    => '0644',
       require => Package['nis'];
     '/etc/nsswitch.conf':
       source  => 'puppet:///modules/nis/nsswitch.conf',
-      owner   => root, group => root, mode => '0644',
+      owner   => root,
+      group   => root,
+      mode    => '0644',
       require => Package['nis'];
     '/etc/auto.master':
       content => template('nis/auto.master.erb'),
-      owner   => root, group => root, mode => '0644',
+      owner   => root,
+      group   => root,
+      mode    => '0644',
       require => Package['autofs'];
     ['/net','/folk']:
       ensure  => directory,
