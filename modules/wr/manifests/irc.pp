@@ -2,6 +2,7 @@
 class wr::irc {
   class { "wr::${::location}_dns": }
   -> class { 'redhat': }
+  -> class { 'ntp': }
   -> class { 'wr::mcollective': }
   -> class { 'puppet': }
   -> class { 'nrpe': }
