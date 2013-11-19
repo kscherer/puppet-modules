@@ -22,6 +22,19 @@ class wr::yow_kscherer_d2 {
         ensure => latest;
   }
 
+  ssh_authorized_key {
+    'kscherer_desktop':
+      ensure => 'present',
+      user   => 'kscherer',
+      key    => hiera('kscherer@yow-kscherer-d1'),
+      type   => 'ssh-rsa';
+    'kscherer_home':
+      ensure => 'present',
+      user   => 'kscherer',
+      key    => hiera('kscherer@helix'),
+      type   => 'ssh-rsa';
+  }
+
   include wr::common
   include debian
   include nis

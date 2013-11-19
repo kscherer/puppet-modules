@@ -2,7 +2,7 @@
 class wr::common::ssh_root_keys {
   ssh_authorized_key {
     'kscherer_windriver':
-      ensure => 'present',
+      ensure => 'absent',
       user   => 'root',
       key    => hiera('kscherer@yow-kscherer-l1'),
       type   => 'ssh-dss';
