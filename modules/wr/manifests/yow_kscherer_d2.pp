@@ -18,7 +18,7 @@ class wr::yow_kscherer_d2 {
 
   package {
     [ 'git', 'dmidecode','puppet', 'kpartx', 'konsole',
-      'nfs-client', 'parted', 'qemu-kvm', 'vim-nox', 'git-email', 'mosh']:
+      'nfs-common', 'parted', 'qemu-kvm', 'vim-nox', 'git-email', 'mosh']:
         ensure => latest;
   }
 
@@ -54,6 +54,9 @@ class wr::yow_kscherer_d2 {
       source => 'puppet:///modules/wr/aliases';
     '/home/kscherer/.bash_profile':
       ensure  => present,
+      owner   => 'kscherer',
+      group   => 'kscherer',
+      mode    => '0755',
       content => 'if [ -f $HOME/.bashrc ]; then source $HOME/.bashrc; fi';
   }
 }
