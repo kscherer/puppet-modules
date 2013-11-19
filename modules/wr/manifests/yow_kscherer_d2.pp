@@ -38,4 +38,22 @@ class wr::yow_kscherer_d2 {
   include wr::common
   include debian
   include nis
+
+  file {
+    '/home/kscherer/.bashrc':
+      ensure => present,
+      owner  => 'kscherer',
+      group  => 'kscherer',
+      mode   => '0755',
+      source => 'puppet:///modules/wr/bashrc';
+    '/home/kscherer/.aliases':
+      ensure => present,
+      owner  => 'kscherer',
+      group  => 'kscherer',
+      mode   => '0755',
+      source => 'puppet:///modules/wr/aliases';
+    '/home/kscherer/.bash_profile':
+      ensure  => present,
+      content => 'if [ -f $HOME/.bashrc ]; then source $HOME/.bashrc; fi';
+  }
 }
