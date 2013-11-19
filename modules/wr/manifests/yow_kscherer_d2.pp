@@ -23,12 +23,12 @@ class wr::yow_kscherer_d2 {
   }
 
   ssh_authorized_key {
-    'kscherer_desktop':
+    'kscherer_desktop_user':
       ensure => 'present',
       user   => 'kscherer',
       key    => hiera('kscherer@yow-kscherer-d1'),
       type   => 'ssh-rsa';
-    'kscherer_home':
+    'kscherer_home_user':
       ensure => 'present',
       user   => 'kscherer',
       key    => hiera('kscherer@helix'),
