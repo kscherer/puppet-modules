@@ -58,5 +58,10 @@ class wr::yow_kscherer_d2 {
       group   => 'kscherer',
       mode    => '0755',
       content => 'if [ -f $HOME/.bashrc ]; then source $HOME/.bashrc; fi';
+    '/buildarea/kscherer/':
+      ensure => directory,
+      owner  => 'kscherer',
+      group  => 'kscherer',
+      mode   => '0755';
   }
 }
