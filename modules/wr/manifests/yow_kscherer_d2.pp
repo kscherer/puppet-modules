@@ -18,7 +18,7 @@ class wr::yow_kscherer_d2 {
 
   package {
     [ 'git', 'dmidecode','puppet', 'kpartx', 'konsole',
-      'nfs-common', 'parted', 'qemu-kvm', 'vim-nox', 'git-email', 'mosh']:
+      'parted', 'qemu-kvm', 'vim-nox', 'git-email', 'mosh']:
         ensure => latest;
   }
 
