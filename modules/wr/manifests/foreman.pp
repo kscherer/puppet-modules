@@ -28,11 +28,6 @@ class wr::foreman {
       command => "${foreman_external_node} --push-facts",
       user    => puppet,
       minute  => '*/5';
-    'delete_foreman_reports':
-      ensure  => absent,
-      user    => 'root',
-      hour    => '0',
-      command => 'foreman-rake reports:expire days=1 status=0; foreman-rake reports:expire days=7';
   }
 
 }

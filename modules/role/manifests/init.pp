@@ -12,6 +12,7 @@ class role::provisioner {
       ensure  => present,
       user    => 'root',
       hour    => '0',
-      command => 'foreman-rake reports:expire days=1 status=0; foreman-rake reports:expire days=7';
+      minute  => '0',
+      command => '/usr/sbing/foreman-rake reports:expire days=1 status=0; foreman-rake reports:expire days=7';
   }
 }
