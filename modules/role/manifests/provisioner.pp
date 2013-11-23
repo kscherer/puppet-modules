@@ -8,6 +8,6 @@ class role::provisioner {
       user    => 'root',
       hour    => '0',
       minute  => '0',
-      command => '/usr/sbin/foreman-rake reports:expire days=1 status=0; foreman-rake reports:expire days=7';
+      command => '/usr/sbin/foreman-rake reports:expire days=1 status=0; /usr/sbin/foreman-rake reports:expire days=7';
   }
 }
