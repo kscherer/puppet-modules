@@ -213,6 +213,7 @@ class nx {
     'clean_sstate_cache':
       command => "if [ -d ${sstate_dir} ]; then cd /home/nxadm/nx/${::hostname}.1/current_build/layers/oe-core/scripts; ./sstate-cache-management.sh --yes --remove-duplicated --cache-dir=${sstate_dir}; fi",
       user    => nxadm,
+      weekday => '*',
       hour    => 20,
       minute  => 0,
       require => User[ 'nxadm' ];
