@@ -87,7 +87,7 @@ class nis {
   }
 
   #On Redhat 5.x the portmap service is needed
-  $isRedHat5 = ($::operatingsystem =~ /(RedHat|CentOS)/ and $::operatingsystemrelease =~ /5.*/)
+  $isRedHat5 = $::osfamily == 'RedHat' and $::operatingsystemrelease =~ /^5.*/
   $isUbuntu1004 = $::operatingsystem == 'Ubuntu' and $::operatingsystemrelease == '10.04'
   $isUbuntu12 = $::operatingsystem == 'Ubuntu' and $::operatingsystemrelease >= '12'
 
