@@ -64,7 +64,7 @@ class wr::pek-blades inherits wr::pek-common {
 
   case $::hostname {
     pek-blade17: { $options='rw' }
-    default: { $options='ro' }
+    default: { $options='rw' }
   }
 
   file {
