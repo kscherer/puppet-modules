@@ -20,6 +20,7 @@ class collectd(
 
   case $::operatingsystem {
     RedHat,CentOS: { Yumrepo['collectd'] -> Package['collectd'] }
+    Ubuntu: { Apt_ppa['ppa:kmscherer/collectd'] -> Package['collectd'] }
     default: {}
   }
 

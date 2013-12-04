@@ -31,6 +31,8 @@ class debian::ubuntu (
       repos       => 'main dependencies';
   }
 
+  apt::ppa { 'ppa:kmscherer/collectd': }
+
   if $dash == true {
     $shell='dash'
   } else {
