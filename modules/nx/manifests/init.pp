@@ -223,6 +223,9 @@ class nx {
     ensure_resource('package', 'vim-enhanced', {'ensure' => 'installed' })
   }
 
+  #Needed for ccache testing
+  ensure_resource('package', 'ccache', {'ensure' => 'installed' })
+
   #This package causes major io contention
   ensure_resource('package', 'mlocate', {'ensure' => 'absent' })
 }
