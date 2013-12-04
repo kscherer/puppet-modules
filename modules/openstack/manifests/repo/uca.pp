@@ -13,6 +13,6 @@ class openstack::repo::uca(
       required_packages => 'ubuntu-cloud-keyring',
     }
 
-    Exec['apt_update'] -> Package<||>
+    #Exec['apt_update'] -> Package<||>
   }
 }
