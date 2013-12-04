@@ -33,4 +33,5 @@ class wr::ala-lpd-puppet {
   }
 
   include wr::foreman
+  include collectd
 }

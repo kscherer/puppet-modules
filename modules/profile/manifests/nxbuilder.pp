@@ -35,4 +35,6 @@ class profile::nxbuilder inherits profile::nis {
 
   #setup ssmtp to forward all email sent to root to Konrad
   include ssmtp
+
+  include collectd
 }
