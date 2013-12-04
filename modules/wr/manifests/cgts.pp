@@ -20,4 +20,5 @@ class wr::cgts {
       ensure => latest;
   }
 
+  include collectd
 }
