@@ -96,7 +96,7 @@ class redhat::workarounds {
   #make sure dmesg includes timestamps
   exec {
     'dmesg_printk_timestamp':
-      command  => 'echo 1 > /sys/module/printk/parameters/printk_time',
-      onlyif   => 'test `cat /sys/module/printk/parameters/printk_time` = \'0\'';
+      command  => 'echo 1 > /sys/module/printk/parameters/*time',
+      onlyif   => 'test `cat /sys/module/printk/parameters/*time` = \'0\'';
   }
 }
