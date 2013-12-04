@@ -94,9 +94,16 @@ class redhat::workarounds {
   ensure_resource('package', 'logwatch', {'ensure' => 'absent' })
 
   #make sure dmesg includes timestamps
+  if ($::osfamily == 'RedHat' and $::lsbmajdistrelease == '5') {
+    $printk_param='printk_time'
+    $printk_return='0'
+  } else {
+    $printk_param='time'
+    $printk_return='N'
+  }
   exec {
     'dmesg_printk_timestamp':
-      command  => 'echo 1 > /sys/module/printk/parameters/*time',
-      onlyif   => 'test `cat /sys/module/printk/parameters/*time` = \'0\'';
+      command  => "echo 1 > /sys/module/printk/parameters/${printk_param}",
+      onlyif   => "test `cat /sys/module/printk/parameters/${printk_param}` = \'${printk_return}\'";
   }
 }
