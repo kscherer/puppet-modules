@@ -160,6 +160,9 @@ class nx {
       group   => root,
       mode    => '0644',
       content => '* soft nproc 5000';
+    '/buildarea':
+      ensure => directory,
+      mode   => '0777';
   }
 
   #
