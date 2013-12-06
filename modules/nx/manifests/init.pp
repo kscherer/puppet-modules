@@ -83,6 +83,11 @@ class nx {
       user   => 'nxadm',
       key    => hiera('polk@delos.com'),
       type   => 'ssh-dss';
+    'jslater_nxadm':
+      ensure => 'present',
+      user   => 'nxadm',
+      key    => hiera('jslater@ala-jslater-lx1'),
+      type   => 'ssh-dss';
   }
 
   File {
