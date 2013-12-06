@@ -8,6 +8,7 @@ class nis {
   include nfs
 
   $nis_server = $::hostname ? {
+    'ala-git' => ['neptune','saturn'],
     /^pek.*$/ => ['128.224.160.17'],
     /^ala.*$/ => ['ala-adnis1','ala-adnis2'],
     /^yow.*$/ => ['yow-adnis1','yow-adnis2'],
