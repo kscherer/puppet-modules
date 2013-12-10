@@ -4,7 +4,7 @@ class wr::yow_rmacleod_lx4 {
     'rmacleod':
       ensure => present,
       uid    => '17365',
-      gid    => 'kscherer',
+      gid    => 'rmacleod',
       shell  => '/bin/bash',
       home   => '/home/rmacleod',
       groups => ['users','adm','sudo'],
