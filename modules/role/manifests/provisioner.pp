@@ -12,7 +12,7 @@ class role::provisioner {
   }
 
   #test dhcp module in yow only for now
-  if $::hostname == 'yow-lpd-provisioner' {
+  if $::hostname == 'yow-lpd-provision' {
     include dhcp
 
     concat::fragment { 'dhcp-conf-extra':
