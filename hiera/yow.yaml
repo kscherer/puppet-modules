@@ -2,7 +2,7 @@
 amqp_server: yow-lpd-puppet2.wrs.com
 puppet::puppet_server: yow-lpd-puppet2.wrs.com
 ntp::servers:
-  - yow-lpggp1.wrs.com
+  - yow-lpggp2.wrs.com
 mirror: yow-mirror.wrs.com
 graphite::web::time_zone: US/Eastern
 collectd::plugin::write_graphite::host: yow-lpd-puppet2.wrs.com
@@ -18,6 +18,11 @@ logstash::multi_instance: false
 logstash::logstash_user: logstash
 logstash::logstash_group: logstash
 dell::omsa_url_base: 'http://yow-mirror.wrs.com/mirror/dell/hardware/'
+dhcp::nameservers:
+  - 128.224.144.130
+  - 147.11.57.128
+dhcp::ntpservers:
+  - yow-lpggp2.wrs.com
 
 # The IP and interface that external sources will use to communicate with the instance and hypervisors.
 openstack::compute::public_interface:   'eth0'

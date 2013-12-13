@@ -35,8 +35,6 @@ puppetdb::open_postgres_port: false
 puppetdb::master::config::manage_storeconfigs: false
 puppetdb::master::config::restart_puppet: false
 
-dhcp::nameservers: "%{hiera('nameservers')}"
-dhcp::ntpservers: "%{hiera('ntp::servers')}"
 dhcp::dnsdomain:
   - wrs.com
 dhcp::interface: 'eth0'
