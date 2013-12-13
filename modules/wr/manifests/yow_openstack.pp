@@ -37,7 +37,7 @@ class wr::yow_openstack {
 
     #setup cinder service on controller to use netapp
     cinder_config {
-      'DEFAULT/enabled_backends': value => "netapp,lvm-${::hostname}";
+      'DEFAULT/enabled_backends': value => "lvm-${::hostname}";
       'DEFAULT/scheduler_host_manager': value => 'cinder.scheduler.host_manager.HostManager';
       'netapp/volume_driver': value => 'cinder.volume.drivers.netapp.nfs.NetAppDirect7modeNfsDriver';
       'netapp/netapp_server_hostname': value => '172.17.137.11';
