@@ -15,7 +15,7 @@ class role::provisioner {
   if $::hostname == 'yow-lpd-provision' {
     include dhcp
 
-    concat::fragment { 'dhcp-conf-extra':
+    concat::fragment { 'dhcp-conf-omapi':
       target  => "${dhcp::dhcp_dir}/dhcpd.conf",
       content => 'omapi-port 7911;',
       order   => 80,
