@@ -27,5 +27,9 @@ class role::provisioner {
       range   => '128.224.194.95 128.224.194.99',
       gateway => '128.224.194.1',
     }
+
+    dhcp::host {
+      'yow-lpgbld-apc3': mac => '00:c0:b7:60:11:e6', ip => '128.224.194.252';
+    }
   }
 }
