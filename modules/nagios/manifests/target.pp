@@ -45,7 +45,6 @@ class nagios::target {
   }
 
   $nsca_server=hiera('nsca')
-  $min=fqdn_rand(10)
 
   cron {
     'nsca_ntp_check':

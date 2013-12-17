@@ -24,6 +24,7 @@ class nagios::nsca::client {
   }
 
   package { $nsca_package: ensure => installed }
+  Class['wr::common::repos'] -> Class['nagios::nsca::client']
 
   file {
     '/etc/nagios/send_nsca.cfg':
