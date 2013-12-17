@@ -211,12 +211,22 @@ result=$?
 [ -z "$quiet_mode" ] && echo "$output"
 output="`echo $output | sed 's/%/%%/g'`"
 
-send_output=`printf "$host\t$service\t$result\t$output\n" | $send_nsca -H $nagios_server -c $send_nsca_config 2>&1`
-send_result=$?
-[ -z "$quiet_mode" ] && echo "Sending to NSCA daemon: $send_output"
+#filter out invalid input to reduce nagios spam
+case "$output" in
+    *"TIMEOUT"* ) valid_output=0;;
+    *"UNKNOWN"* ) valid_output=0;;
+    * ) valid_output=1;;
+esac
 
-if [ -n "$return_plugin_code" ]; then
-    exit "$result"
+if [ "$valid_output" == "1" ]; then
+    send_output=`printf "$host\t$service\t$result\t$output\n" | $send_nsca -H $nagios_server -c $send_nsca_config 2>&1`
+    send_result=$?
+    [ -z "$quiet_mode" ] && echo "Sending to NSCA daemon: $send_output"
+    if [ -z "$return_plugin_code" ]; then
+        exit "$send_result"
+    fi
 else
-    exit "$send_result"
+    [ -z "$quiet_mode" ] && echo "Discarding invalid output."
 fi
+exit "$result"
+
