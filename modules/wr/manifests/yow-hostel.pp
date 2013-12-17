@@ -1,23 +1,7 @@
 #
 class wr::yow-hostel {
 
-  case $::operatingsystem {
-    Debian,Ubuntu: { $base_class='debian' }
-    CentOS,RedHat,Fedora: { $base_class='redhat' }
-    OpenSuSE,SLED: { $base_class='suse'}
-    default: { fail("Unsupported OS: ${::operatingsystem}")}
-  }
-
-  class { $base_class: }
-  -> class { 'wr::common': }
-  -> class { 'wr::mcollective': }
-  -> class { 'puppet': }
-  -> class { 'nrpe': }
-  -> class { 'nis': }
-  -> class { 'yocto': }
-  -> class { 'nx': }
-  -> class { 'nagios::target': }
-  -> class { 'sudo': }
+  include profile::nxbuilder
 
   user {
     'root':
