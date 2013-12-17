@@ -37,6 +37,12 @@ class mcollective::server::package(
         require => Anchor['mcollective::server::package::begin'],
         before  => Anchor['mcollective::server::package::end'],
       }
+    } 'Suse': {
+      class { 'mcollective::server::package::suse':
+        version => $version,
+        require => Anchor['mcollective::server::package::begin'],
+        before  => Anchor['mcollective::server::package::end'],
+      }
     }
     default: {}
   }
