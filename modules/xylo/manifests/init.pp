@@ -61,7 +61,7 @@ class xylo {
 
   case $::hostname {
     /^pek-blade17.*/:     { include xylo::master }
-    /^pek-blade(18|19|20|21).*/: { include xylo::slave }
+    /^pek-blade(18|19|20).*/: { include xylo::slave }
     default:           { fail("Unsupported xylo configuration for ${::hostname}") }
   }
 
