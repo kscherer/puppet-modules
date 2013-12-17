@@ -17,7 +17,7 @@ class nagios::nsca::client {
 
   if $::operatingsystem == 'Ubuntu' and $::operatingsystemrelease == '10.04' {
     $nsca_package = 'nsca'
-  } elsif $::operatingsystem == 'OpenSuse' {
+  } elsif $::operatingsystem == 'OpenSuse' and $::lsbmajdistrelease < '13' {
     $nsca_package = 'nagios-nsca-client'
   } else {
     $nsca_package = 'nsca-client'
