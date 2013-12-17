@@ -13,9 +13,11 @@ class profile::nxbuilder inherits profile::nis {
       content => 'This machine is reserved for WR Linux coverage builds.';
   }
 
-  user {
-    'root':
-      password => '$1$5VSxF7IZ$.yx57bNrz.RCFQRnz3KYV0';
+  if 'blade' in $::hostname {
+    user {
+      'root':
+        password => '$1$5VSxF7IZ$.yx57bNrz.RCFQRnz3KYV0';
+    }
   }
 
   if $::osfamily == 'RedHat' and $::lsbmajdistrelease == '5' {
