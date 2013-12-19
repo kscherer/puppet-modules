@@ -16,3 +16,4 @@ packages:
   - python-curses
   - python-xml
   - libsqlite3-0
+  - glibc-locale
