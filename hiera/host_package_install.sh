@@ -34,16 +34,16 @@ U1204_i686='texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-d
 U1204_x86_64='libc6:i386 libc6-dev-i386 libncurses5:i386 texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 bash xz-utils screen'
 
 #OpenSuSE 11.4 i386
-OS114_i686='chrpath diffstat subversion Mesa Mesa-devel make libSDL-devel texinfo gawk gcc gcc-c++ help2man patch python-curses python-xml libsqlite3-0 git python-gtk xz screen'
+OS114_i686='chrpath diffstat subversion Mesa Mesa-devel make libSDL-devel texinfo gawk gcc gcc-c++ help2man patch python-curses python-xml libsqlite3-0 glibc-locale git python-gtk xz screen'
 
 #OpenSuSE 11.4 x86_64
-OS114_x86_64='gcc-32bit libncurses5-32bit chrpath diffstat subversion Mesa Mesa-devel make libSDL-devel texinfo gawk gcc gcc-c++ help2man patch python-curses python-xml libsqlite3-0 git python-gtk xz screen'
+OS114_x86_64='gcc-32bit libncurses5-32bit chrpath diffstat subversion Mesa Mesa-devel make libSDL-devel texinfo gawk gcc gcc-c++ help2man patch python-curses python-xml libsqlite3-0 glibc-locale git python-gtk xz screen'
 
 #OpenSuSE 12.1 i386
-OS121_i686='chrpath diffstat subversion Mesa Mesa-devel make libSDL-devel texinfo gawk gcc gcc-c++ help2man patch python-curses python-xml libsqlite3-0 git python-gtk xz screen'
+OS121_i686='chrpath diffstat subversion Mesa Mesa-devel make libSDL-devel texinfo gawk gcc gcc-c++ help2man patch python-curses python-xml libsqlite3-0 glibc-locale git python-gtk xz screen'
 
 #OpenSuSE 12.1 x86_64
-OS121_x86_64='gcc-32bit libncurses5-32bit chrpath diffstat subversion Mesa Mesa-devel make libSDL-devel texinfo gawk gcc gcc-c++ help2man patch python-curses python-xml libsqlite3-0 git python-gtk xz screen'
+OS121_x86_64='gcc-32bit libncurses5-32bit chrpath diffstat subversion Mesa Mesa-devel make libSDL-devel texinfo gawk gcc gcc-c++ help2man patch python-curses python-xml libsqlite3-0 glibc-locale git python-gtk xz screen'
 
 #SLED 11 SP2 i386 (requires SLE 11 SP2 SDK)
 SLED112_i686='make texinfo gawk gcc gcc-c++ patch diffstat subversion chrpath Mesa-devel SDL-devel python-curses git python-gtk xz screen'
