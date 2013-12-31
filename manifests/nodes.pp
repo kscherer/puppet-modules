@@ -42,6 +42,16 @@ node /yow-blade.*.wrs.com/ {
   include collectd
 }
 
+# Run sync on 4 yow-blades to verify if this helps to:
+# WIND00444184 - Bitbake failures on overloaded systems with older kernels
+node /yow-blade(10|11|12|13).wrs.com/ {
+  cron{
+    'Run_sync_every_60s':
+      command => "/bin/sync",
+      user    => nxadm,
+  }
+}
+
 #test buildbot cluster
 node /yow-lpgbld-[0-2][0-9]\.wrs\.com/ {
   class { 'wr::yow-buildbot-slave': }
