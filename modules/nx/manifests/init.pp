@@ -231,6 +231,13 @@ class nx {
     ensure_resource('package', 'vim-enhanced', {'ensure' => 'installed' })
   }
 
+  #Builders have occasional lock ups due to high IO. Setup workaround
+  #Based on recommendation here:
+  #http://blog.ronnyegner-consulting.de/2011/10/13/info-task-blocked-for-more-than-120-seconds/
+  if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '5' {
+    sysctl::value { 'vm.dirty_ratio': value => '10'}
+  }
+
   #Needed for ccache testing
   ensure_resource('package', 'ccache', {'ensure' => 'installed' })
 
