@@ -1,6 +1,6 @@
 #
 class wr::ala-lpd-rcpl {
-  include profile::nxbuilder
+  include profile::nis
 
   include git::service
   include git::cgit
