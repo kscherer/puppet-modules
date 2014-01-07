@@ -165,9 +165,15 @@ class nx {
       group   => root,
       mode    => '0644',
       content => '* soft nproc 5000';
-    '/buildarea':
-      ensure => directory,
-      mode   => '0777';
+  }
+
+  #on ala-lpd-test machines /buildarea is a link to /data
+  if not( 'ala-lpd-test' in $::hostname ) {
+    file {
+      '/buildarea':
+        ensure => directory,
+        mode   => '0777';
+    }
   }
 
   #
