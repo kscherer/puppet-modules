@@ -1,10 +1,7 @@
 #
 class wr::yow-lpgbuild inherits wr::yow-common {
 
-  Class['redhat'] -> Class['yocto']
-
-  class { 'yocto': }
-  -> class { 'nx': }
+  include profile::nxbuilder
 
   user {
     'root':
