@@ -1,5 +1,5 @@
 #
-class wr::yow-lpgbuild inherits wr::yow-common {
+class wr::yow-lpgbuild {
 
   include profile::nxbuilder
 
