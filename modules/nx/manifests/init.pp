@@ -168,7 +168,7 @@ class nx {
   }
 
   #on ala-lpd-test machines /buildarea is a link to /data
-  if not( 'ala-lpd-test' in $::hostname ) {
+  if ! 'ala-lpd-test' in $::hostname {
     file {
       '/buildarea':
         ensure => directory,
