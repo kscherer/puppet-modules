@@ -176,6 +176,16 @@ function fn_exists()
 #search through all the per tty history files
 function hg() { grep $1 ~/.history/*; }
 
+#full process grep
+function pg() {
+    local PIDS=$(pgrep --delimeter , --full "$1")
+    if [ -n $PIDS ]; then
+        ps -wwo pid,args -p $PIDS
+    else
+        return 1
+    fi
+}
+
 #delete the offending line from the known hosts file
 function sshhostrm()
 {

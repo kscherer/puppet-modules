@@ -40,8 +40,6 @@ alias path='echo -e ${PATH//:/\\n}'
 alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
 alias du='du -kh'       # Makes a more readable output.
 alias df='df -kTh'
-alias pg='ps -eao pid,command -u $USER | grep'
-alias pag='ps -eao pid,command | grep '
 alias ec='emacsclient --no-wait'
 
 alias ack='ack-grep'
