@@ -156,6 +156,7 @@ node 'msp-shared1.wrs.com' {
 node 'splat.wrs.com' {
   include puppet
   include git
+  include git::service
   include git::wr_bin_repo
   include git::grokmirror::mirror
 }
