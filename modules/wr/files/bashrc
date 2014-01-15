@@ -178,7 +178,7 @@ function hg() { grep $1 ~/.history/*; }
 
 #full process grep
 function pg() {
-    local PIDS=$(pgrep --delimeter , --full "$1")
+    local PIDS=$(pgrep -d , -f "$1")
     if [ -n "$PIDS" ]; then
         ps -wwo pid,args -p $PIDS
     else
