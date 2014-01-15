@@ -12,6 +12,7 @@ class nis {
     /^pek.*$/ => ['128.224.160.15'],
     /^ala.*$/ => ['ala-adnis1','ala-adnis2'],
     /^yow.*$/ => ['yow-adnis1','yow-adnis2'],
+    /^bos.*$/ => ['bos-adnis1.wrs.com'],
   }
 
   if $::operatingsystem == 'Ubuntu' {
