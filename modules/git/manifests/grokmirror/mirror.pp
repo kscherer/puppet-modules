@@ -85,5 +85,6 @@ class git::grokmirror::mirror(
       missingok    => true,
       ifempty      => false,
       dateext      => true,
+      compress     => true,
   }
 }

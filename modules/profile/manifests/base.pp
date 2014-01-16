@@ -22,21 +22,3 @@ class profile::base {
     Class['wr::common::repos'] -> Class['redhat::autoupdate']
   }
 }
-
-#
-class profile::git::base inherits profile::nis {
-
-  include git::service
-  Class['wr::common::repos'] -> Class['git']
-}
-
-#
-class profile::git::master inherits profile::git::base {
-  include git::grokmirror::master
-}
-
-#
-class profile::git::mirror inherits profile::git::base {
-  include git::wr_bin_repo
-  include git::grokmirror::mirror
-}

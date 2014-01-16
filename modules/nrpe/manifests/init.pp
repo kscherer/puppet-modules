@@ -134,5 +134,8 @@ class nrpe {
     'check_openmanage':
       command    => 'check_openmanage',
       parameters => '--state --extinfo --vdisk-critical --timeout=60';
+    'check_grokmirror_log':
+      command    => 'check_file_age',
+      parameters => '-w 300  -c 600 -f /git/log/ala-git.wrs.com.log';
   }
 }
