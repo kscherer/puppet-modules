@@ -10,6 +10,9 @@ class nagios::servicegroup(
     'dell-servers':
       servicegroup_name => 'dell-servers',
       alias             => 'Dell Servers';
+    'git-mirrors':
+      servicegroup_name => 'git-mirrors',
+      alias             => 'Grokmirror mirrors';
   }
 
   #make sure that entries no longer in storedconfigs are cleaned out

@@ -7,7 +7,7 @@ class git::grokmirror::monitor {
       use                 => 'passive-service',
       service_description => 'Grokmirror run check',
       host_name           => $::fqdn,
-      servicegroups       => 'grokmirror',
+      servicegroups       => 'git-mirrors',
   }
 
   $nsca_server=hiera('nsca')
