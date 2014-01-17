@@ -72,6 +72,10 @@ class git::grokmirror::mirror(
       ensure  => present,
       command => "${python} /git/grokmirror/grok-pull.py --config /git/repos.conf > /dev/null 2>&1",
       user    => 'git';
+    'mirror-kernels':
+      command => 'MIRROR=ala-git.wrs.com /git/bin/mirror-kernels',
+      user    => 'git',
+      minute  => 30;
   }
 
   include logrotate::base
@@ -85,6 +89,15 @@ class git::grokmirror::mirror(
       missingok    => true,
       ifempty      => false,
       dateext      => true,
-      compress     => true,
+      compress     => true;
+    'git_cron_log':
+      path         => "${toplevel}/cron.log",
+      rotate       => 7,
+      rotate_every => 'day',
+      olddir       => "${toplevel}/log",
+      missingok    => true,
+      ifempty      => false,
+      dateext      => true,
+      compress     => true;
   }
 }

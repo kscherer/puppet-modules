@@ -62,26 +62,26 @@ class wr::ala-lpd-rcpl {
 
   cron {
     'mirror-update-5min':
+      ensure      => absent,
       command     => 'MIRROR=ala-git.wrs.com /git/bin/mirror-update 5mins',
       environment => $env,
       user        => 'git',
       minute      => [ 3,8,13,18,23,28,33,38,43,48,53 ];
     'mirror-update-hourly':
+      ensure  => absent,
       command => 'MIRROR=ala-git.wrs.com /git/bin/mirror-update hourly 5mins',
       user    => 'git',
       minute  => 56,
       hour    => ['1-23'];
-    'mirror-kernels':
-      command => 'MIRROR=ala-git.wrs.com /git/bin/mirror-kernels',
-      user    => 'git',
-      minute  => 30;
     'mirror-repositories':
+      ensure  => absent,
       command => 'MIRROR=ala-git.wrs.com /git/bin/mirror-repository 5mins hourly',
       user    => 'git',
       minute  => 56,
       hour    => 0,
       weekday => ['1-6'];
     'mirror-truncate':
+      ensure  => absent,
       command => 'MIRROR=ala-git.wrs.com /git/bin/mirror-truncate-log',
       user    => 'git',
       minute  => 56,
