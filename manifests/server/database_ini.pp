@@ -1,4 +1,4 @@
-# This class manages puppetdb's `database.ini` file.
+# PRIVATE CLASS - do not use directly
 class puppetdb::server::database_ini(
   $database          = $puppetdb::params::database,
   $database_host     = $puppetdb::params::database_host,
@@ -6,6 +6,7 @@ class puppetdb::server::database_ini(
   $database_username = $puppetdb::params::database_username,
   $database_password = $puppetdb::params::database_password,
   $database_name     = $puppetdb::params::database_name,
+  $database_ssl      = $puppetdb::params::database_ssl,
   $node_ttl          = $puppetdb::params::node_ttl,
   $node_purge_ttl    = $puppetdb::params::node_purge_ttl,
   $report_ttl        = $puppetdb::params::report_ttl,
@@ -46,7 +47,11 @@ class puppetdb::server::database_ini(
   } elsif $database == 'postgres' {
     $classname = 'org.postgresql.Driver'
     $subprotocol = 'postgresql'
-    $subname = "//${database_host}:${database_port}/${database_name}"
+
+    $subname = $database_ssl ? {
+      true    => "//${database_host}:${database_port}/${database_name}?ssl=true",
+      default => "//${database_host}:${database_port}/${database_name}",
+    }
 
     ##Only setup for postgres
     ini_setting {'puppetdb_psdatabase_username':
