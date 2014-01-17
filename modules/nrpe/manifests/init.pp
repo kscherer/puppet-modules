@@ -67,6 +67,17 @@ class nrpe {
       path   => "${defaultdir}/check_puppet.rb",
       source => 'puppet:///modules/nrpe/check_puppet.rb',
       mode   => '0755';
+    #This is the perl script that checks log files for specific strings
+    'check_logfiles':
+      ensure => 'present',
+      path   => "${defaultdir}/check_logfiles",
+      source => 'puppet:///modules/nrpe/check_logfiles',
+      mode   => '0755';
+    #This is the config file for using check_logfiles on grokmirror logs
+    "${nrpe::nrpe_dir}/grokmirror.cfg":
+      ensure => 'present',
+      source => 'puppet:///modules/nrpe/grokmirror.cfg',
+      mode   => '0644';
   }
 
   case $::operatingsystem {
@@ -137,5 +148,8 @@ class nrpe {
     'check_grokmirror_log':
       command    => 'check_file_age',
       parameters => '-w 300  -c 600 -f /git/log/ala-git.wrs.com.log';
+    'check_grokmirror_log_errors':
+      command    => 'check_logfiles',
+      parameters => "--config ${nrpe::nrpe_dir}/grokmirror.cfg";
   }
 }
