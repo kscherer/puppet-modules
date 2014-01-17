@@ -14,7 +14,7 @@ class git::grokmirror::monitor {
 
   cron {
     'nsca_grokmirror_check':
-      command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper -H ${::fqdn} -S 'Passive NTP' -N ${nsca_server} -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_grokmirror_log.sh -q",
+      command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper -H ${::fqdn} -S 'Grokmirror run check' -N ${nsca_server} -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_grokmirror_log.sh -q",
       user    => 'nagios',
       minute  => '*/5';
   }
