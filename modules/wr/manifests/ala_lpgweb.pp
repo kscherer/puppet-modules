@@ -26,7 +26,7 @@ class wr::ala_lpgweb {
       ensure     => present,
       groups     => 'rq',
       home       => '/home/rq',
-      shell      => 'bin/bash',
+      shell      => '/bin/bash',
       managehome => true,
       password   => '$6$YTdVKDWvBu6$6ptIEV1e5cAKCq8weSWXEMwJugEq/xzG0.WzNDSHTSk5QbQUJy4bDPYPwU1ZE8jBkGiOzPrUogwSvS1dBbyuU0';
   }
