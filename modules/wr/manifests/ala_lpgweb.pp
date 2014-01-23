@@ -64,6 +64,22 @@ class wr::ala_lpgweb {
       source => 'puppet:///modules/wr/aliases';
     '/home/rq/.bash_profile':
       ensure  => present,
+      owner   => 'rq',
+      group   => 'rq',
       content => 'if [ -f $HOME/.bashrc ]; then source $HOME/.bashrc; fi';
+  }
+
+  #This installs python-pip
+  include python
+
+  python::pip {
+    'rq':
+      ensure       => present,
+      owner        => 'rq',
+      install_args => '--user';
+    'rq-dashboard':
+      ensure       => present,
+      owner        => 'rq',
+      install_args => '--user';
   }
 }

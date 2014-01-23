@@ -51,7 +51,7 @@ define python::pip (
     fail('python::pip: virtualenv parameter must not be empty')
   }
 
-  if $virtualenv == 'system' and $owner != 'root' {
+  if $virtualenv == 'system' and $owner != 'root' and $install_args !~ /--user/ {
     fail('python::pip: root user must be used when virtualenv is system')
   }
 
