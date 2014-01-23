@@ -16,4 +16,7 @@ class wr::ala_lpgweb {
   ensure_resource('package', 'libnet-ldap-perl', {'ensure' => 'latest'})
   ensure_resource('package', 'liblocale-subcountry-perl', {'ensure' => 'latest'})
   ensure_resource('package', 'libspreadsheet-read-perl', {'ensure' => 'latest'})
+
+  #setup redis for python-rq
+  include redis
 }
