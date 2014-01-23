@@ -76,10 +76,12 @@ class wr::ala_lpgweb {
     'rq':
       ensure       => present,
       owner        => 'rq',
+      environment  => 'HOME=/home/rq',
       install_args => '--user';
     'rq-dashboard':
       ensure       => present,
       owner        => 'rq',
+      environment  => 'HOME=/home/rq',
       install_args => '--user';
   }
 }
