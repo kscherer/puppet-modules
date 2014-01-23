@@ -56,7 +56,7 @@ define python::pip (
   }
 
   $cwd = $virtualenv ? {
-    'system' => '/',
+    'system' => '\$HOME',
     default  => $virtualenv,
   }
 
