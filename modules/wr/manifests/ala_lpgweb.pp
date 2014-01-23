@@ -77,11 +77,11 @@ class wr::ala_lpgweb {
       ensure       => present,
       owner        => 'rq',
       environment  => 'HOME=/home/rq',
-      install_args => '--user';
+      install_args => '--user --build=/home/rq/.pip/build';
     'rq-dashboard':
       ensure       => present,
       owner        => 'rq',
       environment  => 'HOME=/home/rq',
-      install_args => '--user';
+      install_args => '--user --build=/home/rq/.pip/build';
   }
 }
