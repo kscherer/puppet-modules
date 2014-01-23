@@ -83,5 +83,21 @@ class wr::ala_lpgweb {
       owner        => 'rq',
       environment  => 'HOME=/home/rq',
       install_args => '--user --build=/home/rq/.pip/build';
+    'jira-python':
+      ensure       => present,
+      owner        => 'rq',
+      environment  => 'HOME=/home/rq',
+      install_args => '--user --build=/home/rq/.pip/build';
+  }
+
+  #Setup supervisord to monitor worker process
+  include supervisord
+
+  supervisord::program { 'rqworker':
+    command    => '/home/rq/.local/bin/rqworker jira-git',
+    user       => 'rq',
+    numprocs   => '1',
+    stopsignal => 'TERM',
+    directory  => '/home/rq/wr-jira-integration';
   }
 }
