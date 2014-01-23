@@ -93,11 +93,16 @@ class wr::ala_lpgweb {
   #Setup supervisord to monitor worker process
   include supervisord
 
-  supervisord::program { 'rqworker':
-    command    => '/home/rq/.local/bin/rqworker jira-git',
-    user       => 'rq',
-    numprocs   => '1',
-    stopsignal => 'TERM',
-    directory  => '/home/rq/wr-jira-integration';
+  supervisord::program {
+    'rqworker':
+      command    => '/home/rq/.local/bin/rqworker jira-git',
+      user       => 'rq',
+      numprocs   => '1',
+      directory  => '/home/rq/wr-jira-integration';
+    'rq-dashboard':
+      command    => '/home/rq/.local/bin/rq-dashboard',
+      user       => 'rq',
+      numprocs   => '1',
+      directory  => '/home/rq/';
   }
 }
