@@ -247,6 +247,7 @@ class nx {
   #http://blog.ronnyegner-consulting.de/2011/10/13/info-task-blocked-for-more-than-120-seconds/
   if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '5' {
     sysctl::value { 'vm.dirty_ratio': value => '10'}
+    sysctl::value { 'vm.dirty_background_ratio': value => '5'}
   }
 
   #Needed for ccache testing
