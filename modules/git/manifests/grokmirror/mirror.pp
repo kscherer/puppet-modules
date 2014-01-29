@@ -91,7 +91,7 @@ class git::grokmirror::mirror(
       dateext      => true,
       compress     => true;
     'git_cron_log':
-      path         => "${toplevel}/cron.log",
+      path         => "${toplevel}/cron-kernels.log",
       rotate       => 7,
       rotate_every => 'day',
       olddir       => "${toplevel}/log",
