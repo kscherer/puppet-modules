@@ -1,14 +1,7 @@
 #
 class wr::yow-buildbot-slave inherits wr::mcollective {
 
-  case $::operatingsystem {
-    Debian,Ubuntu: { $base_class='debian' }
-    CentOS,RedHat,Fedora: { $base_class='redhat' }
-    OpenSuSE,SLED: { $base_class='suse'}
-    default: { fail("Unsupported OS: $::operatingsystem")}
-  }
-
-  class { $base_class: }
+  class { 'wr::common::repos': }
   -> class { 'puppet': }
   -> class { 'nrpe': }
   -> class { 'nis': }
