@@ -8,42 +8,40 @@ class debian::debian( $mirror_base ) {
       require => Apt::Source['debian_mirror_stable'];
   }
 
-  #Try to get all debian machines to stable
-  class { 'apt::release' : release_id => 'stable' }
+  #base all debian machines on wheezy
+  class { 'apt::release' : release_id => 'wheezy' }
 
   #Sources are managed by puppet only
   class {'apt': purge_sources_list => true }
 
   apt::source {
-    'debian_mirror_stable':
+    'debian_mirror_wheezy':
       location    => "${mirror_base}/debian",
-      release     => 'stable',
+      release     => 'wheezy',
       repos       => 'main contrib non-free',
       include_src => false;
-    'yow_apt_mirror':
-      ensure      => absent,
-      location    => "${mirror_base}/apt",
-      release     => 'squeeze',
-      include_src => false,
-      repos       => 'main';
+    'debian_mirror_wheezy_updates':
+      location    => "${mirror_base}/debian",
+      release     => 'wheezy-updates',
+      repos       => 'main contrib non-free',
+      include_src => false;
+    'debian_mirror_wheezy_security':
+      location    => 'http://security.debian.org/',
+      release     => 'wheezy/updates',
+      repos       => 'main contrib non-free',
+      include_src => false;
     'yow_puppetlabs_mirror':
       location    => "${mirror_base}/puppetlabs/apt",
-      release     => $::lsbdistcodename,
+      release     => 'wheezy',
       include_src => false,
       repos       => 'main dependencies';
   }
 
   apt::source {
-    'debian_mirror_testing':
+    'debian_mirror_jessie':
       ensure      => absent,
       location    =>  "${mirror_base}/debian",
-      release     => 'testing',
-      include_src => false,
-      repos       => 'main contrib non-free';
-    'debian_mirror_unstable':
-      ensure      => absent,
-      location    =>  "${mirror_base}/debian",
-      release     => 'unstable',
+      release     => 'jessie',
       include_src => false,
       repos       => 'main contrib non-free';
   }
