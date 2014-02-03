@@ -41,7 +41,6 @@ class debian::debian( $mirror_base ) {
 
   apt::source {
     'debian_mirror_jessie':
-      ensure      => absent,
       location    =>  "${mirror_base}/debian",
       release     => 'jessie',
       include_src => false,
