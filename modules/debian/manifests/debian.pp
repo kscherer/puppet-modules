@@ -5,7 +5,7 @@ class debian::debian( $mirror_base ) {
   package {
     [ 'yum', 'python-simplejson', 'parted' ]:
       ensure  => installed,
-      require => Apt::Source['debian_mirror_stable'];
+      require => Apt::Source['debian_mirror_wheezy'];
   }
 
   #base all debian machines on wheezy
