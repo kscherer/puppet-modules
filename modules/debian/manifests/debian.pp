@@ -15,6 +15,8 @@ class debian::debian( $mirror_base ) {
   class {'apt': purge_sources_list => true }
 
   apt::source {
+    'debian_mirror_stable':
+      ensure      => absent;
     'debian_mirror_wheezy':
       location    => "${mirror_base}/debian",
       release     => 'wheezy',
