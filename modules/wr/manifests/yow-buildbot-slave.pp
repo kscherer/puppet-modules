@@ -2,6 +2,7 @@
 class wr::yow-buildbot-slave inherits wr::mcollective {
 
   class { 'wr::common::repos': }
+  -> class { 'wr::common::ssh_root_keys': }
   -> class { 'puppet': }
   -> class { 'nrpe': }
   -> class { 'nis': }
