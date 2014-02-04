@@ -5,7 +5,8 @@ class git::package {
   if $::osfamily == 'RedHat' and $::lsbmajdistrelease == '5' {
     redhat::yum_repo {
       'git':
-        ensure => absent;
+        ensure  => absent,
+        baseurl => 'http://yow-mirror.wrs.com/mirror/git/5';
     }
   }
 
