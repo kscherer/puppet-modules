@@ -15,5 +15,6 @@ class profile::nis inherits profile::monitored {
   }
 
   Class['wr::common::repos'] -> Class['::nis']
+  Class['wr::common::repos'] -> Class['nfs']
   Class['wr::common::repos'] -> Class['sudo']
 }
