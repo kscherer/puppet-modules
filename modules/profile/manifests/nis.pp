@@ -14,6 +14,6 @@ class profile::nis inherits profile::monitored {
       source  => 'puppet:///modules/wr/sudoers.d/scmg';
   }
 
-  Class['wr::common::repos'] -> Class['nis']
+  Class['wr::common::repos'] -> Class['::nis']
   Class['wr::common::repos'] -> Class['sudo']
 }
