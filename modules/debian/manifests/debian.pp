@@ -55,5 +55,5 @@ class debian::debian( $mirror_base ) {
   }
 
   #lsb facts require the following
-  ensure_resource('package', 'lsb-core', {'ensure' => 'installed' })
+  ensure_resource('package', 'lsb-release', {'ensure' => 'installed' })
 }
