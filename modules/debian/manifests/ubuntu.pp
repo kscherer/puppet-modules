@@ -31,7 +31,7 @@ class debian::ubuntu (
       repos       => 'main dependencies';
   }
 
-  if $::lsbmajdistrelease >= 12 {
+  if $::lsbmajdistrelease == 12 {
     apt::ppa { 'ppa:kmscherer/collectd': }
   }
 
