@@ -76,6 +76,11 @@ class git::grokmirror::mirror(
       command => 'MIRROR=ala-git.wrs.com /git/bin/mirror-kernels',
       user    => 'git',
       minute  => 30;
+    'force_grok_pull':
+      ensure  => present,
+      command => "${python} /git/grokmirror/grok-pull.py --config /git/repos.conf --force > /dev/null 2>&1",
+      user    => 'git',
+      minute  => fqdn_rand(60);
   }
 
   include logrotate::base
