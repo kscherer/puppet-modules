@@ -93,6 +93,7 @@ class nis {
   $isRedHat5 = $::osfamily == 'RedHat' and $::operatingsystemrelease =~ /^5.*/
   $isUbuntu1004 = $::operatingsystem == 'Ubuntu' and $::operatingsystemrelease == '10.04'
   $isUbuntu12 = $::operatingsystem == 'Ubuntu' and $::operatingsystemrelease >= '12'
+                  and $::operatingsystemrelease < '13.10'
 
   if $isRedHat5 or $isUbuntu1004 {
     $rpc_package = 'portmap'
