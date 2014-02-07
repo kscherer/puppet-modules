@@ -1,14 +1,9 @@
 #
 class wr::yow-buildbot-slave inherits wr::mcollective {
 
-  class { 'wr::common::repos': }
-  -> class { 'wr::common::ssh_root_keys': }
-  -> class { 'puppet': }
-  -> class { 'nrpe': }
-  -> class { 'nis': }
-  -> class { 'yocto': }
-  -> class { 'buildbot::slave': }
-  -> class { 'nagios::target': }
+  include profile::nis
+  include yocto
+  include buildbot::slave
 
   user {
     'root':
