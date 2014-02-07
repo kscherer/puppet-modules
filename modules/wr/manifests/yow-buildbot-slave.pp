@@ -5,6 +5,8 @@ class wr::yow-buildbot-slave inherits wr::mcollective {
   include yocto
   include buildbot::slave
 
+  Class['wr::common::repos'] -> Class['yocto']
+
   user {
     'root':
       password =>
