@@ -58,3 +58,5 @@ alias yow-mirror='ssh svc-mirror@yow-lpggp1'
 alias ala-mirror='ssh svc-mirror@ala-lpggp4'
 alias yow-puppet='ssh root@yow-lpd-puppet'
 alias ala-puppet='ssh root@ala-lpd-puppet'
+
+alias pat='puppet agent --test'
