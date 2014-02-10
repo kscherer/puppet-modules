@@ -78,7 +78,7 @@ class git::grokmirror::mirror(
       minute  => 30;
     'force_grok_pull':
       ensure  => present,
-      command => "${python} /git/grokmirror/grok-pull.py --config /git/repos.conf --force > /dev/null 2>&1",
+      command => "sleep 15; ${python} /git/grokmirror/grok-pull.py --config /git/repos.conf --force > /dev/null 2>&1",
       user    => 'git',
       minute  => fqdn_rand(60);
   }
