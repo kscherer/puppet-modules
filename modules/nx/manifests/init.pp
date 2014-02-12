@@ -177,10 +177,9 @@ class nx {
   }
 
   #
-  define nx::script( $ensure = 'present') {
+  define nx::script() {
     file {
       $name:
-        ensure  => $ensure,
         path    => "/home/nxadm/bin/${name}",
         mode    => '0755',
         source  => "puppet:///modules/nx/${name}",
@@ -193,13 +192,9 @@ class nx {
       'pull-toolchain.sh','send_stats_to_graphite.sh',
       'cleanup-sstate-cache.sh']:
   }
-  nx::script {
-    'sstate-cache-management.sh':
-      ensure => absent;
-  }
 
   file {
-    '/home/nxadm/bin/ice_check.sh':
+    '/home/nxadm/bin/sstate-cache-management.sh':
       ensure => absent;
   }
 
