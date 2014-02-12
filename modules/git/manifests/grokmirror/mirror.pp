@@ -7,7 +7,8 @@ class git::grokmirror::mirror(
   $default_owner = 'Grokmirror',
   $log_level = 'info',
   $include = '*',
-  $exclude = undef
+  $exclude = undef,
+  $pull_threads = '5'
 ) {
 
   include git::grokmirror::base
@@ -57,7 +58,7 @@ class git::grokmirror::mirror(
     "${site}/exclude":
       value   => $exclude;
     "${site}/pull_threads":
-      value   => '2';
+      value   => $pull_threads;
   }
 
   if $::osfamily == 'RedHat' and $::lsbmajdistrelease == '5' {
