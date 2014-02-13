@@ -230,7 +230,7 @@ class nx {
       require => User[ 'nxadm' ];
     #Clean out the sstate cache to avoid running out of disk
     'clean_sstate_cache':
-      command => "if [ -d ${sstate_dir} ]; then cd /home/nxadm/bin; ./clean-sstate-cache.sh; fi",
+      command => "if [ -d ${sstate_dir} ]; then cd /home/nxadm/bin; ./cleanup-sstate-cache.sh; fi",
       user    => nxadm,
       weekday => '*',
       hour    => 20,
