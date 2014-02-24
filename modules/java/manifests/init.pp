@@ -22,9 +22,9 @@ class java(
   anchor { 'java::begin': }
   anchor { 'java::end': }
 
-  case $operatingsystem {
+  case $::osfamily {
 
-    centos, redhat, oel: {
+    RedHat: {
 
       class { 'java::package_redhat':
         version      => $version,
@@ -35,7 +35,7 @@ class java(
 
     }
 
-    debian, ubuntu: {
+    Debian: {
 
       $distribution_debian = $distribution ? {
         jdk => 'sun-java6-jdk',
@@ -51,7 +51,7 @@ class java(
     }
 
     default: {
-      fail("operatingsystem $operatingsystem is not supported")
+      fail("operatingsystem ${::operatingsystem} is not supported")
     }
 
   }

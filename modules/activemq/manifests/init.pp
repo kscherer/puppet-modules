@@ -77,6 +77,9 @@ class activemq(
     notify  => Class['activemq::service'],
   }
 
+  #If the java package is upgraded make sure activemq restarts
+  Package['java'] ~> Class['activemq::service']
+
   class { 'activemq::config':
     server_config  => $server_config_real,
     wrapper_config => $wrapper_config_real,
