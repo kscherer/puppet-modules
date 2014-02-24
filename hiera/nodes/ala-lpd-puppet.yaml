@@ -1,3 +1,15 @@
 ---
 mcollective::plugins::enable_registration_collection: true
-mcollective::client: true
+wr::mcollective::client: true
+wr::activemq::broker_name: ala-broker
+puppet::puppet_server: ala-lpd-puppet.wrs.com
+puppetdb::master::config::puppetdb_server: ala-lpd-puppet.wrs.com
+puppet::master: true
+puppet::autosign: true
+puppet::manifest: '$confdir/environments/$environment/manifests/site.pp'
+puppet::modulepath: '$confdir/environments/$environment/modules'
+puppet::puppet_passenger: true
+puppet::passenger_package: 'mod_passenger'
+puppet::passenger_ensure: 'present'
+puppet::storeconfigs: true
+puppet::storeconfigs_dbadapter: 'puppetdb'

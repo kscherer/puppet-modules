@@ -1,22 +1,31 @@
 #
 class wr::ala-lpd-puppet {
-  class {'wr::dns': }
-  -> class { 'redhat': }
-  -> class { 'ntp': }
-  -> class { 'wr::activemq': broker_name => 'ala-broker' }
-  -> class { 'wr::master': }
-  -> class { 'git::stomp_listener': }
-  -> class { 'graphite': }
+
+  include profile::monitored
+
+  include apache
+  include apache::mod::passenger
+  Class['wr::common::repos'] -> Class['apache']
+  Class['wr::common::repos'] -> Class['apache::mod::passenger']
+
+  include hiera
+  include puppetdb
+  include puppetdb::master::config
+  Class['wr::common::repos'] -> Class['puppetdb']
+  Class['wr::common::repos'] -> Class['hiera']
+  Class['puppetdb'] -> Class['puppetdb::master::config']
+
+
+  include git::stomp_listener
+  Class['wr::common::repos'] -> Class['git::stomp_listener']
 
   include apache::mod::wsgi
-
-  Class['redhat'] -> class { 'nrpe': }
+  include graphite
+  Class['apache::mod::wsgi'] -> Class['graphite']
 
   include nagios
-  include nagios::target
   include nagios::nsca::server
-
-  include wr::common::ssh_root_keys
+  Class['wr::mcollective'] -> Class['nagios']
 
   graphite::carbon::storage {
     'default_10s_for_2weeks':
@@ -32,6 +41,7 @@ class wr::ala-lpd-puppet {
       source  => 'puppet:///modules/wr/cpu-aggregation.conf';
   }
 
+  include wr::activemq
   include wr::foreman
   include collectd
 }
