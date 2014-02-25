@@ -1,1 +1,1 @@
-PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper -H <%= @::fqdn -%> -S 'Passive OpenManage' -N <%= @nsca_server -%> -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_openmanage.sh -q
+PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper -H <%= @fqdn -%> -S 'Passive OpenManage' -N <%= @nsca_server -%> -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_openmanage.sh -q
