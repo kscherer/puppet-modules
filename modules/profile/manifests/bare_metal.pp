@@ -17,9 +17,7 @@ class profile::bare_metal {
 
   cron {
     'nsca_openmanage_check':
-      command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper\
-        -H ${::fqdn} -S 'Passive OpenManage' -N ${nsca_server}\
-        -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_openmanage.sh -q",
+      command => template('nagios/nsca_openmanage_check.erb'),
       user    => 'nagios',
       minute  => $min;
   }
@@ -29,8 +27,7 @@ class profile::bare_metal {
   if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '5' {
     cron {
       'clear_nagios_semaphores':
-        command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin\
-          ipcs -s | grep nagios | cut -d' ' -f 2 | xargs -n 1 -d '\n' ipcrm -s",
+        command => template('nagios/cron_clear_nagios_semaphores.erb'),
         user    => 'root',
         weekday => 0,
         hour    => 0,
