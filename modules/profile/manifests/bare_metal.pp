@@ -32,7 +32,7 @@ class profile::bare_metal {
         command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin\
           ipcs -s | grep nagios | cut -d' ' -f 2 | xargs -n 1 -d '\n' ipcrm -s",
         user    => 'root',
-        day     => '0',
+        weekday => '0',
         hour    => '0',
         minute  => '0';
     }
