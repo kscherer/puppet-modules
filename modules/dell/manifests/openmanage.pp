@@ -72,7 +72,7 @@ class dell::openmanage {
           path    => '/opt/dell/srvadmin/etc/srvadmin-omilcore/install.ini',
           section => 'installed',
           setting => 'SNMP',
-          value   => 'enabled',
+          value   => 'enable',
           notify  => Service['dataeng'],
       }
     }
