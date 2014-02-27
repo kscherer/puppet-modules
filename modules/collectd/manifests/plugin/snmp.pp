@@ -14,4 +14,10 @@ class collectd::plugin::snmp(
           content => template("${conf_file}.erb");
       }
     }
+    if $::osfamily == 'RedHat' {
+      package {
+        'collectd-snmp':
+          ensure => installed;
+      }
+    }
   }
