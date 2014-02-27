@@ -17,7 +17,8 @@ class collectd::plugin::snmp(
     if $::osfamily == 'RedHat' {
       package {
         'collectd-snmp':
-          ensure => installed;
+          ensure => installed,
+          notify => Service['collectd'];
       }
     }
   }
