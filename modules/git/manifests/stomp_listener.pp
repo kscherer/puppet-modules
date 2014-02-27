@@ -16,14 +16,6 @@ class git::stomp_listener {
       hasstatus  => true,
       enable     => manual,
       provider   => base,
-      require    => [ Vcsrepo[$git::stomp_repo::local], File['puppet_env'] ];
-  }
-
-  file {
-    'puppet_env':
-      ensure => directory,
-      path   => '/etc/puppet/environments',
-      owner  => 'puppet',
-      group  => 'puppet';
+      require    => Vcsrepo[$git::stomp_repo::local];
   }
 }

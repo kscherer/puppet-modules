@@ -113,6 +113,15 @@ class puppet::master (
     group   => 'root',
   }
 
+  #the git stomp hooks create one directory per environment
+  file {
+    'puppet_env':
+      ensure => directory,
+      path   => '/etc/puppet/environments',
+      owner  => 'puppet',
+      group  => 'puppet';
+  }
+
   if $storeconfigs {
     class { 'puppet::storeconfigs':
       storeconfigs           => $storeconfigs,
@@ -159,7 +168,8 @@ class puppet::master (
       priority    => '40',
       docroot     => $puppet_docroot,
       content     => template('puppet/apache2.conf.erb'),
-      require     => [ File['/etc/puppet/rack/config.ru'], File['/etc/puppet/puppet.conf'] ],
+      require     => [ File['/etc/puppet/rack/config.ru'],
+                      File['/etc/puppet/puppet.conf'] ],
       ssl         => true,
       serveradmin => 'Konrad.Scherer@windriver.com',
     }
