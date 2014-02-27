@@ -66,14 +66,15 @@ class dell::openmanage {
           ensure => absent;
       }
 
-      augeas {
-        'Enable openmanage snmp integration':
-          changes => [
-            'set /files//opt/dell/srvadmin/etc/srvadmin-omilcore/install.ini/installed/SNMP enabled',
-          ],
+      ini_setting {
+        'Enable Openmange SNMP':
+          ensure  => present,
+          path    => '/opt/dell/srvadmin/etc/srvadmin-omilcore/install.ini',
+          section => 'installed',
+          setting => 'SNMP',
+          value   => 'enabled',
           notify  => Service['dataeng'],
       }
-
     }
 
     Debian: {
