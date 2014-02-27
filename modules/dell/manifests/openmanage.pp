@@ -62,6 +62,16 @@ class dell::openmanage {
       file {
         "/opt/dell/srvadmin/${libdir}/openmanage/IGNORE_GENERATION":
           ensure => present;
+        '/opt/dell/srvadmin/var/lib/srvadmin-deng/dcsnmp.off':
+          ensure => absent;
+      }
+
+      augeas {
+        'Enable openmanage snmp integration':
+          changes => [
+            'set /files//opt/dell/srvadmin/etc/srvadmin-omilcore/install.ini/installed/SNMP enabled',
+          ],
+          notify  => Service['dataeng'],
       }
 
     }
