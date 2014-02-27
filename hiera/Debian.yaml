@@ -16,3 +16,6 @@ packages:
   - python-gtk2
   - bash
   - xz-utils
+
+#Enable the smux extension on debian
+snmp::snmpd_options: '-Lsd -Lf /dev/null -u snmp -g snmp -I smux -p /var/run/snmpd.pid'

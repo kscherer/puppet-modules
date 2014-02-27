@@ -16,4 +16,5 @@ logstash::multi_instance: false
 logstash::logstash_user: logstash
 logstash::logstash_group: logstash
 dell::omsa_url_base: 'http://ala-mirror.wrs.com/mirror/dell/hardware/'
+snmp::location: "Alameda, USA"
 
