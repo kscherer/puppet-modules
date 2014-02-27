@@ -17,4 +17,7 @@ logstash::logstash_user: logstash
 logstash::logstash_group: logstash
 dell::omsa_url_base: 'http://ala-mirror.wrs.com/mirror/dell/hardware/'
 snmp::location: "Alameda, USA"
+graphite_reporter::graphite_host: ala-lpd-puppet.wrs.com
+graphite_reporter::graphite_port: 2023
+
 

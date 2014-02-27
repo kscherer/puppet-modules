@@ -44,4 +44,5 @@ class wr::ala-lpd-puppet {
   include wr::activemq
   include wr::foreman
   include collectd
+  include graphite_reporter
 }

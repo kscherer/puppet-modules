@@ -25,6 +25,7 @@ dhcp::ntpservers:
   - yow-lpggp2.wrs.com
 
 snmp::location: "Ottawa, Canada"
+graphite_reporter::graphite_host: yow-lpd-puppet2.wrs.com
 
 # The IP and interface that external sources will use to communicate with the instance and hypervisors.
 openstack::compute::public_interface:   'eth0'

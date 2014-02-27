@@ -43,4 +43,5 @@ class wr::yow-lpd-puppet2 {
   include wr::activemq
   include wr::foreman
   include collectd
+  include graphite_reporter
 }
