@@ -8,9 +8,4 @@ ssl_client_header         = SSL_CLIENT_S_DN
 ssl_client_verify_header  = SSL_CLIENT_VERIFY
 certname                  = <%= @certname %>
 report                    = true
-reports                   = store, http, foreman
-<% if @dashboard_port != 'UNSET' -%>
-reporturl                 = http://<%= @puppet_site %>:<%= @dashboard_port %>/reports/upload
-<% else -%>
-reporturl                 = http://<%= @puppet_site %>/reports/upload
-<% end -%>
+reports                   = store, foreman, graphite
