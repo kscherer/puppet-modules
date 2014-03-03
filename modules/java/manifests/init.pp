@@ -38,8 +38,9 @@ class java(
     Debian: {
 
       $distribution_debian = $distribution ? {
-        jdk => 'sun-java6-jdk',
-        jre => 'sun-java6-jre',
+        jdk     => 'sun-java6-jdk',
+        jre     => 'sun-java6-jre',
+        default => $distribution
       }
       class { 'java::package_debian':
         version      => $version,
