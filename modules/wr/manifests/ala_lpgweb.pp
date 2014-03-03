@@ -144,4 +144,7 @@ class wr::ala_lpgweb {
       ensure => link,
       target => '/home/rq/wr-process';
   }
+
+  #plantuml requires java
+  include java
 }

@@ -19,3 +19,4 @@ packages:
   - tar
   - patch
   - xz
+java::distribution: 'java-1.7.0-openjdk'
