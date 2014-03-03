@@ -103,6 +103,30 @@ class wr::ala_lpgweb {
       command    => '/home/rq/.local/bin/rq-dashboard',
       user       => 'rq',
       numprocs   => '1',
-      directory  => '/home/rq/';
+      directory  => '/home/rq/',
+      require    => Vcsrepo['wr-jira-integration'];
+    'rqworker-wr-rq':
+      command    => '/home/rq/.local/bin/rqworker wr-rq',
+      user       => 'rq',
+      numprocs   => '1',
+      directory  => '/home/rq/wr-rq',
+      require    => Vcsrepo['wr-rq'];
+  }
+
+  vcsrepo {
+    'wr-jira-integration':
+      ensure   => 'latest',
+      path     => '/home/rq/wr-jira-integration',
+      provider => 'git',
+      source   => 'git://ala-git.wrs.com/lpd-ops/wr-jira-integration.git',
+      user     => 'rq',
+      revision => 'master';
+    'wr-rq':
+      ensure   => 'latest',
+      path     => '/home/rq/wr-rq',
+      provider => 'git',
+      source   => 'git://ala-git.wrs.com/lpd-ops/wr-rq.git',
+      user     => 'rq',
+      revision => 'master';
   }
 }
