@@ -132,7 +132,7 @@ class wr::ala_lpgweb {
 
   #require apache to display exported process docs
   include apache
-  apache::host {
+  apache::vhost {
     'ala-lpgweb2.wrs.com':
       port    => 80,
       docroot => '/var/www/';
