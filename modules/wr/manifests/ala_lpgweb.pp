@@ -129,4 +129,7 @@ class wr::ala_lpgweb {
       user     => 'rq',
       revision => 'master';
   }
+
+  #require apache to display exported process docs
+  include apache
 }
