@@ -100,9 +100,11 @@ class wr::ala_lpgweb {
   wr::pip_userpackage {
     ['django', 'South', 'django-registration', 'django-reversion',
       'django-reversion-compare', 'django-simple-captcha', 'django-nvd3',
-      'GitPython']:
+      'GitPython','pil']:
       owner => 'oelayer';
   }
+
+  ensure_resource('package', 'python-dev', {'ensure' => 'latest'})
 
   vcsrepo {
     'openembedded_layerindex':
