@@ -20,57 +20,7 @@ class wr::ala_lpgweb {
   #setup redis for python-rq
   include redis
 
-  define webuser( $password ) {
-    user {
-      $name:
-        ensure     => present,
-        groups     => $name,
-        home       => "/home/${name}",
-        shell      => '/bin/bash',
-        managehome => true,
-        password   => $password;
-    }
-
-    group {
-      $name:
-        ensure => present;
-    }
-
-    ssh_authorized_key {
-      "kscherer_desktop_${name}":
-        ensure => 'present',
-        user   => $name,
-        key    => hiera('kscherer@yow-kscherer-d1'),
-        type   => 'ssh-rsa';
-      "kscherer_home_${name}":
-        ensure => 'present',
-        user   => $name,
-        key    => hiera('kscherer@helix'),
-        type   => 'ssh-rsa';
-    }
-
-    file {
-      "/home/${name}/.bashrc":
-        ensure => present,
-        owner  => $name,
-        group  => $name,
-        mode   => '0755',
-        source => 'puppet:///modules/wr/bashrc';
-      '/home/oelayer/.aliases':
-        ensure => present,
-        owner  => $name,
-        group  => $name,
-        mode   => '0755',
-        source => 'puppet:///modules/wr/aliases';
-      "/home/${name}/.bash_profile":
-        ensure  => present,
-        owner   => $name,
-        group   => $name,
-        content => 'if [ -f $HOME/.bashrc ]; then source $HOME/.bashrc; fi';
-    }
-  }
-
-  webuser {
+  wr::user {
     'rq':
       password   => '$6$YTdVKDWvBu6$6ptIEV1e5cAKCq8weSWXEMwJugEq/xzG0.WzNDSHTSk5QbQUJy4bDPYPwU1ZE8jBkGiOzPrUogwSvS1dBbyuU0';
   }
@@ -78,18 +28,7 @@ class wr::ala_lpgweb {
   #This installs python-pip
   include python
 
-  #define to reduce boilerplate
-  define pip_package ( $owner ) {
-    python::pip {
-      $name:
-        ensure       => present,
-        owner        => $owner,
-        environment  => "HOME=/home/${owner}",
-        install_args => "--user --build=/home/${owner}/.pip/build";
-    }
-  }
-
-  pip_package {
+  wr::pip_userpackage {
     ['rq', 'rq-dashboard', 'jira-python' ]:
       owner => 'rq';
   }
@@ -153,12 +92,12 @@ class wr::ala_lpgweb {
   include java
 
   #setup for open embedded layer index web app
-  webuser {
+  wr::user {
     'oelayer':
       password => '$6$JE9EdCoGh$SgIhKWioQFsTrbTLZ05MMXXxfV/err6ZNksOSSluUhg6irGg.9b52fo0R.ydaXOVS8GcKWoU2Z6wm.FFjWcYv0';
   }
 
-  pip_package {
+  wr::pip_userpackage {
     ['django', 'South', 'django-registration', 'django-reversion',
       'django-reversion-compare', 'django-simple-captcha', 'django-nvd3',
       'GitPython']:
