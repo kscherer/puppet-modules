@@ -104,8 +104,6 @@ class wr::ala_lpgweb {
       owner => 'oelayer';
   }
 
-  ensure_resource('package', 'python-dev', {'ensure' => 'latest'})
-
   vcsrepo {
     'openembedded_layerindex':
       ensure   => 'present',
