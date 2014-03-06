@@ -113,4 +113,13 @@ class wr::ala_lpgweb {
       user     => 'oelayer',
       revision => 'master';
   }
+
+  cron {
+    'update_layerindex':
+      ensure  => present,
+      command => '/usr/bin/python /home/oelayer/layerindex-web/layerindex/update.py > /home/oelayer/layerindex-update.log',
+      user    => 'oelayer',
+      hour    => '0',
+      minute  => '0';
+  }
 }
