@@ -122,4 +122,12 @@ class wr::ala_lpgweb {
       hour    => '0',
       minute  => '0';
   }
+
+  #use a postgresql database to hold layerindex info
+  include postgresql::server
+
+  postgresql::server::db { 'layerindex':
+    user     => 'oelayer',
+    password => postgresql_password('oelayer', 'oelayer'),
+  }
 }
