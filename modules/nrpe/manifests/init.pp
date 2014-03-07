@@ -151,5 +151,8 @@ class nrpe {
     'check_grokmirror_log_errors':
       command    => 'check_logfiles',
       parameters => "--config ${nrpe::nrpe_dir}/grokmirror.cfg";
+    'check_external_log_errors':
+      command    => 'check_logfiles',
+      parameters => '--logfile=/home/git/sync/external.log --criticalpatterns=error';
   }
 }
