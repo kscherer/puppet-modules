@@ -20,21 +20,8 @@ class git::grokmirror::master(
   }
 
   file {
-    "${docroot_real}/grokmirror":
-      ensure => directory,
-      owner  => 'git',
-      group  => 'git';
     "${docroot_real}/manifest.js.gz":
       ensure => link,
       target => '/git/manifest.js.gz';
-  }
-
-  $nsca_server=hiera('nsca')
-  cron {
-    'nsca_external_sync_check':
-      command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper -H ${::fqdn} -S 'External Repo sync check' -N ${nsca_server} -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_external_log_errors.sh -q",
-      user    => 'nagios',
-      minute  => '0',
-      hour    => '8';
   }
 }
