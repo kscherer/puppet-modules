@@ -16,10 +16,10 @@ RH6_i686='texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo
 RH6_x86_64='glibc.i686 glibc-devel.i686 glibc-devel.x86_64 libgcc.i686 ncurses-libs.i686 texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz screen'
 
 #Fedora 19+ i386
-F19_i686='perl-Text-ParseWords perl-podlators perl-autodie texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz screen'
+F19_i686='perl-Text-ParseWords perl-podlators perl-autodie perl-Thread-Queue texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz screen'
 
 #Fedora 19+ x86_64
-F19_x86_64='glibc.i686 glibc-devel.i686 glibc-devel.x86_64 libgcc.i686 ncurses-libs.i686 perl-Text-ParseWords perl-podlators perl-autodie texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz screen'
+F19_x86_64='glibc.i686 glibc-devel.i686 glibc-devel.x86_64 libgcc.i686 ncurses-libs.i686 perl-Text-ParseWords perl-podlators perl-autodie perl-Thread-Queue texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz screen'
 
 #Ubuntu 10.04 i386
 U1004_i686='texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 bash xz-utils screen'
