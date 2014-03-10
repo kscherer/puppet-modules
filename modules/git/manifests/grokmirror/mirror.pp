@@ -107,7 +107,8 @@ class git::grokmirror::mirror(
       compress     => true;
   }
 
-  #make a local non bare clone of the wr-hooks repo to get hook management scripts
+  #make a local non bare clone of the wr-hooks repo to get hook
+  #management scripts
   vcsrepo {
     '/git/wr-hooks':
       ensure   => latest,
