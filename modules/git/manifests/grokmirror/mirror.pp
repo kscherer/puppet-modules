@@ -112,7 +112,7 @@ class git::grokmirror::mirror(
     '/git/wr-hooks':
       ensure   => latest,
       provider => git,
-      source   => '/git/wr-hooks.git',
+      source   => "git://${::fqdn}/wr-hooks.git",
       user     => 'git',
       revision => 'master';
   }
