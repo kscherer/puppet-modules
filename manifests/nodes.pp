@@ -169,14 +169,14 @@ node 'ala-lpgweb2.wrs.com' {
   class { 'wr::ala_lpgweb': }
 }
 
-node /ala-lpgweb.*\.wrs\.com/ {
-  include profile::nis
-}
-
 node /ala-lp.*\.wrs\.com/ {
   class { 'wr::ala-common': }
 }
 
 node /yow-cgts\d+-lx\.wrs\.com/ {
   include wr::cgts
+}
+
+node 'ala-lpd-mesos.wrs.com' {
+  include wr::ala_lpd_mesos
 }
