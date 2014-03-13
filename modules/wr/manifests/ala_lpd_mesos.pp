@@ -27,7 +27,7 @@ class wr::ala_lpd_mesos {
   docker::run {
     'registry':
       image   => 'registry',
-      port    => ['5000','5000'],
+      ports   => ['5000','5000'],
       volumes => ['/opt/registry','registry'],
       env     => ['DOCKER_REGISTRY_CONFIG=/registry/config.yml'],
       require => [ File['/opt/registry/store'], File['/opt/registry/config.yml']];
