@@ -100,7 +100,7 @@ class wr::ala_lpgweb {
   wr::pip_userpackage {
     ['django', 'South', 'django-registration', 'django-reversion',
       'django-reversion-compare', 'django-simple-captcha', 'django-nvd3',
-      'GitPython','pil']:
+      'GitPython','pil', 'gunicorn']:
       owner => 'oelayer';
   }
 
@@ -129,5 +129,12 @@ class wr::ala_lpgweb {
   postgresql::server::db { 'layerindex':
     user     => 'oelayer',
     password => postgresql_password('oelayer', 'oelayer'),
+  }
+
+  supervisord::program {
+    'layerindex':
+      command    => 'python manage.py run_gunicorn 0.0.0.0:8000',
+      user       => 'oelayer',
+      directory  => '/home/oelayer/layerindex-web';
   }
 }
