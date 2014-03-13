@@ -64,7 +64,7 @@ class git::grokmirror::mirror(
   if $::osfamily == 'RedHat' and $::lsbmajdistrelease == '5' {
     $python = '/usr/bin/python26'
   } else {
-    $python = undef
+    $python = 'python'
   }
 
   #run the command to actually do the mirroring
