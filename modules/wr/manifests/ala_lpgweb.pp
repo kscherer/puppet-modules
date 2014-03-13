@@ -133,7 +133,7 @@ class wr::ala_lpgweb {
 
   supervisord::program {
     'layerindex':
-      command    => 'python manage.py run_gunicorn 0.0.0.0:8000',
+      command    => 'python manage.py runserver 0.0.0.0:8000',
       user       => 'oelayer',
       directory  => '/home/oelayer/layerindex-web';
   }
