@@ -62,7 +62,7 @@ class git::grokmirror::mirror(
   }
 
   if $::osfamily == 'RedHat' and $::lsbmajdistrelease == '5' {
-    $python = '/usr/bin/python26'
+    $python = 'PYTHONPATH=/git/grokmirror /usr/bin/python26'
   } else {
     $python = undef
   }
@@ -71,7 +71,7 @@ class git::grokmirror::mirror(
   cron {
     'grokmirror_pull':
       ensure  => present,
-      command => "${python} /git/grokmirror/grok-pull.py --config /git/repos.conf > /dev/null 2>&1",
+      command => "${python} /git/grokmirror/grokmirror/pull.py --config /git/repos.conf > /dev/null 2>&1",
       user    => 'git';
     'mirror-kernels':
       command => 'MIRROR=ala-git.wrs.com /git/bin/mirror-kernels',
@@ -79,7 +79,7 @@ class git::grokmirror::mirror(
       minute  => 30;
     'force_grok_pull':
       ensure  => present,
-      command => "sleep 15; ${python} /git/grokmirror/grok-pull.py --config /git/repos.conf --force > /dev/null 2>&1",
+      command => "sleep 15; ${python} /git/grokmirror/grokmirror/pull.py --config /git/repos.conf --force > /dev/null 2>&1",
       user    => 'git',
       minute  => fqdn_rand(60);
   }
