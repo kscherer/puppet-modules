@@ -13,7 +13,7 @@ class git::grokmirror::base {
 
   vcsrepo {
     '/git/grokmirror':
-      ensure   => 'latest',
+      ensure   => 'present',
       provider => 'git',
       source   => 'git://ala-git.wrs.com/external/github.com.mricon.grokmirror.git',
       user     => 'git',
