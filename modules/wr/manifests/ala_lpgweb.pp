@@ -75,10 +75,13 @@ class wr::ala_lpgweb {
 
   #require apache to display exported process docs
   include apache
+  include apache::mod::proxy
   apache::vhost {
     'ala-lpgweb2.wrs.com':
-      port    => 80,
-      docroot => '/var/www/';
+      port       => 80,
+      docroot    => '/var/www/',
+      proxy_pass => [ { 'path' => '/layerindex',
+                        'url'  => 'http://127.0.0.1:8001/layerindex' }];
   }
 
   #make link into rendered docs
