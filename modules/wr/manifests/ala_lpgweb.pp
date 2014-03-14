@@ -80,6 +80,8 @@ class wr::ala_lpgweb {
     'ala-lpgweb2.wrs.com':
       port       => 80,
       docroot    => '/var/www/',
+      aliases    => [ { alias => '/static/',
+                        path  => '/home/oelayer/layerindex-web/layerindex/static/' } ],
       proxy_pass => [ { 'path' => '/layerindex',
                         'url'  => 'http://127.0.0.1:8001/layerindex' }];
   }
