@@ -8,7 +8,7 @@ class wr::yow-lpggp {
   include apache
 
   package {
-    ['quilt', 'wiggle']:
+    ['quilt', 'wiggle', 'createrepo', 'yum-utils', 'fuse', 'fuse-libs']:
       ensure => 'latest';
   }
 
@@ -25,6 +25,11 @@ yourself, this F/S will be cleaned up periodically.";
   file {
     ['/mnt/yow-mirror', '/home/svc-mirror']:
       ensure => directory;
+    # this is not enough. Need fuse-iso package from rpmforge
+    # and set world execute permissions on /bin/fusermount
+    '/etc/fuse.conf':
+      ensure  => present,
+      content => 'user_allow_other';
   }
 
   mount {
