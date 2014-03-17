@@ -5,6 +5,7 @@ class wr::yow-lpggp {
 
   include profile::nis
   include git
+  include apache
 
   package {
     ['quilt', 'wiggle']:
