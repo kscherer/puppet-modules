@@ -47,16 +47,16 @@ yourself, this F/S will be cleaned up periodically.";
     file {
       '/etc/mrepo.conf':
         ensure => link,
-        target => '/mnt/yow-mirror/mirror/mirror-configs/mrepo/mrepo.conf';
+        target => '/home/svc-mirror/mirror-configs/mrepo/mrepo.conf';
       '/etc/ubumirror.conf':
         ensure => link,
-        target => '/mnt/yow-mirror/mirror/mirror-configs/ubumirror.conf';
+        target => '/home/svc-mirror/mirror-configs/ubumirror.conf';
       '/home/svc-mirror/etc/common':
         ensure => link,
-        target => '/mnt/yow-mirror/mirror/mirror-configs/common';
+        target => '/home/svc-mirror/mirror-configs/common';
       '/home/svc-mirror/etc/ftpsync.conf':
         ensure => link,
-        target => '/mnt/yow-mirror/mirror/mirror-configs/ftpsync.conf';
+        target => '/home/svc-mirror/mirror-configs/ftpsync.conf';
     }
 
     cron {
