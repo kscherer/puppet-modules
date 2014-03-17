@@ -20,4 +20,26 @@ Use /${::hostname}1 as local storage.  It is not backed up, make
 sure you have a secure copy of your data.  Clean up after
 yourself, this F/S will be cleaned up periodically.";
   }
+
+  file {
+    ['/mnt/yow-mirror', '/home/svc-mirror']:
+      ensure => directory;
+  }
+
+  mount {
+    '/mnt/yow-mirror':
+      ensure  => mounted,
+      device  => 'yow-lpgnas1:/vol/yow_mirror',
+      atboot  => true,
+      fstype  => 'nfs',
+      options => 'rw',
+      require => File['/mnt/yow-mirror'];
+    '/home/svc-mirror':
+      ensure  => mounted,
+      device  => 'yow-nas2:/vol/vol1/UNIX-Home/svc-mirror',
+      atboot  => true,
+      fstype  => 'nfs',
+      options => 'rw',
+      require => File['/home/svc-mirror'];
+  }
 }
