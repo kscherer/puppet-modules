@@ -42,4 +42,69 @@ yourself, this F/S will be cleaned up periodically.";
       options => 'rw',
       require => File['/home/svc-mirror'];
   }
+
+  if $::hostname == 'yow-lpggp2' {
+    file {
+      '/etc/mrepo.conf':
+        ensure => link,
+        target => '/mnt/yow-mirror/mirror/mirror-configs/mrepo/mrepo.conf';
+      '/etc/ubumirror.conf':
+        ensure => link,
+        target => '/mnt/yow-mirror/mirror/mirror-configs/ubumirror.conf';
+      '/home/svc-mirror/etc/common':
+        ensure => link,
+        target => '/mnt/yow-mirror/mirror/mirror-configs/common';
+      '/home/svc-mirror/etc/ftpsync.conf':
+        ensure => link,
+        target => '/mnt/yow-mirror/mirror/mirror-configs/ftpsync.conf';
+    }
+
+    cron {
+      'dell_linux_repo':
+        ensure      => present,
+        command     => 'BASE=/mnt/yow-mirror/mirror /usr/bin/rsync -avHz --delete --delete-delay linux.dell.com::repo/hardware $BASE/dell > $BASE/log/dell_repo.log',
+        environment => ['HOME=/home/svc-mirror',
+                        'PATH=/usr/bin:/bin/:/sbin/:/usr/sbin',
+                        'MAILTO=konrad.scherer@windriver.com'],
+        user        => 'svc-mirror',
+        hour        => '5',
+        minute      => '0';
+      'mrepo':
+        ensure  => present,
+        command => '/home/svc-mirror/mirror-configs/mrepo/mrepo -ug > /mnt/yow-mirror/mirror/log/mrepo.log 2>&1',
+        user    => 'svc-mirror',
+        hour    => '19',
+        minute  => '0';
+      'mrepo_logrotate':
+        ensure  => present,
+        command => '/usr/sbin/logrotate -s /mnt/yow-mirror/mirror/log/logrotate.status /home/svc-mirror/mirror-configs/mrepo/mrepo.logrotate',
+        user    => 'svc-mirror',
+        hour    => '12',
+        minute  => '0';
+      'mirror-rsync':
+        ensure  => present,
+        command => 'https_proxy=http://128.224.144.3:9090 /home/svc-mirror/mirror-rsync/mirror-fedora > /mnt/yow-mirror/mirror/log/mirror-rsync.log',
+        user    => 'svc-mirror',
+        hour    => '23',
+        minute  => '0';
+      'ubuntu_archives':
+        ensure  => present,
+        command => '/home/svc-mirror/mirror-configs/ubuarchive',
+        user    => 'svc-mirror',
+        hour    => '2',
+        minute  => '0';
+      'ubuntu_releases':
+        ensure  => present,
+        command => '/home/svc-mirror/mirror-configs/uburelease',
+        user    => 'svc-mirror',
+        hour    => '1',
+        minute  => '0';
+      'debian':
+        ensure  => present,
+        command => '/home/svc-mirror/mirror-configs/ftpsync',
+        user    => 'svc-mirror',
+        hour    => '22',
+        minute  => '0';
+    }
+  }
 }
