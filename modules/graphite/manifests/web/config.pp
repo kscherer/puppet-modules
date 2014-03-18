@@ -28,4 +28,23 @@ class graphite::web::config ($time_zone = undef){
     owner   => root,
     group   => root;
   }
+
+  include apache
+  include apache::mod::wsgi
+
+  # apache::vhost {
+  #   "graphite-${::certname}":
+  #     port                        => '80',
+  #     alias                       =>
+  #     [{'/media/'=> '/usr/lib/python2.6/site-packages/django/contrib/admin/media/' } ],
+  #     docroot                     => '/usr/share/graphite/webapp',
+  #     wsgi_import_script          => '/usr/share/graphite/graphite-web.wsgi',
+  #     wsgi_import_script_options  =>
+  #     { process-group             => '%{GLOBAL}',
+  #     application-group           => '%{GLOBAL}' },
+  #     wsgi_script_aliases         => { '/' => '/usr/share/graphite/graphite-web.wsgi' },
+  #     directories                 =>
+  #     [{path => '/content/', provider => 'location', handler => 'None'},
+  #      {path => '/media/', provider => 'location', handler => 'None'}],
+  # }
 }
