@@ -113,5 +113,20 @@ yourself, this F/S will be cleaned up periodically.";
         hour    => '22',
         minute  => '0';
     }
+
+    #dell repo needs to be able to exec cgi scripts
+    apache::vhost {
+      "mirror-${::certname}":
+        port             => '80',
+        docroot          => '/var/www/html',
+        directories      =>
+        [{path           => '/var/www/html',
+          options        => ['Indexes', 'FollowSymLinks', 'MultiViews', 'ExecCGI'],
+          allow_override => ['None'],
+          order          => ['Allow','Deny'],
+          allow          => 'from all',
+          addhandlers    => [{ handler => 'cgi-script', extensions => ['.cgi']}],
+          }],
+    }
   }
 }
