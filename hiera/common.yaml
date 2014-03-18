@@ -56,8 +56,6 @@ snmp::snmpd_config:
   - 'smuxsocket 127.0.0.1'
   - 'smuxpeer .1.3.6.1.4.1.674.10892.1'
 
-#current users of apache class all have custom vhosts
-apache::default_vhost: false
 apache::mod::passenger::passenger_high_performance: "On"
 apache::mod::passenger::passenger_max_requests: 1000
 

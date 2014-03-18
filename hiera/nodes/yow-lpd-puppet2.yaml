@@ -13,3 +13,4 @@ puppet::passenger_package: 'mod_passenger'
 puppet::passenger_ensure: 'present'
 puppet::storeconfigs: true
 puppet::storeconfigs_dbadapter: 'puppetdb'
+apache::default_vhost: false
