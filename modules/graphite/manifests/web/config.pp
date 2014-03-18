@@ -32,6 +32,7 @@ class graphite::web::config ($time_zone = undef){
   include apache
   include apache::mod::wsgi
 
+  # attempt to manage graphite apache config using puppet instead of package default
   # apache::vhost {
   #   "graphite-${::certname}":
   #     port                        => '80',

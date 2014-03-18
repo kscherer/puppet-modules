@@ -5,6 +5,8 @@ class wr::ala-lpd-puppet {
 
   include apache
   include apache::mod::passenger
+  apache::listen { '80': }
+
   Class['wr::common::repos'] -> Class['apache']
   Class['wr::common::repos'] -> Class['apache::mod::passenger']
 

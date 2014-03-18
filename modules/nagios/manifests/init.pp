@@ -69,6 +69,7 @@ class nagios(
   include apache
   include apache::mod::php
 
+  # attempt to replace package apache conf with puppet managed one
   # apache::vhost {
   #   "nagios-${::certname}":
   #     port        => '80',
