@@ -20,8 +20,6 @@ class puppet::common {
     }
   }
 
-  include concat::setup
-
   concat {
     '/etc/puppet/puppet.conf':
       owner => 'puppet',

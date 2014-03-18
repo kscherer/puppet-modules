@@ -132,6 +132,7 @@ class puppet (
       puppet_passenger_port     => $puppet_passenger_port,
       puppet_docroot            => $puppet_docroot,
       puppet_vardir             => $puppet_vardir,
+      puppet_ssldir             => $puppet_ssldir,
       modulepath                => $modulepath,
       storeconfigs              => $storeconfigs_bool,
       thinstoreconfigs          => $thinstoreconfigs_bool,
@@ -198,8 +199,6 @@ class puppet (
     'facter':
       ensure   => $facter_ensure;
   }
-
-  include concat::setup
 
   concat {
     '/etc/puppet/puppet.conf':

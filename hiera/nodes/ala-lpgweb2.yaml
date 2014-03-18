@@ -1,4 +1,3 @@
 ---
 python::dev: true
 puppet::puppet_environment: apache
-apache::default_vhost: false

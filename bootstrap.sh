@@ -47,7 +47,7 @@ else
 fi
 
 #Make sure bootstrap uses valid mirror
-if [ "x$location" != "xala" ] || [ "x$location" != "xyow" ]; then
+if [ "x$location" != "xala" ] && [ "x$location" != "xyow" ]; then
     echo "Bootstrap currently only supports Ottawa and Alameda mirrors, defaulting to Alameda"
     location="ala"
 fi
