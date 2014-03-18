@@ -9,7 +9,7 @@ class wr::yow-lpggp {
 
   package {
     [ 'quilt', 'wiggle', 'createrepo', 'yum-utils', 'fuse', 'fuse-libs',
-      'python26', 'mrepo', 'python-ssl']:
+      'python26', 'mrepo', 'python-ssl', 'mirrormanager-client']:
       ensure => 'latest';
   }
 
@@ -58,6 +58,9 @@ yourself, this F/S will be cleaned up periodically.";
       '/etc/ubumirror.conf':
         ensure => link,
         target => '/home/svc-mirror/mirror-configs/ubumirror.conf';
+      '/etc/mirrormanager-client/report_mirror.conf':
+        ensure => link,
+        target => '/home/svc-mirror/mirror-configs/report_mirror.conf';
       '/home/svc-mirror/etc/common':
         ensure => link,
         target => '/home/svc-mirror/mirror-configs/common';
