@@ -115,6 +115,13 @@ yourself, this F/S will be cleaned up periodically.";
         user    => 'svc-mirror',
         hour    => '22',
         minute  => '0';
+      'make_iso_links':
+        ensure  => present,
+        command => '/home/svc-mirror/mirror-configs/mk_iso_links.sh',
+        user    => 'svc-mirror',
+        hour    => '6',
+        minute  => '0';
+
     }
 
     #dell repo needs to be able to exec cgi scripts
