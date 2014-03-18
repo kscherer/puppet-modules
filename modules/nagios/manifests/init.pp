@@ -52,17 +52,36 @@ class nagios(
       mode    => '0640',
       owner   => root,
       group   => apache;
-    'nagios_http_conf':
-      ensure  => 'present',
-      path    => '/etc/httpd/conf.d/nagios.conf',
-      mode    => '0644',
-      owner   => root,
-      group   => root;
-    'nagios_php_conf':
-      ensure  => 'present',
-      path    => '/etc/httpd/conf.d/php.conf',
-      mode    => '0644',
-      owner   => root,
-      group   => root;
+  }
+
+  include apache
+  include apache::mod::php
+
+  apache::vhost {
+    'nagios':
+      port        => '80',
+      alias       => [{'/nagios' => '/usr/share/nagios/html'}],
+      scriptalias => [{'/nagios/cgi-bin/' => '/usr/lib64/nagios/cgi-bin'}],
+      directories => [{
+                      path           => '/usr/lib64/nagios/cgi-bin/',
+                      options        => 'ExecCGI',
+                      allow_override => ['None'],
+                      order          => ['Allow','Deny'],
+                      allow          => 'from all',
+                      auth_name      => 'Nagios Access',
+                      auth_type      => 'Basic',
+                      auth_user_file => '/etc/nagios/passwd',
+                      auth_require   => 'valid-user',
+                      }, {
+                      path           => '/usr/share/nagios/html',
+                      options        => 'None',
+                      allow_override => ['None'],
+                      order          => ['Allow','Deny'],
+                      allow          => 'from all',
+                      auth_name      => 'Nagios Access',
+                      auth_type      => 'Basic',
+                      auth_user_file => '/etc/nagios/passwd',
+                      auth_require   => 'valid-user',
+                      }],
   }
 }
