@@ -75,10 +75,15 @@ class wr::ala_lpgweb {
 
   #require apache to display exported process docs
   include apache
+  include apache::mod::proxy
   apache::vhost {
     'ala-lpgweb2.wrs.com':
-      port    => 80,
-      docroot => '/var/www/';
+      port       => 80,
+      docroot    => '/var/www/',
+      aliases    => [ { alias => '/static/',
+                        path  => '/home/oelayer/layerindex-web/layerindex/static/' } ],
+      proxy_pass => [ { 'path' => '/layerindex',
+                        'url'  => 'http://127.0.0.1:8001/layerindex' }];
   }
 
   #make link into rendered docs
@@ -132,10 +137,6 @@ class wr::ala_lpgweb {
   }
 
   supervisord::program {
-    'layerindex':
-      command    => 'python manage.py runserver 0.0.0.0:8000',
-      user       => 'oelayer',
-      directory  => '/home/oelayer/layerindex-web';
     'layerindex_gunicorn':
       command    => 'python manage.py run_gunicorn 127.0.0.1:8001',
       user       => 'oelayer',

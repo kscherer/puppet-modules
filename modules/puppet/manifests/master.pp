@@ -83,6 +83,7 @@ class puppet::master (
   $puppet_conf             = $puppet::params::puppet_conf,
   $puppet_docroot          = $puppet::params::puppet_docroot,
   $puppet_vardir           = $puppet::params::puppet_vardir,
+  $puppet_ssldir           = $puppet::params::puppet_ssldir,
   $puppet_passenger_port   = $puppet::params::puppet_passenger_port,
   $puppet_master_package   = $puppet::params::puppet_master_package,
   $puppet_agent_name       = $puppet::params::puppet_agent_name,
@@ -162,16 +163,23 @@ class puppet::master (
     -> Apache::Vhost["puppet-${puppet_site}"]
 
     include apache
+    include apache::mod::passenger
 
-    apache::vhost { "puppet-${puppet_site}":
-      port        => $puppet_passenger_port,
-      priority    => '40',
-      docroot     => $puppet_docroot,
-      content     => template('puppet/apache2.conf.erb'),
-      require     => [ File['/etc/puppet/rack/config.ru'],
-                      File['/etc/puppet/puppet.conf'] ],
-      ssl         => true,
-      serveradmin => 'Konrad.Scherer@windriver.com',
+    apache::vhost {
+      "puppet-${certname}":
+        port               => $puppet_passenger_port,
+        priority           => '40',
+        docroot            => $puppet_docroot,
+        servername         => $certname,
+        ssl                => true,
+        ssl_cert           => "${puppet_ssldir}/certs/${certname}.pem",
+        ssl_key            => "${puppet_ssldir}/private_keys/${certname}.pem",
+        ssl_chain          => "${puppet_ssldir}/ca/ca_crt.pem",
+        ssl_ca             => "${puppet_ssldir}/ca/ca_crt.pem",
+        ssl_crl            => "${puppet_ssldir}/ca/ca_crl.pem",
+        rack_base_uris     => '/',
+        custom_fragment    => template('puppet/apache_custom_fragment.erb'),
+        require            => [ File['/etc/puppet/rack/config.ru'], File[$puppet_conf] ],
     }
 
     file {

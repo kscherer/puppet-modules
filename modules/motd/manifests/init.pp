@@ -1,7 +1,5 @@
 # class to setup basic motd, include on all nodes
 class motd {
-  include concat::setup
-
   case $::operatingsystem {
     'Ubuntu' : { $motd = '/etc/update-motd.d/50windriver' }
     'Debian' : { $motd = '/etc/motd.tail' }
