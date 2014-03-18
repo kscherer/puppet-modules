@@ -2,4 +2,4 @@ ntp::servers:
   - ntp-1.wrs.com
   - ntp-2.wrs.com
   - ntp-3.wrs.com
-apache::default_vhost: true
+apache::default_vhost: false

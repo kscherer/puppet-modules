@@ -116,7 +116,7 @@ yourself, this F/S will be cleaned up periodically.";
 
     #dell repo needs to be able to exec cgi scripts
     apache::vhost {
-      "mirror-${::certname}":
+      "mirror-${::hostname}":
         port             => '80',
         docroot          => '/var/www/html',
         directories      =>
