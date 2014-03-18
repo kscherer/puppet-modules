@@ -35,6 +35,8 @@ puppetdb::open_ssl_listen_port: false
 puppetdb::open_postgres_port: false
 puppetdb::master::config::manage_storeconfigs: false
 puppetdb::master::config::restart_puppet: false
+puppetdb::node_ttl: "7d"
+puppetdb::node_purge_ttl: "1d"
 
 dhcp::dnsdomain:
   - wrs.com
