@@ -8,7 +8,8 @@ class wr::yow-lpggp {
   include apache
 
   package {
-    ['quilt', 'wiggle', 'createrepo', 'yum-utils', 'fuse', 'fuse-libs']:
+    [ 'quilt', 'wiggle', 'createrepo', 'yum-utils', 'fuse', 'fuse-libs',
+      'python26']:
       ensure => 'latest';
   }
 
@@ -68,7 +69,7 @@ yourself, this F/S will be cleaned up periodically.";
     cron {
       'dell_linux_repo':
         ensure      => present,
-        command     => 'BASE=/mnt/yow-mirror/mirror /usr/bin/rsync -avHz --delete --delete-delay linux.dell.com::repo/hardware $BASE/dell > $BASE/log/dell_repo.log',
+        command     => ' /usr/bin/rsync -avHz --delete --delete-delay linux.dell.com::repo/hardware /mnt/yow-mirror/mirror/dell > /mnt/yow-mirror/mirror/log/dell_repo.log',
         environment => ['HOME=/home/svc-mirror',
                         'PATH=/usr/bin:/bin/:/sbin/:/usr/sbin',
                         'MAILTO=konrad.scherer@windriver.com'],
