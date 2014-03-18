@@ -164,6 +164,7 @@ class puppet::master (
 
     include apache
     include apache::mod::passenger
+    include apache::mod::headers
 
     apache::vhost {
       "puppet-${certname}":
