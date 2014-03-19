@@ -3,19 +3,20 @@ class nomachine {
   if $::osfamily == 'RedHat' {
     redhat::yum_repo {
       'nomachine':
+        ensure => absent,
         baseurl => 'http://yow-mirror.wrs.com/mirror/nomachine';
     }
     Yumrepo['nomachine'] -> Package['nxserver']
   }
 
   package {
-    ['nxserver','xorg-x11-xauth','xterm']:
-      ensure => installed;
+    ['nxserver']:
+      ensure => absent;
   }
 
   service {
     'nxserver':
-      ensure    => running,
+      ensure    => stopped,
       enable    => true,
       status    => '/usr/NX/bin/nxserver --status',
       hasstatus => true;
