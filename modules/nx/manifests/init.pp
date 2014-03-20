@@ -243,12 +243,15 @@ class nx {
   }
 
   #Builders have occasional lock ups due to high IO. Setup workaround
-  #Based on recommendation here:
-  #http://blog.ronnyegner-consulting.de/2011/10/13/info-task-blocked-for-more-than-120-seconds/
-  if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '5' {
-    sysctl::value { 'vm.dirty_ratio': value => '10'}
-    sysctl::value { 'vm.dirty_background_ratio': value => '5'}
-  }
+  #Since builds can create GBs of dirty pages, but disks can only
+  #write 100 to 200 MB/s, use the following settings to keep
+  #background eviction of dirty pages active
+  #dirty_bytes is amount of memory at which processes are blocked
+  #until dirty cache is flushed.
+  #dirty_background_bytes is amount of memory at which background
+  #flushing of dirty pages is activated
+  sysctl::value { 'vm.dirty_bytes': value => '4294967296'} #4GB
+  sysctl::value { 'vm.dirty_background_bytes': value => '268435456'} #256MB
 
   #Needed for ccache testing
   ensure_resource('package', 'ccache', {'ensure' => 'installed' })
