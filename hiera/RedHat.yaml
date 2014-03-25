@@ -20,3 +20,6 @@ packages:
   - patch
   - xz
 java::distribution: 'java-1.7.0-openjdk'
+
+#On redhat I am already managing epel repo setup
+docker::use_upstream_package_source: false

@@ -93,4 +93,6 @@ class wr::ala-lpd-rcpl {
     'rcpl':
       source  => 'puppet:///modules/wr/sudoers.d/rcpl';
   }
+
+  include docker
 }
