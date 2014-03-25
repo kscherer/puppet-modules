@@ -1,0 +1,3 @@
+---
+docker::root_dir: '/data/docker/'
+docker::extra_parameters: '--storage-driver=devicemapper'
