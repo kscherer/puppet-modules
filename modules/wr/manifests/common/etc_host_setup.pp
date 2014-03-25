@@ -1,16 +1,21 @@
 #
 class wr::common::etc_host_setup {
+  if 'em1' in $::interfaces {
+    $public_ip=$::ipaddress_em1
+  } else {
+    $public_ip=$::ipaddress_eth0
+  }
   #Make sure that the machine is in the hosts file
   if $::domain == 'wrs.com' {
     host {
       $::fqdn:
-        ip           => $::ipaddress,
+        ip           => $public_ip,
         host_aliases => $::hostname;
     }
   } else {
     host {
       "${::hostname}.wrs.com":
-        ip           => $::ipaddress,
+        ip           => $public_ip,
         host_aliases => $::hostname;
     }
   }
