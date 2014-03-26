@@ -10,6 +10,8 @@ class wr::ala_lpd_mesos {
   docker::image {
     'registry':
       image_tag => 'latest';
+    'jplock/zookeeper':
+      image_tag => 'latest';
   }
 
   #store all registry info in /opt
@@ -34,5 +36,8 @@ class wr::ala_lpd_mesos {
       volumes => ['/opt/registry:/registry'],
       env     => ['DOCKER_REGISTRY_CONFIG=/registry/config.yml','SETTINGS_FLAVOR=prod'],
       require => [ File['/opt/registry/store'], File['/opt/registry/config.yml']];
+    'zookeeper':
+      image   => 'jplock/zookeeper',
+      ports   => ['2181:2181','2888:2888','3888:3888'];
   }
 }
