@@ -38,6 +38,7 @@ class wr::ala_lpd_mesos {
       require => [ File['/opt/registry/store'], File['/opt/registry/config.yml']];
     'zookeeper':
       image   => 'jplock/zookeeper',
+      command => ' ',
       ports   => ['2181:2181','2888:2888','3888:3888'];
   }
 }
