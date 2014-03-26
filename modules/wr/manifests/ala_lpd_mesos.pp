@@ -44,7 +44,7 @@ class wr::ala_lpd_mesos {
       ports   => ['2181:2181','2888:2888','3888:3888'];
     'mesos_master':
       image   => 'ala-lpd-mesos.wrs.com:5000/mesos_master:17',
-      command => 'mesos-master --zk=zk://ala-lpd-mesos.wrs.com:2181',
+      command => 'mesos-master --zk=zk://ala-lpd-mesos.wrs.com:2181/mesos',
       ports   => ['5050:5050'];
   }
 }
