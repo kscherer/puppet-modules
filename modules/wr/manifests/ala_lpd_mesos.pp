@@ -42,9 +42,10 @@ class wr::ala_lpd_mesos {
       image   => 'jplock/zookeeper:latest',
       command => ' ',
       ports   => ['2181:2181','2888:2888','3888:3888'];
+    #mesos master and chronos are in same container
     'mesos_master':
       image   => 'ala-lpd-mesos.wrs.com:5000/mesos_master:17',
-      command => 'mesos-master --quiet --zk=zk://ala-lpd-mesos.wrs.com:2181/mesos',
-      ports   => ['5050:5050'];
+      command => ' ',
+      ports   => ['5050:5050','8080:8080'];
   }
 }
