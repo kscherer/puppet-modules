@@ -12,6 +12,8 @@ class wr::ala_lpd_mesos {
       image_tag => 'latest';
     'jplock/zookeeper':
       image_tag => 'latest';
+    'ala-lpd-mesos.wrs.com:5000/mesos_master':
+      image_tag => '17';
   }
 
   #store all registry info in /opt
@@ -37,8 +39,12 @@ class wr::ala_lpd_mesos {
       env     => ['DOCKER_REGISTRY_CONFIG=/registry/config.yml','SETTINGS_FLAVOR=prod'],
       require => [ File['/opt/registry/store'], File['/opt/registry/config.yml']];
     'zookeeper':
-      image   => 'jplock/zookeeper',
+      image   => 'jplock/zookeeper:latest',
       command => ' ',
       ports   => ['2181:2181','2888:2888','3888:3888'];
+    'mesos_master':
+      image   => 'ala-lpd-mesos.wrs.com:5000/mesos_master:17',
+      command => ['mesos-master','--zk=zk://ala-lpd-mesos.wrs.com:2181'],
+      ports   => ['5050:5050'];
   }
 }
