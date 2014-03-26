@@ -29,9 +29,13 @@ class wr::yow-lpd-puppet2 {
   Class['wr::mcollective'] -> Class['nagios']
 
   graphite::carbon::storage {
+    'nx_1hr_for_6months':
+      pattern    => 'nx.*',
+      retentions => '1h:6m';
     'default_10s_for_2weeks':
       pattern    => '.*',
-      retentions => '10s:14d',
+      order      => '99',
+      retentions => '10s:14d';
   }
 
   #concat is another possible extension point
