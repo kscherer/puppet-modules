@@ -1,6 +1,7 @@
 # This is the default configuration when no flavor is specified
-dev:
+prod:
     storage: local
     storage_path: /registry/store
     loglevel: warn
     standalone: true # do not use public index
+    secret_key: wrlinux
