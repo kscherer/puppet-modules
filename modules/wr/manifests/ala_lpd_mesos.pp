@@ -24,6 +24,9 @@ class wr::ala_lpd_mesos {
     '/opt/registry/config.yml':
       ensure => present,
       source => 'puppet:///modules/wr/docker_registry_config.yml';
+    '/usr/lib/libjvm.so':
+      ensure => link,
+      target => '/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server/libjvm.so';
   }
 
   #Run the registry image with bind mount to registry directory and config
