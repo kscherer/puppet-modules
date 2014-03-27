@@ -4,8 +4,6 @@ class wr::yow_openstack {
   include profile::monitored
   include sudo
 
-  include mesos::slave
-
   sudo::conf {
     'admin':
       source  => 'puppet:///modules/wr/sudoers.d/admin';
