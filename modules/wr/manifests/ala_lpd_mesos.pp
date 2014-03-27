@@ -27,6 +27,18 @@ class wr::ala_lpd_mesos {
     '/usr/lib/libjvm.so':
       ensure => link,
       target => '/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server/libjvm.so';
+    '/etc/init/chronos.conf':
+      ensure => present,
+      source => 'puppet:///modules/wr/chronos.conf';
+  }
+
+  service {
+    'chronos':
+      ensure     => running,
+      enable     => true,
+      hasstatus  => true,
+      hasrestart => true,
+      provider   => upstart;
   }
 
   #Run the registry image with bind mount to registry directory and config
