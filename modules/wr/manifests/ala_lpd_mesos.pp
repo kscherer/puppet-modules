@@ -15,6 +15,11 @@ class wr::ala_lpd_mesos {
       image_tag => 'latest';
   }
 
+  package {
+    'openjdk-7-jre-headless':
+      ensure => present;
+  }
+
   #store all registry info in /opt
   file {
     '/opt/registry':
@@ -29,8 +34,11 @@ class wr::ala_lpd_mesos {
       target => '/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server/libjvm.so';
     '/etc/init/chronos.conf':
       ensure => present,
-      source => 'puppet:///modules/wr/chronos.conf';
+      source => 'puppet:///modules/wr/chronos.conf',
+      notify => Service['chronos'];
   }
+
+  Package['openjdk-7-jre-headless'] -> File['/usr/lib/libjvm.so'] -> Class['mesos::master']
 
   service {
     'chronos':
