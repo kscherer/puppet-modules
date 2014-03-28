@@ -45,8 +45,6 @@ class profile::bare_metal {
   if 'blade' in $::hostname {
     if 'PERC' in $model {
       $devices = {'/dev/sda'=>['megaraid,0', 'megaraid,1']}
-    } elsif $::operatingsystem == 'Ubuntu' {
-      $devices = ['/dev/sg3', '/dev/sg4',]
     } else {
       $devices = ['/dev/sg0', '/dev/sg1',]
     }
