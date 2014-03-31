@@ -7,8 +7,6 @@ class debian {
     mode  => '0644'
   }
 
-  $mirror_base = "http://${::location}-mirror.wrs.com/mirror"
-
   case $::operatingsystem {
     'Ubuntu': {
       $debian_variant='debian::ubuntu'
@@ -22,7 +20,7 @@ class debian {
   }
 
   anchor { 'debian::begin': }
-  -> class { $debian_variant: mirror_base => $mirror_base }
+  -> class { $debian_variant: }
   -> anchor { 'debian::end': }
 
   file {

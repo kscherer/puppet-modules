@@ -1,5 +1,7 @@
 #
-class debian::debian( $mirror_base ) {
+class debian::debian(
+  $mirror_base = "http://${::location}-mirror.wrs.com/mirror",
+) {
 
   #koan needs the following packages
   package {
@@ -8,11 +10,9 @@ class debian::debian( $mirror_base ) {
       require => Apt::Source['debian_mirror_wheezy'];
   }
 
+  include apt
   #base all debian machines on wheezy
   class { 'apt::release' : release_id => 'wheezy' }
-
-  #Sources are managed by puppet only
-  class {'apt': purge_sources_list => true }
 
   apt::source {
     'debian_mirror_stable':
@@ -37,21 +37,11 @@ class debian::debian( $mirror_base ) {
       release     => 'wheezy',
       include_src => false,
       repos       => 'main dependencies';
-  }
-
-  apt::source {
     'debian_mirror_jessie':
       location    =>  "${mirror_base}/debian",
       release     => 'jessie',
       include_src => false,
       repos       => 'main contrib non-free';
-  }
-
-  file {
-    #manual script to run on new dell servers
-    '/root/partition_drives.sh':
-      owner  => 'root', group => 'root', mode => '0700',
-      source => 'puppet:///modules/debian/partition_drives.sh';
   }
 
   #lsb facts require the following
