@@ -95,4 +95,71 @@ class wr::ala-lpd-rcpl {
   }
 
   include docker
+
+  #buildadmin user is a nis account, but without a nfs home directory.
+  file {
+    '/home/buildadmin':
+      ensure  => directory,
+      owner   => 'buildadmin',
+      group   => 'buildadmin',
+      require => Class['nis'],
+      mode    => '0755';
+    '/home/buildadmin/.ssh':
+      ensure => directory,
+      owner  => 'buildadmin',
+      group  => 'buildadmin',
+      mode   => '0700';
+  }
+
+  ssh_authorized_key {
+    'pkennedy_buildadmin':
+      ensure  => 'present',
+      user    => 'buildadmin',
+      key     => extlookup('pkennedy@linux-y9cs.site'),
+      require => File['/home/buildadmin/.ssh'],
+      type    => 'ssh-dss';
+    'wenzong_buildadmin':
+      ensure  => 'present',
+      user    => 'buildadmin',
+      key     => extlookup('wfan@pek-wenzong-fan'),
+      require => File['/home/buildadmin/.ssh'],
+      type    => 'ssh-dss';
+    'kscherer_windriver_buildadmin':
+      ensure  => 'present',
+      user    => 'buildadmin',
+      key     => extlookup('kscherer@yow-kscherer-l1'),
+      require => File['/home/buildadmin/.ssh'],
+      type    => 'ssh-dss';
+    'kscherer_home_buildadmin':
+      ensure  => 'present',
+      user    => 'buildadmin',
+      key     => extlookup('kscherer@helix'),
+      require => File['/home/buildadmin/.ssh'],
+      type    => 'ssh-rsa';
+  }
+
+  file {
+    '/stored_builds':
+      ensure  => directory,
+      owner   => 'buildadmin',
+      group   => 'buildadmin',
+      require => Class['nis'],
+  }
+
+  mount {
+    '/stored_builds':
+      ensure   => mounted,
+      atboot   => true,
+      device   => 'ala-lpgnas2:/vol/vol1',
+      fstype   => 'nfs',
+      options  => 'bg,vers=3,nointr,timeo=600,_netdev',
+      require  => File['/stored_builds'],
+      remounts => true;
+  }
+
+  #Add buildadmin to sudoers
+  sudo::conf {
+    'xylo':
+      source  => 'puppet:///modules/wr/sudoers.d/xylo';
+  }
 }
