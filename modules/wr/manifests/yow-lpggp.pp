@@ -9,7 +9,8 @@ class wr::yow-lpggp {
 
   package {
     [ 'quilt', 'wiggle', 'createrepo', 'yum-utils', 'fuse', 'fuse-libs',
-      'python26', 'mrepo', 'python-ssl', 'mirrormanager-client']:
+      'python26', 'mrepo', 'python-ssl', 'mirrormanager-client', 'db4-devel',
+      'zlib-devel', 'bzip2-devel']:
       ensure => 'latest';
   }
 
