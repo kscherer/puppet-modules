@@ -12,7 +12,7 @@ class profile::mesos::common inherits profile::nis {
       ensure => present;
   }
 
-  Package['openjdk-7-jre-headless'] -> File['/usr/lib/libjvm.so']
+  Package['openjdk-7-jre-headless'] -> File['/usr/lib/libjvm.so'] -> Class['mesos']
 
   #add internal apt repo of mesosphere packages
   apt::source {
@@ -22,6 +22,7 @@ class profile::mesos::common inherits profile::nis {
       repos       => 'main',
       include_src => false;
   }
+  Apt::Source['mesos'] -> Class['mesos']
 
   #install mesos egg
   $mesos_egg = 'mesos_0.18.0-rc4_amd64.deb'
