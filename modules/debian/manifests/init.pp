@@ -30,7 +30,8 @@ class debian {
       content => 'Aptitude "";
 Aptitude::CmdLine "";
 Aptitude::CmdLine::Show-Versions "true";
-Aptitude::CmdLine::Package-Display-Format "%c%a%M %p# - %d%V#";';
+Aptitude::CmdLine::Package-Display-Format "%c%a%M %p# - %d%V#";
+APT::Install-Recommends "0";';
   }
 
   include apt::unattended_upgrades

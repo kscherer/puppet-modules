@@ -48,12 +48,6 @@ class debian::ubuntu (
       unless  => "test `readlink /bin/sh` = ${shell}"
   }
 
-  if $::hostname !~ /kscherer/ {
-    #add emacs for Jeff but not on Konrad's desktop and server
-    ensure_resource('package', 'emacs', {'ensure' => 'installed' })
-    ensure_resource('package', 'jove', {'ensure' => 'installed' })
-  }
-
   #Make sure vmware tools are installed on Ubuntu
   if $::virtual == 'vmware' {
     ensure_resource('package', 'open-vm-tools', {'ensure' => 'installed' })
