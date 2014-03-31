@@ -1,11 +1,9 @@
 #System responsible for mesos master, chronus, zookeeper and private
 #docker registry
 class wr::ala_lpd_mesos {
-  include profile::nis
+  include profile::mesos::master
   include ssmtp
-  include docker
   include collectd
-  include mesos::master
 
   #setup for the docker registry
   docker::image {
@@ -13,11 +11,6 @@ class wr::ala_lpd_mesos {
       image_tag => 'latest';
     'jplock/zookeeper':
       image_tag => 'latest';
-  }
-
-  package {
-    'openjdk-7-jre-headless':
-      ensure => present;
   }
 
   #store all registry info in /opt
@@ -29,16 +22,11 @@ class wr::ala_lpd_mesos {
     '/opt/registry/config.yml':
       ensure => present,
       source => 'puppet:///modules/wr/docker_registry_config.yml';
-    '/usr/lib/libjvm.so':
-      ensure => link,
-      target => '/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server/libjvm.so';
     '/etc/init/chronos.conf':
       ensure => present,
       source => 'puppet:///modules/wr/chronos.conf',
       notify => Service['chronos'];
   }
-
-  Package['openjdk-7-jre-headless'] -> File['/usr/lib/libjvm.so'] -> Class['mesos::master']
 
   service {
     'chronos':
