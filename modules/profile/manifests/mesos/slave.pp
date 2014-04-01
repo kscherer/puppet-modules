@@ -12,4 +12,11 @@ class profile::mesos::slave inherits profile::mesos::common {
       image_tag => 'wrl',
       require   => Class['docker'];
   }
+
+  #The mesos package can start the mesos master so make sure it is
+  #not running on slaves
+  service {
+    'mesos-master':
+      ensure => stopped;
+  }
 }
