@@ -1,0 +1,2 @@
+---
+docker::extra_parameters: '--storage-driver=aufs'
