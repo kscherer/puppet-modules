@@ -252,7 +252,12 @@ class nx {
   #flushing of dirty pages is activated
   sysctl::value { 'vm.dirty_ratio': value => '0'} #disable ratio
   sysctl::value { 'vm.dirty_background_ratio': value => '0'} #disable ratio
-  sysctl::value { 'vm.dirty_bytes': value => '4294967296'} #4GB
+  if $::osfamily == 'RedHat' and $::operatingsystemrelease == '5' {
+    #bug on RedHat 5 does not handle large numbers on command line
+    sysctl::value { 'vm.dirty_bytes': value => '2147483647'} #2GB-1
+  } else {
+    sysctl::value { 'vm.dirty_bytes': value => '4294967296'} #4GB
+  }
   sysctl::value { 'vm.dirty_background_bytes': value => '268435456'} #256MB
 
   #Needed for ccache testing
