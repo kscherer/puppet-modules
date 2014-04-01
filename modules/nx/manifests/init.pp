@@ -250,6 +250,8 @@ class nx {
   #until dirty cache is flushed.
   #dirty_background_bytes is amount of memory at which background
   #flushing of dirty pages is activated
+  sysctl::value { 'vm.dirty_ratio': value => '0'} #disable ratio
+  sysctl::value { 'vm.dirty_background_ratio': value => '0'} #disable ratio
   sysctl::value { 'vm.dirty_bytes': value => '4294967296'} #4GB
   sysctl::value { 'vm.dirty_background_bytes': value => '268435456'} #256MB
 
