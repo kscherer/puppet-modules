@@ -79,6 +79,7 @@ class dell::openmanage {
 
     Debian: {
       include ::dell::openmanage::debian
+      Class['::dell::openmanage::debian'] -> Class['::dell::openmanage']
     }
 
     default: {

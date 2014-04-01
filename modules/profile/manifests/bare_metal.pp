@@ -2,8 +2,10 @@
 class profile::bare_metal {
   include dell
   include dell::openmanage
-  include dell::warranty
   include snmp
+
+  Class['wr::common::repos'] -> Class['dell::openmanage']
+  Class['wr::common::repos'] -> Class['snmp']
 
   @@nagios_service {
     "check_openmanage_${::hostname}":

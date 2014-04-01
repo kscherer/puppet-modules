@@ -9,7 +9,8 @@ class profile::mesos::common inherits profile::nis {
 
   package {
     ['openjdk-7-jre-headless','python-setuptools']:
-      ensure => present;
+      ensure  => present,
+      require => Class['wr::common::repos'];
   }
 
   Class['wr::common::repos'] -> Class['mesos']
