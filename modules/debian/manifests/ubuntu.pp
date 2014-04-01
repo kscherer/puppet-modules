@@ -52,4 +52,13 @@ class debian::ubuntu (
   if $::virtual == 'vmware' {
     ensure_resource('package', 'open-vm-tools', {'ensure' => 'installed' })
   }
+
+  file_line {
+    'stop_loading_all_filesystems':
+      path   => '/etc/default/grub',
+      line   => 'GRUB_DISABLE_OS_PROBER=true';
+    'timeout_grub_menu':
+      path   => '/etc/default/grub',
+      line   => 'GRUB_RECORDFAIL_TIMEOUT=10',
+  }
 }
