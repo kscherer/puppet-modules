@@ -19,17 +19,27 @@ class docker::service (
   $tcp_bind             = $docker::tcp_bind,
   $socket_bind          = $docker::socket_bind,
   $service_state        = $docker::service_state,
+  $service_enable       = $docker::service_enable,
   $root_dir             = $docker::root_dir,
   $extra_parameters     = $docker::extra_parameters,
+  $proxy                = $docker::proxy,
+  $no_proxy             = $docker::no_proxy,
+  $execdriver           = $docker::execdriver,
 ){
   case $::osfamily {
     'Debian': {
+
+      $provider = $::operatingsystem ? {
+        'Ubuntu' => 'upstart',
+        default  => undef,
+      }
+
       service { 'docker':
         ensure     => $service_state,
-        enable     => true,
+        enable     => $service_enable,
         hasstatus  => true,
         hasrestart => true,
-        provider   => upstart,
+        provider   => $provider,
       }
 
       file { '/etc/init/docker.conf':
@@ -42,6 +52,7 @@ class docker::service (
     'RedHat': {
       service { 'docker':
         ensure     => $service_state,
+        enable     => $service_enable,
       }
 
       file { '/etc/sysconfig/docker':

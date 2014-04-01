@@ -34,6 +34,10 @@
 #   Whether you want to docker daemon to start up
 #   Defaults to running
 #
+# [*service_enable*]
+#   Whether you want to docker daemon to start up at boot
+#   Defaults to true
+#
 # [*root_dir*]
 #   Custom root directory for containers
 #   Defaults to undefined
@@ -50,6 +54,12 @@
 #   Any extra parameters that should be passed to the docker daemon.
 #   Defaults to undefined
 #
+# [*proxy*]
+#   Will set the http_proxy and https_proxy env variables in /etc/sysconfig/docker (redhat/centos) or /etc/init/docker.conf (debian)
+#
+# [*no_proxy*]
+#   Will set the no_proxy variable in /etc/sysconfig/docker (redhat/centos) or /etc/init/docker.conf (debian)
+#
 class docker(
   $version                     = $docker::params::version,
   $ensure                      = $docker::params::ensure,
@@ -58,10 +68,14 @@ class docker(
   $use_upstream_package_source = $docker::params::use_upstream_package_source,
   $package_source_location     = $docker::params::package_source_location,
   $service_state               = $docker::params::service_state,
+  $service_enable              = $docker::params::service_enable,
   $root_dir                    = $docker::params::root_dir,
   $manage_kernel               = true,
   $dns                         = $docker::params::dns,
   $extra_parameters            = undef,
+  $proxy                       = $docker::params::proxy,
+  $no_proxy                    = $docker::params::no_proxy,
+  $execdriver                  = $docker::params::execdriver,
 ) inherits docker::params {
 
   validate_string($version)

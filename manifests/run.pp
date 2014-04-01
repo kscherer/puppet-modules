@@ -18,6 +18,7 @@ define docker::run(
   $dns = [],
   $lxc_conf = [],
   $restart_service = true,
+  $disable_network = false,
 ) {
 
   validate_re($image, '^[\S]*$')
@@ -31,6 +32,7 @@ define docker::run(
     validate_string($hostname)
   }
   validate_bool($running)
+  validate_bool($disable_network)
 
   $ports_array = any2array($ports)
   $volumes_array = any2array($volumes)
@@ -43,6 +45,11 @@ define docker::run(
     'Debian': {
       $initscript = "/etc/init/docker-${title}.conf"
 
+      $provider = $::operatingsystem ? {
+        'Ubuntu' => 'upstart',
+        default  => undef,
+      }
+
       file { $initscript:
         ensure  => present,
         content => template('docker/etc/init/docker-run.conf.erb')
@@ -53,7 +60,7 @@ define docker::run(
         enable     => true,
         hasstatus  => true,
         hasrestart => true,
-        provider   => upstart;
+        provider   => $provider,
       }
     }
     'RedHat': {
