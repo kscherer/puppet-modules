@@ -40,4 +40,14 @@ class profile::mesos::slave inherits profile::mesos::common {
 
   #turn off locate package which scans filesystem and use a lot of IO
   ensure_resource('package', 'mlocate', {'ensure' => 'absent' })
+
+  vcsrepo {
+    '/home/wrlbuild/wr-buildscripts':
+      ensure   => 'latest',
+      provider => 'git',
+      source   => 'git://ala-git.wrs.com/lpd-ops/wr-buildscripts.git',
+      user     => 'wrlbuild',
+      revision => 'master';
+  }
+
 }
