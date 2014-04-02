@@ -43,7 +43,7 @@ class profile::mesos::slave inherits profile::mesos::common {
 
   vcsrepo {
     '/home/wrlbuild/wr-buildscripts':
-      ensure   => 'latest',
+      ensure   => 'present',
       provider => 'git',
       source   => 'git://ala-git.wrs.com/lpd-ops/wr-buildscripts.git',
       user     => 'wrlbuild',
