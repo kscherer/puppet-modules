@@ -19,4 +19,25 @@ class profile::mesos::slave inherits profile::mesos::common {
     'mesos-master':
       ensure => stopped;
   }
+
+  # Do builds as an unprivileged user which matches uid of user in docker
+  group {
+    'wrlinux':
+      ensure => present,
+  }
+
+  user {
+    'wrlinux':
+      ensure     => present,
+      gid        => 'wrlinux',
+      uid        => 1000,
+      managehome => true,
+      home       => '/home/wrlinux',
+      shell      => '/bin/bash',
+      password   => '$5$6F1BpKqFcszWi0n$fC5yUBkPNXHfyL8TOJwdJ1EE8kIzwJnKVrtcFYnpbcA',
+      require    => Group [ 'wrlinux' ];
+  }
+
+  #turn off locate package which scans filesystem and use a lot of IO
+  ensure_resource('package', 'mlocate', {'ensure' => 'absent' })
 }
