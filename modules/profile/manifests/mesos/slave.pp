@@ -22,20 +22,20 @@ class profile::mesos::slave inherits profile::mesos::common {
 
   # Do builds as an unprivileged user which matches uid of user in docker
   group {
-    'wrlinux':
+    'wrlbuild':
       ensure => present,
   }
 
   user {
-    'wrlinux':
+    'wrlbuild':
       ensure     => present,
-      gid        => 'wrlinux',
+      gid        => 'wrlbuild',
       uid        => 1000,
       managehome => true,
-      home       => '/home/wrlinux',
+      home       => '/home/wrlbuild',
       shell      => '/bin/bash',
       password   => '$5$6F1BpKqFcszWi0n$fC5yUBkPNXHfyL8TOJwdJ1EE8kIzwJnKVrtcFYnpbcA',
-      require    => Group [ 'wrlinux' ];
+      require    => Group [ 'wrlbuild' ];
   }
 
   #turn off locate package which scans filesystem and use a lot of IO
