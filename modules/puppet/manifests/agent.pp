@@ -109,7 +109,7 @@ class puppet::agent(
         'puppet_cron':
           command => '/usr/bin/puppet agent --onetime > /dev/null 2>&1',
           user    => 'root',
-          minute  => fqdn_rand(58)+1,
+          minute  => fqdn_rand(58, 'puppet agent')+1,
           require => File['/etc/puppet/puppet.conf'];
         'stop_service':
           command => 'PATH=/bin:/sbin:/usr/bin:/usr/sbin service puppet stop > /dev/null 2>&1',
