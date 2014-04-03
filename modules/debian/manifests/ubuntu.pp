@@ -66,7 +66,7 @@ class debian::ubuntu (
 
   exec {
     'update-grub':
-      command    => '/usr/sbin/update-grub',
-      refeshonly => true;
+      command     => '/usr/sbin/update-grub',
+      refreshonly => true;
   }
 }
