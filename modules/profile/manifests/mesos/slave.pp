@@ -56,6 +56,9 @@ class profile::mesos::slave inherits profile::mesos::common {
       owner  => 'wrlbuild',
       group  => 'users',
       mode   => '0775';
+    '/etc/init/mesos-master.override':
+      ensure  => present,
+      content => 'manual';
   }
 
   cron {
