@@ -60,7 +60,7 @@ class profile::mesos::slave inherits profile::mesos::common {
 
   cron {
     'wrlinux_update':
-      command => 'cd /home/wrlbuild/wr-buildscripts; /usr/bin/git fetch --all; /usr/bin/git reset --hard origin/master; ./wrlinux-update.sh > /home/wrlbuild/log/wrlinux_update.log',
+      command => 'cd /home/wrlbuild/wr-buildscripts; /usr/bin/git fetch --all; /usr/bin/git reset --hard origin/master; ./wrlinux_update.sh > /home/wrlbuild/log/wrlinux_update.log',
       user    => 'wrlbuild',
       hour    => '*',
       minute  => fqdn_rand(60, 'wrlinux_update');
