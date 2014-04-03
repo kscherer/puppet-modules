@@ -56,9 +56,17 @@ class debian::ubuntu (
   file_line {
     'stop_loading_all_filesystems':
       path   => '/etc/default/grub',
-      line   => 'GRUB_DISABLE_OS_PROBER=true';
+      line   => 'GRUB_DISABLE_OS_PROBER=true',
+      notify => Exec['update-grub'];
     'timeout_grub_menu':
       path   => '/etc/default/grub',
       line   => 'GRUB_RECORDFAIL_TIMEOUT=10',
+      notify => Exec['update-grub'];
+  }
+
+  exec {
+    'update-grub':
+      command    => '/usr/sbin/update-grub',
+      refeshonly => true;
   }
 }

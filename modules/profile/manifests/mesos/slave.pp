@@ -65,4 +65,11 @@ class profile::mesos::slave inherits profile::mesos::common {
       hour    => '*',
       minute  => fqdn_rand(60, 'wrlinux_update');
   }
+
+  exec {
+    'setup_memory_cgroup':
+      command => '/usr/bin/sed -i \'s/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="\1 cgroup_enable=memory swapaccount=1"/\' /etc/default/grub',
+      unless  => 'cat /etc/default/grub | /bin/grep \'GRUB_CMDLINE_LINUX=\' | /bin/grep swapaccount=1',
+      notify  => Exec['update-grub'];
+  }
 }
