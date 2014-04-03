@@ -2,7 +2,9 @@
 class profile::mesos::slave inherits profile::mesos::common {
   include ::mesos::slave
   include docker
+  include yocto
   Class['wr::common::repos'] -> Class['docker']
+  Class['wr::common::repos'] -> Class['yocto']
 
   docker::image {
     'ala-lpd-mesos.wrs.com:5000/centos5_32':
