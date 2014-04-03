@@ -51,7 +51,7 @@ class profile::mesos::slave inherits profile::mesos::common {
   }
 
   file {
-    '/home/wrlbuild/log':
+    ['/home/wrlbuild/log','/home/wrlbuild/builds']:
       ensure => directory,
       owner  => 'wrlbuild',
       group  => 'users',
