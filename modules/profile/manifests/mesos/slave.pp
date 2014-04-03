@@ -62,6 +62,7 @@ class profile::mesos::slave inherits profile::mesos::common {
     'wrlinux_update':
       command => 'cd /home/wrlbuild/wr-buildscripts; /usr/bin/git fetch --all; /usr/bin/git reset --hard origin/master; ./wrlinux-update.sh > /home/wrlbuild/log/wrlinux_update.log',
       user    => 'wrlbuild',
-      hour    => fqdn_rand(60, 'wrlinux_update');
+      hour    => '*',
+      minute  => fqdn_rand(60, 'wrlinux_update');
   }
 }
