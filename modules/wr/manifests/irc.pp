@@ -1,16 +1,7 @@
 #
 class wr::irc {
-  class { "wr::${::location}_dns": }
-  -> class { 'redhat': }
-  -> class { 'ntp': }
-  -> class { 'wr::mcollective': }
-  -> class { 'puppet': }
-  -> class { 'nrpe': }
-  -> class { 'nis': }
-  -> class { 'collectd::disable': }
-  -> class { 'nagios::target': }
 
-  include wr::common::ssh_root_keys
+  include profile::nis
 
   #enable auto update using cron
   package {
