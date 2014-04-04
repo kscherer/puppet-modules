@@ -1,5 +1,5 @@
 #
-class wr::ala-lpd-susbld {
+class wr::ala_lpd_susbld {
   class { 'wr::ala-common': }
 
   ssh_authorized_key {

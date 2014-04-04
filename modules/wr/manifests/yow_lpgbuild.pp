@@ -1,5 +1,5 @@
 #
-class wr::yow-lpgbuild {
+class wr::yow_lpgbuild {
 
   include profile::nxbuilder
 

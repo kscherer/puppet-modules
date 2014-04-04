@@ -1,5 +1,5 @@
 #
-class wr::ala-blades {
+class wr::ala_blades {
 
   include profile::nxbuilder
 

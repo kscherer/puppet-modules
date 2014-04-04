@@ -1,5 +1,5 @@
 #
-class wr::pek-common {
+class wr::pek_common {
   class { 'redhat': }
   -> class { 'redhat::autoupdate': }
   -> class { 'wr::common': }

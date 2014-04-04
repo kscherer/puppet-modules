@@ -1,5 +1,5 @@
 #
-class wr::ala-lpd-test {
+class wr::ala_lpd_test {
 
   include profile::nxbuilder
   include git

@@ -1,11 +1,11 @@
 #
-class wr::pek-usp inherits wr::common {
+class wr::pek_usp inherits wr::common {
 
-  case $::operatingsystem {
-    Debian,Ubuntu: { $base_class='debian' }
-    CentOS,RedHat,Fedora: { $base_class='redhat' }
-    OpenSuSE,SLED: { $base_class='suse'}
-    default: { fail("Unsupported OS: $::operatingsystem")}
+  case $::osfamily {
+    'Debian': { $base_class='debian' }
+    'RedHat': { $base_class='redhat' }
+    'Suse': { $base_class='suse'}
+    default: { fail("Unsupported OS: ${::operatingsystem}")}
   }
 
   class { $base_class: }

@@ -1,5 +1,5 @@
 #
-class wr::yow-lpggp {
+class wr::yow_lpggp {
   class { 'yocto': }
   Class['redhat'] -> Class['yocto']
 

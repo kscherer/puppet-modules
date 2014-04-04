@@ -1,5 +1,5 @@
 #
-class wr::yow-lpd-puppet2 {
+class wr::yow_lpd_puppet2 {
   include profile::monitored
 
   include apache

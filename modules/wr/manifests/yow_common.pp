@@ -1,5 +1,5 @@
 #
-class wr::yow-common( $mcollective_client = false ) {
+class wr::yow_common( $mcollective_client = false ) {
   class { 'wr::yow_dns': }
   class { 'redhat': }
   -> class { 'redhat::autoupdate': }

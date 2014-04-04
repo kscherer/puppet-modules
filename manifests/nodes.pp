@@ -2,7 +2,7 @@ node default {
 }
 
 node 'ala-lpd-puppet.wrs.com' {
-  include wr::ala-lpd-puppet
+  include wr::ala_lpd_puppet
 }
 
 node 'pek-lpd-puppet.wrs.com' {
@@ -16,11 +16,11 @@ node 'pek-lpd-puppet.wrs.com' {
 }
 
 node 'yow-lpd-puppet2.wrs.com' {
-  include wr::yow-lpd-puppet2
+  include wr::yow_lpd_puppet2
 }
 
 node 'yow-lpg-amqp.wrs.com' {
-  class { 'wr::yow-amqp': }
+  class { 'wr::yow_amqp': }
 }
 
 node /yow-blade[1-3].wrs.com/ {
@@ -34,7 +34,7 @@ node /yow-blade.*.wrs.com/ {
 
 #test buildbot cluster
 node /yow-lpgbld-[0-2][0-9]\.wrs\.com/ {
-  class { 'wr::yow-buildbot-slave': }
+  class { 'wr::yow_buildbot_slave': }
 }
 
 node /yow-lpgbld-[3-5][0-9]\.wrs\.com/ {
@@ -70,19 +70,19 @@ node 'yow-lpd-monitor.wrs.com' {
 }
 
 node /yow-lpgbld-vm\d+\.wrs\.com$/ {
-  class { 'wr::yow-hostel': }
+  class { 'wr::yow_hostel': }
 }
 
 node /yow-lpgbuild-\d+\.wrs\.com$/ {
-  class { 'wr::yow-lpgbuild': }
+  class { 'wr::yow_lpgbuild': }
 }
 
 node /pek-hostel-vm(19|2[0-9]|3[0-6])\.wrs\.com$/ {
-  class { 'wr::pek-hostel': }
+  class { 'wr::pek_hostel': }
 }
 
 node /pek-hostel-vm(0[1-9]|1[0-3])\.wrs\.com/ {
-  class { 'wr::pek-hostel': }
+  class { 'wr::pek_hostel': }
   -> class { 'nis': }
 }
 
@@ -91,37 +91,32 @@ node /ala-blade\d+\.wrs\.com/ {
     include role::nxbuilder
   } else {
     #Keep old config for CentOS builders
-    include wr::ala-blades
+    include wr::ala_blades
   }
 }
 
 node /ala-lpggp\d+\.wrs\.com/ {
-  class { 'wr::ala-lpggp': }
+  class { 'wr::ala_lpggp': }
 }
 
 node /yow-lpggp\d+\.wrs\.com/ {
-  class { 'wr::yow-lpggp': }
+  class { 'wr::yow_lpggp': }
 }
 
 node /ala-lpd-test[1-3]\.wrs\.com/ {
-  class { 'wr::ala-lpd-test': }
+  class { 'wr::ala_lpd_test': }
 }
 
 node 'ala-lpd-rcpl.wrs.com' {
-  class {'wr::ala-lpd-rcpl': }
+  class {'wr::ala_lpd_rcpl': }
 }
 
 node 'ala-irc.wrs.com' {
-  class { 'wr::ala-common': }
+  class { 'wr::ala_common': }
 }
 
 node 'yow-irc.wrs.com' {
   class { 'wr::irc': }
-}
-
-node 'yow-lpg-md3000.wrs.com' {
-  class {'wr::yow-common': }
-  -> class {'nomachine': }
 }
 
 node 'yow-git.wrs.com' {
@@ -152,7 +147,7 @@ node 'splat.wrs.com' {
 }
 
 node 'ala-lpd-susbld.wrs.com' {
-  class { 'wr::ala-lpd-susbld': }
+  class { 'wr::ala_lpd_susbld': }
 }
 
 node /(yow|ala)-lpd-provision.wrs.com/ {
@@ -170,7 +165,7 @@ node 'ala-lpgweb2.wrs.com' {
 }
 
 node /ala-lp.*\.wrs\.com/ {
-  class { 'wr::ala-common': }
+  class { 'wr::ala_common': }
 }
 
 node /yow-cgts\d+-lx\.wrs\.com/ {

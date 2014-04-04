@@ -1,5 +1,5 @@
 #
-class wr::ala-lpd-puppet {
+class wr::ala_lpd_puppet {
 
   include profile::monitored
 

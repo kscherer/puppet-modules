@@ -1,5 +1,5 @@
 #
-class wr::yow-buildbot-slave inherits wr::mcollective {
+class wr::yow_buildbot_slave inherits wr::mcollective {
 
   include profile::nis
   include yocto

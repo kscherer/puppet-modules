@@ -1,5 +1,5 @@
 #
-class wr::ala-lpd-rcpl {
+class wr::ala_lpd_rcpl {
   include profile::nis
 
   include git::service

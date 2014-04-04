@@ -1,5 +1,5 @@
 #
-class wr::pek-xenserver {
+class wr::pek_xenserver {
 
   class { 'apt': purge_sources_list => true }
   class { 'debian': }

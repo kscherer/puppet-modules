@@ -1,5 +1,5 @@
 #
-class wr::yow-hostel {
+class wr::yow_hostel {
 
   include profile::nxbuilder
 

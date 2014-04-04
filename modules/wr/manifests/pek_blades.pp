@@ -1,5 +1,5 @@
 #
-class wr::pek-blades inherits wr::pek-common {
+class wr::pek_blades inherits wr::pek_common {
 
   class { 'yocto': }
   Class['redhat'] -> Class['yocto']

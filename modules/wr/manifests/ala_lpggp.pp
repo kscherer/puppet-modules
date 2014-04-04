@@ -1,5 +1,5 @@
 #
-class wr::ala-lpggp {
+class wr::ala_lpggp {
   include profile::nis
   include git
   include yocto

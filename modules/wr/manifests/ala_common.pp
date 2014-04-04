@@ -1,5 +1,5 @@
 #
-class wr::ala-common {
+class wr::ala_common {
   class {'wr::ala_dns': }
   -> class { 'redhat': }
   -> class { 'wr::common': }
