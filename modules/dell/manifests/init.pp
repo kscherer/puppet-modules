@@ -5,7 +5,7 @@ class dell (
   $omsa_version = $dell::params::omsa_version,
   $customplugins = $dell::params::customplugins,
   $check_warranty_revision = $dell::params::check_warranty_revision,
-) inherits ::dell::params {
+) inherits dell::params {
 
   validate_string($omsa_url_base)
 
