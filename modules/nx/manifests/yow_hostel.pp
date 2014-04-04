@@ -1,5 +1,5 @@
 #
-class nx::yow-hostel {
+class nx::yow_hostel {
 
   include nfs
 

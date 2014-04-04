@@ -1,5 +1,5 @@
 #
-class nx::ala-lpd-rcpl {
+class nx::ala_lpd_rcpl {
   nx::setup { '1': }
 
   file {

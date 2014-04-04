@@ -1,5 +1,5 @@
 #
-class nx::ala-lpd-test {
+class nx::ala_lpd_test {
   nx::setup { '1': }
 
   file {

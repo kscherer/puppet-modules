@@ -199,15 +199,15 @@ class nx {
   }
 
   case $::hostname {
-    /^yow-lpgbuild-*/: { include nx::yow-lpgbuild }
-    /^yow-lpgbld-vm*/: { include nx::yow-hostel }
-    /^yow-blade*/:     { include nx::yow-blades }
-    /^ala-blade*/:     { include nx::ala-blades }
-    /^pek-blade*/:     { include nx::pek-blades }
-    /^pek-usp*/:       { include nx::pek-usp }
-    /^pek-hostel-vm*/: { include nx::pek-hostel }
-    /^ala-lpd-test*/:  { include nx::ala-lpd-test }
-    'ala-lpd-rcpl':    { include nx::ala-lpd-rcpl }
+    /^yow-lpgbuild-*/: { include nx::yow_lpgbuild }
+    /^yow-lpgbld-vm*/: { include nx::yow_hostel }
+    /^yow-blade*/:     { include nx::yow_blades }
+    /^ala-blade*/:     { include nx::ala_blades }
+    /^pek-blade*/:     { include nx::pek_blades }
+    /^pek-usp*/:       { include nx::pek_usp }
+    /^pek-hostel-vm*/: { include nx::pek_hostel }
+    /^ala-lpd-test*/:  { include nx::ala_lpd_test }
+    'ala-lpd-rcpl':    { include nx::ala_lpd_rcpl }
     default:           { fail("Unsupported nx configuration for ${::hostname}") }
   }
 

@@ -1,13 +1,13 @@
 #
-class nx::pek-usp {
+class nx::pek_usp {
 
   file {
     '/buildarea/nx':
       ensure  => directory,
-      owner  => 'nxadm',
-      group  => 'nxadm',
+      owner   => 'nxadm',
+      group   => 'nxadm',
       mode    => '0755';
-    "/home/nxadm/nx":
+    '/home/nxadm/nx':
       ensure => link,
       target => '/buildarea/nx';
     ["/home/nxadm/nx/${::hostname}.1"]:

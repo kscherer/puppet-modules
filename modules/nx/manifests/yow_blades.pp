@@ -1,5 +1,5 @@
 #
-class nx::yow-blades {
+class nx::yow_blades {
 
   #create nx instances
   include nx::local_build
