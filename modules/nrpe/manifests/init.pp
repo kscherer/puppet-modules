@@ -81,7 +81,7 @@ class nrpe {
   }
 
   case $::operatingsystem {
-    Debian,Ubuntu: {
+    'Debian','Ubuntu': {
       $nagios_packages = 'nagios-plugins-basic'
       file {
         'check_openmanage':
@@ -92,15 +92,15 @@ class nrpe {
           require => Package['nagios-plugins-basic'];
       }
     }
-    CentOS,RedHat,Fedora: {
+    'CentOS','RedHat','Fedora': {
       $nagios_packages = ['nagios-plugins-disk', 'nagios-plugins-file_age',
                           'nagios-plugins-ntp', 'nagios-plugins-procs',
                           'nagios-plugins-openmanage']
     }
-    OpenSuSE: {
+    'OpenSuSE': {
       $nagios_packages = 'nagios-plugins'
     }
-    SLED: {
+    'SLED': {
       $nagios_packages = ['nagios-plugins-disk', 'nagios-plugins-file_age',
                           'nagios-plugins-ntp_time', 'nagios-plugins-procs']
     }
