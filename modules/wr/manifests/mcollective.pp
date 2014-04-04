@@ -6,10 +6,10 @@ class wr::mcollective (
 
   $amqp_server = hiera('amqp_server')
 
-  $activemq_server1 = { host => $amqp_server, port => '6163',
-    user => 'mcollective', password => 'marionette'}
+  $activemq_server1 = { 'host' => $amqp_server, 'port' => '6163',
+    'user' => 'mcollective', 'password' => 'marionette'}
 
-  $activemq_pool = { 1 => $activemq_server1 }
+  $activemq_pool = { '1' => $activemq_server1 }
 
   #mcollective 2.2 deb package does not have dependency on stomp
   if $::operatingsystem == 'Ubuntu' and $::operatingsystemrelease == '12.04' {
