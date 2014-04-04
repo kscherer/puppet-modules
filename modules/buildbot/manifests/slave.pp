@@ -10,8 +10,8 @@ class buildbot::slave(
       'buildbot':
         baseurl  => 'http://yow-mirror.wrs.com/mirror/buildbot',
         descr    => 'YOW Buildbot repo',
-        enabled  => 1,
-        gpgcheck => 0,
+        enabled  => '1',
+        gpgcheck => '0',
         before   => Package['buildbot-slave'],
         notify   => Exec['yum-reload'];
     }

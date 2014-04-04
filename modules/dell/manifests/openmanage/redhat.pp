@@ -28,8 +28,8 @@ class dell::openmanage::redhat {
   yumrepo {'dell-omsa-specific':
     descr      => 'Dell OMSA repository - Hardware specific',
     mirrorlist => "${dell::omsa_url_base}${dell::omsa_version}/mirrors.cgi?${dell::omsa_url_args_specific}",
-    enabled    => 1,
-    gpgcheck   => 1,
+    enabled    => '1',
+    gpgcheck   => '1',
     gpgkey     => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-dell\n\tfile:///etc/pki/rpm-gpg/RPM-GPG-KEY-libsmbios",
     require    => [
       File['/etc/pki/rpm-gpg/RPM-GPG-KEY-dell'],

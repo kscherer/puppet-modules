@@ -17,6 +17,6 @@ class motd {
     'motd_header':
       target  => $motd,
       content => template('motd/motd.erb'),
-      order   => 01;
+      order   => '01';
   }
 }
