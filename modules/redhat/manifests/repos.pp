@@ -96,7 +96,7 @@ class redhat::repos {
 
   #setup repos depending on which flavour of redhat
   case $::operatingsystem {
-    CentOS: {
+    'CentOS': {
       realize( Yum_repo['centos-os'] )
       realize( Yum_repo['centos-updates'] )
       realize( Yum_repo['epel'] )
@@ -114,7 +114,7 @@ class redhat::repos {
           require => Yumrepo['epel'];
       }
     }
-    Fedora: {
+    'Fedora': {
       realize( Yum_repo['fedora-updates'], Yum_repo['fedora-everything'] )
       if $::operatingsystem == 'Fedora' and $::operatingsystemrelease > '16' {
         realize( Yum_repo['puppetlabs'] )
@@ -126,7 +126,7 @@ class redhat::repos {
         }
       }
     }
-    RedHat: {
+    'RedHat': {
       realize( Yum_repo['redhat-dvd'] )
       realize( Yum_repo['epel'] )
       realize( Yum_repo['puppetlabs'] )
