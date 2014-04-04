@@ -5,7 +5,7 @@ class nx::yow_hostel {
 
   Class['nfs']
   -> Anchor['nx::begin']
-  -> Class['nx::yow-hostel']
+  -> Class['nx::yow_hostel']
   -> Anchor['nx::end']
 
   file {

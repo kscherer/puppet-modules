@@ -11,7 +11,7 @@ class nx::md3000_iscsi_setup {
   }
   -> Anchor['nx::begin']
   -> Class['nx::md3000_iscsi_setup']
-  -> Class['nx::yow-blades']
+  -> Class['nx::yow_blades']
   -> Anchor['nx::end']
 
   file {
