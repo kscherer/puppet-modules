@@ -8,8 +8,6 @@ class dell (
 ) inherits ::dell::params {
 
   validate_string($omsa_url_base)
-  validate_string($omsa_url_args_indep)
-  validate_string($omsa_url_args_specific)
 
   validate_string($omsa_version)
 
