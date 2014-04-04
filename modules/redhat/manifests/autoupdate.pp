@@ -1,5 +1,7 @@
 #
-class redhat::autoupdate {
+class redhat::autoupdate(
+  $yum_cron_ensure = 'running'
+) {
   #enable auto update using cron
   package {
     ['yum-cron', 'bash-completion']:
@@ -10,7 +12,7 @@ class redhat::autoupdate {
 
   service {
     'yum-cron':
-      ensure    => running,
+      ensure    => $yum_cron_ensure,
       enable    => true,
       hasstatus => true;
   }

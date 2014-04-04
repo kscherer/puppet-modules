@@ -1,0 +1,2 @@
+---
+redhat::autoupdate::yum_cron_ensure: "stopped"

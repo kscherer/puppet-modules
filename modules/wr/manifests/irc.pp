@@ -3,12 +3,10 @@ class wr::irc {
 
   include profile::nis
 
-  #enable auto update using cron
+  #yum cron using hiera is disabled to avoid ircd restarts
   package {
-    ['yum-cron', 'bash-completion', 'ircd-hybrid']:
+    'ircd-hybrid':
       ensure => installed;
-    'yum-updatesd':
-      ensure => absent;
   }
 
   $operators = {
