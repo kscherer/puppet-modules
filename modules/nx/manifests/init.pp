@@ -252,8 +252,12 @@ class nx {
   #flushing of dirty pages is activated
   sysctl::value { 'vm.dirty_ratio': value => '0'} #disable ratio
   sysctl::value { 'vm.dirty_background_ratio': value => '0'} #disable ratio
-  if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '5' {
-    #bug on RedHat 5 does not handle large numbers on command line
+
+
+  #bug on RedHat 5 and SLED 11 does not handle large numbers on command line
+  $isRedHat5 = $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '5'
+  $isSled11 = $::osfamily == 'Suse' and $::lsbmajdistrelease == '11'
+  if $isRedHat5 or $isSled11 {
     sysctl::value { 'vm.dirty_bytes': value => '2147483647'} #2GB-1
   } else {
     sysctl::value { 'vm.dirty_bytes': value => '4294967296'} #4GB
