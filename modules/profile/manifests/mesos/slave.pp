@@ -71,7 +71,7 @@ class profile::mesos::slave inherits profile::mesos::common {
       command => '/usr/bin/docker rm $(/usr/bin/docker ps -a -q) > /dev/null 2>&1',
       minute  => fqdn_rand(60, 'container cleanup');
     'cleanup_untagged_images':
-      command => '/usr/bin/docker rmi $(/usr/bin/docker images | /bin/grep "^<none>" | /usr/bin/awk "{print $3}") > /dev/null 2>&1',
+      command => '/usr/bin/docker rmi $(/usr/bin/docker images | /bin/grep "^<none>" | /usr/bin/awk "{print \$3}") > /dev/null 2>&1',
       minute  => fqdn_rand(60, 'images cleanup');
   }
 
