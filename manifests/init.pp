@@ -1,9 +1,10 @@
 class dhcp (
   $dnsdomain,
   $nameservers,
-  $ntpservers,
+  $ntpservers          = undef,
   $dhcp_conf_header    = 'INTERNAL_TEMPLATE',
   $dhcp_conf_ddns      = 'INTERNAL_TEMPLATE',
+  $dhcp_conf_ntp       = 'INTERNAL_TEMPLATE',
   $dhcp_conf_pxe       = 'INTERNAL_TEMPLATE',
   $dhcp_conf_extra     = 'INTERNAL_TEMPLATE',
   $dhcp_conf_fragments = {},
@@ -14,8 +15,7 @@ class dhcp (
   $pxefilename         = undef,
   $logfacility         = 'daemon',
   $default_lease_time  = 3600,
-  $max_lease_time      = 86400,
-  $failover            = ''
+  $max_lease_time      = 86400
 ) {
   #input validation
   validate_array($dnsdomain)
@@ -48,6 +48,10 @@ class dhcp (
   $dhcp_conf_header_real = $dhcp_conf_header ? {
     INTERNAL_TEMPLATE => template('dhcp/dhcpd.conf-header.erb'),
     default           => $dhcp_conf_header,
+  }
+  $dhcp_conf_ntp_real = $dhcp_conf_ntp ? {
+    INTERNAL_TEMPLATE => template('dhcp/dhcpd.conf.ntp.erb'),
+    default           => $dhcp_conf_ntp,
   }
   $dhcp_conf_ddns_real = $dhcp_conf_ddns ? {
     INTERNAL_TEMPLATE => template('dhcp/dhcpd.conf.ddns.erb'),
@@ -94,6 +98,11 @@ class dhcp (
     target  => "${dhcp_dir}/dhcpd.conf",
     content => $dhcp_conf_header_real,
     order   => 01,
+  }
+  concat::fragment { 'dhcp-conf-ntp':
+    target  => "${dhcp_dir}/dhcpd.conf",
+    content => $dhcp_conf_ntp_real,
+    order   => 02,
   }
   concat::fragment { 'dhcp-conf-ddns':
     target  => "${dhcp_dir}/dhcpd.conf",
