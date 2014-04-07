@@ -40,3 +40,5 @@ case $::location {
   }
   default: { } #location properly set, Nothing to do
 }
+
+import 'nodes.pp'
