@@ -46,21 +46,21 @@ node 'yow-lpgbld-master.wrs.com' {
 }
 
 node /pek-hostel-deb0[1-6]\.wrs\.com/ {
-  class { 'wr::pek-xenserver': }
+  class { 'wr::pek_xenserver': }
 }
 
 node /pek-blade(2|3|4|5|7|8)\.wrs\.com/ {
-  class { 'wr::pek-blades': }
+  class { 'wr::pek_blades': }
   -> class { 'nx': }
 }
 
 node /pek-blade(17|18|19|20)\.wrs\.com/ {
-  class { 'wr::pek-blades': }
+  class { 'wr::pek_blades': }
   -> class { 'nx': }
 }
 
 node /pek-usp-\d+\.wrs\.com/ {
-  class { 'wr::pek-usp': }
+  class { 'wr::pek_usp': }
   -> class { 'nx': }
 }
 
