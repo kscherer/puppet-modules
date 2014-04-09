@@ -8,6 +8,8 @@ collectd::plugin::write_graphite::port: "2023"
 graphite::carbon::service::aggregator_ensure: "running"
 graphite::carbon::service::aggregator_enable: true
 packages:
+  - make
+  - file
   - screen
 apache::serveradmin: "Konrad.Scherer@windriver.com"
 ntp::servers:
@@ -63,8 +65,8 @@ apache::mod::passenger::passenger_high_performance: "On"
 apache::mod::passenger::passenger_max_requests: "1000"
 
 mesos::zookeeper: "zk://147.11.106.56:2181/mesos"
-mesos::slave::listen_address: %{::ipaddress_eth0}
-mesos::master::listen_address: %{::ipaddress_eth0}
+mesos::slave::listen_address: "%{::ipaddress_eth0}"
+mesos::master::listen_address: "%{::ipaddress_eth0}"
 
 docker::version: '0.10.0'
 docker::manage_kernel: false

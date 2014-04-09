@@ -1,6 +1,5 @@
 
 arch=`uname -m`
-kernel=`uname -r`
 distro=""
 install_check='rpm -q'
 install_program=""
@@ -56,24 +55,25 @@ if [ -e /usr/bin/yum ]; then
     #detect Fedora
     if [ -f /etc/fedora-release ]; then
         #Retrieve fedora release
-        fedora_release=$(cat /etc/fedora-release | cut -d\  -f 3)
+        fedora_release=$(cut -d\  -f 3 < cat /etc/fedora-release)
         if [ "$fedora_release" -ge '19' ]; then
             distro=F19
         else
             distro=RH6
         fi
-    #Look for RedHat 5 kernel
-    elif echo $kernel | grep -q '2.6.18'
+    #Detects 5.x release on RedHat, CentOS, Oracle, etc.
+    elif cat /etc/*-release | grep 'release 5\.'
     then
         distro=RH5
     else
         distro=RH6
     fi
 elif [ -e /usr/bin/dpkg ]; then
-    #we only support Ubuntu 12.04
+    #wrlinux only supports Ubuntu LTS releases, but the
+    #12.04 package list works for Debian squeeze/wheezy
     install_program="apt-get $opt_yes install"
     install_check='dpkg -L'
-    if echo $kernel | grep -q '^2.6'
+    if grep DISTRIB_RELEASE /etc/lsb-release | grep 10.04
     then
         distro=U1004
     else
@@ -85,10 +85,10 @@ elif [ -e /usr/bin/zypper ]; then
     fi
 
     install_program="zypper $opt_yes install"
-    if cat /etc/issue | grep -q '11\.4'
+    if grep -q '11\.4' /etc/issue
     then
         distro=OS114
-    elif cat /etc/issue | grep -q 'SUSE Linux Enterprise'
+    elif grep -q 'SUSE Linux Enterprise' /etc/issue
     then
         distro=SLED112
     else

@@ -10,6 +10,7 @@ def lookup(family, os, release, arch)
   scope = { '::osfamily' => family, '::lsbmajdistrelease' => release,
     '::operatingsystem' => os, '::architecture' => arch,
     '::environment' => 'production',
+    '::hiera_datadir' => '.'
   }
   $hiera.lookup("packages", nil, scope, nil, :array )
 end

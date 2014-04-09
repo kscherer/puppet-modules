@@ -19,6 +19,9 @@ packages:
   - tar
   - patch
   - xz
+  - make
+  - diff
+  - file
 java::distribution: 'java-1.7.0-openjdk'
 
 #On redhat I am already managing epel repo setup
