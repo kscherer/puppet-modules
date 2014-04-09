@@ -32,6 +32,10 @@ node /yow-blade.*.wrs.com/ {
   include collectd
 }
 
+node 'yow-lpgbld-24.wrs.com' {
+  include profile::nis
+}
+
 #test buildbot cluster
 node /yow-lpgbld-[0-2][0-9]\.wrs\.com/ {
   class { 'wr::yow_buildbot_slave': }
