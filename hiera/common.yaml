@@ -68,7 +68,6 @@ mesos::zookeeper: "zk://147.11.106.56:2181/mesos"
 mesos::slave::listen_address: "%{::ipaddress_eth0}"
 mesos::master::listen_address: "%{::ipaddress_eth0}"
 
-docker::version: '0.10.0'
 docker::manage_kernel: false
 docker::extra_parameters: '--storage-driver=devicemapper'
 
