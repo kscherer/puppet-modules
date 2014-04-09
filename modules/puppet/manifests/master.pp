@@ -108,10 +108,15 @@ class puppet::master (
 
   #except /var/lib/puppet/lib which is used by root for pluginsync
   #when running agent on master
-  file { "${puppet_vardir}/lib":
-    ensure  => directory,
-    owner   => 'root',
-    group   => 'root',
+  file {
+    "${puppet_vardir}/lib":
+      ensure  => directory,
+      owner   => 'root',
+      group   => 'root';
+    "${puppet_vardir}/facts.d":
+      ensure  => directory,
+      owner   => 'root',
+      group   => 'root',
   }
 
   #the git stomp hooks create one directory per environment
