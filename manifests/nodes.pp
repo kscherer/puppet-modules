@@ -34,6 +34,7 @@ node /yow-blade.*.wrs.com/ {
 
 node 'yow-lpgbld-24.wrs.com' {
   include profile::nis
+  include yocto
 }
 
 #test buildbot cluster
