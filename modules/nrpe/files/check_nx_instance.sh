@@ -18,8 +18,7 @@ function email_me() {
     echo "$old_processes" >> $TMP_EMAIL
     git send-email --smtp-server prod-webmail.wrs.com \
         --to randy.macleod@windriver.com \
-        --to joe.macdonald@windriver.com \
-        --to Kai.Kang@windriver.com \
+        --to yang.shi@windriver.com \
         --from nxadm@windriver.com $TMP_EMAIL
     rm $TMP_EMAIL
 }
@@ -38,9 +37,9 @@ else
         if [ -a $nx ]; then
             output=$($nx status)
             if [ "$?" -eq "0" ]; then
-                # if [ "$output" == "Nx instance $instance is probably hung" ]; then
-                #     email_me $instance
-                # fi
+                if [ "$output" == "Nx instance $instance is probably hung" ]; then
+                    email_me $instance
+                fi
                 num_ok=$(($num_ok+1))
             elif [ "$?" -eq "1" ]; then
                 num_warning=$((num_warning+1))
