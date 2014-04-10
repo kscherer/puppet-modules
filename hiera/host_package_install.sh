@@ -4,34 +4,34 @@
 #Contact Konrad.Scherer@windriver.com for details.
 
 #RedHat 5.x i386
-RH5_i686='binutils220 texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz make diff file screen'
+RH5_i686='binutils220 texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz make diffutils file screen'
 
 #RedHat 5.x x86_64
-RH5_x86_64='glibc.i686 glibc-devel.i386 glibc-devel.x86_64 libgcc.i386 ncurses.i386 binutils220 texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz make diff file screen'
+RH5_x86_64='glibc.i686 glibc-devel.i386 glibc-devel.x86_64 libgcc.i386 ncurses.i386 binutils220 texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz make diffutils file screen'
 
 #RedHat 6.x and Fedora 15 16 17 18 i386
-RH6_i686='texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz make diff file screen'
+RH6_i686='texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz make diffutils file screen'
 
 #RedHat 6.x and Fedora 15 16 17 18 x86_64
-RH6_x86_64='glibc.i686 glibc-devel.i686 glibc-devel.x86_64 libgcc.i686 ncurses-libs.i686 texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz make diff file screen'
+RH6_x86_64='glibc.i686 glibc-devel.i686 glibc-devel.x86_64 libgcc.i686 ncurses-libs.i686 texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz make diffutils file screen'
 
 #Fedora 19+ i386
-F19_i686='perl-Text-ParseWords perl-podlators perl-autodie perl-Thread-Queue texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz make diff file screen'
+F19_i686='perl-Text-ParseWords perl-podlators perl-autodie perl-Thread-Queue texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz make diffutils file screen'
 
 #Fedora 19+ x86_64
-F19_x86_64='glibc.i686 glibc-devel.i686 glibc-devel.x86_64 libgcc.i686 ncurses-libs.i686 perl-Text-ParseWords perl-podlators perl-autodie perl-Thread-Queue texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz make diff file screen'
+F19_x86_64='glibc.i686 glibc-devel.i686 glibc-devel.x86_64 libgcc.i686 ncurses-libs.i686 perl-Text-ParseWords perl-podlators perl-autodie perl-Thread-Queue texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz make diffutils file screen'
 
 #Ubuntu 10.04 i386
-U1004_i686='texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 bash diff-utils xz-utils make file screen'
+U1004_i686='texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 bash diffutils xz-utils make file screen'
 
 #Ubuntu 10.04 x86_64
-U1004_x86_64='libc6-i386 libc6-dev-i386 lib32ncurses5 texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 bash diff-utils xz-utils make file screen'
+U1004_x86_64='libc6-i386 libc6-dev-i386 lib32ncurses5 texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 bash diffutils xz-utils make file screen'
 
 #Ubuntu 12.04 i386
-U1204_i686='texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 bash diff-utils xz-utils make file screen'
+U1204_i686='texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 bash diffutils xz-utils make file screen'
 
 #Ubuntu 12.04 x86_64
-U1204_x86_64='libc6:i386 libc6-dev-i386 libncurses5:i386 texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 bash diff-utils xz-utils make file screen'
+U1204_x86_64='libc6:i386 libc6-dev-i386 libncurses5:i386 texi2html chrpath diffstat subversion libgl1-mesa-dev libglu1-mesa-dev libsdl1.2-dev texinfo gawk gcc help2man g++ git-core python-gtk2 bash diffutils xz-utils make file screen'
 
 #OpenSuSE 11.4 i386
 OS114_i686='chrpath diffstat subversion Mesa Mesa-devel make libSDL-devel texinfo gawk gcc gcc-c++ help2man patch python-curses python-xml libsqlite3-0 glibc-locale git python-gtk diffutils xz file screen'
@@ -52,7 +52,6 @@ SLED112_i686='make texinfo gawk gcc gcc-c++ patch diffstat subversion chrpath Me
 SLED112_x86_64='gcc43-32bit libncurses5-32bit make texinfo gawk gcc gcc-c++ patch diffstat subversion chrpath Mesa-devel SDL-devel python-curses git python-gtk diffutils xz file screen'
 
 arch=`uname -m`
-kernel=`uname -r`
 distro=""
 install_check='rpm -q'
 install_program=""
