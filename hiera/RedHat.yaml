@@ -20,7 +20,7 @@ packages:
   - patch
   - xz
   - make
-  - diff
+  - diffutils
   - file
 java::distribution: 'java-1.7.0-openjdk'
 
