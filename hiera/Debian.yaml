@@ -15,7 +15,7 @@ packages:
   - git-core
   - python-gtk2
   - bash
-  - diff-utils
+  - diffutils
   - xz-utils
 
 #Enable the smux extension on debian
