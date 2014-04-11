@@ -10,6 +10,7 @@ packages:
   - texinfo
   - gawk
   - gcc
+  - gcc-multilib
   - help2man
   - g++
   - git-core
