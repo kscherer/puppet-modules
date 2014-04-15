@@ -107,14 +107,14 @@ if [ -e /usr/bin/yum ]; then
     #detect Fedora
     if [ -f /etc/fedora-release ]; then
         #Retrieve fedora release
-        fedora_release=$(cut -d\  -f 3 < cat /etc/fedora-release)
+        fedora_release=$(cut -d\  -f 3 < /etc/fedora-release)
         if [ "$fedora_release" -ge '19' ]; then
             distro=F19
         else
             distro=RH6
         fi
     #Detects 5.x release on RedHat, CentOS, Oracle, etc.
-    elif cat /etc/*-release | grep 'release 5\.'
+    elif cat /etc/*-release | grep 'release 5\.' > /dev/null 2>&1
     then
         distro=RH5
     else
@@ -125,7 +125,7 @@ elif [ -e /usr/bin/dpkg ]; then
     #12.04 package list works for Debian squeeze/wheezy
     install_program="apt-get $opt_yes install"
     install_check='dpkg -L'
-    if grep DISTRIB_RELEASE /etc/lsb-release | grep 10.04
+    if grep DISTRIB_RELEASE /etc/lsb-release | grep -q 10.04
     then
         distro=U1004
     else
@@ -158,9 +158,17 @@ host="${distro}_${arch}"
 eval packages=\$$host
 uninstalled=""
 
-log "Checking for missing host packages using $install_check"
+log "Looking for additional host packages in addons"
+all_addon_packages=
+for addon_package_file in $(dirname $0)/../addons/*/addon_host_packages.txt; do
+    addon_packages=`grep $distro $addon_package_file 2> /dev/null | cut -d= -f2`
+    if [ -n "$addon_packages" ]; then
+        all_addon_packages="$addon_packages $all_addon_packages"
+    fi
+done
 
-for package in $packages
+log "Checking for missing host packages using $install_check"
+for package in $packages $all_addon_packages
 do
     if $install_check $package > /dev/null 2>&1
     then
