@@ -1,6 +1,6 @@
 #
 class wr::ala_lpd_susbld {
-  class { 'wr::ala-common': }
+  class { 'wr::ala_common': }
 
   ssh_authorized_key {
     'pkennedy_buildadmin':
