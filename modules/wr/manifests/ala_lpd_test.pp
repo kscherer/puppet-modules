@@ -6,7 +6,6 @@ class wr::ala_lpd_test {
   include yocto
 
   include e2croncheck
-  include nomachine
 
   motd::register {
     'ala-lpd-test':
