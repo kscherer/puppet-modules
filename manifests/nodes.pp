@@ -24,7 +24,7 @@ node 'yow-lpg-amqp.wrs.com' {
 }
 
 node /yow-blade[1-3].wrs.com/ {
-  class { 'profile::mesos::slave': }
+  include profile::mesos::slave
 }
 
 node /yow-blade.*.wrs.com/ {

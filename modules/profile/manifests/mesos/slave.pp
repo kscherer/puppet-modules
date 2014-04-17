@@ -4,6 +4,10 @@ class profile::mesos::slave inherits profile::mesos::common {
   include docker
   Class['wr::common::repos'] -> Class['docker']
 
+  #Use collectd to monitor system utilization
+  include collectd
+  Class['wr::common::repos'] -> Class['collectd']
+
   docker::image {
     'ala-lpd-mesos.wrs.com:5000/centos5_32':
       image_tag => 'wrl',
