@@ -2,11 +2,13 @@
 class profile::nxbuilder inherits profile::nis {
 
   if $::hostname != 'ala-blade1' {
-    include 'nx'
+    include nx
   }
   include yocto
-  Class['wr::common::repos'] -> Class['git']
   Class['wr::common::repos'] -> Class['yocto']
+
+  include git
+  Class['wr::common::repos'] -> Class['git']
 
   motd::register{
     'nxbuilder':
