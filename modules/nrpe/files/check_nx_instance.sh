@@ -37,9 +37,9 @@ else
         if [ -a $nx ]; then
             output=$($nx status)
             if [ "$?" -eq "0" ]; then
-                if [ "$output" == "Nx instance $instance is probably hung" ]; then
-                    email_me $instance
-                fi
+                # if [ "$output" == "Nx instance $instance is probably hung" ]; then
+                #     email_me $instance
+                # fi
                 num_ok=$(($num_ok+1))
             elif [ "$?" -eq "1" ]; then
                 num_warning=$((num_warning+1))
