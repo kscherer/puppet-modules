@@ -25,4 +25,23 @@ class wr::ala_lpd_susbld {
       ensure => running,
       enable => true,
   }
+
+  file {
+    '/mnt/ala-lpgnas2':
+      ensure  => directory,
+      owner   => 'svc-bld',
+      group   => 'users',
+      require => Class['nis'],
+  }
+
+  mount {
+    '/mnt/ala-lpgnas2':
+      ensure   => mounted,
+      atboot   => true,
+      device   => 'ala-lpgnas2:/vol/vol5',
+      fstype   => 'nfs',
+      options  => 'bg,vers=3,nointr,timeo=600,_netdev',
+      require  => File['/mnt/ala-lpgnas2'],
+      remounts => true;
+  }
 }
