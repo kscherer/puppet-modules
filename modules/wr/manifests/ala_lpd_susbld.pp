@@ -1,6 +1,6 @@
 #
 class wr::ala_lpd_susbld {
-  class { 'wr::ala_common': }
+  include profile::nis
 
   ssh_authorized_key {
     'pkennedy_buildadmin':
