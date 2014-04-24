@@ -44,4 +44,10 @@ class wr::ala_lpd_susbld {
       require  => File['/mnt/ala-lpgnas2'],
       remounts => true;
   }
+
+  #clearcase installation depends on this specific kernel
+  package {
+    'kernel':
+      ensure => '2.6.18-194.el5';
+  }
 }
