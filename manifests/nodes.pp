@@ -179,3 +179,7 @@ node /yow-cgts\d+-lx\.wrs\.com/ {
 node 'ala-lpd-mesos.wrs.com' {
   include wr::ala_lpd_mesos
 }
+
+node /yow-osc\d+-lx\.wrs\.com/ {
+  include wr::yow_osc
+}
