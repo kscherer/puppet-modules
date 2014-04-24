@@ -63,6 +63,19 @@ class profile::mesos::slave inherits profile::mesos::common {
     '/etc/init/mesos-master.override':
       ensure  => present,
       content => 'manual';
+    '/mnt/docker':
+      ensure => directory;
+  }
+
+  mount {
+    '/mnt/docker':
+      ensure   => mounted,
+      atboot   => true,
+      device   => 'tmpfs',
+      fstype   => 'tmpfs',
+      options  => 'defaults,noatime,mode=1777,nosuid,noexec,size=1G',
+      require  => File['/mnt/docker'],
+      remounts => true;
   }
 
   cron {
