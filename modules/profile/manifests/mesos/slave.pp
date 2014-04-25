@@ -9,10 +9,8 @@ class profile::mesos::slave inherits profile::mesos::common {
   Class['wr::common::repos'] -> Class['collectd']
 
   docker::image {
-    'ala-lpd-mesos.wrs.com:5000/centos5_32':
-      image_tag => 'wrl',
-      require   => Class['docker'];
-    'ala-lpd-mesos.wrs.com:5000/centos5_64':
+    [ 'ala-lpd-mesos.wrs.com:5000/centos5_32', 'ala-lpd-mesos.wrs.com:5000/centos5_64',
+      'ala-lpd-mesos.wrs.com:5000/centos6_32', 'ala-lpd-mesos.wrs.com:5000/centos6_64']:
       image_tag => 'wrl',
       require   => Class['docker'];
   }
