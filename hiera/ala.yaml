@@ -19,5 +19,6 @@ dell::omsa_url_base: 'http://ala-mirror.wrs.com/mirror/dell/hardware/'
 snmp::location: "Alameda, USA"
 graphite_reporter::graphite_host: ala-lpd-puppet.wrs.com
 graphite_reporter::graphite_port: 2023
+docker::dns: 147.11.57.128
 
 
