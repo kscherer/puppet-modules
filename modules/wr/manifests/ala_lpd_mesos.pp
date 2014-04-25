@@ -43,7 +43,7 @@ class wr::ala_lpd_mesos {
   docker::run {
     'registry':
       image   => 'registry',
-      command => '/bin/sh -c \'cd /docker-registry && git remote add origin https://github.com/dotcloud/docker-registry.git && git pull origin master && ./setup-configs.sh && exec ./run.sh\'',
+      command => ' ',
       ports   => ['5000:5000'],
       volumes => ['/opt/registry:/registry'],
       env     => ['DOCKER_REGISTRY_CONFIG=/registry/config.yml','SETTINGS_FLAVOR=prod'],
