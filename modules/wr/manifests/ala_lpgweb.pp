@@ -145,6 +145,7 @@ class wr::ala_lpgweb {
 
   service {
     'mpt-statusd':
-      ensure => stopped;
+      ensure    => stopped,
+      hasstatus => false;
   }
 }
