@@ -142,4 +142,9 @@ class wr::ala_lpgweb {
       user       => 'oelayer',
       directory  => '/home/oelayer/layerindex-web';
   }
+
+  service {
+    'mpt-statusd':
+      ensure => stopped;
+  }
 }
