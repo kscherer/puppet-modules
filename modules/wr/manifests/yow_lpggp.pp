@@ -10,7 +10,7 @@ class wr::yow_lpggp {
   package {
     [ 'quilt', 'wiggle', 'createrepo', 'yum-utils', 'fuse', 'fuse-libs',
       'python26', 'mrepo', 'python-ssl', 'mirrormanager-client', 'db4-devel',
-      'zlib-devel', 'bzip2-devel']:
+      'zlib-devel', 'bzip2-devel','pyOpenSSL']:
       ensure => 'latest';
   }
 
@@ -68,6 +68,12 @@ yourself, this F/S will be cleaned up periodically.";
       '/home/svc-mirror/etc/ftpsync.conf':
         ensure => link,
         target => '/home/svc-mirror/mirror-configs/ftpsync.conf';
+      '/etc/sysconfig/rhn/up2date-uuid':
+        ensure => present,
+        source => 'puppet:///modules/wr/up2date-uuid';
+      '/usr/share/rhn/RHNS-CA-CERT':
+        ensure => present,
+        source => 'puppet:///modules/wr/RHNS-CA-CERT';
     }
 
     cron {
