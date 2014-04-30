@@ -36,7 +36,7 @@ class wr::master {
       storeconfigs_dbadapter      => 'puppetdb',
       mysql_root_pw               => 'r00t', #needed for dashboard
       require                     => [ Yumrepo['puppetlabs'],
-                                      Yumrepo['passenger']],
+                                      Yumrepo['epel']],
   }
 
   cron {
