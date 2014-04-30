@@ -85,7 +85,7 @@ class redhat::repos {
       repo_gpgkey => $puppetlabs_gpgkey,
       baseurl     => "${puppetlabs_mirror}/dependencies/${::architecture}";
     'foreman':
-      baseurl => "http://ala-mirror.wrs.com/mirror/mrepo/repos/foreman-rh6-${::architecture}/RPMS.all";
+      baseurl => "http://ala-mirror.wrs.com/mirror/mrepo/repos/foreman-rh6-${::architecture}/RPMS.stable";
     'activemq':
       baseurl => 'http://yow-mirror.wrs.com/mirror/activemq';
     'collectd':
@@ -102,9 +102,6 @@ class redhat::repos {
       realize( Yum_repo['collectd'] )
       realize( Yum_repo['puppetlabs'] )
       realize( Yum_repo['puppetlabs-deps'] )
-      if ( $::lsbmajdistrelease == '6' ) {
-        realize( Yum_repo['foreman'] )
-      }
       package {
         'epel-release':
           ensure  => installed,
