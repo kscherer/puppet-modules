@@ -84,8 +84,6 @@ class redhat::repos {
     'puppetlabs-deps':
       repo_gpgkey => $puppetlabs_gpgkey,
       baseurl     => "${puppetlabs_mirror}/dependencies/${::architecture}";
-    'passenger':
-      baseurl => "${mrepo_mirror}/passenger-rh6-${::architecture}/RPMS.main";
     'foreman':
       baseurl => "http://ala-mirror.wrs.com/mirror/mrepo/repos/foreman-rh6-${::architecture}/RPMS.all";
     'activemq':
@@ -105,7 +103,6 @@ class redhat::repos {
       realize( Yum_repo['puppetlabs'] )
       realize( Yum_repo['puppetlabs-deps'] )
       if ( $::lsbmajdistrelease == '6' ) {
-        realize( Yum_repo['passenger'] )
         realize( Yum_repo['foreman'] )
       }
       package {
