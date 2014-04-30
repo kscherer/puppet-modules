@@ -35,10 +35,7 @@ class wr::master {
       puppet_passenger            => true,
       passenger_package           => 'mod_passenger',
       passenger_ensure            => 'present',
-      dashboard                   => true,
-      dashboard_passenger         => true,
-      dashboard_port              => '3000',
-      dashboard_password          => 'dashb0ard',
+      dashboard                   => false,
       storeconfigs                => true,
       storeconfigs_dbadapter      => 'puppetdb',
       mysql_root_pw               => 'r00t', #needed for dashboard
