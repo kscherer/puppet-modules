@@ -2,10 +2,6 @@
 
 class wr::master {
 
-  Class['mysql']
-  -> Class['mysql::ruby']
-  -> Class['wr::master']
-
   include apache
   include apache::mod::passenger
 
