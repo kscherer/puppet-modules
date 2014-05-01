@@ -71,6 +71,9 @@ yourself, this F/S will be cleaned up periodically.";
       '/etc/sysconfig/rhn/up2date-uuid':
         ensure => present,
         source => 'puppet:///modules/wr/up2date-uuid';
+      '/etc/sysconfig/rhn/sources':
+        ensure => present,
+        source => 'puppet:///modules/wr/rhn-sources';
       '/usr/share/rhn/RHNS-CA-CERT':
         ensure => present,
         source => 'puppet:///modules/wr/RHNS-CA-CERT';
