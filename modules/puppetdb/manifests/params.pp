@@ -50,7 +50,7 @@ class puppetdb::params {
     }
   }
 
-  if $::puppetversion =~ /Puppet Enterprise/ {
+  if defined('$::is_pe') and $::is_pe == 'true' {
     $puppetdb_package     = 'pe-puppetdb'
     $puppetdb_service     = 'pe-puppetdb'
     $confdir              = '/etc/puppetlabs/puppetdb/conf.d'
