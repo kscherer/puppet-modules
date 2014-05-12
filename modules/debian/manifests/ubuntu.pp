@@ -11,18 +11,22 @@ class debian::ubuntu (
     'yow-mirror_ubuntu':
       location    => $ubuntu_mirror,
       release     => $::lsbdistcodename,
-      repos       => 'main restricted universe multiverse';
+      repos       => 'main restricted universe multiverse',
+      include_src => false;
     'yow-mirror_ubuntu_security':
       location    => $ubuntu_mirror,
       release     => "${::lsbdistcodename}-security",
-      repos       => 'main restricted universe multiverse';
+      repos       => 'main restricted universe multiverse',
+      include_src => false;
     'yow-mirror_ubuntu_updates':
       location    => $ubuntu_mirror,
       release     => "${::lsbdistcodename}-updates",
-      repos       => 'main restricted universe multiverse';
+      repos       => 'main restricted universe multiverse',
+      include_src => false;
     'yow_puppetlabs_mirror':
       location    => "${mirror_base}/puppetlabs/apt",
       release     => $::lsbdistcodename,
+      include_src => false,
       repos       => 'main dependencies';
   }
 
