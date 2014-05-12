@@ -6,10 +6,12 @@ class role::provisioner {
     'foreman':
       location    => 'http://deb.theforeman.org/',
       release     => $::lsbdistcodename,
+      include_src => false,
       repos       => '1.5';
     'foreman-plugins':
       location    => 'http://deb.theforeman.org/',
       release     => 'plugins',
+      include_src => false,
       repos       => '1.5';
   }
 
