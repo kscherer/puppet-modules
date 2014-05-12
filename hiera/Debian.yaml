@@ -25,5 +25,7 @@ snmp::snmpd_options: '-Lsd -Lf /dev/null -u snmp -g snmp -I smux -p /var/run/snm
 java::distribution: 'openjdk-7-jre-headless'
 
 apt::purge_sources_list: true
+apt::purge_sources_list_d: true
+apt::source::include_src: false
 
 docker::version: '0.11.1'

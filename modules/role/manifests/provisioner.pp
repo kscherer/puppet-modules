@@ -2,6 +2,17 @@
 class role::provisioner {
   include profile::nis
 
+  apt::source {
+    'foreman':
+      location    => 'http://deb.theforeman.org/',
+      release     => $::lsbdistcodename,
+      repos       => '1.5';
+    'foreman-plugins':
+      location    => 'http://deb.theforeman.org/',
+      release     => 'plugins',
+      repos       => '1.5';
+  }
+
   cron {
     'delete_foreman_reports':
       ensure  => present,
