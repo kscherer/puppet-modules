@@ -21,6 +21,7 @@ class profile::mesos::slave inherits profile::mesos::common {
     'mesos-master':
       ensure => stopped;
   }
+  Package['mesos']->Service['mesos-master']
 
   # Do builds as an unprivileged user which matches uid of user in docker
   group {

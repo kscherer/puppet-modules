@@ -33,11 +33,12 @@ class profile::mesos::common inherits profile::nis {
   Apt::Source['mesos'] -> Package['mesos']
 
   #install mesos egg
-  $mesos_egg = 'mesos_0.18.0-rc4_amd64.egg'
+  $mesos_egg = 'mesos_0.18.0-amd64.egg'
 
   exec {
     'mesos_egg':
-      command => "/usr/bin/wget -O /root/${mesos_egg} http://yow-mirror.wrs.com/mirror/mesos/${mesos_egg} --no-check-certificate",
+      command => "/usr/bin/wget -O /root/${mesos_egg} \
+                  http://yow-mirror.wrs.com/mirror/mesos/${mesos_egg}",
       creates => "/root/${mesos_egg}";
     'install_mesos_egg':
       command => "/usr/bin/easy_install /root/${mesos_egg}",
