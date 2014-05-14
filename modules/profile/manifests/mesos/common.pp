@@ -33,7 +33,7 @@ class profile::mesos::common inherits profile::nis {
   Apt::Source['mesos'] -> Package['mesos']
 
   #install mesos egg
-  $mesos_egg = 'mesos_0.18.0-amd64.egg'
+  $mesos_egg = 'mesos_0.18.0_amd64.egg'
 
   exec {
     'mesos_egg':

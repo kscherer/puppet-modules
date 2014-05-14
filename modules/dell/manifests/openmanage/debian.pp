@@ -180,31 +180,16 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
       'srvadmin-omcommon' ],
   }
 
-  case $::lsbdistcodename {
-    'lenny': {
-      apt::source{'dell':
-        location    => 'ftp://ftp.sara.nl/pub/sara-omsa',
-        release     => 'dell6',
-        repos       => 'sara',
-        include_src => false,
-      }
-    }
-    'squeeze': {
-      apt::source{'dell':
-        location    => "${dell::omsa_url_base}${dell::omsa_version}",
-        release     => '/',
-        repos       => '',
-        include_src => false,
-      }
-    }
-    default: {
-      apt::source{'dell':
-        location    => 'http://linux.dell.com/repo/community/debian',
-        release     => $::lsbdistcodename,
-        repos       => 'openmanage',
-        include_src => false,
-      }
-    }
+  $omsa_release = $::operatingsystem ? {
+    'Debian' => 'wheezy',
+    'Ubuntu' => 'precise',
+  }
+
+  apt::source{'dell':
+    location    => 'http://linux.dell.com/repo/community/debian',
+    release     => $omsa_release,
+    repos       => 'openmanage/740',
+    include_src => false,
   }
 
   package { $omsa_pkg_name:
