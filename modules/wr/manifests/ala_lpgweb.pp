@@ -17,12 +17,13 @@ class wr::ala_lpgweb {
   #so use postfix but it requires configuration
   ensure_resource('package', 'postfix', {'ensure' => 'installed' })
   file_line {
-    'set_smtp_server':
-      path   => '/etc/mail.rc',
-      line   => 'set smtp="prod-webmail.wrs.com"';
     'set_domain':
       path   => '/etc/postfix/main.cf',
       line   => 'mydomain = wrs.com',
+      notify => Service['postfix'];
+    'set_relayhost':
+      path   => '/etc/postfix/main.cf',
+      line   => 'relayhost = prod-webmail.wrs.com',
       notify => Service['postfix'];
   }
 
