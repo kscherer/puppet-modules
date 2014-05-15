@@ -49,9 +49,5 @@ class wr::ala_lpd_mesos {
   }
 
   #running zookeeper in docker means zookeeper will restart when docker restarts
-  class {
-    'zookeeper':
-      id        => '1',
-      client_ip => $::ipaddress_eth0;
-  }
+  include zookeeper
 }
