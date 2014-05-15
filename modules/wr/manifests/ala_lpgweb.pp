@@ -2,10 +2,6 @@
 class wr::ala_lpgweb {
   include profile::nis
 
-  #setup mail
-  include ssmtp
-  ensure_resource('package', 'heirloom-mailx', {'ensure' => 'latest'})
-
   #some packages needed to run perl CQ scripts
   ensure_resource('package', 'libdate-manip-perl', {'ensure' => 'latest'})
   ensure_resource('package', 'liburi-perl', {'ensure' => 'latest'})
@@ -16,6 +12,19 @@ class wr::ala_lpgweb {
   ensure_resource('package', 'libnet-ldap-perl', {'ensure' => 'latest'})
   ensure_resource('package', 'liblocale-subcountry-perl', {'ensure' => 'latest'})
   ensure_resource('package', 'libspreadsheet-read-perl', {'ensure' => 'latest'})
+
+  #by default ssmtp is installed but times out with long cron scripts
+  #so use postfix but it requires configuration
+  ensure_resource('package', 'postfix', {'ensure' => 'installed' })
+  file_line {
+    'set_smtp_server':
+      path   => '/etc/mail.rc',
+      line   => 'set smtp="prod-webmail.wrs.com"';
+    'set_domain':
+      path   => '/etc/postfix/main.cf',
+      line   => 'mydomain = wrs.com',
+      notify => Service['postfix'];
+  }
 
   #setup redis for python-rq
   include redis
