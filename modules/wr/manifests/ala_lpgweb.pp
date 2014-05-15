@@ -26,6 +26,13 @@ class wr::ala_lpgweb {
       notify => Service['postfix'];
   }
 
+  #Postfix service needs to be running to deliver mail
+  service {
+    'postfix':
+      ensure => running,
+      enable => true;
+  }
+
   #setup redis for python-rq
   include redis
 
