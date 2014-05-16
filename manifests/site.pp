@@ -10,7 +10,8 @@ if $::server != '' and $::server != 'puppet' {
   # Define the bucket
   filebucket {
     'main':
-      server => $::server, path => false
+      server => $::server,
+      path   => false
   }
 
   # Specify it as the default target
@@ -40,5 +41,3 @@ case $::location {
   }
   default: { } #location properly set, Nothing to do
 }
-
-import 'nodes.pp'
