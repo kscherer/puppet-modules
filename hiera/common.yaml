@@ -66,6 +66,7 @@ apache::mod::passenger::passenger_high_performance: "On"
 apache::mod::passenger::passenger_max_requests: "1000"
 
 mesos::zookeeper: "zk://147.11.106.56:2181/mesos"
+mesos::listen_address: "%{::ipaddress_eth0}"
 mesos::slave::listen_address: "%{::ipaddress_eth0}"
 mesos::master::listen_address: "%{::ipaddress_eth0}"
 mesos::slave::checkpoint: true
