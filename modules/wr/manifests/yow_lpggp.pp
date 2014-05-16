@@ -82,7 +82,9 @@ yourself, this F/S will be cleaned up periodically.";
     cron {
       'dell_linux_repo':
         ensure      => present,
-        command     => ' /usr/bin/rsync -avHz --delete --delete-delay linux.dell.com::repo/hardware /mnt/yow-mirror/mirror/dell > /mnt/yow-mirror/mirror/log/dell_repo.log',
+        command     => '/usr/bin/rsync -avHz --delete --delete-delay \
+        --exclude-from=/home/svc-mirror/mirror-configs/dell-excludes \
+        linux.dell.com::repo /mnt/yow-mirror/mirror/dell > /mnt/yow-mirror/mirror/log/dell_repo.log',
         environment => ['HOME=/home/svc-mirror',
                         'PATH=/usr/bin:/bin/:/sbin/:/usr/sbin',
                         'MAILTO=konrad.scherer@windriver.com'],
