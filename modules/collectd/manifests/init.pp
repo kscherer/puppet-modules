@@ -11,6 +11,7 @@
 # Sample Usage:
 #
 class collectd(
+  $service_ensure = 'running',
   $plugins = hiera_array('collectd::plugins',['collectd::plugin::base'])
   ) {
 
@@ -28,7 +29,7 @@ class collectd(
   }
 
   service { 'collectd':
-    ensure     => running,
+    ensure     => $service_ensure,
     enable     => true,
     hasrestart => true,
     require    => Package['collectd'];
