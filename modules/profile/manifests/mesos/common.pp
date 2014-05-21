@@ -38,7 +38,7 @@ class profile::mesos::common inherits profile::nis {
   exec {
     'mesos_egg':
       command => "/usr/bin/wget -O /root/${mesos_egg} \
-                  http://yow-mirror.wrs.com/mirror/mesos/${mesos_egg}",
+                  http://${::location}-mirror.wrs.com/mirror/mesos/${mesos_egg}",
       creates => "/root/${mesos_egg}";
     'install_mesos_egg':
       command => "/usr/bin/easy_install /root/${mesos_egg}",

@@ -24,8 +24,11 @@ class role::provisioner {
       command => '/usr/sbin/foreman-rake reports:expire days=1 status=0; /usr/sbin/foreman-rake reports:expire days=7';
   }
 
-  #test dhcp module in yow only for now
   if $::hostname == 'yow-lpd-provision' {
+    #setup yow-pd-provision as yow internal docker registry
+    include profile::docker::registry
+
+    #test dhcp module in yow only for now
     include dhcp
 
     concat::fragment { 'dhcp-conf-omapi':
