@@ -8,13 +8,6 @@ class profile::mesos::slave inherits profile::mesos::common {
   include collectd
   Class['wr::common::repos'] -> Class['collectd']
 
-  docker::image {
-    [ 'ala-lpd-mesos.wrs.com:5000/centos5_32', 'ala-lpd-mesos.wrs.com:5000/centos5_64',
-      'ala-lpd-mesos.wrs.com:5000/centos6_32', 'ala-lpd-mesos.wrs.com:5000/centos6_64']:
-      image_tag => 'wrl',
-      require   => Class['docker'];
-  }
-
   #The mesos package can start the mesos master so make sure it is
   #not running on slaves
   service {
@@ -96,5 +89,18 @@ class profile::mesos::slave inherits profile::mesos::common {
       command => '/bin/sed -i \'s/GRUB_CMDLINE_LINUX="\(.*\)"/GRUB_CMDLINE_LINUX="\1 cgroup_enable=memory swapaccount=1"/\' /etc/default/grub',
       unless  => 'cat /etc/default/grub | /bin/grep \'GRUB_CMDLINE_LINUX=\' | /bin/grep swapaccount=1',
       notify  => Exec['update-grub'];
+  }
+
+  #Use hosts file as substitute for geographically aware DNS
+  $registry_ip = $::location ? {
+    'yow'   => '128.224.194.16', #yow-lpd-provision
+    default => '147.11.106.56' #ala-lpd-mesos
+  }
+
+  host {
+    'wr-docker-registry':
+      ensure       => present,
+      ip           => $registry_ip,
+      host_aliases => 'wr-docker-registry.wrs.com';
   }
 }
