@@ -191,6 +191,8 @@ class puppet::master (
     file {
       '/etc/puppet/rack':
         ensure => directory;
+      '/etc/puppet/rack/tmp':
+        ensure => directory;
       '/etc/puppet/rack/config.ru':
         ensure => present,
         source => 'puppet:///modules/puppet/config.ru',
