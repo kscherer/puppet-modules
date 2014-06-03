@@ -193,11 +193,6 @@ class nx {
       'cleanup-sstate-cache.sh']:
   }
 
-  file {
-    '/home/nxadm/bin/sstate-cache-management.sh':
-      ensure => absent;
-  }
-
   case $::hostname {
     /^yow-lpgbuild-*/: { include nx::yow_lpgbuild }
     /^yow-lpgbld-vm*/: { include nx::yow_hostel }
@@ -246,7 +241,6 @@ class nx {
       hour    => 4,
       minute  => 0,
       require => User[ 'nxadm' ];
-
   }
 
   if $::osfamily == 'RedHat' {
@@ -263,7 +257,6 @@ class nx {
   #flushing of dirty pages is activated
   sysctl::value { 'vm.dirty_ratio': value => '0'} #disable ratio
   sysctl::value { 'vm.dirty_background_ratio': value => '0'} #disable ratio
-
 
   #bug on RedHat 5 and SLED 11 does not handle large numbers on command line
   $isRedHat5 = $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '5'
