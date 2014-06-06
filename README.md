@@ -3,6 +3,42 @@
 These are the puppet modules used by the Linux Infrastructure team at
 [Wind River](http://windriver.com/products/linux.html)
 
+## Wind River puppet module workflow
+
+All the puppet modules and hiera data are stored in git. I have
+created a post receive hook that automatically syncs the three puppet
+masters yow-lpd-puppet2, ala-lpd-puppet and pek-lpd-puppet.
+
+The git hook maps git branches to puppet environments as originally
+suggested on the PuppetLabs [blog](https://puppetlabs.com/blog/git-workflow-and-puppet-environments/)
+
+The default branch is production. If a change could affect systems
+using the production branch the easist way to test is to create a new
+branch/environment.
+
+1. Send Konrad your public ssh key for access to buildadmin
+
+1. Create a local clone of the wr-puppet-modules repo:
+
+        git clone --branch production \
+        ssh://buildadmin@ala-git.wrs.com/users/buildadmin/wr-puppet-modules
+
+1. Make test environment:
+
+        git checkout -b myenv production
+
+1. Modify modules. Start with manifests/nodes.pp to add your machines.
+
+1. Commit the changes and push to ala-git:
+
+        git add -A; git commit -m "My first puppet environment"
+        git push origin myenv
+
+1. Run puppet agent on the test system:
+
+        puppet agent --test --environment myenv
+
+
 ## Structure
 
 This repo uses subgits to track external modules. I have made
