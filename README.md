@@ -16,14 +16,13 @@ The default branch is production. If a change could affect systems
 using the production branch the easist way to test is to create a new
 branch/environment.
 
-1. Send Konrad your public ssh key for access to buildadmin
-
 1. Create a local clone of the wr-puppet-modules repo:
 
         git clone --branch production \
-        ssh://buildadmin@ala-git.wrs.com/users/buildadmin/wr-puppet-modules
+        ssh://ala-git.wrs.com/users/buildadmin/wr-puppet-modules
 
-1. Make test environment:
+1. Make test environment. Note that the branch name must contain only
+   letters, numbers and underscore; dashes are not accepted by puppet:
 
         git checkout -b myenv production
 
