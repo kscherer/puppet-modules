@@ -45,7 +45,7 @@ class profile::nxbuilder inherits profile::nis {
     group {
       'docker':
         ensure  => present,
-        members => ['users'],
+        members => 'users',
         require => Class['docker'];
     }
   }
