@@ -39,4 +39,14 @@ class profile::nxbuilder inherits profile::nis {
         enable => false;
     }
   }
+
+  if $::hostname == 'ala-blade48' {
+    include docker
+    group {
+      'docker':
+        ensure  => present,
+        members => ['users'],
+        require => Class['docker'];
+    }
+  }
 }
