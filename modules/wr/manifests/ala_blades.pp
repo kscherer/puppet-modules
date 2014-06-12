@@ -124,4 +124,14 @@ class wr::ala_blades {
 
   #To build 4.3 on ala-blades install required packages
   include wrlinux
+
+  if $::hostname == 'ala-blade48' {
+    include docker
+    group {
+      'docker':
+        ensure  => present,
+        members => ['users'],
+        require => Class['docker'];
+    }
+  }
 }
