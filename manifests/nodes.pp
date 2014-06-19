@@ -183,3 +183,8 @@ node 'ala-lpd-mesos.wrs.com' {
 node /yow-osc\d+-lx\.wrs\.com/ {
   include wr::yow_osc
 }
+
+node 'yow-pelement-d2.wrs.com' {
+  include wr::yow_osc
+}
+
