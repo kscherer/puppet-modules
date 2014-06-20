@@ -184,6 +184,10 @@ node /yow-osc\d+-lx\.wrs\.com/ {
   include wr::yow_osc
 }
 
+node /yow-ddtest\d+-lx\.wrs\.com/ {
+  include wr::yow_osc
+}
+
 node 'yow-pelement-d2.wrs.com' {
   include wr::yow_osc
 }
