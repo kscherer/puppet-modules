@@ -9,7 +9,7 @@ class wr::yow_eng_vm {
       'python26', 'mrepo', 'python-ssl', 'mirrormanager-client', 'db4-devel',
       'libstdc++6:i386','libgtk2.0-0:i386','libxtst6:i386','bc',
       'vim','vim-runtime','xutils-dev','expect','openssh-server', 'vnc4server', 
-	  'rsh-client', 'rsh-server', 'apache2', 'apache2-mpm-prefork','xinetd',
+	  'rsh-client', 'rsh-server', 'apache2-mpm-prefork','xinetd',
 	  'tftp','tftpd','telnetd','minicom','samba','screen','spawn-fcgi',
 	  'tcl-dev:amd64','tcl8.5-dev:amd64','icedtea-7-plugin','vim','bum',
 	  'sysv-rc-conf','tcsh','ksh','ethtool','xutils','gsfonts-x11','scrollkeeper',
