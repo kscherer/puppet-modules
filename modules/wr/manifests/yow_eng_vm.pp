@@ -22,7 +22,7 @@ class wr::yow_eng_vm {
 	  'cpp-4.6','curl','dpkg-dev','emacs','emacs23','emacs23-bin-common',
 	  'emacs23-common','emacs23-common-non-dfsg','emacs24','emacs24-bin-common',
 	  'emacs24-common','emacs24-common-non-dfsg','emacsen-common','freeglut3',
-	  'freeglut3-dev:amd64','gamin','ghc','ghc-haddock','gnome']:
+	  'freeglut3-dev:amd64','gamin','ghc','ghc-haddock','ubuntu-desktop']:
       ensure => 'installed';
   }
 
