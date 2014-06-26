@@ -235,7 +235,7 @@ class nx {
     #should do nothing, but it will make sure files missed by the script will get
     #cleaned up
     'delete_old_sstate_cache':
-      command => "if [ -d ${sstate_dir} ]; then find ${sstate_dir} -name sstate* -ctime +3 -delete; fi",
+      command => "if [ -d ${sstate_dir} ]; then find ${sstate_dir} -name 'sstate*' -ctime +3 -delete; fi",
       user    => nxadm,
       weekday => '*',
       hour    => 4,
