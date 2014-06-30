@@ -192,3 +192,8 @@ node 'yow-pelement-d2.wrs.com' {
   include wr::yow_osc
 }
 
+node 'yow-jmacdona-d1.wrs.com' {
+  include profile::nis
+  include yocto
+  include docker
+}
