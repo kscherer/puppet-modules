@@ -19,7 +19,7 @@ class mesos::install(
   #
   # Python is required for web GUI (mesos could be build without GUI)
   # TODO: make this optional
-  ensure_packages(['python'])
+  include python
 
   # a debian (or other binary package) must be available,
   # see https://github.com/deric/mesos-deb-packaging
