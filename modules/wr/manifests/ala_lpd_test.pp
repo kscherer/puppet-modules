@@ -73,4 +73,8 @@ class wr::ala_lpd_test {
       ensure => running,
       enable => true;
   }
+
+  if $::hostname == 'ala-lpd-test3' {
+    include zookeeper
+  }
 }
