@@ -120,10 +120,9 @@ class profile::mesos::slave inherits profile::mesos::common {
       content => 'external';
   }
 
-  file_line {
-    'mesos_isolation_param':
-      ensure => absent,
-      path   => '/etc/default/mesos-slave',
-      line   => 'ISOLATION=\"process\"',
+  exec {
+    'remove_default_isolation':
+      command => '/bin/sed -i \'s/ISOLATION=/d\' /etc/default/mesos-slave',
+      unless  => '/bin/grep -q \'ISOLATION=\'';
   }
 }
