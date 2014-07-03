@@ -1,0 +1,3 @@
+---
+zookeeper::id: '4'
+zookeeper::peer_type: 'observer'

@@ -157,7 +157,7 @@ node 'ala-lpd-susbld.wrs.com' {
 node /(yow|ala)-lpd-provision.wrs.com/ {
   include role::provisioner
   include ssmtp
-  include profile::logstash
+  include zookeeper
 }
 
 node 'svl-tuxlab.wrs.com' {
