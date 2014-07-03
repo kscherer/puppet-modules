@@ -121,8 +121,9 @@ class profile::mesos::slave inherits profile::mesos::common {
   }
 
   file_line {
-    '/etc/default/mesos-slave':
+    'mesos_isolation_param':
       ensure => absent,
+      path   => '/etc/default/mesos-slave',
       line   => 'ISOLATION=\"process\"',
   }
 }
