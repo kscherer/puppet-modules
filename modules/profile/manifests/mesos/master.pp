@@ -10,4 +10,12 @@ class profile::mesos::master inherits profile::mesos::common {
       ensure  => present,
       content => 'manual';
   }
+
+  #mandatory configuration options for 0.19
+  file {
+    '/etc/mesos-master/work_dir':
+      content => '/tmp/work_dir';
+    '/etc/mesos-master/quorum':
+      content => '1';
+  }
 }
