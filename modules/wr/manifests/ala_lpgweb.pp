@@ -165,4 +165,6 @@ class wr::ala_lpgweb {
       ensure    => stopped,
       hasstatus => false;
   }
+
+  include zookeeper
 }
