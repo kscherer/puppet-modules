@@ -26,7 +26,7 @@ class profile::mesos::chronos {
 
   service {
     'chronos':
-      ensure     => running,
+      ensure     => stopped,
       enable     => true,
       hasstatus  => true,
       hasrestart => true,
