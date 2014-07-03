@@ -103,4 +103,21 @@ class profile::mesos::slave inherits profile::mesos::common {
       ip           => $registry_ip,
       host_aliases => 'wr-docker-registry.wrs.com';
   }
+
+  #Install deimos package used for mesos docker external containerization
+  python::pip {
+    'deimos':
+      pkgname      => 'deimos',
+      install_args => '-i http://ala-mirror.wrs.com:8000/simple',
+  }
+
+  #tell mesos slave to use deimos for external isolation
+  file {
+    '/etc/mesos-slave':
+      ensure => directory;
+    '/etc/mesos-slave/containerizer_path':
+      content => '/usr/local/bin/deimos';
+    '/etc/mesos-slave/isolation':
+      content => 'external';
+  }
 }

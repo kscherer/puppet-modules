@@ -75,6 +75,10 @@ mesos::slave::checkpoint: true
 docker::manage_kernel: false
 docker::extra_parameters: '--storage-driver=devicemapper'
 
+#since mesos repo is managed locally, latest will only update when package
+#is added to the yow-mirror mesos repo
+mesos::version: 'latest'
+
 zookeeper::client_ip: "%{::ipaddress_eth0}"
 zookeeper::purge_interval: '12'
 zookeeper::servers:
