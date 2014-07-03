@@ -14,7 +14,7 @@ class profile::mesos::master inherits profile::mesos::common {
   #mandatory configuration options for 0.19
   file {
     '/etc/mesos-master/work_dir':
-      content => '/tmp/work_dir';
+      content => '/var/lib/mesos/';
     '/etc/mesos-master/quorum':
       content => '1';
   }
