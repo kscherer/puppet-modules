@@ -105,9 +105,9 @@ class profile::mesos::slave inherits profile::mesos::common {
   }
 
   #Install deimos package used for mesos docker external containerization
+  #Use pypiproxy on ala-mirror
   python::pip {
     'deimos':
-      pkgname      => 'deimos',
       install_args => '-i http://ala-mirror.wrs.com:8000/simple',
   }
 
