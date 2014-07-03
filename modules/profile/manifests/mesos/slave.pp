@@ -122,7 +122,7 @@ class profile::mesos::slave inherits profile::mesos::common {
 
   exec {
     'remove_default_isolation':
-      command => '/bin/sed -i \'s/ISOLATION=/d\' /etc/default/mesos-slave',
+      command => '/bin/sed -i \'/ISOLATION=/d\' /etc/default/mesos-slave',
       unless  => '/bin/grep -q \'ISOLATION=\'';
   }
 }
