@@ -119,4 +119,10 @@ class profile::mesos::slave inherits profile::mesos::common {
     '/etc/mesos-slave/isolation':
       content => 'external';
   }
+
+  file_line {
+    '/etc/default/mesos-slave':
+      ensure => absent,
+      line   => 'ISOLATION=\"process\"',
+  }
 }
