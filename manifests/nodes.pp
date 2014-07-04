@@ -195,3 +195,7 @@ node 'yow-pelement-d2.wrs.com' {
 node 'yow-tla2-lx.wrs.com' {
 	include wr::yow_eng_vm
 }
+
+node 'yow-build52-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
