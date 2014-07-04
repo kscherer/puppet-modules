@@ -196,6 +196,6 @@ node 'yow-tla2-lx.wrs.com' {
 	include wr::yow_eng_vm
 }
 
-node 'yow-build52-lx.wrs.com' {
+node 'yow-build53-lx.wrs.com' {
 	include wr::yow_eng_vm
 }
