@@ -68,6 +68,19 @@ class profile::mesos::slave inherits profile::mesos::common {
       options  => 'defaults,noatime,mode=1777,nosuid,noexec,size=1G',
       require  => File['/mnt/docker'],
       remounts => true;
+    '/tmp':
+      ensure   => mounted,
+      atboot   => true,
+      device   => 'tmpfs',
+      fstype   => 'tmpfs',
+      options  => 'defaults,noatime,mode=1777,nosuid,noexec',
+      remounts => true;
+    '/':
+      ensure   => present,
+      atboot   => true,
+      device   => '/dev/sda1',
+      fstype   => 'ext4',
+      options  => 'defaults,noatime,errors=remount-ro';
   }
 
   cron {
