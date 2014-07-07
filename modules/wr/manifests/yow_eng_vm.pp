@@ -15,8 +15,7 @@ class wr::yow_eng_vm {
 
   package {
     [ 'tzdata-java','openjdk-7-jdk','openjdk-7-jre','openjdk-7-jre-headless',
-      'python26', 'mrepo', 'python-ssl', 'mirrormanager-client', 'db4-devel',
-      'libstdc++6:i386','libgtk2.0-0:i386','libxtst6:i386','bc','vim',
+      'gnome','libstdc++6:i386','libgtk2.0-0:i386','libxtst6:i386','bc','vim',
 	  'xutils-dev','expect','openssh-server', 'vnc4server', 
 	  'rsh-client', 'rsh-server', 'apache2-mpm-prefork','xinetd',
 	  'tftp','tftpd','telnetd','minicom','samba','screen','spawn-fcgi',
@@ -31,8 +30,7 @@ class wr::yow_eng_vm {
 	  'cpp-4.6','curl','dpkg-dev','emacs','emacs23','emacs23-bin-common',
 	  'emacs23-common','emacs23-common-non-dfsg','emacs24','emacs24-bin-common',
 	  'emacs24-common','emacs24-common-non-dfsg','emacsen-common','freeglut3',
-	  'freeglut3-dev:amd64','gamin','ghc','ghc-haddock','jove', 'open-office', 'twm',
-	  'lxde']:
+	  'freeglut3-dev:amd64','gamin','ghc','ghc-haddock','jove', 'twm','lxde']:
       ensure => 'installed';
   }
  file {
