@@ -16,7 +16,7 @@ class wr::yow_eng_vm {
   package {
     [ 'tzdata-java','openjdk-7-jdk','openjdk-7-jre','openjdk-7-jre-headless',
       'gnome','libstdc++6:i386','libgtk2.0-0:i386','libxtst6:i386','bc','vim',
-	  'xutils-dev','expect','openssh-server', 'vnc4server', 
+	  'xutils-dev','expect','openssh-server', 'vnc4server', 'nfs-server', 
 	  'rsh-client', 'rsh-server', 'apache2-mpm-prefork','xinetd',
 	  'tftp','tftpd','telnetd','minicom','samba','screen','spawn-fcgi',
 	  'tcl-dev:amd64','tcl8.5-dev:amd64','icedtea-7-plugin','bum',
