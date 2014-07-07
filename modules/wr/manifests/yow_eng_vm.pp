@@ -3,6 +3,15 @@ class wr::yow_eng_vm {
   include nis
   include apache
   include ntp
+  include sudo
+
+  sudo::conf {
+    'test':
+      source  => 'puppet:///modules/wr/sudoers.d/test';
+	'ityow':
+	 source  => 'puppet:///modules/wr/sudoers.d/ityow';
+    
+  }
 
   package {
     [ 'tzdata-java','openjdk-7-jdk','openjdk-7-jre','openjdk-7-jre-headless',
@@ -16,14 +25,34 @@ class wr::yow_eng_vm {
 	  'groff','time','acl','gawk','xsltproc','flex','tcl','apt-file','cabal-install',
 	  'cheese-common','clisp','alex','dos2unix','fakeroot','happy','haskell-mode',
 	  'highlight','highlight-common','iproute','zlib1g:i386','zlib1g-dev:amd64',
-	  'createrepo','rpmbuild','git','autoconf','automake','libtool','g++',
+	  'createrepo','git','autoconf','automake','libtool','g++',
 	  'gcc','gcc-4.6','gcc-4.6-base:amd64','gcc-4.7','gcc-4.7-base:amd64',
 	  'gcc-multilib','libcanberra-gtk-module','comerr-dev','linux-headers-generic',
 	  'cpp-4.6','curl','dpkg-dev','emacs','emacs23','emacs23-bin-common',
 	  'emacs23-common','emacs23-common-non-dfsg','emacs24','emacs24-bin-common',
 	  'emacs24-common','emacs24-common-non-dfsg','emacsen-common','freeglut3',
-	  'freeglut3-dev:amd64','gamin','ghc','ghc-haddock','ubuntu-desktop']:
+	  'freeglut3-dev:amd64','gamin','ghc','ghc-haddock','jove', 'open-office', 'twm',
+	  'lxde', 'samba']:
       ensure => 'installed';
   }
-
+ file {
+	'/etc/samba/smb.conf':
+	ensure => present,
+	content => template('wr/samba.conf.erb');
+ }
+ 
+ file {
+	'/etc/exports':
+	ensure => present,
+	content => "/$hostname1   *(rw,insecure,async,insecure_locks)";
+  }
+ 
+ 
+ file {	
+	"/$hostname1/jenkins":
+	ensure	=> directory,
+	owner	=> 'svc-bld',
+	group	=> 'users',
+	mode	=> 0644;
+ }
 }
