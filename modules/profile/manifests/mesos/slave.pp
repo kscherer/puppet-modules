@@ -128,7 +128,7 @@ class profile::mesos::slave inherits profile::mesos::common {
   #tell mesos slave to use deimos for external isolation
   file {
     '/etc/mesos-slave/containerizer_path':
-      content => '/usr/local/bin/deimos';
+      ensure => absent;
     '/etc/mesos-slave/isolation':
       ensure => absent;
   }
