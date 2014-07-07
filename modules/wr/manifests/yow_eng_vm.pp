@@ -42,12 +42,12 @@ class wr::yow_eng_vm {
  file {
 	'/etc/exports':
 	ensure => present,
-	content => "/$hostname1   *(rw,insecure,async,insecure_locks)";
+	content => "/${hostname}1   *(rw,insecure,async,insecure_locks)";
   }
  
  
  file {	
-	"/$hostname1/jenkins":
+	"/${hostname}1/jenkins":
 	ensure	=> directory,
 	owner	=> 'svc-bld',
 	group	=> 'users',
