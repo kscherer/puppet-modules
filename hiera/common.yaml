@@ -53,7 +53,7 @@ redis::bind: '0.0.0.0'
 
 python::pip: true
 
-snmp::service_enable: "stopped"
+snmp::service_ensure: "stopped"
 snmp::contact: "Konrad.Scherer@windriver.com"
 snmp::views:
   - 'all included .1'
