@@ -4,7 +4,7 @@ collectd::plugins:
   - collectd::plugin::write_graphite
   - collectd::plugin::vmem
 collectd::plugin::write_graphite::port: "2023"
-collectd::service_ensure: "stopped"
+collectd::service_ensure: "running"
 graphite::carbon::service::aggregator_ensure: "running"
 graphite::carbon::service::aggregator_enable: true
 packages:
