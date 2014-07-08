@@ -12,4 +12,7 @@ class yocto {
   #yocto machines are being used for development to debug failures are need
   #the following packages
   yocto::ensure_package { 'gdb': }
+
+  #development versions of rpm require cvs
+  yocto::ensure_package { 'cvs': }
 }
