@@ -2,7 +2,6 @@
 collectd::plugins:
   - collectd::plugin::base
   - collectd::plugin::write_graphite
-  - collectd::plugin::snmp
   - collectd::plugin::vmem
 collectd::plugin::write_graphite::port: "2023"
 collectd::service_ensure: "stopped"
@@ -54,6 +53,7 @@ redis::bind: '0.0.0.0'
 
 python::pip: true
 
+snmp::service_enable: "stopped"
 snmp::contact: "Konrad.Scherer@windriver.com"
 snmp::views:
   - 'all included .1'
