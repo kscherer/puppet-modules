@@ -4,6 +4,7 @@ class collectd::plugin::write_graphite (
   $port             = '2003',
   $prefix           = '',
   $postfix          = '',
+  $protocol         = 'tcp',
   $store_rates      = true,
   $always_append_ds = false,
   $escape_character = '_'
