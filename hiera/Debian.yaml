@@ -21,7 +21,6 @@ packages:
 
 #Enable the smux extension on debian
 snmp::snmpd_options: '-Lsd -Lf /dev/null -u snmp -g snmp -I smux -p /var/run/snmpd.pid'
-snmp::service_hasstatus: false
 
 java::distribution: 'openjdk-7-jre-headless'
 
