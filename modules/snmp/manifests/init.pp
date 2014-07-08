@@ -244,6 +244,7 @@ class snmp (
   # Validate our booleans
   validate_bool($install_client)
   validate_bool($autoupgrade)
+  validate_bool($service_enable)
   validate_bool($service_hasstatus)
   validate_bool($service_hasrestart)
 
