@@ -422,7 +422,7 @@ class snmp (
     exec {
       'fix_snmpd_status':
         command => '/bin/sed -i \'s/status=0/status=3/\' /etc/init.d/snmpd',
-        unless  => '/bin/grep -q \'status=1\' /etc/init.d/snmpd',
+        unless  => '/bin/grep -q \'status=3\' /etc/init.d/snmpd',
         require => Package['snmpd'],
         before  => Service['snmpd'];
     }
