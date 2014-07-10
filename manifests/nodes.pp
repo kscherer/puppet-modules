@@ -205,3 +205,24 @@ node 'yow-build54-lx.wrs.com' {
 node 'yow-build55-lx.wrs.com' {
 	include wr::yow_eng_vm
 }
+node 'yow-build16-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
+node 'yow-build11-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
+node 'yow-build12-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
+node 'yow-build13-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
+
+
+
+
+
+
+
+
+
