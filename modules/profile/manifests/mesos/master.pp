@@ -18,4 +18,7 @@ class profile::mesos::master inherits profile::mesos::common {
     '/etc/mesos-master/quorum':
       content => '1';
   }
+
+  #random build coverage scheduler reads yaml config files
+  ensure_resource('package', 'python-yaml', {'ensure' => 'installed' }
 }
