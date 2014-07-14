@@ -31,7 +31,7 @@ yourself, this F/S will be cleaned up periodically.";
     # and set world execute permissions on /bin/fusermount
     '/etc/fuse.conf':
       ensure  => present,
-      content => 'user_allow_other\n';
+      content => "user_allow_other\n";
   }
 
   mount {
