@@ -12,7 +12,7 @@ class debian::debian(
 
   include apt
   #base all debian machines on wheezy
-  class { 'apt::release' : release_id => 'wheezy' }
+  class { 'apt::release' : release_id => 'stable' }
 
   apt::source {
     'debian_mirror_stable':
