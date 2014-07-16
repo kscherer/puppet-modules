@@ -29,9 +29,16 @@ class profile::mesos::slave inherits profile::mesos::common {
       uid        => 1000,
       managehome => true,
       home       => '/home/wrlbuild',
+      groups     => ['docker'],
       shell      => '/bin/bash',
       password   => '$5$6F1BpKqFcszWi0n$fC5yUBkPNXHfyL8TOJwdJ1EE8kIzwJnKVrtcFYnpbcA',
       require    => Group [ 'wrlbuild' ];
+  }
+
+  group {
+    'docker':
+      ensure  => present,
+      require => Class['docker'];
   }
 
   #turn off locate package which scans filesystem and use a lot of IO
