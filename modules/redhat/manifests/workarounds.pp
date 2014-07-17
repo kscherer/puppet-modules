@@ -84,13 +84,13 @@ class redhat::workarounds {
     ensure_resource('package', 'ruby', {'ensure' => 'latest' })
   }
 
-  #Jeff Honig likes this package
   if ($::osfamily == 'RedHat' and $::lsbmajdistrelease != '7') {
+    #Jeff Honig likes this package
     ensure_resource('package', 'htop', {'ensure' => 'present' })
-  }
 
-  #Enable mosh for a better remote ssh login
-  ensure_resource('package', 'mosh', {'ensure' => 'present' })
+    #Enable mosh for a better remote ssh login
+    ensure_resource('package', 'mosh', {'ensure' => 'present' })
+  }
 
   #logwatch output is annoying
   ensure_resource('package', 'logwatch', {'ensure' => 'absent' })
