@@ -85,7 +85,9 @@ class redhat::workarounds {
   }
 
   #Jeff Honig likes this package
-  ensure_resource('package', 'htop', {'ensure' => 'present' })
+  if ($::osfamily == 'RedHat' and $::lsbmajdistrelease != '7') {
+    ensure_resource('package', 'htop', {'ensure' => 'present' })
+  }
 
   #Enable mosh for a better remote ssh login
   ensure_resource('package', 'mosh', {'ensure' => 'present' })

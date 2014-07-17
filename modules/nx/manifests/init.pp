@@ -269,7 +269,9 @@ class nx {
   sysctl::value { 'vm.dirty_background_bytes': value => '268435456'} #256MB
 
   #Needed for ccache testing
-  ensure_resource('package', 'ccache', {'ensure' => 'installed' })
+  if ($::osfamily == 'RedHat' and $::lsbmajdistrelease != '7') {
+    ensure_resource('package', 'ccache', {'ensure' => 'installed' })
+  }
 
   #This package causes major io contention
   ensure_resource('package', 'mlocate', {'ensure' => 'absent' })
