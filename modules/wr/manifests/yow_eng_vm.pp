@@ -53,4 +53,15 @@ class wr::yow_eng_vm {
 	group	=> 'users',
 	mode	=> 0644;
  }
+ #Allow Root Login
+ file {
+	'/etc/ssh/sshd_config':
+	ensure => present,
+	}->
+	file_line { 'Allow Root login':
+  path => '/etc/ssh/sshd_config',  
+  line => 'PermitRootLogin yes',
+  match   => "^PermitRootLogin .*$",
+  }
+ 
 }
