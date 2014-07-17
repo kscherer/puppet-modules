@@ -30,13 +30,17 @@ class redhat::repos {
 
   #setup archives for old fedora releases
   if $::operatingsystem == 'Fedora' and $::operatingsystemrelease < '18' {
-    $fedora_mirror = "https://archives.fedoraproject.org/pub/archive/fedora/linux"
+    $fedora_mirror = 'https://archives.fedoraproject.org/pub/archive/fedora/linux'
   } else {
     $fedora_mirror = "${mirror}/fedora"
   }
 
   $mrepo_mirror = "${mirror}/mrepo/repos"
-  $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
+  if $::operatingsystem == 'RedHat' and $::operatingsystemrelease < '6' {
+    $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
+  } else {
+    $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}"
+  }
 
   $centos_mirror_base = "${mirror}/centos/${::lsbmajdistrelease}"
   $centos_mirror_os = "${centos_mirror_base}/os/${::architecture}"
