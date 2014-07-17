@@ -134,6 +134,12 @@ class redhat::repos {
         realize( Yum_repo['epel'] )
         realize( Yum_repo['rhel6-updates'] )
         realize( Yum_repo['rhel6-optional'] )
+      } elsif ( $::lsbmajdistrelease == '7' ) {
+        #subscription manager needs this file
+        file {
+          '/etc/yum.repos.d/redhat.repo':
+            ensure => present;
+        }
       }
       if ( $::lsbmajdistrelease != '7' ) {
         package {
