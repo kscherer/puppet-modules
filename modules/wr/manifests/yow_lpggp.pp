@@ -1,7 +1,10 @@
 #
 class wr::yow_lpggp {
-  class { 'yocto': }
+  include yocto
   Class['redhat'] -> Class['yocto']
+
+  include wrlinux
+  Class['redhat'] -> Class['wrlinux']
 
   include profile::nis
   include git
