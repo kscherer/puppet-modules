@@ -134,12 +134,13 @@ class redhat::repos {
         realize( Yum_repo['epel'] )
         realize( Yum_repo['rhel6-updates'] )
         realize( Yum_repo['rhel6-optional'] )
-      } elsif ( $::lsbmajdistrelease == '7' ) {
       }
-      package {
-        'epel-release':
-          ensure  => installed,
-          require => Yumrepo['epel'];
+      if ( $::lsbmajdistrelease != '7' ) {
+        package {
+          'epel-release':
+            ensure  => installed,
+            require => Yumrepo['epel'];
+        }
       }
     }
     default: { fail('Unsupported Operating System') }
