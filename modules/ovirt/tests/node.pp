@@ -1,3 +1,0 @@
-class { '::ovirt':
-  type => 'node'
-}
