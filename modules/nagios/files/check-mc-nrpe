@@ -40,7 +40,11 @@ nrpe_results.each do |result|
     exitcode = 3
   end
 
-  if result[:sender]
+  if exitcode > 3 or exitcode < 0
+    exitcode = 3
+  end
+
+  unless result[:sender].nil?
     statuscodes << exitcode
     stats[exitcode] << result[:sender]
   end
