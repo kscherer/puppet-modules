@@ -40,6 +40,11 @@ nrpe_results.each do |result|
     exitcode = 3
   end
 
+  #ignore script not found errors for now
+  if exitcode == 127
+    exitcode = 0
+  end
+
   if exitcode > 3 or exitcode < 0
     exitcode = 3
   end
