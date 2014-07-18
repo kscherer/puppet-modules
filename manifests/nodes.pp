@@ -221,6 +221,9 @@ node 'yow-build13-lx.wrs.com' {
 node 'yow-ssp2-lx.wrs.com' {
 	include wr::yow_eng_vm
 }
+node 'yow-ovp4.wrs.com' {
+	include wr::yow_eng_vm
+}
 
 
 
