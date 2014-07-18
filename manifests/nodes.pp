@@ -197,3 +197,7 @@ node 'yow-jmacdona-d1.wrs.com' {
   include yocto
   include docker
 }
+
+node 'hp-proliant-dl380p-2.wrs.com' {
+  include git
+}
