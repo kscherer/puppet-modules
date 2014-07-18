@@ -40,8 +40,10 @@ nrpe_results.each do |result|
     exitcode = 3
   end
 
-  statuscodes << exitcode
-  stats[exitcode] << result[:sender]
+  if result[:sender]
+    statuscodes << exitcode
+    stats[exitcode] << result[:sender]
+  end
 end
 
 # Nodes that don't respond are UNKNOWNs
