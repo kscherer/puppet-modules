@@ -18,7 +18,7 @@ class ovirt(
   case $::operatingsystem {
     centos, redhat: {
       $ovirt_release     = 'ovirt-release-el6'
-      $ovirt_release_url = "${ovirt_release_base_url}/ovirt-release-el.noarch.rpm"
+      $ovirt_release_url = "${ovirt_release_base_url}/ovirt-release/ovirt-release35.rpm"
     }
     fedora: {
       $ovirt_release     = 'ovirt-release-fedora'
