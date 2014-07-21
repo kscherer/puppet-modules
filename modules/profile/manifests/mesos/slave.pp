@@ -187,4 +187,11 @@ class profile::mesos::slave inherits profile::mesos::common {
   #post process script uses git send-email
   ensure_resource('package', 'git-email', {'ensure' => 'present' })
 
+  cron {
+    'build_postprocess':
+      command => 'cd /home/wrlbuild/wr-buildscripts; ./build_postprocess.sh > /home/wrlbuild/log/postprocess.log',
+      user    => 'wrlbuild',
+      hour    => '*',
+      minute  => '0,15,30,45';
+  }
 }
