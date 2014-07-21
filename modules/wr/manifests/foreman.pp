@@ -51,6 +51,11 @@ class wr::foreman {
       groups => 'puppet';
   }
 
+  group {
+    'foreman-proxy':
+      ensure => present;
+  }
+
   exec {
     'enable_puppetca_proxy':
       command => '/bin/sed -i \'s/puppetca: false/puppetca: true/\' /etc/foreman-proxy/settings.yml',
@@ -63,5 +68,13 @@ class wr::foreman {
       ensure    => running,
       hasstatus => true,
       enable    => true;
+  }
+
+  file {
+    '/etc/puppet/autosign.conf':
+    ensure  => present,
+    owner   => 'foreman-proxy',
+    group   => 'foreman-proxy',
+    mode    => '0664';
   }
 }
