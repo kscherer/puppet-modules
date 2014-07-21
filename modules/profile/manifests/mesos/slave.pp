@@ -183,4 +183,8 @@ class profile::mesos::slave inherits profile::mesos::common {
       group   => 'wrlbuild',
       content => 'if [ -f $HOME/.bashrc ]; then source $HOME/.bashrc; fi';
   }
+
+  #post process script uses git send-email
+  ensure_resource('package', 'git-email', {'ensure' => 'present' })
+
 }
