@@ -86,16 +86,6 @@ class ovirt::selfhosted(
     notify  => Exec[hosted-engine],
   }
 
-  $answers_file='/var/lib/ovirt-hosted-engine-ha/answers/answers-from-puppet'
-
-  file { $answers_file:
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    require => Package[ovirt-hosted-engine-setup],
-    content => template('ovirt/answers.erb'),
-  }
-
   service { 'ovirt-hosted-engine-setup':
     ensure  => 'running',
     enable  => true,
@@ -103,13 +93,10 @@ class ovirt::selfhosted(
   }
 
   exec { 'hosted-engine':
-    require     => [
-      Package[ovirt-hosted-engine-setup],
-      File[$answers_file],
-    ],
+    require     => Package[ovirt-hosted-engine-setup],
     refreshonly => true,
     path        => '/usr/bin/:/bin/:/sbin:/usr/sbin',
-    command     => "yes 'Yes' | hosted-engine --deploy --config-append=${answers_file}",
+    command     => "yes 'Yes' | hosted-engine --deploy",
     notify      => Service[ovirt-hosted-engine-setup],
   }
 }
