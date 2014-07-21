@@ -31,7 +31,7 @@ class wr::foreman {
   }
 
   #add foreman repo to install puppet ca smart proxy
-  realize( Yum_repo['foreman'] )
+  realize( RedHat::Yum_repo['foreman'] )
   package {
     'foreman-proxy':
       ensure => installed;
