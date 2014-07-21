@@ -50,4 +50,18 @@ class wr::foreman {
       ensure => present,
       groups => 'puppet';
   }
+
+  exec {
+    'enable_puppetca_proxy':
+      command => '/bin/sed -i \'s/puppetca: false/puppetca: true/\' /etc/foreman-proxy/settings.yml',
+      unless  => '/bin/grep -q puppetca: true',
+      notify  => Service['foreman-proxy'];
+  }
+
+  service {
+    'foreman-proxy':
+      ensure    => running,
+      hasstatus => true,
+      enable    => true;
+  }
 }
