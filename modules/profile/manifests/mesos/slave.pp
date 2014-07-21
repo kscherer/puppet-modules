@@ -139,4 +139,48 @@ class profile::mesos::slave inherits profile::mesos::common {
     '/etc/mesos-slave/isolation':
       ensure => absent;
   }
+
+  #for integration with existing nx stats and fails repos
+  file {
+    ['/home/wrlbuild/.ssh/', '/home/wrlbuild/.history']:
+      ensure => directory,
+      owner  => 'wrlbuild',
+      group  => 'wrlbuild',
+      mode   => '0700';
+    '/home/wrlbuild/.ssh/id_dsa.pub':
+      ensure => present,
+      source => 'puppet:///modules/nx/id_dsa.pub',
+      owner  => 'wrlbuild',
+      group  => 'wrlbuild',
+      mode   => '0600';
+    '/home/wrlbuild/.ssh/id_dsa':
+      ensure => present,
+      source => 'puppet:///modules/nx/id_dsa',
+      owner  => 'wrlbuild',
+      group  => 'wrlbuild',
+      mode   => '0600';
+    '/home/wrlbuild/.ssh/config':
+      ensure => present,
+      mode   => '0600',
+      owner  => 'wrlbuild',
+      group  => 'wrlbuild',
+      source => 'puppet:///modules/nx/ssh_config';
+    '/home/wrlbuild/.bashrc':
+      ensure => present,
+      owner  => 'wrlbuild',
+      group  => 'wrlbuild',
+      mode   => '0755',
+      source => 'puppet:///modules/wr/bashrc';
+    '/home/wrlbuild/.aliases':
+      ensure => present,
+      owner  => 'wrlbuild',
+      group  => 'wrlbuild',
+      mode   => '0755',
+      source => 'puppet:///modules/wr/aliases';
+    '/home/wrlbuild/.bash_profile':
+      ensure  => present,
+      owner   => 'wrlbuild',
+      group   => 'wrlbuild',
+      content => 'if [ -f $HOME/.bashrc ]; then source $HOME/.bashrc; fi';
+  }
 }
