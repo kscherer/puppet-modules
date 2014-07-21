@@ -30,4 +30,22 @@ class wr::foreman {
       minute  => '*/5';
   }
 
+  #add foreman repo to install puppet ca smart proxy
+  realize( Yum_repo['foreman'] )
+  package {
+    'foreman-proxy':
+      ensure => installed;
+  }
+
+  #smart proxy needs sudo access to remove certs
+  sudo::conf {
+    'puppetca-proxy':
+      source  => 'puppet:///modules/wr/sudoers.d/puppetca-proxy';
+  }
+
+  user {
+    'foreman-proxy':
+      ensure => present,
+      groups => 'puppet';
+  }
 }

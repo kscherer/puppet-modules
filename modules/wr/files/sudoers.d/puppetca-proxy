@@ -1,0 +1,2 @@
+foreman-proxy ALL = NOPASSWD: /usr/bin/puppet cert *
+Defaults:foreman-proxy !requiretty
