@@ -38,6 +38,7 @@ class wr::foreman {
   }
 
   #smart proxy needs sudo access to remove certs
+  include sudo
   sudo::conf {
     'puppetca-proxy':
       source  => 'puppet:///modules/wr/sudoers.d/puppetca-proxy';
