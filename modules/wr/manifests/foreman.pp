@@ -34,7 +34,8 @@ class wr::foreman {
   realize( RedHat::Yum_repo['foreman'] )
   package {
     'foreman-proxy':
-      ensure => installed;
+      ensure  => installed,
+      require => Yumrepo['foreman'];
   }
 
   #smart proxy needs sudo access to remove certs
