@@ -86,7 +86,7 @@ class ovirt::selfhosted(
     notify  => Exec[hosted-engine],
   }
 
-  $answers_file='/var/lib/ovirt-hosted-engine-ha/setup/answers/answers-from-puppet'
+  $answers_file='/var/lib/ovirt-hosted-engine-ha/answers/answers-from-puppet'
 
   file { $answers_file:
     owner   => 'root',
