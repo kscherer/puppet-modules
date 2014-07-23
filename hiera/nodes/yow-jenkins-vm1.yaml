@@ -1,4 +1,4 @@
-jenkins::config:
+jenkins::config_hash:
   port: '8080'
 jenkins::configure_firewall: true
 
