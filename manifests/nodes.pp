@@ -203,5 +203,7 @@ node 'hp-proliant-dl380p-2.wrs.com' {
 }
 
 node 'yow-jenkins-vm1.wrs.com' {
-  include jenkins
+  class { 'jenkins':
+    configure_firewall => false,
+  }
 }
