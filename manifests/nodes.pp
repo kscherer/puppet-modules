@@ -201,3 +201,7 @@ node 'yow-jmacdona-d1.wrs.com' {
 node 'hp-proliant-dl380p-2.wrs.com' {
   class { 'ovirt::selfhosted': }
 }
+
+node 'yow-poweredge-1.wrs.com' {
+  include jenkins
+}
