@@ -1,4 +1,10 @@
-jenkins::port: '8080'
+jenkins::config:
+  port: '8080'
+  configure_firewall: 'true'
 jenkins::plugin_hash:
-  'git':
-    version: 1.1.1
+   'git':
+      version: 1.1.1
+   'parameterized-trigger': {}
+   'multiple-scms': {}
+   'git-client': {}
+   'token-macro': {}
