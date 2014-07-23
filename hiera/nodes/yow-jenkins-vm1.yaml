@@ -8,3 +8,14 @@ jenkins::plugin_hash:
    'multiple-scms': {}
    'git-client': {}
    'token-macro': {}
+   'collapsing-console-sections' : {}
+   'copyartifact' : {}
+   'dashboard-view' : {}
+   'ldap' : {}
+   'ssh' : {}
+   'ssh-agent' : {}
+   'ssh-credentials' : {}
+   'ssh-slaves' : {}
+   'subversion' : {}
+   'timestamper' : {}
+   'warnings' : {}
