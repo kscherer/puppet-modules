@@ -71,7 +71,6 @@
 class jenkins(
   $version            = $jenkins::params::version,
   $lts                = $jenkins::params::lts,
-  $port               = $jenkins::params::port,
   $repo               = $jenkins::params::repo,
   $service_enable     = $jenkins::params::service_enable,
   $service_ensure     = $jenkins::params::service_ensure,

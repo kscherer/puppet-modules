@@ -9,7 +9,6 @@ class jenkins::params {
   $service_ensure     = 'running'
   $install_java       = true
   $swarm_version      = '1.9'
-  $port               = '8080'
 }
 
 
