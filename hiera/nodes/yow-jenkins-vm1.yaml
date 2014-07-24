@@ -4,18 +4,33 @@ jenkins::configure_firewall: true
 jenkins::plugin_hash:
    'git':
       version: 1.1.1
-   'parameterized-trigger': {}
-   'multiple-scms': {}
-   'git-client': {}
-   'token-macro': {}
-   'collapsing-console-sections' : {}
-   'copyartifact' : {}
-   'dashboard-view' : {}
-   'ldap' : {}
-   'ssh' : {}
-   'ssh-agent' : {}
-   'ssh-credentials' : {}
-   'ssh-slaves' : {}
-   'subversion' : {}
-   'timestamper' : {}
-   'warnings' : {}
+   'parameterized-trigger':
+      version: 2.25
+   'multiple-scms':
+      version: 0.3
+   'git-client':
+      version: 1.10.0
+   'token-macro':
+      version: 1.10
+   'collapsing-console-sections':
+      version: 1.4.1
+   'copyartifact':
+      version: 1.31
+   'dashboard-view':
+      version: 2.9.3
+   'ldap':
+      version: 1.10.2
+   'ssh':
+      version: 2.4
+   'ssh-agent':
+      version: 1.4.1
+   'ssh-credentials':
+      version: 1.7.1
+   'ssh-slaves':
+      version: 1.6
+   'subversion':
+      version: 2.4.1
+   'timestamper':
+      version: 1.5.13
+   'warnings':
+      version: 4.27 
