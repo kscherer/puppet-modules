@@ -86,18 +86,11 @@ class ovirt::selfhosted(
     notify  => Exec[hosted-engine],
   }
 
-  service { 'ovirt-hosted-engine-setup':
-    ensure  => 'running',
-    enable  => true,
-    require => Package[ovirt-hosted-engine-setup],
-  }
-
   exec { 'hosted-engine':
     require     => Package[ovirt-hosted-engine-setup],
     refreshonly => true,
     path        => '/usr/bin/:/bin/:/sbin:/usr/sbin',
     command     => "yes 'Yes' | hosted-engine --deploy",
-    notify      => Service[ovirt-hosted-engine-setup],
   }
 }
 
