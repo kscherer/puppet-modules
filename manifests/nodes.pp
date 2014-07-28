@@ -202,7 +202,13 @@ node 'hp-proliant-dl380p-2.wrs.com' {
   class { 'ovirt::selfhosted': }
 }
 
+node 'yow-srt-lx1.wrs.com' {
+  class { 'ovirt::selfhosted': }
+}
 node 'yow-srt-lx2.wrs.com' {
+  class { 'ovirt::selfhosted': }
+}
+node 'yow-srt-lx3.wrs.com' {
   class { 'ovirt::selfhosted': }
 }
 
