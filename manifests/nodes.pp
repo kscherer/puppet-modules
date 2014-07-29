@@ -225,5 +225,7 @@ node 'yow-ovp4.wrs.com' {
 	include wr::yow_eng_vm
 }
 
-
+node 'yow-jkeffer-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
 
