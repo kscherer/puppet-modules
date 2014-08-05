@@ -20,5 +20,5 @@ class profile::mesos::master inherits profile::mesos::common {
   }
 
   #random build coverage scheduler reads yaml config files
-  ensure_resource('package', 'python-yaml', {'ensure' => 'installed' }
+  ensure_resource('package', 'python-yaml', {'ensure' => 'installed' })
 }
