@@ -26,5 +26,10 @@ class wr::common::ssh_root_keys {
       user   => 'root',
       key    => hiera('jch@kismet.honig.net'),
       type   => 'ssh-rsa';
+    'pkennedy_home':
+      ensure => 'present',
+      user   => 'root',
+      key    => hiera('pkennedy@pkennedy-linux.site'),
+      type   => 'ssh-rsa';
   }
 }
