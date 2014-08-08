@@ -215,3 +215,7 @@ node 'yow-srt-lx3.wrs.com' {
 node 'yow-jenkins-vm1.wrs.com' {
   include jenkins
 }
+
+node 'yow-jenkins-vm2.wrs.com' {
+  include jenkins
+}
