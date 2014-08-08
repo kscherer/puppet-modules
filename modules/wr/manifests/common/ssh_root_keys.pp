@@ -31,5 +31,10 @@ class wr::common::ssh_root_keys {
       user   => 'root',
       key    => hiera('pkennedy@pkennedy-linux.site'),
       type   => 'ssh-rsa';
+    'rwoolley':
+      ensure => 'present',
+      user   => 'root',
+      key    => hiera('rwoolley@yow-rwoolley-lx2.ottawa.wrs.com'),
+      type   => 'ssh-rsa';
   }
 }
