@@ -12,7 +12,7 @@ class profile::monitored inherits profile::base {
   if ($::osfamily == 'RedHat' and $::lsbmajdistrelease == '7') {
     $nagios_plugins_available=false
   } else {
-    $nagios_plugins_available=false
+    $nagios_plugins_available=true
   }
 
   if $nagios_plugins_available {
