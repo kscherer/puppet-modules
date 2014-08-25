@@ -9,7 +9,13 @@ class profile::monitored inherits profile::base {
     include profile::bare_metal
   }
 
-  if ($::osfamily == 'RedHat' and $::lsbmajdistrelease != '7') {
+  if ($::osfamily == 'RedHat' and $::lsbmajdistrelease == '7') {
+    $nagios_plugins_available=false
+  } else {
+    $nagios_plugins_available=false
+  }
+
+  if $nagios_plugins_available {
     include nrpe
     include nagios::target
     Class['wr::common::repos'] -> Class['nrpe']
