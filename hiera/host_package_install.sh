@@ -15,6 +15,9 @@ RH6_i686='texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo
 #RedHat 6.x and Fedora 15 16 17 18 x86_64
 RH6_x86_64='glibc.i686 glibc-devel.i686 glibc-devel.x86_64 libgcc.i686 ncurses-libs.i686 texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz make diffutils file screen'
 
+#RedHat 7.x x86_64
+RH7_x86_64='glibc.i686 glibc-devel.i686 glibc-devel.x86_64 libgcc.i686 ncurses-libs.i686 perl-Text-ParseWords perl-podlators perl-autodie perl-Thread-Queue texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz make diffutils file screen'
+
 #Fedora 19+ i386
 F19_i686='perl-Text-ParseWords perl-podlators perl-autodie perl-Thread-Queue texi2html diffstat subversion mesa-libGL mesa-libGLU SDL-devel texinfo gawk gcc gcc-c++ help2man chrpath git pygtk2 bzip2 wget tar patch xz make diffutils file screen'
 
@@ -117,8 +120,11 @@ if [ -e /usr/bin/yum ]; then
     elif cat /etc/*-release | grep 'release 5\.' > /dev/null 2>&1
     then
         distro=RH5
-    else
+    elif cat /etc/*-release | grep 'release 6\.' > /dev/null 2>&1
+    then
         distro=RH6
+    else
+        distro=RH7
     fi
 elif [ -e /usr/bin/dpkg ]; then
     #wrlinux only supports Ubuntu LTS releases, but the

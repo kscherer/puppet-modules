@@ -32,6 +32,9 @@ puts
 puts "#RedHat 6.x and Fedora 15 16 17 18 x86_64"
 puts "RH6_x86_64='%s'" % lookup('RedHat', 'RedHat', '6', 'x86_64').join(' ')
 puts
+puts "#RedHat 7.x x86_64"
+puts "RH7_x86_64='%s'" % lookup('RedHat', 'RedHat', '7', 'x86_64').join(' ')
+puts
 puts "#Fedora 19+ i386"
 puts "F19_i686='%s'" % lookup('RedHat', 'Fedora', '19', 'i386').join(' ')
 puts

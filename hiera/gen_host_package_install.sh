@@ -65,8 +65,11 @@ if [ -e /usr/bin/yum ]; then
     elif cat /etc/*-release | grep 'release 5\.' > /dev/null 2>&1
     then
         distro=RH5
-    else
+    elif cat /etc/*-release | grep 'release 6\.' > /dev/null 2>&1
+    then
         distro=RH6
+    else
+        distro=RH7
     fi
 elif [ -e /usr/bin/dpkg ]; then
     #wrlinux only supports Ubuntu LTS releases, but the
