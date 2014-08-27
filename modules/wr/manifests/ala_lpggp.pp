@@ -7,14 +7,14 @@ class wr::ala_lpggp {
   Class['redhat'] -> Class['yocto']
   Class['redhat'] -> Class['git']
 
-  if $::hostname == 'ala-lpggp2.wrs.com' {
+  if $::hostname == 'ala-lpggp2' {
     file {
       '/lpg-build':
         ensure => link,
         target => '/ala-lpggp22';
     }
   }
-  if $::hostname == 'ala-lpggp3.wrs.com' {
+  if $::hostname == 'ala-lpggp3' {
     file {
       '/lpg-build':
         ensure => link,
@@ -44,5 +44,17 @@ Use /${::hostname}[1-2] as local storage.
 It is not backed up, make sure you have a secure copy
 of your data.  Clean up after yourself, this F/S will be cleaned
 up periodically.";
+  }
+
+  if $::hostname == 'ala-lpggp4' {
+    include rsync::server
+    rsync::server::module{
+      'centos':
+        path => '/ala-lpggp42/mirror/centos',;
+      'epel':
+        path => '/ala-lpggp42/mirror/epel';
+      'puppetlabs':
+        path => '/ala-lpggp42/mirror/puppetlabs';
+    }
   }
 }
