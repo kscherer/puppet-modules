@@ -42,16 +42,16 @@ puts "#Fedora 19+ x86_64"
 puts "F19_x86_64='%s'" % lookup('RedHat', 'Fedora', '19', 'x86_64').join(' ')
 puts
 puts "#Ubuntu 10.04 i386"
-puts "U1004_i686='%s'" % lookup('Debian', 'Ubuntu', '10', 'i386').join(' ')
+puts "U1004_i686='%s'" % lookup('Debian', 'Ubuntu', '10.04', 'i386').join(' ')
 puts
 puts "#Ubuntu 10.04 x86_64"
-puts "U1004_x86_64='%s'" % lookup('Debian', 'Ubuntu', '10', 'amd64').join(' ')
+puts "U1004_x86_64='%s'" % lookup('Debian', 'Ubuntu', '10.04', 'amd64').join(' ')
 puts
 puts "#Ubuntu 12.04 i386"
-puts "U1204_i686='%s'" % lookup('Debian', 'Ubuntu', '12', 'i386').join(' ')
+puts "U1204_i686='%s'" % lookup('Debian', 'Ubuntu', '12.04', 'i386').join(' ')
 puts
 puts "#Ubuntu 12.04 x86_64"
-puts "U1204_x86_64='%s'" % lookup('Debian', 'Ubuntu', '12', 'amd64').join(' ')
+puts "U1204_x86_64='%s'" % lookup('Debian', 'Ubuntu', '12.04', 'amd64').join(' ')
 puts
 puts "#OpenSuSE 11.4 i386"
 puts "OS114_i686='%s'" % lookup('Suse', 'OpenSuSE', '11', 'i386').join(' ')

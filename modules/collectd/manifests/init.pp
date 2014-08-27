@@ -22,7 +22,7 @@ class collectd(
   case $::operatingsystem {
     RedHat,CentOS: { Yumrepo['collectd'] -> Package['collectd'] }
     Ubuntu: {
-      if $::lsbmajdistrelease < 14 {
+      if $::lsbmajdistrelease =~ /^12/ {
         Apt::Ppa['ppa:kmscherer/collectd'] -> Package['collectd'] }
     }
     default: {}
