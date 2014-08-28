@@ -28,4 +28,4 @@ apt::purge_sources_list: true
 apt::purge_sources_list_d: true
 apt::source::include_src: false
 
-docker::version: '1.0.1'
+docker::version: 'latest'
