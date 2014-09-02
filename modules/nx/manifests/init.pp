@@ -208,6 +208,12 @@ class nx {
 
   $sstate_dir = '/home/nxadm/nx/sstate_cache'
 
+  if $::hostname =~ /^ala-blade32/ {
+    $old_nx_process_ensure = absent
+  } else {
+    $old_nx_process_ensure = present
+  }
+
   cron {
     #Delete log files older that 10 days
     'clean_nx_logs':
@@ -218,6 +224,7 @@ class nx {
       require => User[ 'nxadm' ];
     #kill any build processes that are older than 2 days (except notxylo)
     'clean_old_nx_processes':
+      ensure  => $old_nx_process_ensure,
       command => 'ps -U nxadm -o pid,etime,command | grep -v notxylo | awk \'$2~/-/ {if ((0+$2)>3) print $1}\' | xargs -r kill -9',
       user    => nxadm,
       hour    => 20,
