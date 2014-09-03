@@ -125,6 +125,7 @@ node 'yow-irc.wrs.com' {
 
 node 'yow-git.wrs.com' {
   include role::git::mirror
+  include collectd
 }
 
 node 'pek-git.wrs.com' {
