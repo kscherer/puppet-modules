@@ -1,0 +1,6 @@
+*.bz2 binary -delta
+*.gz binary -delta
+*.exe binary -delta
+*.dll binary -delta
+*.jpg binary -delta
+*.pdf binary -delta

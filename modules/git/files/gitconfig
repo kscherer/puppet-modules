@@ -1,0 +1,5 @@
+[user]
+        email = git@git.wrs.com
+        name = Git Admin
+[core]
+        bigFileThreshold = 100k

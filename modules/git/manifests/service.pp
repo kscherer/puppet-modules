@@ -44,5 +44,20 @@ class git::service(
       cps            => '150 2',
   }
 
+  #to prevent git server from compressing large binary files
+  #lower the bigFileThreshold
+  file {
+    '/home/git/.gitconfig':
+      ensure => present,
+      owner  => 'git',
+      group  => 'git',
+      source => 'puppet:///modules/git/gitconfig';
+    '/home/git/.gitattributes':
+      ensure => present,
+      owner  => 'git',
+      group  => 'git',
+      source => 'puppet:///modules/git/gitattributes';
+  }
+
   Class['git::service'] -> Anchor['git::end']
 }
