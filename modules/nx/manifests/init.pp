@@ -240,9 +240,10 @@ class nx {
       require => User[ 'nxadm' ];
     #Unfortunately the sstate_management.sh script is not perfect. Ideally this
     #should do nothing, but it will make sure files missed by the script will get
-    #cleaned up
+    #cleaned up. All the nx builders have disk mounted with atime or relatime enabled
+    #so this will clean up files not accessed in 3 days.
     'delete_old_sstate_cache':
-      command => "if [ -d ${sstate_dir} ]; then find ${sstate_dir} -name 'sstate*' -ctime +3 -delete; fi",
+      command => "if [ -d ${sstate_dir} ]; then find ${sstate_dir} -name 'sstate*' -atime +3 -delete; fi",
       user    => nxadm,
       weekday => '*',
       hour    => 4,
