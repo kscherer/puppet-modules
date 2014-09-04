@@ -1,0 +1,11 @@
+.idea
+.rvmrc
+.project
+.librarian/
+.tmp/
+.vagrant/
+doc/
+modules/
+pkg/
+spec/fixtures/manifests/
+spec/fixtures/modules/
