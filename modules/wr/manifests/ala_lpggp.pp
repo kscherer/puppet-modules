@@ -48,7 +48,7 @@ up periodically.";
 
   if $::hostname == 'ala-lpggp4' {
     file {
-      ['/mnt/yow-mirror', '/home/svc-mirror']:
+      ['/mnt/ala-mirror', '/home/svc-mirror']:
         ensure => directory;
     }
     mount {
