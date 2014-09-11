@@ -47,14 +47,35 @@ up periodically.";
   }
 
   if $::hostname == 'ala-lpggp4' {
+    file {
+      ['/mnt/yow-mirror', '/home/svc-mirror']:
+        ensure => directory;
+    }
+    mount {
+      '/mnt/ala-mirror':
+        ensure  => mounted,
+        device  => 'ala-lpgnas1:/vol/ala_mirror',
+        atboot  => true,
+        fstype  => 'nfs',
+        options => 'rw',
+        require => File['/mnt/ala-mirror'];
+      '/home/svc-mirror':
+        ensure  => mounted,
+        device  => 'ala-nas2:/vol/vol0/UNIX-Home/svc-mirror',
+        atboot  => true,
+        fstype  => 'nfs',
+        options => 'rw',
+        require => File['/home/svc-mirror'];
+    }
+
     include rsync::server
     rsync::server::module{
       'centos':
-        path => '/ala-lpggp42/mirror/centos',;
+        path => '/mnt/ala-mirror/mirror/centos',;
       'epel':
-        path => '/ala-lpggp42/mirror/epel';
+        path => '/mnt/ala-mirror/mirror/epel';
       'puppetlabs':
-        path => '/ala-lpggp42/mirror/puppetlabs';
+        path => '/mnt/ala-mirror/mirror/puppetlabs';
     }
   }
 }

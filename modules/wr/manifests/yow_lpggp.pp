@@ -152,4 +152,19 @@ yourself, this F/S will be cleaned up periodically.";
           }],
     }
   }
+
+  if $::hostname == 'yow-lpggp2' {
+    include rsync::server
+    rsync::server::module{
+      'centos':
+        path => '/mnt/yow-mirror/mirror/centos',;
+      'epel':
+        path => '/mnt/yow-mirror/mirror/epel';
+      'puppetlabs':
+        path => '/mnt/yow-mirror/mirror/puppetlabs';
+      'collectd':
+        path => '/mnt/yow-mirror/mirror/collectd';
+    }
+  }
+
 }
