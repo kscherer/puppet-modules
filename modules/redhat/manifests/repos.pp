@@ -91,7 +91,7 @@ class redhat::repos {
     'foreman':
       baseurl => "http://ala-mirror.wrs.com/mirror/mrepo/repos/foreman-rh6-${::architecture}/RPMS.stable";
     'activemq':
-      baseurl => 'http://yow-mirror.wrs.com/mirror/activemq';
+      baseurl => 'http://yow-mirror.wrs.com/mirror/activemq/6';
     'collectd':
       baseurl => "${mirror}/collectd/${::lsbmajdistrelease}";
   }
