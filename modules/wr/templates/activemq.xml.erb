@@ -32,7 +32,7 @@
 <% end -%>
   <broker xmlns="http://activemq.apache.org/schema/core"
           brokerName="<%= @broker_name -%>" useJmx="true"
-          dataDirectory="${activemq.data}
+          dataDirectory="${activemq.data}"
           schedulePeriodForDestinationPurge="60000" deleteAllMessagesOnStartup="true" >
     <destinationPolicy>
       <policyMap>
