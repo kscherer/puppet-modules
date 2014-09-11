@@ -1,3 +1,19 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <beans
   xmlns="http://www.springframework.org/schema/beans"
   xmlns:amq="http://activemq.apache.org/schema/core"
@@ -9,23 +25,41 @@
 <% if @webconsole_real -%>
   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="locations">
-      <value>file:${activemq.base}/conf/credentials.properties</value>
+      <value>file:${activemq.conf}/credentials.properties</value>
     </property>
   </bean>
-  
+
 <% end -%>
   <broker xmlns="http://activemq.apache.org/schema/core"
           brokerName="<%= @broker_name -%>" useJmx="true"
+          dataDirectory="${activemq.data}
           schedulePeriodForDestinationPurge="60000" deleteAllMessagesOnStartup="true" >
     <destinationPolicy>
       <policyMap>
         <policyEntries>
-          <policyEntry queue="*.reply.>" gcInactiveDestinations="true" inactiveTimoutBeforeGC="300000" />
-          <policyEntry topic=">" producerFlowControl="false"/>
+          <policyEntry queue="*.reply.>" gcInactiveDestinations="true"
+                       inactiveTimoutBeforeGC="300000"
+                       producerFlowControl="false"
+                       memoryLimit="1mb" />
+          <policyEntry topic=">" producerFlowControl="false" memoryLimit="1mb">
+            <pendingSubscriberPolicy>
+              <vmCursor />
+            </pendingSubscriberPolicy>
+            <!-- The constantPendingMessageLimitStrategy is used to prevent
+                 slow topic consumers to block producers and affect other consumers
+                 by limiting the number of messages that are retained
+                 For more information, see:
+
+                 http://activemq.apache.org/slow-consumer-handling.html
+            -->
+            <pendingMessageLimitStrategy>
+              <constantPendingMessageLimitStrategy limit="1000"/>
+            </pendingMessageLimitStrategy>
+          </policyEntry>
         </policyEntries>
       </policyMap>
     </destinationPolicy>
-    
+
     <managementContext>
       <managementContext connectorPort="1099" jmxDomainName="org.apache.activemq"/>
     </managementContext>
@@ -81,7 +115,7 @@
 <% @collectives.each do |collective| -%>
               <authorizationEntry topic="<%= collective -%>.>" write="mcollective" read="mcollective" admin="mcollective" />
               <authorizationEntry queue="<%= collective -%>.>" write="mcollective" read="mcollective" admin="mcollective" />
-<% end -%>              
+<% end -%>
               <authorizationEntry topic="ActiveMQ.Advisory.>" read="everyone" write="everyone" admin="everyone"/>
             </authorizationEntries>
           </authorizationMap>
@@ -93,7 +127,7 @@
     <systemUsage>
       <systemUsage>
         <memoryUsage>
-          <memoryUsage limit="200 mb"/>
+          <memoryUsage percentOfJvmHeap="70"/>
         </memoryUsage>
         <storeUsage>
           <storeUsage limit="400 mb"/>
