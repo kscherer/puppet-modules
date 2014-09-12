@@ -20,24 +20,40 @@ class graphite::carbon::config {
   }
 
   concat::fragment { 'header':
-    target  => '/etc/carbon/storage-schemas.conf',
-    order   => 0,
-    source  => 'puppet:///modules/graphite/storage-schemas.conf'
+    target => '/etc/carbon/storage-schemas.conf',
+    order  => 0,
+    source => 'puppet:///modules/graphite/storage-schemas.conf'
   }
 
   #modifications to this file are automatically read by
   #carbon aggregation service
   concat { '/etc/carbon/aggregation-rules.conf':
-    group   => '0',
-    mode    => '0644',
-    owner   => '0',
+    group => '0',
+    mode  => '0644',
+    owner => '0',
   }
 
   #concat requires at least one fragment
   concat::fragment {
     'default-aggregrate':
-      target  => '/etc/carbon/aggregation-rules.conf',
-      order   => 0,
-      source  => 'puppet:///modules/graphite/aggregation-rules.conf';
+      target => '/etc/carbon/aggregation-rules.conf',
+      order  => 0,
+      source => 'puppet:///modules/graphite/aggregation-rules.conf';
   }
+
+  #This file defines how to aggregate data to lower-precision retentions
+  concat { '/etc/carbon/storage-aggregation.conf':
+    group => '0',
+    mode  => '0644',
+    owner => '0',
+  }
+
+  #concat requires at least one fragment
+  concat::fragment {
+    'default-storage-aggregrate':
+      target => '/etc/carbon/storage-aggregation.conf',
+      order  => 0,
+      source => 'puppet:///modules/graphite/storage-aggregation.conf';
+  }
+
 }
