@@ -8,42 +8,25 @@ PASSFAIL=$2
 SERVER=yow-lpd-puppet2
 
 #This is the graphite aggregator port
-PORT=2023
-
-#timestamp used for all stats sent to graphite
-NOW=$(date +%s)
+PORT=8125
 
 #Track the build times for each config on each host
-CONFIG=$(basename $BDIR)
-METRIC_BASE="nx.${HOSTNAME}.${CONFIG}"
+#CONFIG=$(basename $BDIR)
 
 function send_data() {
-    METRIC_NAME=$1
-    METRIC_VALUE=$2
-    echo "$1 $2 $NOW" | nc ${SERVER} ${PORT}
+    echo "$1" | nc ${SERVER} ${PORT}
 }
 
 if [ $PASSFAIL == 0 ]; then
     echo "Send successful build stats to Graphite"
 
     #Build passed, send build success stat
-    send_data "${METRIC_BASE}.success" "1"
-
-    #Log the time to complete build
-    BUILD_TIME=$(cat $BDIR/time.log)
-
-    #If time is < one hour, time reports hundredths of seconds instead of zero hours
-    if [ ${BUILD_TIME:(-3):1} == "." ]; then
-        BUILD_TIME_HOURS=$(echo "${BUILD_TIME}" | awk -F: '{ print ($1/60) + ($2/3600) }')
-    else
-        BUILD_TIME_HOURS=$(echo "${BUILD_TIME}" | awk -F: '{ print $1 + ($2/60) + ($3/3600) }')
-    fi
-    send_data "${METRIC_BASE}.time" "${BUILD_TIME_HOURS}"
+    send_data "build_pass:1|c"
 else
     echo "Send failed build stats to Graphite"
 
     #Build failed, send build failure stat
-    send_data "${METRIC_BASE}.failure" "1"
+    send_data "build_fail:1|c"
 fi
 
 exit 0
