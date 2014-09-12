@@ -21,4 +21,13 @@ class profile::mesos::master inherits profile::mesos::common {
 
   #random build coverage scheduler reads yaml config files
   ensure_resource('package', 'python-yaml', {'ensure' => 'installed' })
+
+  #Use puppet to keep buildscripts repo up to date
+  vcsrepo {
+    '/root/wr-buildscripts':
+      ensure   => 'latest',
+      provider => 'git',
+      source   => 'git://ala-git.wrs.com/git/lpd-ops/wr-buildscripts.git',
+      revision => 'master';
+  }
 }
