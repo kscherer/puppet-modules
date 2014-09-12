@@ -1,3 +1,6 @@
+# Kill deprecation warnings in Puppet 3.6+
+Package { allow_virtual => true }
+
 node default {
 }
 
