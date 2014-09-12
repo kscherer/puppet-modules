@@ -12,7 +12,6 @@
 #
 # [Remember: No empty lines between comments and class definition]
 class graphite::carbon::config {
-  include concat::setup
   concat { '/etc/carbon/storage-schemas.conf':
     group   => '0',
     mode    => '0644',
