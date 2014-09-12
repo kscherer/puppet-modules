@@ -29,8 +29,13 @@ class wr::yow_lpd_puppet2 {
   Class['wr::mcollective'] -> Class['nagios']
 
   graphite::carbon::storage {
+    'statsd':
+      pattern    => '^stats.*',
+      order      => '10',
+      retentions => '10s:6h,1min:6d,10min:30d';
     'nx_1hr_for_6months':
       pattern    => 'nx.*',
+      order      => '50',
       retentions => '1h:6m';
     'default_10s_for_2weeks':
       pattern    => '.*',
@@ -50,4 +55,8 @@ class wr::yow_lpd_puppet2 {
   include wr::foreman
   include collectd
   include graphite_reporter
+
+  include nodejs
+  include statsd
+  Class['nodejs'] -> Class['statsd']
 }
