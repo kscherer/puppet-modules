@@ -18,6 +18,9 @@ if $::server != '' and $::server != 'puppet' {
   File { backup => main }
 }
 
+# Kill deprecation warnings in Puppet 3.6+
+Package { allow_virtual => true }
+
 #force the provider on Suse to be zypper
 if $::osfamily == 'Suse' {
   Package { provider => zypper }
