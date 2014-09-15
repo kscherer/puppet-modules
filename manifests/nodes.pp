@@ -27,6 +27,10 @@ node /yow-blade[1-3].wrs.com/ {
   include profile::mesos::slave
 }
 
+node "ala-blade19.wrs.com" {
+  include profile::mesos::slave
+}
+
 node /yow-blade.*.wrs.com/ {
   include profile::nxbuilder
   include collectd
