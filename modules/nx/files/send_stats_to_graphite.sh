@@ -5,7 +5,7 @@ BDIR=$1
 PASSFAIL=$2
 
 #This is the graphite server TODO Make location aware
-SERVER=yow-lpd-puppet2
+SERVER=yow-lpd-puppet2.wrs.com
 
 #This is the graphite aggregator port
 PORT=8125
@@ -14,7 +14,7 @@ PORT=8125
 #CONFIG=$(basename $BDIR)
 
 function send_data() {
-    echo "$1" | nc ${SERVER} ${PORT}
+    echo "$1" | nc -w 1 -u ${SERVER} ${PORT}
 }
 
 if [ $PASSFAIL == 0 ]; then
