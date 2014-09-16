@@ -6,6 +6,8 @@ ssldir                    = <%= @puppet_ssldir %>
 rundir                    = /var/run/puppet
 factpath                  = $vardir/lib/facter
 pluginsync                = true
+privatekeydir             = $ssldir/private_keys { group = service }
+hostprivkey               = $privatekeydir/$certname.pem { mode = 640 }
 
 [agent]
 report                    = true
