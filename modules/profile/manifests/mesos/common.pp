@@ -8,7 +8,7 @@ class profile::mesos::common inherits profile::nis {
   }
 
   package {
-    ['openjdk-7-jre-headless','python-setuptools','unzip']:
+    ['openjdk-7-jre-headless','python-setuptools']:
       ensure  => present,
       require => Class['wr::common::repos'];
   }
@@ -43,6 +43,6 @@ class profile::mesos::common inherits profile::nis {
     'install_mesos_egg':
       command => "/usr/bin/easy_install /root/${mesos_egg}",
       unless  => "/usr/bin/test -e /usr/local/lib/python2.7/dist-packages/${mesos_egg}",
-      require => [ Package['python-setuptools'], Exec['mesos_egg'], Package['unzip']];
+      require => [ Package['python-setuptools'], Exec['mesos_egg']];
   }
 }
