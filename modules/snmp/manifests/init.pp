@@ -418,7 +418,7 @@ class snmp (
     }
   }
 
-  if $::operatingsystem == 'Ubuntu' {
+  if $::osfamily == 'Debian' {
     exec {
       'fix_snmpd_status':
         command => '/bin/sed -i \'s/status=0/status=3/\' /etc/init.d/snmpd',
