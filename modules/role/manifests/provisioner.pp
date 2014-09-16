@@ -4,7 +4,7 @@ class role::provisioner {
 
   apt::key {
     'foreman_apt_key':
-      key        => 'E775FF07',
+      key        => '1AA043B8',
       key_source => 'http://deb.theforeman.org/pubkey.gpg',
       notify     => Exec['apt_update'];
   }
