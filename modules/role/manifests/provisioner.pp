@@ -2,17 +2,26 @@
 class role::provisioner {
   include profile::nis
 
+  apt::key {
+    'foreman_apt_key':
+      key        => 'E775FF07',
+      key_source => 'http://deb.theforeman.org/pubkey.gpg',
+      notify     => Exec['apt_update'];
+  }
+
   apt::source {
     'foreman':
       location    => 'http://deb.theforeman.org/',
       release     => $::lsbdistcodename,
       include_src => false,
-      repos       => '1.5';
+      repos       => '1.5',
+      require     => Apt::Key['foreman_apt_key'];
     'foreman-plugins':
       location    => 'http://deb.theforeman.org/',
       release     => 'plugins',
       include_src => false,
-      repos       => '1.5';
+      repos       => '1.5',
+      require     => Apt::Key['foreman_apt_key'];
   }
 
   cron {
