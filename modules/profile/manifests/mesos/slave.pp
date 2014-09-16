@@ -124,15 +124,7 @@ class profile::mesos::slave inherits profile::mesos::common {
       host_aliases => 'wr-docker-registry.wrs.com';
   }
 
-  #Install deimos package used for mesos docker external containerization
-  #Use pypiproxy on ala-mirror
-  include python
-  python::pip {
-    'deimos':
-      install_args => '-i http://ala-mirror.wrs.com:8000/simple',
-  }
-
-  #tell mesos slave to use deimos for external isolation
+  #Do not use external isolation
   file {
     '/etc/mesos-slave/containerizer_path':
       ensure => absent;
