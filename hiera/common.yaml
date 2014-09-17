@@ -76,6 +76,11 @@ mesos::master::listen_address: "%{::ipaddress_eth0}"
 mesos::slave::work_dir: '/var/lib/mesos'
 mesos::slave::isolation: 'process'
 mesos::slave::checkpoint: true
+mesos::slave::resources:
+  tier1: '1'
+  tier2: '2'
+mesos::slave::attributes:
+  location: 'ala'
 
 docker::manage_kernel: false
 docker::extra_parameters: '--storage-driver=devicemapper'
