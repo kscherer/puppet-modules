@@ -30,7 +30,7 @@ class wr::ala_lpd_test {
   #packages are needed to run installer
   package {
     [ 'gtk2.i686','libXtst.i686','PackageKit-gtk-module.i686', 'libcanberra-gtk2.i686',
-      'gtk2-engines.i686','libXt', 'HTML::TokeParser' ]:
+      'gtk2-engines.i686','libXt', 'perl-HTML-TokeParser-Simple' ]:
       ensure => installed;
   }
 
