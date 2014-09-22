@@ -37,4 +37,12 @@ class role::git::master inherits role {
       minute  => '0',
       hour    => '8';
   }
+
+  @@nagios_service {
+    "check_external_sync_${::hostname}":
+      use                 => 'passive-service',
+      service_description => 'Passive External Git Sync',
+      host_name           => $::fqdn,
+      servicegroups       => 'git-mirrors',
+  }
 }
