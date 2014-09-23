@@ -32,7 +32,7 @@ class role::git::master inherits role {
   $nsca_server=hiera('nsca')
   cron {
     'nsca_external_sync_check':
-      command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper -H ${::fqdn} -S 'External Repo sync check' -N ${nsca_server} -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_external_log_errors.sh -q",
+      command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper -H ${::fqdn} -S 'Passive External Git Sync' -N ${nsca_server} -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_external_log_errors.sh -q",
       user    => 'nagios',
       minute  => '0',
       hour    => '8';
