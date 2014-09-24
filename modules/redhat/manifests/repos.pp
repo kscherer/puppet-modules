@@ -128,10 +128,8 @@ class redhat::repos {
       realize( Yum_repo['redhat-dvd'] )
       realize( Yum_repo['puppetlabs'] )
       realize( Yum_repo['puppetlabs-deps'] )
-      if ( $::lsbmajdistrelease == '5' ) {
-        realize( Yum_repo['epel'] )
-      } elsif ( $::lsbmajdistrelease == '6' ) {
-        realize( Yum_repo['epel'] )
+      realize( Yum_repo['epel'] )
+      if ( $::lsbmajdistrelease == '6' ) {
         realize( Yum_repo['rhel6-updates'] )
         realize( Yum_repo['rhel6-optional'] )
       } elsif ( $::lsbmajdistrelease == '7' ) {
@@ -141,12 +139,10 @@ class redhat::repos {
             ensure => present;
         }
       }
-      if ( $::lsbmajdistrelease != '7' ) {
-        package {
-          'epel-release':
-            ensure  => installed,
-            require => Yumrepo['epel'];
-        }
+      package {
+        'epel-release':
+          ensure  => installed,
+          require => Yumrepo['epel'];
       }
     }
     default: { fail('Unsupported Operating System') }
