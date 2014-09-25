@@ -47,6 +47,8 @@ class profile::bare_metal {
   if 'blade' in $::hostname {
     if 'PERC' in $model {
       $devices = {'/dev/sda'=>['megaraid,0', 'megaraid,1']}
+    } elsif 'Logical Volume' == $model and 'LSI' == $::blockdevice_sda_vendor {
+      $devices = ['/dev/sg1', '/dev/sg2', '/dev/sg3']
     } else {
       $devices = ['/dev/sg0', '/dev/sg1',]
     }
