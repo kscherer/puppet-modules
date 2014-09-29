@@ -30,4 +30,10 @@ class profile::docker::registry {
       require => [ File['/opt/registry/store'], File['/opt/registry/config.yml']];
   }
 
+  #allow other registries to sync from this one
+  include rsync::server
+  rsync::server::module{
+    'registry':
+      path => '/opt/registry';
+  }
 }
