@@ -54,6 +54,11 @@ class nrpe {
   }
   $defaultdir = "${nagios_plugin_base}/plugins"
 
+  File {
+    owner => 'root',
+    group => 'root',
+  }
+
   file {
     ['/etc/nagios', $nrpe_dir, $nagios_plugin_base, $defaultdir]:
       ensure => directory;
