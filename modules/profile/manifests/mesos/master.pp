@@ -32,7 +32,7 @@ class profile::mesos::master inherits profile::mesos::common {
 
   cron {
     'use_latest_nx_configs':
-      command => 'cd /home/wrlbuild/wr-buildscripts; /usr/bin/git fetch --all; /usr/bin/git reset --hard origin/master; ./process_nx_configs.sh >> /home/wrlbuild/log/process_nx_configs.log',
+      command => 'cd /home/wrlbuild/wr-buildscripts; ./process_nx_configs.sh >> /home/wrlbuild/log/process_nx_configs.log',
       user    => 'wrlbuild',
       hour    => '*',
       minute  => fqdn_rand(60, 'process_nx_configs'),
