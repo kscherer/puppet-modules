@@ -68,19 +68,6 @@ class profile::mesos::slave inherits profile::mesos::common {
       notify  => Exec['update-grub'];
   }
 
-  #Use hosts file as substitute for geographically aware DNS
-  $registry_ip = $::location ? {
-    'yow'   => '128.224.194.16', #yow-lpd-provision
-    default => '147.11.106.56' #ala-lpd-mesos
-  }
-
-  host {
-    'wr-docker-registry':
-      ensure       => present,
-      ip           => $registry_ip,
-      host_aliases => 'wr-docker-registry.wrs.com';
-  }
-
   #Do not use external isolation
   file {
     '/etc/mesos-slave/containerizer_path':
