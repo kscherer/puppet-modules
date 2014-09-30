@@ -44,7 +44,8 @@ class profile::mesos::common inherits profile::nis {
       provider => 'git',
       source   => 'git://ala-git.wrs.com/lpd-ops/wr-buildscripts.git',
       user     => 'wrlbuild',
-      revision => 'master';
+      revision => 'master',
+      require  => User['wrlbuild'];
   }
 
   file {
