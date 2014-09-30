@@ -39,10 +39,10 @@ class profile::mesos::master inherits profile::mesos::common {
       require => File['/home/wrlbuild/log'];
   }
 
+  #upstart config to manage build scheduler
   file {
     '/etc/init/build_scheduler.conf':
-      ensure  => link,
-      target  => '/home/wrlbuild/wr-buildscripts/build_scheduler.conf',
-      require => Vcsrepo['/home/wrlbuild/wr-buildscripts'];
+      ensure => present,
+      source => 'puppet:///modules/wr/build_scheduler.conf';
   }
 }
