@@ -22,12 +22,27 @@ class profile::mesos::master inherits profile::mesos::common {
   #random build coverage scheduler reads yaml config files
   ensure_resource('package', 'python-yaml', {'ensure' => 'installed' })
 
-  #Use puppet to keep buildscripts repo up to date
-  vcsrepo {
-    '/root/wr-buildscripts':
-      ensure   => 'latest',
-      provider => 'git',
-      source   => 'git://ala-git.wrs.com/git/lpd-ops/wr-buildscripts.git',
-      revision => 'master';
+  file {
+    '/home/wrlbuild/log':
+      ensure => directory,
+      owner  => 'wrlbuild',
+      group  => 'wrlbuild',
+      mode   => '0755';
+  }
+
+  cron {
+    'use_latest_nx_configs':
+      command => 'cd /home/wrlbuild/wr-buildscripts; /usr/bin/git fetch --all; /usr/bin/git reset --hard origin/master; ./process_nx_configs.sh >> /home/wrlbuild/log/process_nx_configs.log',
+      user    => 'wrlbuild',
+      hour    => '*',
+      minute  => fqdn_rand(60, 'process_nx_configs'),
+      require => File['/home/wrlbuild/log'];
+  }
+
+  file {
+    '/etc/init/build_scheduler.conf':
+      ensure  => link,
+      target  => '/home/wrlbuild/wr-buildscripts/build_scheduler.conf',
+      require => Vcsrepo['/home/wrlbuild/wr-buildscripts'];
   }
 }
