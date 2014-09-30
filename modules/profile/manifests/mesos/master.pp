@@ -53,7 +53,7 @@ class profile::mesos::master inherits profile::mesos::common {
 
   #rq is used by build scheduler to read queues
   wr::pip_userpackage {
-    ['rq', 'rq-dashboard']:
+    'rq':
       owner => 'wrlbuild';
   }
 }
