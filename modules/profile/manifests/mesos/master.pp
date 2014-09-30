@@ -43,6 +43,8 @@ class profile::mesos::master inherits profile::mesos::common {
   file {
     '/etc/init/build_scheduler.conf':
       ensure => present,
+      owner  => 'root',
+      group  => 'root',
       source => 'puppet:///modules/wr/build_scheduler.conf';
   }
 }
