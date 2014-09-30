@@ -1,0 +1,5 @@
+---
+mesos::slave::resources:
+  tier1: '1'
+  tier2: '2'
+  world: '1'
