@@ -47,4 +47,13 @@ class profile::mesos::master inherits profile::mesos::common {
       group  => 'root',
       source => 'puppet:///modules/wr/build_scheduler.conf';
   }
+
+  #This installs python-pip
+  include python
+
+  #rq is used by build scheduler to read queues
+  wr::pip_userpackage {
+    ['rq', 'rq-dashboard']:
+      owner => 'wrlbuild';
+  }
 }
