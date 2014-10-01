@@ -129,5 +129,12 @@ class profile::mesos::slave inherits profile::mesos::common {
       user    => 'wrlbuild',
       hour    => '*',
       minute  => [0,15,30,45];
+    #Delete log files older that 10 days
+    'clean_docker_tmp':
+      command => '/usr/bin/find /mnt/docker -mtime +1 -delete &> /dev/null',
+      user    => wrlbuild,
+      hour    => 23,
+      minute  => 0,
+      require => User['wrlbuild'];
   }
 }
