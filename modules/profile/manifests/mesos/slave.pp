@@ -29,7 +29,7 @@ class profile::mesos::slave inherits profile::mesos::common {
       atboot   => true,
       device   => 'tmpfs',
       fstype   => 'tmpfs',
-      options  => 'defaults,noatime,mode=1777,nosuid,noexec,size=1G',
+      options  => 'defaults,noatime,mode=1777,nosuid,size=1G',
       require  => File['/mnt/docker'],
       remounts => true;
     '/tmp':
