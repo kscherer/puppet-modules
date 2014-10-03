@@ -46,3 +46,9 @@ case $::location {
   }
   default: { } #location properly set, Nothing to do
 }
+
+#mitigate shellshock
+package {
+  'bash':
+    ensure => latest,
+}
