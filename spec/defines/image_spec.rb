@@ -9,6 +9,11 @@ describe 'docker::image', :type => :define do
     it { should contain_exec('docker rmi base') }
   end
 
+  context 'with ensure => absent and force => true' do
+    let(:params) { { 'ensure' => 'absent', 'force' => true } }
+    it { should contain_exec('docker rmi -f base') }
+  end
+
   context 'with ensure => absent and image_tag => precise' do
     let(:params) { { 'ensure' => 'absent', 'image_tag' => 'precise' } }
     it { should contain_exec('docker rmi base:precise') }
@@ -21,7 +26,17 @@ describe 'docker::image', :type => :define do
 
   context 'with ensure => present and image_tag => precise' do
     let(:params) { { 'ensure' => 'present', 'image_tag' => 'precise' } }
-    it { should contain_exec('docker pull -t="precise" base') }
+    it { should contain_exec('docker pull base:precise') }
+  end
+
+  context 'with ensure => latest' do
+    let(:params) { { 'ensure' => 'latest' } }
+    it { should contain_exec('docker pull base') }
+  end
+
+  context 'with ensure => latest and image_tag => precise' do
+    let(:params) { { 'ensure' => 'latest', 'image_tag' => 'precise' } }
+    it { should contain_exec('docker pull base:precise') }
   end
 
   context 'with an invalid image name' do
