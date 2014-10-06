@@ -55,7 +55,7 @@ class profile::mesos::common inherits profile::nis {
   }
 
   package {
-    ['openjdk-7-jre-headless','python-setuptools']:
+    ['openjdk-7-jre-headless','python-setuptools', 'apparmor-utils']:
       ensure  => present,
       require => Class['wr::common::repos'];
   }
@@ -104,5 +104,14 @@ class profile::mesos::common inherits profile::nis {
       ensure       => present,
       ip           => $registry_ip,
       host_aliases => 'wr-docker-registry.wrs.com';
+  }
+
+  file {
+    '/etc/rc.local':
+      ensure => file,
+      owner  => root,
+      group  => root,
+      mode   => '0755',
+      source => 'puppet:///modules/wr/docker-rc.local';
   }
 }
