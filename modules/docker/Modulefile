@@ -1,8 +1,8 @@
 name        'garethr-docker'
-version     '0.13.0'
+version     '1.2.2'
 source      'git://github.com/garethr/garethr-docker.git'
 author      'Gareth Rushgrove'
-summary     'Module for installing docker from repository on get.docker.io'
+summary     'Module for installing docker from the official docker repository'
 description 'Install and manage docker'
 license     'Apache License, Version 2.0'
 

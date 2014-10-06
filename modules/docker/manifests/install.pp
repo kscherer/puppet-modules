@@ -1,20 +1,27 @@
 # == Class: docker
 #
 # Module to install an up-to-date version of Docker from a package repository.
-# The use of this repository means, this module works only on Debian and Red
-# Hat based distributions.
+# This module currently works only on Debian, Red Hat
+# and Archlinux based distributions.
 #
 class docker::install {
   validate_string($docker::version)
-  validate_re($::osfamily, '^(Debian|RedHat)$', 'This module only works on Debian and Red Hat based systems.')
+  validate_re($::osfamily, '^(Debian|RedHat|Archlinux)$', 'This module only works on Debian, Red Hat and Archlinux based systems.')
   validate_string($::kernelrelease)
   validate_bool($docker::use_upstream_package_source)
 
   case $::osfamily {
     'Debian': {
+      ensure_packages($docker::prerequired_packages)
+      if $docker::manage_package {
+        Package['apt-transport-https'] -> Package['docker']
+      }
 
-      ensure_packages(['apt-transport-https', 'cgroup-lite'])
-      Package['apt-transport-https'] -> Package['docker']
+      if $docker::version {
+        $dockerpackage = "${docker::package_name}-${docker::version}"
+      } else {
+        $dockerpackage = $docker::package_name
+      }
 
       if ($docker::use_upstream_package_source) {
         include apt
@@ -28,36 +35,62 @@ class docker::install {
           pin               => '10',
           include_src       => false,
         }
-
-        Apt::Source['docker'] -> Package['docker']
-      }
-
-      case $::operatingsystemrelease {
-        # On Ubuntu 12.04 (precise) install the backported 13.04 (raring) kernel
-        '12.04': { $kernelpackage = [
-                                      'linux-image-generic-lts-raring',
-                                      'linux-headers-generic-lts-raring'
-                                    ]
+        if $docker::manage_package {
+          Apt::Source['docker'] -> Package['docker']
         }
-        # determine the package name for 'linux-image-extra-$(uname -r)' based
-        # on the $::kernelrelease fact
-        default: { $kernelpackage = "linux-image-extra-${::kernelrelease}" }
+      } else {
+        if $docker::version and $docker::ensure != 'absent' {
+          $ensure = $docker::version
+        } else {
+          $ensure = $docker::ensure
+        }
       }
 
-      $dockerbasepkg = 'lxc-docker'
-      $manage_kernel = $docker::manage_kernel
+      if $::operatingsystem == 'Ubuntu' {
+        case $::operatingsystemrelease {
+          # On Ubuntu 12.04 (precise) install the backported 13.10 (saucy) kernel
+          '12.04': { $kernelpackage = [
+                                        'linux-image-generic-lts-trusty',
+                                        'linux-headers-generic-lts-trusty'
+                                      ]
+          }
+          # determine the package name for 'linux-image-extra-$(uname -r)' based
+          # on the $::kernelrelease fact
+          default: { $kernelpackage = "linux-image-extra-${::kernelrelease}" }
+        }
+        $manage_kernel = $docker::manage_kernel
+      } else {
+        # Debian does not need extra kernel packages
+        $manage_kernel = false
+      }
     }
     'RedHat': {
       if versioncmp($::operatingsystemrelease, '6.5') < 0 {
         fail('Docker needs RedHat/CentOS version to be at least 6.5.')
       }
 
-      $dockerbasepkg = 'docker-io'
       $manage_kernel = false
+
+      if $docker::version {
+        $dockerpackage = "${docker::package_name}-${docker::version}"
+      } else {
+        $dockerpackage = $docker::package_name
+      }
 
       if ($docker::use_upstream_package_source) {
         include 'epel'
-        Class['epel'] -> Package[$dockerbasepkg]
+        if $docker::manage_package {
+          Class['epel'] -> Package['docker']
+        }
+      }
+    }
+    'Archlinux': {
+      $manage_kernel = false
+
+      if $docker::version {
+        notify { 'docker::version unsupported on Archlinux':
+          message => 'Versions other than latest are not supported on Arch Linux. This setting will be ignored.'
+        }
       }
     }
   }
@@ -65,18 +98,16 @@ class docker::install {
   if $manage_kernel {
     package { $kernelpackage:
       ensure => present,
-      before => Package['docker'],
+    }
+    if $docker::manage_package {
+      Package[$kernelpackage] -> Package['docker']
     }
   }
 
-  if $docker::version {
-    $dockerpackage = "${dockerbasepkg}-${docker::version}"
-  } else {
-    $dockerpackage = $dockerbasepkg
-  }
-
-  package { 'docker':
-    ensure => $docker::ensure,
-    name   => $dockerpackage,
+  if $docker::manage_package {
+    package { 'docker':
+      ensure => $docker::ensure,
+      name   => $dockerpackage,
+    }
   }
 }
