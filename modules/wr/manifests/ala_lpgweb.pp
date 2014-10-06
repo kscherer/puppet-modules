@@ -19,11 +19,11 @@ class wr::ala_lpgweb {
   file_line {
     'set_domain':
       path   => '/etc/postfix/main.cf',
-      line   => 'mydomain = wrs.com',
+      line   => 'mydomain = windriver.com',
       notify => Service['postfix'];
     'set_relayhost':
       path   => '/etc/postfix/main.cf',
-      line   => 'relayhost = prod-webmail.wrs.com',
+      line   => 'relayhost = prod-webmail.windriver.com',
       notify => Service['postfix'];
   }
 
