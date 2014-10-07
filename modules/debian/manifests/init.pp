@@ -35,4 +35,11 @@ APT::Install-Recommends "0";';
   }
 
   include apt::unattended_upgrades
+
+  # fsck of /boot/efi fails and causes boot to hang
+  exec {
+    'remove_efi_parition_from_fstab':
+      command => '/bin/sed -i \'/\/boot\/efi/d\' /etc/fstab',
+      unless  => '/bin/grep -q \'/boot/efi\' /etc/fstab';
+  }
 }
