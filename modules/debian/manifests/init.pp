@@ -40,6 +40,6 @@ APT::Install-Recommends "0";';
   exec {
     'remove_efi_parition_from_fstab':
       command => '/bin/sed -i \'/\/boot\/efi/d\' /etc/fstab',
-      unless  => '/bin/grep -q \'/boot/efi\' /etc/fstab';
+      onlyif  => '/bin/grep -q \'/boot/efi\' /etc/fstab';
   }
 }
