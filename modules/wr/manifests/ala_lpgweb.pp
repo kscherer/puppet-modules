@@ -17,16 +17,17 @@ class wr::ala_lpgweb {
   #so use postfix but it requires configuration
   ensure_resource('package', 'postfix', {'ensure' => 'installed' })
 
-  augeas {"postfix.main.cf":
-    context => "/files/etc/postfix/main.cf",
-    changes => [
-                'set myorigin "windriver.com"',
-                'set relayhost "prod-webmail.windriver.com"',
-                'set inet_interfaces "loopback-only"',
-                'set masquerade_domains "windriver.com wrs.com"',
-                'clear mydestination',
-                 ],
-    notify => Service["postfix"]
+  augeas {
+    'postfix.main.cf':
+      context => '/files/etc/postfix/main.cf',
+      changes => [
+                  'set myorigin "windriver.com"',
+                  'set relayhost "prod-webmail.windriver.com"',
+                  'set inet_interfaces "loopback-only"',
+                  'set masquerade_domains "windriver.com wrs.com"',
+                  'clear mydestination',
+                  ],
+      notify  => Service['postfix']
   }
 
   #Postfix service needs to be running to deliver mail
