@@ -16,15 +16,17 @@ class wr::ala_lpgweb {
   #by default ssmtp is installed but times out with long cron scripts
   #so use postfix but it requires configuration
   ensure_resource('package', 'postfix', {'ensure' => 'installed' })
-  file_line {
-    'set_domain':
-      path   => '/etc/postfix/main.cf',
-      line   => 'mydomain = windriver.com',
-      notify => Service['postfix'];
-    'set_relayhost':
-      path   => '/etc/postfix/main.cf',
-      line   => 'relayhost = prod-webmail.windriver.com',
-      notify => Service['postfix'];
+
+  augeas {"postfix.main.cf":
+    context => "/files/etc/postfix/main.cf",
+    changes => [
+                'set myorigin "windriver.com"',
+                'set relayhost "prod-webmail.windriver.com"',
+                'set inet_interfaces "loopback-only"',
+                'set masquerade_domains "windriver.com wrs.com"',
+                'clear mydestination',
+                 ],
+    notify => Service["postfix"]
   }
 
   #Postfix service needs to be running to deliver mail
