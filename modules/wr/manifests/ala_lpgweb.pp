@@ -170,4 +170,9 @@ class wr::ala_lpgweb {
   }
 
   include zookeeper
+
+  wr::user {
+    'errorweb':
+      password   => '$5$BgyVYu6DgaQM2cEP$BO9AhcDlJRgvQWH5EkIuygrLMh37.Sl3YGtIffGwfT5';
+  }
 }
