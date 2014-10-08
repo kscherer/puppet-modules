@@ -131,10 +131,15 @@ class profile::mesos::slave inherits profile::mesos::common {
 
   cron {
     'build_postprocess':
-      command => 'cd /home/wrlbuild/wr-buildscripts; ./build_postprocess.sh > /home/wrlbuild/log/postprocess.log',
+      command => 'cd /home/wrlbuild/wr-buildscripts; ./build_postprocess.sh >> /home/wrlbuild/log/postprocess.log',
       user    => 'wrlbuild',
       hour    => '*',
       minute  => [0,15,30,45];
+    'rotate_postprocess_logs':
+      command => 'cd /home/wrlbuild/log; mv -f postprocess.log postprocess.log.0',
+      user    => 'wrlbuild',
+      hour    => '0',
+      minute  => '10';
     #Delete log files older that 10 days
     'clean_docker_tmp':
       command => '/usr/bin/find /mnt/docker -mtime +1 -delete &> /dev/null',
