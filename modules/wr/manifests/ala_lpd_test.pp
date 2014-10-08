@@ -73,4 +73,23 @@ class wr::ala_lpd_test {
       ensure => running,
       enable => true;
   }
+
+  if $::hostname == 'ala-lpd-test3' {
+
+    file {
+      '/buildarea/dav':
+        ensure => directory,
+        owner  => 'apache',
+        group  => 'apache',
+        mode   => '0664';
+    }
+
+    include apache
+
+    apache::vhost {
+      'ala-lpd-test3.wrs.com':
+        docroot     => '/buildarea/dav',
+        directories => [ { path => '/path/to/directory', 'Dav' => 'On' },],
+    }
+  }
 }
