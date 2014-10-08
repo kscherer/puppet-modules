@@ -165,6 +165,12 @@ class nx {
       group   => root,
       mode    => '0644',
       content => '* soft nproc 5000';
+    '/home/nxadm/.oe-send-error':
+      ensure => present,
+      owner  => 'nxadm',
+      group  => 'nxadm',
+      mode   => '0644',
+      source => 'puppet:///modules/wr/send-error-config';
   }
 
   #on ala-lpd-test machines /buildarea is a link to /data
