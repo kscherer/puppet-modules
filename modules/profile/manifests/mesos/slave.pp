@@ -118,6 +118,12 @@ class profile::mesos::slave inherits profile::mesos::common {
       owner   => 'wrlbuild',
       group   => 'wrlbuild',
       content => 'if [ -f $HOME/.bashrc ]; then source $HOME/.bashrc; fi';
+    '/home/wrlbuild/.oe-send-error':
+      ensure => present,
+      owner  => 'wrlbuild',
+      group  => 'wrlbuild',
+      mode   => '0644',
+      source => 'puppet:///modules/wr/send-error-config';
   }
 
   #post process script uses git send-email
