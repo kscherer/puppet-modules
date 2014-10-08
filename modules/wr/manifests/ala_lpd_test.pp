@@ -85,17 +85,6 @@ class wr::ala_lpd_test {
     }
 
     include apache
-
-    apache::vhost {
-      'ala-lpd-test3.wrs.com':
-        docroot     => '/buildarea/dav',
-        directories => [
-          { 'path'     => '/buildarea/dav',
-            'provider' => 'files',
-            'allow'    => 'from all',
-            'Dav'      => 'On'
-          },
-        ],
-    }
+    include apache::mod::dav
   }
 }
