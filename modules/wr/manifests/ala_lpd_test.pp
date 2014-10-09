@@ -77,7 +77,7 @@ class wr::ala_lpd_test {
   if $::hostname == 'ala-lpd-test3' {
 
     file {
-      '/buildarea/dav':
+      '/data/dav':
         ensure => directory,
         owner  => 'apache',
         group  => 'apache',
@@ -90,15 +90,12 @@ class wr::ala_lpd_test {
     ::apache::vhost {
       'ala-lpd-test3-dav':
         ensure          => present,
-        docroot         => '/var/www/html',
+        docroot         => '/data/dav',
         port            => 80,
-        scriptalias     => '/var/www/cgi-bin',
-        access_log_file => 'access_log',
         custom_fragment => '
-        <Directory /var/www/html/dav>
-            Dav On
-            Order allow,deny
-            Allow from all
+        <Directory /data/dav>
+           Options Indexes FollowSymLinks MultiViews
+           Dav On
         </Directory>',
     }
   }
