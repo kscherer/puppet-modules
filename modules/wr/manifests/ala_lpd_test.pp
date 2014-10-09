@@ -94,6 +94,12 @@ class wr::ala_lpd_test {
         port            => 80,
         scriptalias     => '/var/www/cgi-bin',
         access_log_file => 'access_log',
+        custom_fragment => '
+        <Directory /var/www/html/dav>
+            Dav On
+            Order allow,deny
+            Allow from all
+        </Driectory>',
     }
   }
 }
