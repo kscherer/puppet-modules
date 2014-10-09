@@ -86,5 +86,12 @@ class wr::ala_lpd_test {
 
     include apache
     include apache::mod::dav
+
+    ::apache::vhost {
+      'default':
+        ensure   => present,
+        port     => 80,
+        priority => '15',
+    }
   }
 }
