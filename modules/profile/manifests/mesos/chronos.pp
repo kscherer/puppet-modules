@@ -3,7 +3,7 @@ class profile::mesos::chronos {
 
   apt::source { 'mesosphere':
     location   => 'http://repos.mesosphere.io/ubuntu',
-    repos      => 'trusty',
+    repos      => 'main',
     key        => 'E56151BF',
     key_server => 'keyserver.ubuntu.com';
   }
