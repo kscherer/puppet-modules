@@ -92,11 +92,12 @@ class wr::ala_lpd_test {
         ensure          => present,
         docroot         => '/data/dav',
         port            => 80,
-        custom_fragment => '
-        <Directory /data/dav>
-           Options Indexes FollowSymLinks MultiViews
-           Dav On
-        </Directory>',
+        directories     => [
+            { 'path'            => '/data/dev',
+              'options'         => 'Indexes FollowSymLinks MultiViews',
+              'custom_fragment' => 'Dav On',
+            },
+        ],
     }
   }
 }
