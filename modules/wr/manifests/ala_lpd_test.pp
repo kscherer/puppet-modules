@@ -99,7 +99,7 @@ class wr::ala_lpd_test {
             Dav On
             Order allow,deny
             Allow from all
-        </Driectory>',
+        </Directory>',
     }
   }
 }
