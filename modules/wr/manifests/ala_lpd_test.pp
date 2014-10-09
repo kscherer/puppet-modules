@@ -89,8 +89,11 @@ class wr::ala_lpd_test {
 
     ::apache::vhost {
       'ala-lpd-test3-dav':
-        ensure => present,
-        port   => 80,
+        ensure          => present,
+        docroot         => '/var/www/html',
+        port            => 80,
+        scriptalias     => '/var/www/cgi-bin',
+        access_log_file => 'access_log',
     }
   }
 }
