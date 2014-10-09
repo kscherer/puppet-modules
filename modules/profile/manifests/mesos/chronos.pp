@@ -5,8 +5,7 @@ class profile::mesos::chronos {
     location   => 'http://repos.mesosphere.io/ubuntu',
     repos      => 'trusty',
     key        => 'E56151BF',
-    key_server => 'keyserver.ubuntu.com',
-    notify     => Exec['apt_update'];
+    key_server => 'keyserver.ubuntu.com';
   }
 
   package {
