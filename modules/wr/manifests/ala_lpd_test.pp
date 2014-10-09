@@ -99,7 +99,7 @@ class wr::ala_lpd_test {
             },
         ],
         custom_fragment => '
-            <Directory "/data/dev">
+        <Directory "/data/dav">
             Options Indexes FollowSymLinks MultiViews
             Dav On
         </Directory>',
