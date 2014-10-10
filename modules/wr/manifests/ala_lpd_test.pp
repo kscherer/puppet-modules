@@ -42,7 +42,7 @@ class wr::ala_lpd_test {
 
   #another developer request
   package {
-    ['screen','wiggle']:
+    ['screen', 'wiggle', 'expect']:
       ensure => installed;
   }
 
