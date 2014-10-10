@@ -233,3 +233,7 @@ node 'yow-jkeffer-lx.wrs.com' {
 	include wr::yow_eng_vm
 }
 
+node 'yow-ovp5.wrs.com' {
+  include profile::nis
+  include yocto
+}
