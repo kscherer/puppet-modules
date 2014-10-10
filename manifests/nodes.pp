@@ -237,3 +237,8 @@ node 'yow-ovp5.wrs.com' {
   include profile::nis
   include yocto
 }
+
+node 'yow-ovp6.wrs.com' {
+  include profile::nis
+  include yocto
+}
