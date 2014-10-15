@@ -22,5 +22,7 @@ graphite_reporter::graphite_port: 2023
 docker::dns: 147.11.57.128
 mesos::slave::attributes:
   location: 'ala'
+timezone: 'US/Pacific'
+
 
 

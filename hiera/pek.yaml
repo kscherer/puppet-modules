@@ -9,3 +9,4 @@ nameservers:
   - 128.224.160.11
   - 147.11.57.128
 nsca: 128.224.153.105
+timezone: 'Asia/Shanghai'

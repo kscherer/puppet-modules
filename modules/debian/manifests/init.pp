@@ -42,4 +42,13 @@ APT::Install-Recommends "0";';
       command => '/bin/sed -i \'/\/boot\/efi/d\' /etc/fstab',
       onlyif  => '/bin/grep -q \'/boot/efi\' /etc/fstab';
   }
+
+  $timezone=hiera('timezone','US/Pacific')
+  # if system is in UTC timezone, switch it
+  exec {
+    'fix_timezone_if_utc':
+      command => 'echo $timezone > /etc/timezone; dpkg-reconfigure -f noninteractive tzdata',
+      onlyif  => '/bin/grep -q \'UTC\' /etc/timezone';
+  }
+
 }

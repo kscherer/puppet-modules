@@ -34,6 +34,8 @@ mesos::zookeeper: "zk://128.224.194.16:2181/mesos"
 mesos::slave::attributes:
   location: 'yow'
 
+timezone: 'America/New_York'
+
 # The IP and interface that external sources will use to communicate with the instance and hypervisors.
 openstack::compute::public_interface:   'eth0'
 openstack::compute::internal_address:   "%{ipaddress_eth0}"
