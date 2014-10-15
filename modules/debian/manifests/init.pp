@@ -47,7 +47,7 @@ APT::Install-Recommends "0";';
   # if system is in UTC timezone, switch it
   exec {
     'fix_timezone_if_utc':
-      command => '/bin/echo "$timezone" > /etc/timezone; /usr/sbin/dpkg-reconfigure -f noninteractive tzdata',
+      command => "/bin/echo \"${timezone}\" > /etc/timezone; /usr/sbin/dpkg-reconfigure -f noninteractive tzdata",
       onlyif  => '/bin/grep -q \'UTC\' /etc/timezone';
   }
 
