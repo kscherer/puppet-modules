@@ -148,4 +148,10 @@ class profile::mesos::slave inherits profile::mesos::common {
       minute  => 0,
       require => User['wrlbuild'];
   }
+
+  #give wrlbuild user sudo access to fixup permission problems
+  sudo::conf {
+    'wrlbuild':
+      source  => 'puppet:///modules/wr/sudoers.d/wrlbuild';
+    }
 }
