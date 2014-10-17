@@ -91,6 +91,22 @@ class wr::ala_lpgweb {
       source   => 'git://ala-git.wrs.com/lpd-ops/wr-rq.git',
       user     => 'rq',
       revision => 'master';
+    'wr-buildscripts':
+      ensure   => 'latest',
+      path     => '/home/rq/wr-buildscripts',
+      provider => 'git',
+      source   => 'git://ala-git.wrs.com/lpd-ops/wr-buildscripts.git',
+      user     => 'rq',
+      revision => 'master';
+  }
+
+  cron {
+    '':
+      ensure  => present,
+      command => '/home/rq/wr-buildscripts/native_sstate_rebuild_enqueue.py',
+      user    => 'rq',
+      hour    => '20',
+      minute  => '0';
   }
 
   #require apache to display exported process docs
