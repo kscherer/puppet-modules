@@ -59,6 +59,11 @@ class profile::mesos::slave inherits profile::mesos::common {
     'cleanup_untagged_images':
       command => '/usr/bin/docker rmi $(/usr/bin/docker images | /bin/grep "^<none>" | /usr/bin/awk "{print \$3}") > /dev/null 2>&1',
       minute  => fqdn_rand(60, 'images cleanup');
+    'native_sstate_update':
+      command => '/home/wrlbuild/wr-buildscripts/retrieve_native_sstate.sh /home/wrlbuild > /dev/null 2>&1',
+      user    => 'wrlbuild',
+      hour    => '*',
+      minute  => fqdn_rand(60, 'native_sstate_update');
   }
 
   exec {
