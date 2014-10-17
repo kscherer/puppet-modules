@@ -101,7 +101,7 @@ class wr::ala_lpgweb {
   }
 
   cron {
-    '':
+    'native_sstate_rebuild':
       ensure  => present,
       command => '/home/rq/wr-buildscripts/native_sstate_rebuild_enqueue.py',
       user    => 'rq',
