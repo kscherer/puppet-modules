@@ -23,21 +23,12 @@ node 'yow-lpg-amqp.wrs.com' {
   class { 'wr::yow_amqp': }
 }
 
-node /yow-blade[1-9].wrs.com/ {
-  include profile::mesos::slave
-}
-
-node /yow-blade1[0-3].wrs.com/ {
+node /yow-blade.*.wrs.com/ {
   include profile::mesos::slave
 }
 
 node /ala-blade(19|49|50|51|52)\.wrs\.com/ {
   include profile::mesos::slave
-}
-
-node /yow-blade.*.wrs.com/ {
-  include profile::nxbuilder
-  include collectd
 }
 
 node 'yow-lpgbld-24.wrs.com' {
