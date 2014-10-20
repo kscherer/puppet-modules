@@ -10,6 +10,9 @@ class profile::mesos::slave inherits profile::mesos::common {
   }
   Package['mesos']->Service['mesos-master']
 
+  #Make sure chronos-docker executor is available before slave service is started
+  Vcsrepo['/home/wrlbuild/wr-buildscripts'] -> Service['mesos-slave']
+
   file {
     ['/home/wrlbuild/log','/home/wrlbuild/builds']:
       ensure => directory,
