@@ -219,3 +219,54 @@ node 'yow-jenkins-vm1.wrs.com' {
 node 'yow-jenkins-vm2.wrs.com' {
   include jenkins
 }
+
+node 'yow-tla2-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
+
+node 'yow-build47-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
+
+node 'yow-build53-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
+node 'yow-build54-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
+node 'yow-build55-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
+node 'yow-build16-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
+node 'yow-build11-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
+node 'yow-build12-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
+node 'yow-build13-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
+
+node 'yow-ssp2-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
+node 'yow-ovp4.wrs.com' {
+	include wr::yow_eng_vm
+}
+
+node 'yow-jkeffer-lx.wrs.com' {
+	include wr::yow_eng_vm
+}
+
+node 'yow-ovp5.wrs.com' {
+  include profile::nis
+  include yocto
+}
+
+node 'yow-ovp6.wrs.com' {
+  include profile::nis
+  include yocto
+}
