@@ -262,11 +262,9 @@ node 'yow-jkeffer-lx.wrs.com' {
 }
 
 node 'yow-ovp5.wrs.com' {
-  include profile::nis
-  include yocto
+  include wr::yow_ovp_rhel
 }
 
 node 'yow-ovp6.wrs.com' {
-  include profile::nis
-  include yocto
+  include wr::yow_ovp_rhel
 }
