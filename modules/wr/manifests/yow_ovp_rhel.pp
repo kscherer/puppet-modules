@@ -71,5 +71,5 @@
  "xorg-x11-glamor", "xorg-x11-proto-devel", "xorg-x11-server-common", "xorg-x11-server-utils", "xorg-x11-server-Xorg", "xorg-x11-utils",
  "xorg-x11-xauth", "xorg-x11-xinit", "xorg-x11-xkb-utils", "xulrunner", "xvattr", "xz", "xz-libs", "xz-lzma-compat", "yelp", "ypbind",
  "yp-tools", "yum", "yum-metadata-parser", "yum-plugin-security", "yum-rhn-plugin",
- "yum-utils", "zd1211-firmware", "zenity", "zip", "zlib"]:
+ "yum-utils", "zd1211-firmware", "zenity", "zip", "zlib"']:
  ensure => 'installed';   }  file { 	'/etc/samba/smb.conf': 	ensure => present, 	content => template('wr/samba.conf.erb');  }    file { 	'/etc/exports': 	ensure => present, 	content => "/buildarea1   *(rw,insecure,async,insecure_locks) 	/buildarea2   *(rw,insecure,async,insecure_locks) 	/buildarea3   *(rw,insecure,async,insecure_locks) 	/buildarea4   *(rw,insecure,async,insecure_locks)";   }     ##file {	 ##	"/${hostname}1/jenkins": ##	ensure	=> directory, ##	owner	=> 'svc-bld', ##	group	=> 'users', ##	mode	=> 0644; ##} ###Allow Root Login ##file { ##	'/etc/ssh/sshd_config': ##	ensure => present, ##	}-> ##	file_line { 'Allow Root login': ## path => '/etc/ssh/sshd_config',   ## line => 'PermitRootLogin yes', ## match   => "^PermitRootLogin .*$", ## }   } 
