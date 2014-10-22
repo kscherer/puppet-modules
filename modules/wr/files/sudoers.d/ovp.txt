@@ -1,0 +1,6 @@
+svc-ssp  ALL=(ALL) ALL
+ywang    ALL=(ALL) ALL
+ashapiro ALL=(ALL) ALL
+mhuang1  ALL=(ALL) ALL
+myousaf  ALL=(ALL) ALL
+ppeng    ALL=(ALL) ALL
