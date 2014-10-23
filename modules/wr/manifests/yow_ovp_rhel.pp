@@ -124,7 +124,7 @@ class wr::yow_ovp_rhel {
        'system-config-date', 'system-config-date-docs', 'system-config-firewall-base', 'system-config-firewall-tui', 'system-config-keyboard',
        'system-config-keyboard-base', 'system-config-network-tui', 'system-config-users', 'system-config-users-docs', 'system-gnome-theme',
        'system-icon-theme', 'system-setup-keyboard', 'systemtap', 'systemtap-client', 'systemtap-devel', 'systemtap-runtime', 'sysvinit-tools',
-       'taglib', 'tar', 'tcpdump', 'tcp_wrappers', 'tcp_wrappers-libs', 'tcsh', 'texi2html', 'texinfo', 'texlive', 'texlive-dvips',
+       'taglib', 'tar', 'tcpdump', 'tcp_wrappers', 'tcp_wrappers-libs', 'texi2html', 'texinfo', 'texlive', 'texlive-dvips',
        'texlive-latex', 'texlive-texmf', 'texlive-texmf-dvips', 'texlive-texmf-errata', 'texlive-texmf-errata-dvips',
        'texlive-texmf-errata-fonts', 'texlive-texmf-errata-latex', 'texlive-texmf-fonts', 'texlive-texmf-latex', 'texlive-utils',
        'tex-preview', 'This system is not registered to Red Hat Subscription Management', 'tigervnc', 'tigervnc-server', 'time',
