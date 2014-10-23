@@ -85,7 +85,7 @@ class wr::yow_ovp_rhel {
        'libXdamage-devel', 'libXdmcp', 'libXext', 'libXext-devel', 'libXfixes', 'libXfixes-devel', 'libXfont', 'libXft', 'libXi', 'libXinerama',
        'libxkbfile', 'libxklavier', 'libxml2', 'libxml2-python', 'libXmu', 'libXrandr', 'libXrandr-devel', 'libXrender', 'libXrender-devel',
        'libXres', 'libXScrnSaver', 'libxslt', 'libXt', 'libXtst', 'libXv', 'libXvMC', 'libXxf86dga', 'libXxf86misc', 'libXxf86vm', 'libXxf86vm-devel',
-       'logrotate', 'lsof', 'lua', 'lvm2', 'lvm2-libs', 'lzo', 'm2crypto', 'm4', 'mailcap', 'mailx', 'make', 'MAKEDEV', 'man', 'man-pages', 
+       'logrotate', 'lsof', 'lua', 'lvm2', 'lvm2-libs', 'lzo', 'm2crypto', 'm4','mailx', 'make', 'MAKEDEV', 'man', 'man-pages', 
        'man-pages-overrides', 'mcollective', 'mcollective-common', 'mcpp', 'mdadm', 'mesa-dri1-drivers', 'mesa-dri-drivers', 'mesa-dri-filesystem',
        'mesa-libEGL', 'mesa-libgbm', 'mesa-libGL', 'mesa-libGL-devel', 'mesa-libGLU', 'mesa-libGLU-devel', 'mesa-private-llvm', 'metacity',
        'microcode_ctl', 'mingetty', 'mlocate', 'mobile-broadband-provider-info', 'ModemManager', 'module-init-tools', 'mosh', 'mozilla-filesystem',
