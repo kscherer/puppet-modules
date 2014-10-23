@@ -33,7 +33,7 @@ class wr::yow_ovp_rhel {
      [ '6-2','abrt','abrt-addon-ccpp', 'abrt-addon-kerneloops', 'abrt-addon-python', 'abrt-cli', 
 	   'abrt-libs', 'abrt-tui', 'acl', 'acpid', 'aic94xx-firmware', 'alsa-lib', 'alsa-lib-devel', 'alsa-plugins-pulseaudio',
        'alsa-utils', 'apr', 'apr-util', 'at', 'atk', 'atmel-firmware', 'at-spi', 'at-spi-python', 'attr', 'audit',
-       'audit-libs', 'augeas-libs', 'authconfig', 'authconfig-gtk', 'autoconf', 'autofs', 'automake', 'avahi-autoipd',
+       'audit-libs', 'augeas-libs', 'authconfig', 'authconfig-gtk', 'autoconf', 'automake', 'avahi-autoipd',
        'avahi-glib', 'avahi-libs', 'b43-fwcutter', 'b43-openfwwf', 'basesystem', 'bash', 'bc', 'bfa-firmware', 'bind-libs',
        'bind-utils', 'binutils', 'biosdevname', 'bison', 'blktrace', 'bridge-utils', 'btparser', 'busybox', 'byacc', 'bzip2',
        'bzip2-libs', 'ca-certificates', 'cairo', 'cdparanoia-libs', 'checkpolicy', 'chkconfig', 'chrpath', 'cloog-ppl', 
@@ -142,8 +142,8 @@ class wr::yow_ovp_rhel {
        'xorg-x11-drv-trident', 'xorg-x11-drv-v4l', 'xorg-x11-drv-vesa', 'xorg-x11-drv-vmmouse', 'xorg-x11-drv-vmware', 'xorg-x11-drv-void',
        'xorg-x11-drv-voodoo', 'xorg-x11-drv-wacom', 'xorg-x11-drv-xgi', 'xorg-x11-fonts-misc', 'xorg-x11-fonts-Type1', 'xorg-x11-font-utils',
        'xorg-x11-glamor', 'xorg-x11-proto-devel', 'xorg-x11-server-common', 'xorg-x11-server-utils', 'xorg-x11-server-Xorg', 'xorg-x11-utils',
-       'xorg-x11-xauth', 'xorg-x11-xinit', 'xorg-x11-xkb-utils', 'xulrunner', 'xvattr', 'xz', 'xz-libs', 'xz-lzma-compat', 'yelp', 'ypbind',
-       'yp-tools', 'yum', 'yum-metadata-parser', 'yum-plugin-security', 'yum-rhn-plugin',
+       'xorg-x11-xauth', 'xorg-x11-xinit', 'xorg-x11-xkb-utils', 'xulrunner', 'xvattr', 'xz', 'xz-libs', 'xz-lzma-compat', 'yelp',
+       'yum', 'yum-metadata-parser', 'yum-plugin-security', 'yum-rhn-plugin',
        'yum-utils', 'zd1211-firmware', 'zenity', 'zip', 'zlib']:
        ensure => 'installed';
     }
