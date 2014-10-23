@@ -34,7 +34,7 @@ class wr::yow_ovp_rhel {
 	   'abrt-libs', 'abrt-tui', 'acl', 'acpid', 'aic94xx-firmware', 'alsa-lib', 'alsa-lib-devel', 'alsa-plugins-pulseaudio',
        'alsa-utils', 'apr', 'apr-util', 'at', 'atk', 'atmel-firmware', 'at-spi', 'at-spi-python', 'attr', 'audit',
        'audit-libs', 'augeas-libs', 'authconfig', 'authconfig-gtk', 'autoconf', 'automake', 'avahi-autoipd',
-       'avahi-glib', 'avahi-libs', 'b43-fwcutter', 'b43-openfwwf', 'basesystem', 'bash', 'bc', 'bfa-firmware', 'bind-libs',
+       'avahi-glib', 'avahi-libs', 'b43-fwcutter', 'b43-openfwwf', 'basesystem', 'bc', 'bfa-firmware', 'bind-libs',
        'bind-utils', 'binutils', 'biosdevname', 'bison', 'blktrace', 'bridge-utils', 'btparser', 'busybox', 'byacc', 'bzip2',
        'bzip2-libs', 'ca-certificates', 'cairo', 'cdparanoia-libs', 'checkpolicy', 'chkconfig', 'chrpath', 'cloog-ppl', 
        'compat-readline5', 'comps-extras', 'ConsoleKit', 'ConsoleKit-libs', 'ConsoleKit-x11', 'control-center',
