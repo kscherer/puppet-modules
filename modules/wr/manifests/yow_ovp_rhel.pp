@@ -93,7 +93,7 @@ class wr::yow_ovp_rhel {
        'nagios-plugins-ntp', 'nagios-plugins-openmanage', 'nagios-plugins-perl', 'nagios-plugins-procs', 'nano', 'nautilus', 'nautilus-extensions',
        'ncurses', 'ncurses-base', 'ncurses-libs', 'neon', 'netpbm', 'netpbm-progs', 'net-tools', 'NetworkManager', 'NetworkManager-glib',
        'NetworkManager-gnome', 'newt', 'newt-python', 'notification-daemon', 'nsca-client', 'nspr', 'nss',
-       'nss-softokn', 'nss-softokn-freebl', 'nss-sysinit', 'nss-tools', 'nss-util', 'ntp', 'ntpdate', 'ntsysv', 'numactl', 'openjpeg-libs',
+       'nss-softokn', 'nss-softokn-freebl', 'nss-sysinit', 'nss-tools', 'nss-util', 'ntpdate', 'ntsysv', 'numactl', 'openjpeg-libs',
        'openldap', 'openssh', 'openssh-askpass', 'openssh-clients', 'openssh-server', 'openssl', 'ORBit2', 'orca', 'p11-kit', 'p11-kit-trust',
        'PackageKit', 'PackageKit-device-rebind', 'PackageKit-glib', 'PackageKit-gtk-module', 'PackageKit-yum', 'PackageKit-yum-plugin',
        'pakchois', 'pam', 'pam_passwdqc', 'pango', 'parted', 'passwd', 'patch', 'patchutils', 'pax', 'pciutils', 'pciutils-libs', 'pcmciautils',
