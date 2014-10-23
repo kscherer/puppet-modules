@@ -120,7 +120,7 @@ class wr::yow_ovp_rhel {
        'samba-winbind-clients', 'scl-utils', 'screen', 'SDL', 'SDL-devel', 'sed', 'selinux-policy', 'selinux-policy-targeted', 'setserial',
        'setup', 'setuptool', 'sg3_utils-libs', 'sgml-common', 'sgpio', 'shadow-utils', 'shared-mime-info', 'slang', 'smartmontools',
        'smp_utils', 'snappy', 'sos', 'sound-theme-freedesktop', 'speex', 'spice-vdagent', 'sqlite', 'startup-notification', 'strace',
-       'subscription-manager', 'subscription-manager-firstboot', 'subscription-manager-gui', 'subversion', 'sudo', 'swig', 'sysstat',
+       'subscription-manager', 'subscription-manager-firstboot', 'subscription-manager-gui', 'subversion', 'swig', 'sysstat',
        'system-config-date', 'system-config-date-docs', 'system-config-firewall-base', 'system-config-firewall-tui', 'system-config-keyboard',
        'system-config-keyboard-base', 'system-config-network-tui', 'system-config-users', 'system-config-users-docs', 'system-gnome-theme',
        'system-icon-theme', 'system-setup-keyboard', 'systemtap', 'systemtap-client', 'systemtap-devel', 'systemtap-runtime', 'sysvinit-tools',
