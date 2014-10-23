@@ -114,7 +114,7 @@ class wr::yow_ovp_rhel {
        'rcs', 'rdate', 'readahead', 'readline', 'Red_Hat_Enterprise_Linux-Release_Notes-6-en-US', 'redhat-indexhtml', 'redhat-logos',
        'redhat-lsb', 'redhat-lsb-compat', 'redhat-lsb-core', 'redhat-lsb-graphics', 'redhat-lsb-printing', 'redhat-menus',
        'redhat-release-workstation', 'redhat-rpm-config', 'redhat-support-lib-python', 'redhat-support-tool', 'rfkill',
-       'rhn-check', 'rhn-client-tools', 'rhnlib', 'rhnsd', 'rhn-setup', 'rhn-setup-gnome', 'rng-tools', 'rootfiles', 'rpcbind', 'rpm',
+       'rhn-check', 'rhn-client-tools', 'rhnlib', 'rhnsd', 'rhn-setup', 'rhn-setup-gnome', 'rng-tools', 'rootfiles', 'rpm',
        'rpm-build', 'rpm-libs', 'rpm-python', 'rsync', 'rsyslog', 'rt61pci-firmware', 'rt73usb-firmware', 'rtkit', 'ruby', 'ruby-augeas',
        'rubygem-json', 'rubygems', 'rubygem-stomp', 'ruby-irb', 'ruby-libs', 'ruby-rdoc', 'ruby-shadow', 'samba-common', 'samba-winbind',
        'samba-winbind-clients', 'scl-utils', 'screen', 'SDL', 'SDL-devel', 'sed', 'selinux-policy', 'selinux-policy-targeted', 'setserial',
