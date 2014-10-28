@@ -44,4 +44,13 @@ class wr::mcollective (
       command => '/usr/bin/facter --puppet --yaml > /etc/mcollective/facter.yaml 2> /dev/null',
       minute  => '0';
   }
+
+  if $::osfamily == 'Debian' {
+    exec {
+      'enable_mcollective_service':
+        command => '/bin/sed -i \'s/RUN=no/RUN=yes/g\' /etc/default/mcollective',
+        onlyif  => '/bin/grep RUN=no /etc/default/mcollective',
+        before  => Service['mcollective'];
+    }
+  }
 }
