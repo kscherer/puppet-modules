@@ -31,8 +31,9 @@ class zookeeper::install(
   } elsif $::osfamily == 'RedHat' {
     #assume cloudera repos are setup
     package {
-      'zookeeper-server':
-        ensure => $ensure;
+      'zookeeper':
+        ensure => $ensure,
+        name   => 'zookeeper-server';
     }
   }
 
