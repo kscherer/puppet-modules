@@ -26,7 +26,7 @@ class zookeeper::install(
       name   => $zookeeper::params::zookeeper_package;
     'zookeeperd':
       ensure  => $ensure,
-      name    => $zookeeper::params::zookeeperd_package
+      name    => $zookeeper::params::zookeeperd_package,
       require => Package['zookeeper'];
   }
 
