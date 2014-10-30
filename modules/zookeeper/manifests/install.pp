@@ -17,15 +17,23 @@ class zookeeper::install(
   $datastore         = '/var/lib/zookeeper',
   $user              = 'zookeeper',
 ) {
-# a debian (or other binary package) must be available, see https://github.com/deric/zookeeper-deb-packaging
-# for Debian packaging
-  package { ['zookeeper']:
-    ensure => $ensure
-  }
-
-  package { ['zookeeperd']: #init.d scripts for zookeeper
-    ensure  => $ensure,
-    require => Package['zookeeper']
+  if $::osfamily == 'Debian' {
+    # a debian (or other binary package) must be available, see https://github.com/deric/zookeeper-deb-packaging
+    # for Debian packaging
+    package {
+      'zookeeper':
+        ensure => $ensure;
+      #init.d scripts for zookeeper
+      'zookeeperd':
+        ensure  => $ensure,
+        require => Package['zookeeper'];
+    }
+  } elsif $::osfamily == 'RedHat' {
+    #assume cloudera repos are setup
+    package {
+      'zookeeper-server':
+        ensure => $ensure;
+    }
   }
 
   # if !$cleanup_count, then ensure this cron is absent.
