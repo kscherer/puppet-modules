@@ -47,6 +47,10 @@ node /pek-hostel-deb0[1-6]\.wrs\.com/ {
   class { 'wr::pek_xenserver': }
 }
 
+node /pek-blade3[0-3]\.wrs\.com/ {
+  include profile::mesos::slave
+}
+
 node /pek-blade(2|3|4|5|7|8)\.wrs\.com/ {
   class { 'wr::pek_blades': }
   -> class { 'nx': }
