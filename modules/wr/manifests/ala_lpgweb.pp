@@ -191,4 +191,15 @@ class wr::ala_lpgweb {
     'errorweb':
       password   => '$5$BgyVYu6DgaQM2cEP$BO9AhcDlJRgvQWH5EkIuygrLMh37.Sl3YGtIffGwfT5';
   }
+
+  supervisord::program {
+    'main_errorweb':
+      command    => 'python manage.py runserver 0.0.0.0:9000',
+      user       => 'errorweb',
+      directory  => '/home/errorweb/error-report-web';
+    'test_errorweb':
+      command    => 'python manage.py runserver 0.0.0.0:9100',
+      user       => 'errorweb',
+      directory  => '/home/errorweb/test-error-report-web';
+  }
 }
