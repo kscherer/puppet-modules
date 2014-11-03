@@ -268,3 +268,6 @@ node 'yow-ovp5.wrs.com' {
 node 'yow-ovp6.wrs.com' {
   include wr::yow_ovp_rhel
 }
+node 'yow-lbreports.wrs.com' {
+  include wr::yow-lbreports
+}
