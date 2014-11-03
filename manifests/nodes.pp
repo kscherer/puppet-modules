@@ -270,7 +270,7 @@ node 'yow-ovp6.wrs.com' {
   include wr::yow_ovp_rhel
 }
 node 'yow-lbreports.wrs.com' {
-  include wr::yow-lbreports
+  include wr::yow_lbreports
 }
 =======
 node default {

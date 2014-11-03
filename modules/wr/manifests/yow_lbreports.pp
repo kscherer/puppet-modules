@@ -1,5 +1,5 @@
 #
-class wr::yow_ovp_rhel {
+class wr::yow_lbreports {
   include nis
   include apache
   include ntp
