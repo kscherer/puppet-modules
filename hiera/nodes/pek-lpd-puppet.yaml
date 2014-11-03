@@ -3,3 +3,20 @@ ntp::servers:
   - ntp-1.wrs.com
   - ntp-2.wrs.com
   - ntp-3.wrs.com
+mcollective::plugins::enable_registration_collection: true
+wr::mcollective::client: true
+wr::activemq::broker_name: pek-broker
+puppet::puppet_server: pek-lpd-puppet.wrs.com
+puppetdb::master::config::puppetdb_server: pek-lpd-puppet.wrs.com
+puppet::master: true
+puppet::autosign: "$confdir/autosign.conf {owner = service, group = service, mode = 664 }"
+puppet::manifest: '$confdir/environments/$environment/manifests/site.pp'
+puppet::modulepath: '$confdir/environments/$environment/modules'
+puppet::puppet_passenger: true
+puppet::passenger_package: 'mod_passenger'
+puppet::passenger_ensure: 'present'
+puppet::storeconfigs: true
+puppet::storeconfigs_dbadapter: 'puppetdb'
+apache::default_vhost: false
+zookeeper::id: '5'
+zookeeper::peer_type: 'observer'
