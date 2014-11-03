@@ -1131,7 +1131,6 @@ class wr::yow_lbreports {
     "rhythmbox",
     "rng-tools",
     "rootfiles",
-    "rpcbind",
     "rpm",
     "rpm-build-libs",
     "rpm-libs",
