@@ -1332,8 +1332,6 @@ class wr::yow_lbreports {
     "yelp",
     "yelp-libs",
     "yelp-xsl",
-    "ypbind",
-    "yp-tools",
     "yum",
     "yum-langpacks",
     "yum-metadata-parser",
