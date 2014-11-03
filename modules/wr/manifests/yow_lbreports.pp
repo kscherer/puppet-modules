@@ -412,8 +412,6 @@ class wr::yow_lbreports {
     "hpijs",
     "hplip-common",
     "hplip-libs",
-    "httpd",
-    "httpd-tools",
     "hunspell",
     "hunspell-en",
     "hunspell-en-GB",
