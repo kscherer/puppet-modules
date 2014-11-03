@@ -1226,7 +1226,6 @@ class wr::yow_lbreports {
     "tcpdump",
     "tcp_wrappers",
     "tcp_wrappers-libs",
-    "tcsh",
     "teamd",
     "telepathy-farstream",
     "telepathy-filesystem",
