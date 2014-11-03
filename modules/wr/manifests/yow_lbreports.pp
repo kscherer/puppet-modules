@@ -831,7 +831,6 @@ class wr::yow_lbreports {
     "m17n-db",
     "m17n-lib",
     "madan-fonts",
-    "mailcap",
     "mailx",
     "make",
     "man-db",
