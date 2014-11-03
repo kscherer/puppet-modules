@@ -1201,7 +1201,6 @@ class wr::yow_lbreports {
     "startup-notification",
     "stix-fonts",
     "strace",
-    "sudo",
     "sushi",
     "SYMCnbclt",
     "SYMCnbjava",
