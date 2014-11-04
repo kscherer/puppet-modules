@@ -11,9 +11,6 @@ class wr::yow_lbreports {
 
     'ityow':
       source => 'puppet:///modules/wr/sudoers.d/ityow';
-
-    'ovp':
-      source => 'puppet:///modules/wr/sudoers.d/ovp';
   }
 
   file { '/etc/samba/smb.conf':
