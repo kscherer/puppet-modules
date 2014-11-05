@@ -1,3 +1,4 @@
+svc-ssp        ALL=(ALL)       ALL
 ddaoust        ALL=(ALL)       ALL
 kzaleski       ALL=(ALL)       ALL
 jmurdoch       ALL=(ALL)       ALL
