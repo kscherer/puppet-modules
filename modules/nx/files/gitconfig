@@ -5,22 +5,8 @@
 	suppresscc = all
 	smtpserver = prod-webmail.wrs.com
 	chainreplyto = true
-[color]
-	interactive = true
-	diff        = true
-	pager       = true
-	status      = true
-
 [core]
 	editor = vi
 [wrgit]
 	username = buildadmin
 	autoupdate = true
-[alias]
-	st = status
-	ci = commit
-	df = diff
-	co = checkout
-	br = branch
-	l = log
-	s = show

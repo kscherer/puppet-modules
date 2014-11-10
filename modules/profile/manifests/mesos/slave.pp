@@ -31,6 +31,9 @@ class profile::mesos::slave inherits profile::mesos::common {
       ensure => present,
       mode   => '0600',
       source => 'puppet:///modules/nx/ssh_config';
+    '/home/wrlbuild/.gitconfig':
+      mode    => '0644',
+      source  => 'puppet:///modules/nx/gitconfig';
   }
 
   mount {
