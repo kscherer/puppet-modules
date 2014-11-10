@@ -24,6 +24,16 @@ class profile::mesos::slave inherits profile::mesos::common {
       content => 'manual';
     '/mnt/docker':
       ensure => directory;
+    ['/home/wrlbuild/.ssh/', '/home/wrlbuild/.history']:
+      ensure => directory,
+      mode   => '0700';
+    '/home/wrlbuild/.ssh/config':
+      ensure => present,
+      mode   => '0600',
+      source => 'puppet:///modules/nx/ssh_config';
+    '/home/wrlbuild/.gitconfig':
+      mode    => '0644',
+      source  => 'puppet:///modules/nx/gitconfig';
   }
 
   mount {
