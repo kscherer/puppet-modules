@@ -40,10 +40,12 @@ class wr::yow_ovp_ub {
 	content => template('wr/samba.conf.erb');
  }
  
- file {
-	'/etc/exports':
-	ensure => present,
-	content => "/${hostname}1   *(rw,insecure,async,insecure_locks)";
+  file { '/etc/exports':
+    ensure  => present,
+    content => '/buildarea1   *(rw,insecure,async,insecure_locks) 
+	/buildarea2   *(rw,insecure,async,insecure_locks) 
+	/buildarea3   *(rw,insecure,async,insecure_locks) 
+	/buildarea4   *(rw,insecure,async,insecure_locks)';
   }
  
  
