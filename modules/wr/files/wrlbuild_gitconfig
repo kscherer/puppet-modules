@@ -1,0 +1,10 @@
+[user]
+	name = Konrad Scherer
+	email = konrad.scherer@windriver.com
+[sendemail]
+	suppresscc = all
+	smtpserver = prod-webmail.wrs.com
+	chainreplyto = true
+[wrgit]
+	username = wrlbuild
+	autoupdate = false
