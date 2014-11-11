@@ -37,6 +37,11 @@ class profile::mesos::master inherits profile::mesos::common {
       hour    => '*',
       minute  => fqdn_rand(60, 'process_nx_configs'),
       require => File['/home/wrlbuild/log'];
+    'wrbuildscripts_update':
+      command => 'cd /home/wrlbuild/wr-buildscripts; /usr/bin/git fetch --all; /usr/bin/git reset --hard origin/master > /dev/null 2>&1',
+      user    => 'wrlbuild',
+      hour    => '*',
+      minute  => '*/15';
   }
 
   #upstart config to manage build scheduler
