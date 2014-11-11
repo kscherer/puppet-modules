@@ -134,6 +134,8 @@ class profile::mesos::slave inherits profile::mesos::common {
       source => 'puppet:///modules/wr/send-error-config';
     '/home/wrlbuild/.gitconfig':
       ensure => present,
+      owner  => 'wrlbuild',
+      group  => 'wrlbuild',
       mode   => '0644',
       source => 'puppet:///modules/wr/wrlbuild_gitconfig';
   }
