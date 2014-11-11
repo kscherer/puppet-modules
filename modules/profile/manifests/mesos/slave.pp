@@ -24,17 +24,6 @@ class profile::mesos::slave inherits profile::mesos::common {
       content => 'manual';
     '/mnt/docker':
       ensure => directory;
-    ['/home/wrlbuild/.ssh/', '/home/wrlbuild/.history']:
-      ensure => directory,
-      mode   => '0700';
-    '/home/wrlbuild/.ssh/config':
-      ensure => present,
-      mode   => '0600',
-      source => 'puppet:///modules/nx/ssh_config';
-    '/home/wrlbuild/.gitconfig':
-      ensure => present,
-      mode   => '0644',
-      source => 'puppet:///modules/wr/wrlbuild_gitconfig';
   }
 
   mount {
@@ -143,6 +132,10 @@ class profile::mesos::slave inherits profile::mesos::common {
       group  => 'wrlbuild',
       mode   => '0644',
       source => 'puppet:///modules/wr/send-error-config';
+    '/home/wrlbuild/.gitconfig':
+      ensure => present,
+      mode   => '0644',
+      source => 'puppet:///modules/wr/wrlbuild_gitconfig';
   }
 
   #post process script uses git send-email
