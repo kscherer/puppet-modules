@@ -78,6 +78,26 @@ class nx {
       user   => 'nxadm',
       key    => extlookup('jhuang0@pek-cc-pb05l.wrs.com'),
       type   => 'ssh-rsa';
+    'ytao_nxadm':
+      ensure => 'present',
+      user   => 'nxadm',
+      key    => extlookup('ytao@ytao-OptiPlex-780'),
+      type   => 'ssh-dss';
+    'lirq_nxadm':
+      ensure => 'present',
+      user   => 'nxadm',
+      key    => extlookup('lirq@lirq-OptiPlex-780'),
+      type   => 'ssh-rsa';
+    'zyang_nxadm':
+      ensure => 'present',
+      user   => 'nxadm',
+      key    => extlookup('zyang@pek-lpd-susbld'),
+      type   => 'ssh-rsa';
+    'lyang1_nxadm':
+      ensure => 'present',
+      user   => 'nxadm',
+      key    => extlookup('lyang1@pek-lpd-susbld'),
+      type   => 'ssh-rsa';
     'polk_nxadm':
       ensure => 'present',
       user   => 'nxadm',
