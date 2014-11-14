@@ -96,7 +96,7 @@ class nx {
     'lyang1_nxadm':
       ensure => 'present',
       user   => 'nxadm',
-      key    => extlookup('lyang1@pek-lpd-susbld'),
+      key    => extlookup('lyang1@usp-ub1004-x86'),
       type   => 'ssh-rsa';
     'polk_nxadm':
       ensure => 'present',
