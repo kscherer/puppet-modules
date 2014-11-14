@@ -4,6 +4,7 @@ class wr::yow_ssp_ub {
   include apache
   include ntp
   include sudo
+  include puppet
 
   sudo::conf {
     'test':
