@@ -49,10 +49,10 @@ OS121_i686='chrpath diffstat subversion Mesa Mesa-devel make libSDL-devel texinf
 OS121_x86_64='gcc-32bit libncurses5-32bit chrpath diffstat subversion Mesa Mesa-devel make libSDL-devel texinfo gawk gcc gcc-c++ help2man patch python-curses python-xml libsqlite3-0 glibc-locale git python-gtk diffutils xz file screen'
 
 #SLED 11 SP2 i386 (requires SLE 11 SP2 SDK)
-SLED112_i686='make texinfo gawk gcc gcc-c++ patch diffstat subversion chrpath Mesa-devel SDL-devel python-curses git python-gtk diffutils xz file screen'
+SLED112_i686='make texinfo gawk gcc gcc-c++ patch diffstat subversion chrpath Mesa-devel SDL-devel python-curses glibc-locale tcl git python-gtk diffutils xz file screen'
 
 #SLED 11 SP2 x86_64 (requires SLE 11 SP2 SDK)
-SLED112_x86_64='gcc43-32bit libncurses5-32bit make texinfo gawk gcc gcc-c++ patch diffstat subversion chrpath Mesa-devel SDL-devel python-curses git python-gtk diffutils xz file screen'
+SLED112_x86_64='gcc43-32bit libncurses5-32bit make texinfo gawk gcc gcc-c++ patch diffstat subversion chrpath Mesa-devel SDL-devel python-curses glibc-locale tcl git python-gtk diffutils xz file screen'
 
 arch=`uname -m`
 distro=""

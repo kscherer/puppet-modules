@@ -12,3 +12,5 @@ packages:
   - Mesa-devel
   - SDL-devel
   - python-curses
+  - glibc-locale
+  - tcl
