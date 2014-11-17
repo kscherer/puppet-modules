@@ -99,10 +99,15 @@ class nx {
       key    => extlookup('lyang1@usp-ub1004-x86'),
       type   => 'ssh-rsa';
     'polk_nxadm':
-      ensure => 'present',
+      ensure => 'absent',
       user   => 'nxadm',
       key    => hiera('polk@delos.com'),
       type   => 'ssh-dss';
+    'mhatle_nxadm':
+      ensure => 'present',
+      user   => 'nxadm',
+      key    => hiera('mhatle'),
+      type   => 'ssh-rsa';
     'jslater_nxadm':
       ensure => 'present',
       user   => 'nxadm',
