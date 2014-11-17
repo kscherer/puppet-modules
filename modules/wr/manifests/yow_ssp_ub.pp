@@ -45,36 +45,36 @@ file {
 file {
 	'/etc/exports':
 	ensure => present,
-	content => "/${hostname}1   *(rw,insecure,async,insecure_locks)
-/${hostname}2   *(rw,insecure,async,insecure_locks)
-/${hostname}3   *(rw,insecure,async,insecure_locks)
-/${hostname}4   *(rw,insecure,async,insecure_locks)";
+	content => "/buildarea1   *(rw,insecure,async,insecure_locks)
+/buildarea2   *(rw,insecure,async,insecure_locks)
+/buildarea3   *(rw,insecure,async,insecure_locks)
+/buildarea4   *(rw,insecure,async,insecure_locks)";
   }
 
 
 file {	
-	"/${hostname}1/jenkins":
+	"/buildarea1/jenkins":
 	ensure	=> directory,
 	owner	=> 'svc-ssp',
 	group	=> 'users',
 	mode	=> 0644;
 }
 file {	
-	"/${hostname}2/jenkins":
+	"/buildarea2/jenkins":
 	ensure	=> directory,
 	owner	=> 'svc-ssp',
 	group	=> 'users',
 	mode	=> 0644;
 }
 file {	
-	"/${hostname}3/jenkins":
+	"/buildarea3/jenkins":
 	ensure	=> directory,
 	owner	=> 'svc-ssp',
 	group	=> 'users',
 	mode	=> 0644;
 }
 file {	
-	"/${hostname}4/jenkins":
+	"/buildarea4/jenkins":
 	ensure	=> directory,
 	owner	=> 'svc-ssp',
 	group	=> 'users',
