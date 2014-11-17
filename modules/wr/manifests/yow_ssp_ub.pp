@@ -5,6 +5,7 @@ class wr::yow_ssp_ub {
   include ntp
   include sudo
   include puppet
+  include jenkins
 
   sudo::conf {
     'test':
@@ -32,7 +33,8 @@ class wr::yow_ssp_ub {
 	  'cpp-4.6','curl','dpkg-dev','emacs','emacs23','emacs23-bin-common',
 	  'emacs23-common','emacs23-common-non-dfsg','emacs24','emacs24-bin-common',
 	  'emacs24-common','emacs24-common-non-dfsg','emacsen-common','freeglut3',
-	  'freeglut3-dev:amd64','gamin','ghc','ghc-haddock','jove', 'twm','lubuntu-desktop']:
+	  'freeglut3-dev:amd64','gamin','ghc','ghc-haddock','jove', 'twm','lubuntu-desktop',
+	  'vsftpd']:
       ensure => 'installed';
   }
 file {
