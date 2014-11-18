@@ -19,7 +19,7 @@ class wr::yow_ovp_ub {
       'gnome','libstdc++6:i386','libgtk2.0-0:i386','libxtst6:i386','bc','vim',
 	  'xutils-dev','expect','openssh-server', 'vnc4server', 'nfs-server', 
 	  'rsh-client', 'rsh-server', 'apache2-mpm-prefork','xinetd',
-	  'tftp','tftpd','telnetd','minicom','samba','screen','spawn-fcgi',
+	  'tftp','tftpd','telnetd','minicom','screen','spawn-fcgi',
 	  'tcl-dev:amd64','tcl8.5-dev:amd64','icedtea-7-plugin','bum',
 	  'sysv-rc-conf','ksh','ethtool','xutils','gsfonts-x11','scrollkeeper',
 	  'groff','time','acl','gawk','xsltproc','flex','tcl','apt-file','cabal-install',
@@ -34,11 +34,11 @@ class wr::yow_ovp_ub {
 	  'freeglut3-dev:amd64','gamin','ghc','ghc-haddock','jove', 'twm','lxde']:
       ensure => 'installed';
   }
- file {
-	'/etc/samba/smb.conf':
-	ensure => present,
-	content => template('wr/samba.conf.erb');
- }
+#  file {
+#  '/etc/samba/smb.conf':
+#  ensure => present,
+#  content => template('wr/samba.conf.erb');
+#  }
  
   file { '/etc/exports':
     ensure  => present,
