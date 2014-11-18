@@ -98,11 +98,6 @@ class nx {
       user   => 'nxadm',
       key    => extlookup('lyang1@usp-ub1004-x86'),
       type   => 'ssh-rsa';
-    'polk_nxadm':
-      ensure => 'absent',
-      user   => 'nxadm',
-      key    => hiera('polk@delos.com'),
-      type   => 'ssh-dss';
     'mhatle_nxadm':
       ensure => 'present',
       user   => 'nxadm',
