@@ -11,7 +11,7 @@ class wr::ala_lpggp {
     file {
       '/lpg-build':
         ensure => link,
-        target => '/ala-lpggp22';
+        target => '/ala-lpggp21';
     }
   }
   if $::hostname == 'ala-lpggp3' {
@@ -25,14 +25,6 @@ class wr::ala_lpggp {
   package {
     ['quilt', 'wiggle']:
       ensure => 'latest';
-  }
-
-
-  file {
-    [ "/${::hostname}1", "/${::hostname}2/"]:
-      ensure => 'directory',
-      group  => 'users',
-      mode   => '0777';
   }
 
   motd::register{
