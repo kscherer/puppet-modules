@@ -16,6 +16,7 @@ class wr::ala_lpgweb {
   #by default ssmtp is installed but times out with long cron scripts
   #so use postfix but it requires configuration
   ensure_resource('package', 'postfix', {'ensure' => 'installed' })
+  ensure_resource('package', 'python-yaml', {'ensure' => 'installed' })
 
   augeas {
     'postfix.main.cf':
