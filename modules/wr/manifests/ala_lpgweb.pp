@@ -125,6 +125,12 @@ class wr::ala_lpgweb {
       user    => 'rq',
       hour    => '20',
       minute  => '0';
+    'wraxl_delete_temp_queues':
+      ensure  => present,
+      command => '/home/rq/wr-buildscripts/wraxl_delete_temp_queues.py',
+      user    => 'rq',
+      hour    => '22',
+      minute  => '0';
   }
 
   #require apache to display exported process docs
