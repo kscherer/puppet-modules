@@ -100,6 +100,23 @@ class wr::ala_lpgweb {
       revision => 'master';
   }
 
+  $script = '/home/rq/wr-buildscripts/devbuild_queue_watcher.py'
+
+  #not a real service, just a python script that looks like a service
+  service {
+    'devbuild_queue_watcher':
+      ensure     => running,
+      start      => "${script} start",
+      stop       => "${script} stop",
+      status     => "${script} status",
+      restart    => "${script} restart",
+      hasrestart => true,
+      hasstatus  => true,
+      enable     => manual,
+      provider   => base,
+      require    => Vcsrepo['wr-buildscripts'];
+  }
+
   cron {
     'native_sstate_rebuild':
       ensure  => present,
