@@ -11,6 +11,6 @@ node 'yow-ssp3-lx.wrs.com' {
 node 'yow-samba3test.wrs.com' {
 	include wr::yow_samba3test
 }
-node 'yow-ssp4.wrs.com' {
+node 'yow-ssp4-lx.wrs.com' {
 	include wr::yow_ssp_ub
 }
