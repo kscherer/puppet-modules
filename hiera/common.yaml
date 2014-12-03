@@ -81,7 +81,7 @@ mesos::slave::resources:
   tier2: '2'
 
 docker::manage_kernel: false
-docker::extra_parameters: '--storage-driver=devicemapper'
+docker::extra_parameters: '--storage-driver=devicemapper --insecure-registry=wr-docker-registry:5000'
 
 zookeeper::client_ip: "%{::ipaddress_eth0}"
 zookeeper::purge_interval: '12'
