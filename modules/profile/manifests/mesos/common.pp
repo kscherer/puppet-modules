@@ -79,20 +79,6 @@ class profile::mesos::common inherits profile::nis {
   }
   Apt::Source['mesos'] -> Package['mesos']
 
-  #install mesos egg
-  $mesos_egg = 'mesos-0.21.0-py2.7-linux-x86_64.egg'
-
-  exec {
-    'mesos_egg':
-      command => "/usr/bin/wget -O /root/${mesos_egg} \
-                  http://${::location}-mirror.wrs.com/mirror/mesos/${mesos_egg}",
-      creates => "/root/${mesos_egg}";
-    'install_mesos_egg':
-      command => "/usr/bin/easy_install /root/${mesos_egg}",
-      unless  => "/usr/bin/test -e /usr/local/lib/python2.7/dist-packages/${mesos_egg}",
-      require => [ Package['python-setuptools'], Exec['mesos_egg']];
-  }
-
   #Use hosts file as substitute for geographically aware DNS
   $registry_ip = $::location ? {
     'yow'   => '128.224.194.16', #yow-lpd-provision
