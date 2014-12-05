@@ -1,7 +1,7 @@
 #
 class wr::yow_lbreports {
   include nis
-  include apache
+  #include apache
   include ntp
   include sudo
 
