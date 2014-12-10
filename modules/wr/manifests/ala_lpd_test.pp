@@ -42,7 +42,7 @@ class wr::ala_lpd_test {
 
   #another developer request
   package {
-    ['screen', 'wiggle', 'expect']:
+    ['screen', 'wiggle', 'expect', 'tigervnc-server']:
       ensure => installed;
   }
 
