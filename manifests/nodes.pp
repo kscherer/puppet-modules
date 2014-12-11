@@ -178,6 +178,10 @@ node 'ala-lpd-mesos.wrs.com' {
   include wr::ala_lpd_mesos
 }
 
+node 'yow-lpd-stats.wrs.com' {
+  include wr::yow_lpd_stats
+}
+
 node /yow-osc\d+-lx\.wrs\.com/ {
   include wr::yow_osc
 }
@@ -188,12 +192,6 @@ node /yow-ddtest\d+-lx\.wrs\.com/ {
 
 node 'yow-pelement-d2.wrs.com' {
   include wr::yow_osc
-}
-
-node 'yow-jmacdona-d1.wrs.com' {
-  include profile::nis
-  include yocto
-  include docker
 }
 
 node 'hp-proliant-dl380p-2.wrs.com' {
@@ -219,44 +217,44 @@ node 'yow-jenkins-vm2.wrs.com' {
 }
 
 node 'yow-tla2-lx.wrs.com' {
-	include wr::yow_eng_vm
+    include wr::yow_eng_vm
 }
 
 node 'yow-build47-lx.wrs.com' {
-	include wr::yow_eng_vm
+    include wr::yow_eng_vm
 }
 
 node 'yow-build53-lx.wrs.com' {
-	include wr::yow_eng_vm
+    include wr::yow_eng_vm
 }
 node 'yow-build54-lx.wrs.com' {
-	include wr::yow_eng_vm
+    include wr::yow_eng_vm
 }
 node 'yow-build55-lx.wrs.com' {
-	include wr::yow_eng_vm
+    include wr::yow_eng_vm
 }
 node 'yow-build16-lx.wrs.com' {
-	include wr::yow_eng_vm
+    include wr::yow_eng_vm
 }
 node 'yow-build11-lx.wrs.com' {
-	include wr::yow_eng_vm
+    include wr::yow_eng_vm
 }
 node 'yow-build12-lx.wrs.com' {
-	include wr::yow_eng_vm
+    include wr::yow_eng_vm
 }
 node 'yow-build13-lx.wrs.com' {
-	include wr::yow_eng_vm
+    include wr::yow_eng_vm
 }
 
 node 'yow-ssp2-lx.wrs.com' {
-	include wr::yow_ovp_ub
+    include wr::yow_ovp_ub
 }
 node 'yow-ovp4.wrs.com' {
-	include wr::yow_ovp_ub
+    include wr::yow_ovp_ub
 }
 
 node 'yow-jkeffer-lx.wrs.com' {
-	include wr::yow_eng_vm
+    include wr::yow_eng_vm
 }
 
 node 'yow-ovp5.wrs.com' {
