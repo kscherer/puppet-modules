@@ -88,7 +88,7 @@ class profile::mesos::common inherits profile::nis {
                   http://${::location}-mirror.wrs.com/mirror/mesos/${mesos_egg}",
       creates => "/root/${mesos_egg}";
     'install_mesos_egg':
-      command => "/usr/bin/easy_install --no-deps /root/${mesos_egg}",
+      command => "/usr/bin/easy_install /root/${mesos_egg}",
       unless  => "/usr/bin/test -e /usr/local/lib/python2.7/dist-packages/${mesos_egg}",
       require => [ Package['python-setuptools'], Exec['mesos_egg']];
   }
