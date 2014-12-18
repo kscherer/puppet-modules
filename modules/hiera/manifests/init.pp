@@ -5,6 +5,7 @@ class hiera (
                   '%{operatingsystem}-%{lsbmajdistrelease}-%{architecture}',
                   '%{operatingsystem}-%{lsbmajdistrelease}',
                   '%{osfamily}',
+                  'hardware/%{boardproductname}',
                   'common' ],
   $backends   = ['yaml'],
   $logger     = 'console',
