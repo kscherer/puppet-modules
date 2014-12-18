@@ -136,7 +136,7 @@ class profile::mesos::slave inherits profile::mesos::common {
       ensure => present,
       owner  => 'wrlbuild',
       group  => 'wrlbuild',
-      mode   => '0644',
+      mode   => '0664',
       source => 'puppet:///modules/wr/wrlbuild_gitconfig';
   }
 
