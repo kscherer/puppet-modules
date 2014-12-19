@@ -28,7 +28,7 @@ yourself, this F/S will be cleaned up periodically.";
   }
 
   file {
-    ['/mnt/yow-mirror', '/home/svc-mirror']:
+    ['/yow-lpggp21', '/home/svc-mirror']:
       ensure => directory;
     # this is not enough. Need fuse-iso package from rpmforge
     # and set world execute permissions on /bin/fusermount
@@ -38,13 +38,6 @@ yourself, this F/S will be cleaned up periodically.";
   }
 
   mount {
-    '/mnt/yow-mirror':
-      ensure  => mounted,
-      device  => 'yow-lpgnas1:/vol/yow_mirror',
-      atboot  => true,
-      fstype  => 'nfs',
-      options => 'rw',
-      require => File['/mnt/yow-mirror'];
     '/home/svc-mirror':
       ensure  => mounted,
       device  => 'yow-nas2:/vol/vol1/UNIX-Home/svc-mirror',
@@ -85,7 +78,7 @@ yourself, this F/S will be cleaned up periodically.";
     cron {
       'dell_linux_repo':
         ensure      => present,
-        command     => '/usr/bin/rsync -avHz --delete --delete-delay --exclude-from=/home/svc-mirror/mirror-configs/dell-excludes linux.dell.com::repo /mnt/yow-mirror/mirror/dell > /mnt/yow-mirror/mirror/log/dell_repo.log',
+        command     => '/usr/bin/rsync -avHz --delete --delete-delay --exclude-from=/home/svc-mirror/mirror-configs/dell-excludes linux.dell.com::repo /yow-lpggp21/mirror/dell > /yow-lpggp21/mirror/log/dell_repo.log',
         environment => ['HOME=/home/svc-mirror',
                         'PATH=/usr/bin:/bin/:/sbin/:/usr/sbin',
                         'MAILTO=konrad.scherer@windriver.com'],
@@ -94,19 +87,19 @@ yourself, this F/S will be cleaned up periodically.";
         minute      => '0';
       'mrepo':
         ensure  => present,
-        command => '/home/svc-mirror/mirror-configs/mrepo/mrepo -ug > /mnt/yow-mirror/mirror/log/mrepo.log 2>&1',
+        command => '/home/svc-mirror/mirror-configs/mrepo/mrepo -ug > /yow-lpggp21/mirror/log/mrepo.log 2>&1',
         user    => 'svc-mirror',
         hour    => '19',
         minute  => '0';
       'mrepo_logrotate':
         ensure  => present,
-        command => '/usr/sbin/logrotate -s /mnt/yow-mirror/mirror/log/logrotate.status /home/svc-mirror/mirror-configs/mrepo/mrepo.logrotate',
+        command => '/usr/sbin/logrotate -s /yow-lpggp21/mirror/log/logrotate.status /home/svc-mirror/mirror-configs/mrepo/mrepo.logrotate',
         user    => 'svc-mirror',
         hour    => '12',
         minute  => '0';
       'mirror-rsync':
         ensure  => present,
-        command => 'https_proxy=http://128.224.144.3:9090 /home/svc-mirror/mirror-rsync/mirror-fedora > /mnt/yow-mirror/mirror/log/mirror-rsync.log',
+        command => 'https_proxy=http://128.224.144.3:9090 /home/svc-mirror/mirror-rsync/mirror-fedora > /yow-lpggp21/mirror/log/mirror-rsync.log',
         user    => 'svc-mirror',
         hour    => '23',
         minute  => '0';
@@ -157,13 +150,13 @@ yourself, this F/S will be cleaned up periodically.";
     include rsync::server
     rsync::server::module{
       'centos':
-        path => '/mnt/yow-mirror/mirror/centos',;
+        path => '/yow-lpggp21/mirror/centos',;
       'epel':
-        path => '/mnt/yow-mirror/mirror/epel';
+        path => '/yow-lpggp21/mirror/epel';
       'puppetlabs':
-        path => '/mnt/yow-mirror/mirror/puppetlabs';
+        path => '/yow-lpggp21/mirror/puppetlabs';
       'collectd':
-        path => '/mnt/yow-mirror/mirror/collectd';
+        path => '/yow-lpggp21/mirror/collectd';
     }
   }
 
