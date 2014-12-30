@@ -264,3 +264,7 @@ node 'yow-ovp5.wrs.com' {
 node 'yow-ovp6.wrs.com' {
   include wr::yow_ovp_rhel
 }
+
+node 'ala-lpdfs01.wrs.com' {
+  include wr::fileserver
+}
