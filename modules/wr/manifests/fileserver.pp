@@ -29,9 +29,7 @@ class wr::fileserver {
   zfs {
     'pool':
       ensure      => present,
-      atime       => 'off',
-      relatime    => 'off',
-      compression => 'lx4';
+      atime       => 'off';
   }
 
   # scrub zfs filesystem weekly
