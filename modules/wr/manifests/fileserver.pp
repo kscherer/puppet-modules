@@ -30,6 +30,12 @@ class wr::fileserver {
     'pool':
       ensure      => present,
       atime       => 'off';
+    'pool/mirror':
+      ensure   => present,
+      atime    => 'off',
+      sharenfs => 'ro',
+      setuid   => 'off',
+      devices  => 'off';
   }
 
   # scrub zfs filesystem weekly
@@ -43,4 +49,9 @@ class wr::fileserver {
       minute  => '0';
   }
 
+  motd::register{
+    'ala-lpggp':
+      content => "Welcome to Linux Group File Server.
+      NO BUILDS or VNC sessions!";
+  }
 }
