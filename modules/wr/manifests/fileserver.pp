@@ -33,7 +33,6 @@ class wr::fileserver {
     'pool/mirror':
       ensure   => present,
       atime    => 'off',
-      sharenfs => 'ro',
       setuid   => 'off',
       devices  => 'off';
   }
