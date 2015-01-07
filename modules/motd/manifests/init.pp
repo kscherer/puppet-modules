@@ -1,9 +1,22 @@
 # class to setup basic motd, include on all nodes
 class motd {
   case $::operatingsystem {
-    'Ubuntu' : { $motd = '/etc/update-motd.d/50windriver' }
     'Debian' : { $motd = '/etc/motd.tail' }
     default  : { $motd = '/etc/motd' }
+  }
+
+  #Ubuntu uses a special update-motd script
+  if $::operatingsystem == 'Ubuntu' {
+    file {
+      '/etc/update-motd.d/55-windriver':
+        ensure  => present,
+        owner   => root,
+        group   => root,
+        mode    => '0755',
+        content => "#!/bin/sh\ncat ${motd}";
+      '/etc/update-motd.d/50windriver':
+        ensure  => absent;
+    }
   }
 
   concat{
