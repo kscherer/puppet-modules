@@ -3,9 +3,9 @@ require File.join(File.dirname(__FILE__), '..', 'vcsrepo')
 Puppet::Type.type(:vcsrepo).provide(:hg, :parent => Puppet::Provider::Vcsrepo) do
   desc "Supports Mercurial repositories"
 
-  optional_commands :hg => 'hg',
-                    :su => 'su'
-  has_features :reference_tracking, :ssh_identity, :user
+  commands :hg => 'hg'
+
+  has_features :reference_tracking, :ssh_identity, :user, :basic_auth
 
   def create
     if !@resource.value(:source)
@@ -107,12 +107,22 @@ Puppet::Type.type(:vcsrepo).provide(:hg, :parent => Puppet::Provider::Vcsrepo) d
     if args.length > 0 and args[-1].is_a? Hash
       options.merge!(args.pop)
     end
+
+    if @resource.value(:basic_auth_username) && @resource.value(:basic_auth_password)
+      args += [
+        "--config", "\"auth.x.prefix=#{@resource.value(:source)}\"",
+        "--config", "\"auth.x.username=#{@resource.value(:basic_auth_username)}\"",
+        "--config", "\"auth.x.password=#{@resource.value(:basic_auth_password)}\"",
+        "--config", "\"auth.x.schemes=http https\""
+      ]
+    end
+
     if options[:remote] and @resource.value(:identity)
       args += ["--ssh", "ssh -oStrictHostKeyChecking=no -oPasswordAuthentication=no -oKbdInteractiveAuthentication=no -oChallengeResponseAuthentication=no -i #{@resource.value(:identity)}"]
     end
     if @resource.value(:user) and @resource.value(:user) != Facter['id'].value
       args.map! { |a| if a =~ /\s/ then "'#{a}'" else a end }  # Adds quotes to arguments with whitespaces.
-      su(@resource.value(:user), '-c', "hg #{args.join(' ')}")
+      Puppet::Util::Execution.execute("hg #{args.join(' ')}", :uid => @resource.value(:user), :failonfail => true)
     else
       hg(*args)
     end
