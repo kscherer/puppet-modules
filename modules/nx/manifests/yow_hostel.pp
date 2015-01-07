@@ -1,9 +1,9 @@
 #
 class nx::yow_hostel {
 
-  include nfs
+  include nfs::client
 
-  Class['nfs']
+  Class['nfs::client']
   -> Anchor['nx::begin']
   -> Class['nx::yow_hostel']
   -> Anchor['nx::end']

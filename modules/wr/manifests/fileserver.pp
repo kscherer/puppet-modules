@@ -33,8 +33,10 @@ class wr::fileserver {
     'pool/mirror':
       ensure   => present,
       atime    => 'off',
+      sharenfs => 'on',
       setuid   => 'off',
-      devices  => 'off';
+      devices  => 'off',
+      require  => Package['nfs-kernel-server'];
   }
 
   # scrub zfs filesystem weekly
@@ -48,9 +50,25 @@ class wr::fileserver {
       minute  => '0';
   }
 
-  motd::register{
-    'ala-lpggp':
-      content => "Welcome to Linux Group File Server.
-      NO BUILDS or VNC sessions!";
+  #zfs nfs support requires a default mount option in exports
+  file {
+    '/etc/exports':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => '/mnt localhost(ro)';
+  }
+
+  package {
+    'nfs-kernel-server':
+      ensure  => installed,
+      require => File['/etc/exports'];
+  }
+
+  service {
+    'nfs-kernel-server':
+      ensure    => running,
+      require   => [ Package['nfs-kernel-server'], File['/etc/exports']];
   }
 }

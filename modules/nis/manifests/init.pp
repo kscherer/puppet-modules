@@ -5,7 +5,7 @@ class nis {
   include network
 
   #cannot automount nfs partitions without nfs client
-  include nfs
+  include nfs::client
 
   $nis_server = $::hostname ? {
     'ala-git' => ['neptune','saturn'],
