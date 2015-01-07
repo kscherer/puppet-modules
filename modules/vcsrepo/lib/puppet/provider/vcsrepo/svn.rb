@@ -3,9 +3,9 @@ require File.join(File.dirname(__FILE__), '..', 'vcsrepo')
 Puppet::Type.type(:vcsrepo).provide(:svn, :parent => Puppet::Provider::Vcsrepo) do
   desc "Supports Subversion repositories"
 
-  optional_commands :svn      => 'svn',
-                    :svnadmin => 'svnadmin',
-                    :svnlook  => 'svnlook'
+  commands :svn      => 'svn',
+           :svnadmin => 'svnadmin',
+           :svnlook  => 'svnlook'
 
   has_features :filesystem_types, :reference_tracking, :basic_auth, :configuration
 
@@ -24,7 +24,7 @@ Puppet::Type.type(:vcsrepo).provide(:svn, :parent => Puppet::Provider::Vcsrepo) 
     if File.directory?(@resource.value(:path))
       # :path is an svn checkout
       return true if File.directory?(File.join(@resource.value(:path), '.svn'))
-      if File.directory?(File.join(@resource.value(:path), 'format'))
+      if File.file?(File.join(@resource.value(:path), 'format'))
         # :path is an svn server
         return true if svnlook('uuid', @resource.value(:path))
       end

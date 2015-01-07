@@ -30,11 +30,11 @@ describe 'clones a remote repo' do
     end
 
     describe file("#{tmpdir}/testrepo/.git") do
-      it { should be_directory }
+      it { is_expected.to be_directory }
     end
 
     describe file("#{tmpdir}/testrepo/.git/HEAD") do
-      it { should contain 'ref: refs/heads/master' }
+      it { is_expected.to contain 'ref: refs/heads/master' }
     end
   end
 
@@ -63,11 +63,11 @@ describe 'clones a remote repo' do
     end
 
     describe file("#{tmpdir}/testrepo_sha/.git") do
-      it { should be_directory }
+      it { is_expected.to be_directory }
     end
 
     describe file("#{tmpdir}/testrepo_sha/.git/HEAD") do
-      it { should contain sha }
+      it { is_expected.to contain sha }
     end
   end
 
@@ -88,7 +88,7 @@ describe 'clones a remote repo' do
     end
 
     describe file("#{tmpdir}/testrepo_tag/.git") do
-      it { should be_directory }
+      it { is_expected.to be_directory }
     end
 
     it 'should have the tag as the HEAD' do
@@ -113,22 +113,44 @@ describe 'clones a remote repo' do
     end
 
     describe file("#{tmpdir}/testrepo_branch/.git") do
-      it { should be_directory }
+      it { is_expected.to be_directory }
     end
 
     describe file("#{tmpdir}/testrepo_branch/.git/HEAD") do
-      it { should contain 'ref: refs/heads/a_branch' }
+      it { is_expected.to contain 'ref: refs/heads/a_branch' }
     end
   end
 
-  context 'ensure latest' do
+  context 'ensure latest with branch specified' do
     it 'clones a repo' do
       pp = <<-EOS
       vcsrepo { "#{tmpdir}/testrepo_latest":
         ensure => latest,
         provider => git,
         source => "file://#{tmpdir}/testrepo.git",
-        revision => 'master',
+        revision => 'a_branch',
+      }
+      EOS
+
+      # Run it twice and test for idempotency
+      apply_manifest(pp, :catch_failures => true)
+      apply_manifest(pp, :catch_changes => true)
+    end
+
+    it 'verifies the HEAD commit SHA on remote and local match' do
+      remote_commit = shell("git ls-remote file://#{tmpdir}/testrepo_latest HEAD | head -1").stdout
+      local_commit = shell("git --git-dir=#{tmpdir}/testrepo_latest/.git rev-parse HEAD").stdout.chomp
+      expect(remote_commit).to include(local_commit)
+    end
+  end
+
+  context 'ensure latest with branch unspecified' do
+    it 'clones a repo' do
+      pp = <<-EOS
+      vcsrepo { "#{tmpdir}/testrepo_latest":
+        ensure => latest,
+        provider => git,
+        source => "file://#{tmpdir}/testrepo.git",
       }
       EOS
 
@@ -161,7 +183,7 @@ describe 'clones a remote repo' do
     end
 
     describe file("#{tmpdir}/testrepo_shallow/.git/shallow") do
-      it { should be_file }
+      it { is_expected.to be_file }
     end
   end
 
@@ -184,6 +206,13 @@ describe 'clones a remote repo' do
   end
 
   context 'with an owner' do
+    pp = <<-EOS
+    user { 'vagrant':
+      ensure => present,
+    }
+    EOS
+
+    apply_manifest(pp, :catch_failures => true)
     it 'clones a repo' do
       pp = <<-EOS
       vcsrepo { "#{tmpdir}/testrepo_owner":
@@ -200,12 +229,20 @@ describe 'clones a remote repo' do
     end
 
     describe file("#{tmpdir}/testrepo_owner") do
-      it { should be_directory }
-      it { should be_owned_by 'vagrant' }
+      it { is_expected.to be_directory }
+      it { is_expected.to be_owned_by 'vagrant' }
     end
   end
 
   context 'with a group' do
+    pp = <<-EOS
+    group { 'vagrant':
+      ensure => present,
+    }
+    EOS
+
+    apply_manifest(pp, :catch_failures => true)
+
     it 'clones a repo' do
       pp = <<-EOS
       vcsrepo { "/#{tmpdir}/testrepo_group":
@@ -222,8 +259,8 @@ describe 'clones a remote repo' do
     end
 
     describe file("#{tmpdir}/testrepo_group") do
-      it { should be_directory }
-      it { should be_grouped_into 'vagrant' }
+      it { is_expected.to be_directory }
+      it { is_expected.to be_grouped_into 'vagrant' }
     end
   end
 
@@ -244,8 +281,15 @@ describe 'clones a remote repo' do
     end
 
     describe file("#{tmpdir}/testrepo_excludes/.git/info/exclude") do
-      its(:content) { should match /exclude1.txt/ }
-      its(:content) { should match /exclude2.txt/ }
+      describe '#content' do
+        subject { super().content }
+        it { is_expected.to match /exclude1.txt/ }
+      end
+
+      describe '#content' do
+        subject { super().content }
+        it { is_expected.to match /exclude2.txt/ }
+      end
     end
   end
 
@@ -271,15 +315,43 @@ describe 'clones a remote repo' do
     end
 
     describe file("#{tmpdir}/testrepo_force/folder") do
-      it { should_not be_directory }
+      it { is_expected.not_to be_directory }
     end
 
     describe file("#{tmpdir}/testrepo_force/temp.txt") do
-      it { should_not be_file }
+      it { is_expected.not_to be_file }
     end
 
     describe file("#{tmpdir}/testrepo_force/.git") do
-      it { should be_directory }
+      it { is_expected.to be_directory }
+    end
+
+    context 'and noop' do
+      let(:repo_name) do
+        'testrepo_already_exists'
+      end
+      before(:all) do
+        shell("mkdir #{tmpdir}/#{repo_name}")
+        shell("cd #{tmpdir}/#{repo_name} && git init")
+        shell("cd #{tmpdir}/#{repo_name} && touch a && git add a && git commit -m 'a'")
+      end
+      after(:all) do
+        shell("rm -rf #{tmpdir}/#{repo_name}")
+      end
+
+      it 'applies the manifest' do
+        pp = <<-EOS
+        vcsrepo { "#{tmpdir}/#{repo_name}":
+          ensure   => present,
+          source   => "file://#{tmpdir}/testrepo.git",
+          provider => git,
+          force    => true,
+          noop     => true,
+        }
+        EOS
+
+        apply_manifest(pp, :catch_changes => true)
+      end
     end
   end
 
@@ -287,8 +359,12 @@ describe 'clones a remote repo' do
     before(:all) do
       shell("chmod 707 #{tmpdir}")
       pp = <<-EOS
+      group { 'testuser':
+        ensure => present,
+      }
       user { 'testuser':
         ensure => present,
+        groups => 'testuser',
       }
       EOS
 
@@ -311,13 +387,13 @@ describe 'clones a remote repo' do
     end
 
     describe file("#{tmpdir}/testrepo_user") do
-      it { should be_directory }
-      it { should be_owned_by 'testuser' }
+      it { is_expected.to be_directory }
+      it { is_expected.to be_owned_by 'testuser' }
     end
 
     describe file("#{tmpdir}/testrepo_user") do
-      it { should be_directory }
-      it { should be_grouped_into 'testuser' }
+      it { is_expected.to be_directory }
+      it { is_expected.to be_grouped_into 'testuser' }
     end
   end
 
@@ -351,8 +427,12 @@ describe 'clones a remote repo' do
     before(:all) do
       # create user
       pp = <<-EOS
+      group { 'testuser-ssh':
+        ensure => present,
+      }
       user { 'testuser-ssh':
         ensure => present,
+        groups => 'testuser-ssh',
         managehome => true,
       }
       EOS
@@ -428,16 +508,6 @@ describe 'clones a remote repo' do
       # Run it twice and test for idempotency
       apply_manifest(pp, :catch_failures => true)
       apply_manifest(pp, :catch_changes => true)
-    end
-
-    after(:all) do
-      pp = <<-EOS
-      user { 'testuser-ssh':
-        ensure => absent,
-        managehome => true,
-      }
-      EOS
-      apply_manifest(pp, :catch_failures => true)
     end
   end
 end
