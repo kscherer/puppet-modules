@@ -61,6 +61,11 @@ class profile::mesos::common inherits profile::nis {
       require => Class['wr::common::repos'];
   }
 
+  package {
+    'landscape-common':
+      ensure => absent;
+  }
+
   Class['wr::common::repos'] -> Class['mesos']
   Package['openjdk-7-jre-headless'] -> File['/usr/lib/libjvm.so'] -> Package['mesos']
 
