@@ -114,7 +114,7 @@ class redhat::repos {
     }
     'Fedora': {
       realize( Yum_repo['fedora-updates'], Yum_repo['fedora-everything'] )
-      if $::operatingsystem == 'Fedora' and $::operatingsystemrelease > '16' {
+      if $::operatingsystem == 'Fedora' and $::operatingsystemrelease > '16' and $::operatingsystemrelease < '21' {
         realize( Yum_repo['puppetlabs'] )
         realize( Yum_repo['puppetlabs-deps'] )
         package {
