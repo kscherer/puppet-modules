@@ -70,6 +70,8 @@ up periodically.";
         path => '/mnt/ala-mirror/mirror/puppetlabs';
       'ubuntu':
         path => '/mnt/ala-mirror/mirror/ubuntu.com/ubuntu';
+      'ubuntu-releases':
+        path => '/mnt/ala-mirror/mirror/ubuntu.com/ubuntu-releases';
     }
   }
 }
