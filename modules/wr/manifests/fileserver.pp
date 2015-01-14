@@ -71,4 +71,93 @@ class wr::fileserver {
       ensure    => running,
       require   => [ Package['nfs-kernel-server'], File['/etc/exports']];
   }
+
+  package {
+    'fuseiso':
+      ensure  => installed;
+  }
+
+  file {
+    '/home/svc-mirror':
+      ensure => directory;
+    '/etc/fuse.conf':
+      ensure  => present,
+      require => Package['fuseiso'],
+      content => "user_allow_other\n";
+  }
+
+  mount {
+    '/home/svc-mirror':
+      ensure  => mounted,
+      device  => 'ala-nas2:/vol/vol0/UNIX-Home/svc-mirror',
+      atboot  => true,
+      fstype  => 'nfs',
+      options => 'rw',
+      require => File['/home/svc-mirror'];
+  }
+
+  file {
+    '/etc/ubumirror.conf':
+      ensure => link,
+      target => '/home/svc-mirror/mirror-configs/ubumirror.conf.ala-lpdfs01';
+  }
+
+  cron {
+    'dell_linux_repo':
+      ensure      => present,
+      command     => '/usr/bin/rsync -avHz --delete --delete-delay --exclude-from=/home/svc-mirror/mirror-configs/dell-excludes linux.dell.com::repo /pool/mirror/dell > /pool/mirror/log/dell_repo.log',
+      environment => ['HOME=/home/svc-mirror',
+                      'PATH=/usr/bin:/bin/:/sbin/:/usr/sbin',
+                      'MAILTO=konrad.scherer@windriver.com'],
+      user        => 'svc-mirror',
+      hour        => '5',
+      minute      => '0';
+    'mirror-rsync':
+      ensure  => present,
+      command => '/home/svc-mirror/mirror-rsync/mirror-fedora > /pool/mirror/log/mirror-rsync.log',
+      user    => 'svc-mirror',
+      hour    => '23',
+      minute  => '0';
+    'ubuntu_archives':
+      ensure  => present,
+      command => '/home/svc-mirror/mirror-configs/ubuarchive',
+      user    => 'svc-mirror',
+      hour    => '2',
+      minute  => '0';
+    'ubuntu_releases':
+      ensure  => present,
+      command => '/home/svc-mirror/mirror-configs/uburelease',
+      user    => 'svc-mirror',
+      hour    => '1',
+      minute  => '0';
+  }
+
+  #dell repo needs to be able to exec cgi scripts
+  apache::vhost {
+    "mirror-${::hostname}":
+      port        => '80',
+      docroot     => '/var/www/',
+      directories =>
+      [{path           => '/var/www/',
+        options        => ['Indexes', 'FollowSymLinks', 'MultiViews', 'ExecCGI'],
+        allow_override => ['None'],
+        order          => ['Allow','Deny'],
+        allow          => 'from all',
+        addhandlers    => [{ handler => 'cgi-script', extensions => ['.cgi']}],
+        }],
+  }
+
+  include rsync::server
+  rsync::server::module{
+    'centos':
+      path => '/pool/mirror/centos',;
+    'epel':
+      path => '/pool/mirror/epel';
+    'puppetlabs':
+      path => '/pool/mirror/puppetlabs';
+    'ubuntu':
+      path => '/pool/mirror/ubuntu.com/ubuntu';
+    'ubuntu-releases':
+      path => '/pool/mirror/ubuntu.com/ubuntu-releases';
+  }
 }

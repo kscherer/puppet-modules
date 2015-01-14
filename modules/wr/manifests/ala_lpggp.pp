@@ -14,13 +14,6 @@ class wr::ala_lpggp {
         target => '/ala-lpggp21';
     }
   }
-  if $::hostname == 'ala-lpggp3' {
-    file {
-      '/lpg-build':
-        ensure => link,
-        target => '/ala-lpggp32';
-    }
-  }
 
   package {
     ['quilt', 'wiggle']:
