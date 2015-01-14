@@ -37,6 +37,13 @@ class wr::fileserver {
       setuid   => 'off',
       devices  => 'off',
       require  => Package['nfs-kernel-server'];
+    'pool/mentor':
+      ensure   => present,
+      atime    => 'off',
+      sharenfs => 'on',
+      setuid   => 'off',
+      devices  => 'off',
+      require  => Package['nfs-kernel-server'];
   }
 
   # scrub zfs filesystem weekly
