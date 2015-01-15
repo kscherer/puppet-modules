@@ -41,14 +41,9 @@ class suse {
       }
     }
     if versioncmp($::operatingsystemrelease, '13.2') >= 0  {
-      zypprepo {
+      zypp_repo {
         'server:monitoring':
           baseurl => 'http://download.opensuse.org/repositories/server:/monitoring/openSUSE_13.2/',
-          descr       => 'Server Monitoring Software (openSUSE_13.2)',
-          enabled     => '1',
-          autorefresh => '1',
-          gpgcheck    => '1',
-          gpgkey      => 'http://download.opensuse.org/repositories/server:/monitoring/openSUSE_13.2/repodata/repomd.xml.key';
       }
     }
   }
