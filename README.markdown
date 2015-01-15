@@ -6,7 +6,6 @@
 2. [Module Description - What the module does and why it is useful](#module-description)
 3. [Setup - The basics of getting started with ntp](#setup)
     * [What ntp affects](#what-ntp-affects)
-    * [Setup requirements](#setup-requirements)
     * [Beginning with ntp](#beginning-with-ntp)
 4. [Usage - Configuration options and additional functionality](#usage)
 5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
@@ -68,13 +67,48 @@ class { '::ntp':
 }
 ```
 
+###I just want to install a client that can't be queried
+
+```puppet
+class { '::ntp':
+  servers   => ['ntp1.corp.com', 'ntp2.corp.com'],
+  restrict  => [
+    'default ignore',
+    '-6 default ignore',
+    '127.0.0.1',
+    '-6 ::1',
+    'ntp1.corp.com nomodify notrap nopeer noquery',
+    'ntp1.corp.com nomodify notrap nopeer noquery'
+  ],
+}
+```
+
+###I only want to listen on specific interfaces, not on 0.0.0.0
+
+Restricting this is especially useful on Openstack nodes which may have numerous virtual interfaces.
+
+```puppet
+class { '::ntp':
+  servers  => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
+  interfaces => ['127.0.0.1', '1.2.3.4']
+}
+```
+
 ###I'd like to opt out of having the service controlled; we use another tool for that.
 
 ```puppet
 class { '::ntp':
   servers        => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
   restrict       => ['127.0.0.1'],
-  manage_service => false,
+  service_manage => false,
+}
+```
+
+###I'd like to configure and run ntp, but I don't need to install it.
+
+```puppet
+class { '::ntp':
+  package_manage => false,
 }
 ```
 
@@ -84,7 +118,7 @@ class { '::ntp':
 class { '::ntp':
   servers         => [ 'ntp1.corp.com', 'ntp2.corp.com' ],
   restrict        => ['127.0.0.1'],
-  manage_service  => false,
+  service_manage  => false,
   config_template => 'different/module/custom.template.erb',
 }
 ```
@@ -128,6 +162,14 @@ Disables monitoring of ntp.
 
 Sets the location of the drift file for ntp.
 
+####`iburst_enable`
+
+Set the iburst option in the ntp configuration. If enabled the option is set for every ntp peer.
+
+####`interfaces`
+
+Sets the list of interfaces NTP will listen on. This parameter must be an array.
+
 ####`keys_controlkey`
 
 The key to use as the control key.
@@ -150,7 +192,11 @@ Array of trusted keys.
 
 ####`package_ensure`
 
-Sets the ntp package to be installed. Can be set to 'present', 'latest', or a specific version. 
+Sets the ntp package to be installed. Can be set to 'present', 'latest', or a specific version.
+
+####`package_manage`
+
+Determines whether to manage the ntp package. Defaults to true.
 
 ####`package_name`
 
@@ -199,17 +245,19 @@ status as a virtual machine.
 
 ##Limitations
 
-This module has been built on and tested against Puppet 2.7 and higher.
+This module has been built on and tested against Puppet 3.
 
 The module has been tested on:
 
-* RedHat Enterprise Linux 5/6
+* RedHat Enterprise Linux 5/6/7
+* CentOS 5/6/7
+* Oracle Enterprise Linux 5/6/7
+* Scientific Linux 5/6/7
+* SLES 10SP4/11SP1/12
 * Debian 6/7
-* CentOS 5/6
-* Ubuntu 12.04
-* Gentoo
-* Arch Linux
-* FreeBSD
+* Ubuntu 10.04/12.04/14.04
+* Solaris 11
+* AIX 5.3/6.1/7.1
 
 Testing on other platforms has been light and cannot be guaranteed. 
 
