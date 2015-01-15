@@ -92,7 +92,9 @@ class ntp::params {
       ]
     }
     'Suse': {
-      if $::operatingsystem == 'SLES' and $::operatingsystemmajrelease == '12'
+      $isSLE12 = $::operatingsystem =~ /^SLE[DS]/ and $::operatingsystemmajrelease == '12'
+      $isOpenSuSE132 = $::operatingsystem == 'OpenSuSE' and $::operatingsystemmajrelease == '13.2'
+      if $isSLE12 or $isOpenSuSE132
       {
         $service_name  = 'ntpd'
         $keys_file     = '/etc/ntp.keys'
