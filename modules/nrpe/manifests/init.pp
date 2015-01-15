@@ -103,7 +103,12 @@ class nrpe {
                           'nagios-plugins-openmanage']
     }
     'OpenSuSE': {
-      $nagios_packages = 'nagios-plugins'
+      if $::operatingsystem == 'OpenSuSE' and $::operatingsystemrelease == '13.2' {
+        $nagios_packages = ['monitoring-plugins-disk', 'monitoring-plugins-file_age',
+                            'monitoring-plugins-ntp_time', 'monitoring-plugins-procs']
+      } else {
+        $nagios_packages = 'nagios-plugins'
+      }
     }
     'SLED': {
       $nagios_packages = ['nagios-plugins-disk', 'nagios-plugins-file_age',
