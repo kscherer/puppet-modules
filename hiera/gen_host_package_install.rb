@@ -53,12 +53,6 @@ puts
 puts "#Ubuntu 12.04 x86_64"
 puts "U1204_x86_64='%s'" % lookup('Debian', 'Ubuntu', '12.04', 'amd64').join(' ')
 puts
-puts "#OpenSuSE 11.4 i386"
-puts "OS114_i686='%s'" % lookup('Suse', 'OpenSuSE', '11', 'i386').join(' ')
-puts
-puts "#OpenSuSE 11.4 x86_64"
-puts "OS114_x86_64='%s'" % lookup('Suse', 'OpenSuSE', '11', 'x86_64').join(' ')
-puts
 puts "#OpenSuSE 12.1 i386"
 puts "OS121_i686='%s'" % lookup('Suse', 'OpenSuSE', '12', 'i386').join(' ')
 puts
@@ -70,3 +64,6 @@ puts "SLED112_i686='%s'" % lookup('Suse', 'SLED', '11', 'i386').join(' ')
 puts
 puts "#SLED 11 SP2 x86_64 (requires SLE 11 SP2 SDK)"
 puts "SLED112_x86_64='%s'" % lookup('Suse', 'SLED', '11', 'x86_64').join(' ')
+puts
+puts "#SLED 12 x86_64 (requires SLE 12 SDK)"
+puts "SLED12_x86_64='%s'" % lookup('Suse', 'SLED', '12', 'x86_64').join(' ')

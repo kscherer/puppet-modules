@@ -4,3 +4,4 @@ packages:
   - perl-podlators
   - perl-autodie
   - perl-Thread-Queue
+  - hostname

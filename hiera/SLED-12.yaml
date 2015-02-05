@@ -1,1 +1,16 @@
-SLED-11.yaml
+---
+packages:
+  - make
+  - texinfo
+  - gawk
+  - gcc
+  - gcc-c++
+  - patch
+  - diffstat
+  - subversion
+  - chrpath
+  - Mesa-devel
+  - libSDL-devel
+  - python-curses
+  - glibc-locale
+  - tcl

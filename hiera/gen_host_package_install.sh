@@ -5,7 +5,7 @@ install_check='rpm -q'
 install_program=""
 
 usage() {
-	echo `basename $0`: Check and optionally install host packages for Wind River Linux 5.
+	echo `basename $0`: Check and optionally install host packages for Wind River Linux.
 	echo usage:
 	echo "--help - This message"
 	echo "--install - Install host packages detected as missing"
@@ -48,8 +48,15 @@ log() {
     fi
 }
 
+# exit early if Wind River Linux detected
+if grep -q 'Wind River Linux' /etc/issue
+then
+    log "Wind River Linux detected. Assuming this install was built with self-hosted template"
+    exit 0
+fi
+
 #check for redhat/fedora
-if [ -e /usr/bin/yum ]; then
+if [ -e /usr/bin/yum ] && [ ! -e /usr/bin/dpkg ] ; then
     install_program="yum $opt_yes install"
 
     #detect Fedora
@@ -88,12 +95,14 @@ elif [ -e /usr/bin/zypper ]; then
     fi
 
     install_program="zypper $opt_yes install"
-    if grep -q '11\.4' /etc/issue
+    if grep -q 'SUSE Linux Enterprise' /etc/issue
     then
-        distro=OS114
-    elif grep -q 'SUSE Linux Enterprise' /etc/issue
-    then
-        distro=SLED112
+        if grep VERSION /etc/SuSE-release | grep -q 11
+        then
+            distro=SLED112
+        else
+            distro=SLED12
+        fi
     else
         distro=OS121
     fi
@@ -143,6 +152,10 @@ if [ x"$opt_dryrun" = x1 ]; then
 fi
 
 if [ x"$opt_install" = x1 ]; then
+    echo "You need to install additional software on your host system"
+    echo "    in order to use the development environment."
+    echo ""
+    echo "Executing: $install_command"
     log $install_command
     $install_command
     exit $?
