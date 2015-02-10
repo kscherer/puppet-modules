@@ -111,7 +111,7 @@ class git::grokmirror::mirror(
   #management scripts
   vcsrepo {
     '/git/wr-hooks.git':
-      ensure   => latest,
+      ensure   => bare,
       provider => git,
       source   => 'git://ala-git/wr-hooks.git',
       user     => 'git',
