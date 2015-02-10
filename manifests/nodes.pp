@@ -47,7 +47,7 @@ node /pek-hostel-deb0[1-6]\.wrs\.com/ {
   class { 'wr::pek_xenserver': }
 }
 
-node /pek-blade3[0-3]\.wrs\.com/ {
+node /pek-blade3[0-9]\.wrs\.com/ {
   include profile::mesos::slave
 }
 
