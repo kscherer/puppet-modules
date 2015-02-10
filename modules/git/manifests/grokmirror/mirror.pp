@@ -114,8 +114,7 @@ class git::grokmirror::mirror(
       ensure   => bare,
       provider => git,
       source   => 'git://ala-git/wr-hooks.git',
-      user     => 'git',
-      revision => 'master';
+      user     => 'git';
     '/git/wr-hooks':
       ensure   => latest,
       provider => git,
