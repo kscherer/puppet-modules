@@ -110,11 +110,18 @@ class git::grokmirror::mirror(
   #make a local non bare clone of the wr-hooks repo to get hook
   #management scripts
   vcsrepo {
+    '/git/wr-hooks.git':
+      ensure   => latest,
+      provider => git,
+      source   => 'git://ala-git/wr-hooks.git',
+      user     => 'git',
+      revision => 'master';
     '/git/wr-hooks':
       ensure   => latest,
       provider => git,
       source   => "git://${::fqdn}/wr-hooks.git",
       user     => 'git',
-      revision => 'master';
+      revision => 'master',
+      require  => Vcsrepo['/git/wr-hooks.git'];
   }
 }
