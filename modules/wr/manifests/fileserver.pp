@@ -3,6 +3,8 @@ class wr::fileserver {
   include ::profile::nis
   include ::rsync
   include ::apache
+  include ::collectd
+  include ::role::git::mirror
 
   ensure_packages(['libc6-dev'])
   include ::zfs
@@ -97,7 +99,14 @@ class wr::fileserver {
       ensure  => present,
       require => Package['fuseiso'],
       content => "user_allow_other\n";
+    '/git':
+      ensure  => directory,
+      owner   => 'git',
+      group   => 'users',
+      require => Zfs['pool/git'];
   }
+
+  File['/git'] -> Class['::role::git::mirror']
 
   mount {
     '/home/svc-mirror':
