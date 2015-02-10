@@ -11,6 +11,10 @@ class git::grokmirror::base {
     ensure_resource('package', 'python26', {'ensure' => 'installed' })
   }
 
+  if $::osfamily == 'Debian' {
+    ensure_resource('package', 'python-anyjson', {'ensure' => 'installed' })
+  }
+
   vcsrepo {
     '/git/grokmirror':
       ensure   => 'present',
