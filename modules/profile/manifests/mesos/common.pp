@@ -86,7 +86,7 @@ class profile::mesos::common inherits profile::nis {
   Apt::Source['mesos'] -> Package['mesos']
 
   #install mesos egg
-  $mesos_egg = 'mesos-0.21.0-py2.7-linux-x86_64.egg'
+  $mesos_egg = 'mesos-0.21.1-py2.7-linux-x86_64.egg'
 
   exec {
     'mesos_egg':
