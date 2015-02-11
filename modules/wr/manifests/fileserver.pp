@@ -157,9 +157,9 @@ class wr::fileserver {
   #dell repo needs to be able to exec cgi scripts
   apache::vhost {
     "mirror-${::hostname}":
-      port        => '80',
-      docroot     => '/var/www/',
-      directories =>
+      port             => '80',
+      docroot          => '/var/www/',
+      directories      =>
       [{
         path           => '/var/www/',
         options        => ['Indexes', 'FollowSymLinks', 'MultiViews', 'ExecCGI'],
@@ -169,19 +169,14 @@ class wr::fileserver {
         addhandlers    => [{ handler => 'cgi-script', extensions => ['.cgi']}],
        },
        {
-        path         => '/usr/lib/cgit',
-        options      => ['FollowSymLinks', 'ExecCGI'],
-        auth_require => 'all granted',
+        path           => '/usr/lib/cgit',
+        options        => ['FollowSymLinks', 'ExecCGI'],
       }],
-      aliases =>
-      [{
-        alias => '/cgit-css',
-        path  => '/usr/share/cgit',
-       },
-       {
-        scriptalias => '/cgit/',
-        path        => '/usr/lib/cgit/cgit.cgi/',
-      }],
+      scriptalias      => '/cgit/ /usr/lib/cgit/cgit.cgi',
+      aliases => [{
+                  alias => '/cgit-css',
+                  path  => '/usr/share/cgit',
+                  }],
       redirect_source => ['^/cgit$'],
       redirect_dest   => ['/cgit'],
   }
