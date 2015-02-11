@@ -182,4 +182,13 @@ class wr::fileserver {
     'ubuntu-releases':
       path => '/pool/mirror/ubuntu.com/ubuntu-releases';
   }
+
+  # cgit installation and config
+  apt::ppa { 'ppa:kmscherer/cgit': }
+  package {
+    ['cgit','highlight']:
+      ensure => installed;
+  }
+  Apt::Ppa['ppa:kmscherer/cgit'] -> Package['cgit']
+
 }
