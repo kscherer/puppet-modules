@@ -160,13 +160,30 @@ class wr::fileserver {
       port        => '80',
       docroot     => '/var/www/',
       directories =>
-      [{path           => '/var/www/',
+      [{
+        path           => '/var/www/',
         options        => ['Indexes', 'FollowSymLinks', 'MultiViews', 'ExecCGI'],
         allow_override => ['None'],
         order          => ['Allow','Deny'],
         allow          => 'from all',
         addhandlers    => [{ handler => 'cgi-script', extensions => ['.cgi']}],
-        }],
+       },
+       {
+        path         => '/usr/lib/cgit',
+        options      => ['FollowSymLinks', 'ExecCGI'],
+        auth_require => 'all granted',
+      }],
+      aliases =>
+      [{
+        alias => '/cgit-css',
+        path  => '/usr/share/cgit',
+       },
+       {
+        scriptalias => '/cgit/',
+        path        => '/usr/lib/cgit/cgit.cgi/',
+      }],
+      redirectmatch_regexp => ['^/cgit$'],
+      redirectmatch_dest   => ['/cgit'],
   }
 
   include rsync::server
