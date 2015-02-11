@@ -182,8 +182,8 @@ class wr::fileserver {
         scriptalias => '/cgit/',
         path        => '/usr/lib/cgit/cgit.cgi/',
       }],
-      redirectmatch_regexp => ['^/cgit$'],
-      redirectmatch_dest   => ['/cgit'],
+      redirect_source => ['^/cgit$'],
+      redirect_dest   => ['/cgit'],
   }
 
   include rsync::server
