@@ -174,14 +174,14 @@ class wr::fileserver {
       }],
       scriptaliases => [{
                         alias => '/cgit/',
-                        path  => '/usr/lib/cgit/cgit.cgi',
+                        path  => '/usr/lib/cgit/cgit.cgi/',
                         }],
       aliases => [{
                   alias => '/cgit-css',
                   path  => '/usr/share/cgit',
                   }],
-      redirect_source => ['^/cgit$'],
-      redirect_dest   => ['/cgit'],
+      redirectmatch_status => ['^/cgit$'],
+      redirectmatch_regexp => ['/cgit'],
   }
 
   include rsync::server
