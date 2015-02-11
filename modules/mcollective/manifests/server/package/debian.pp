@@ -16,5 +16,9 @@ class mcollective::server::package::debian(
   package { 'mcollective':
     ensure  => $version,
   }
+  package {
+    'mcollective-puppet-agent':
+      ensure => installed;
+  }
 }
 
