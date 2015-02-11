@@ -172,7 +172,10 @@ class wr::fileserver {
         path           => '/usr/lib/cgit',
         options        => ['FollowSymLinks', 'ExecCGI'],
       }],
-      scriptalias      => '/cgit/ /usr/lib/cgit/cgit.cgi',
+      scriptaliases => [{
+                        alias => '/cgit/',
+                        path  => '/usr/lib/cgit/cgit.cgi',
+                        }],
       aliases => [{
                   alias => '/cgit-css',
                   path  => '/usr/share/cgit',
