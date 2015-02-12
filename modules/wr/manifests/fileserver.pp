@@ -201,9 +201,17 @@ class wr::fileserver {
   # cgit installation and config
   apt::ppa { 'ppa:kmscherer/cgit': }
   package {
-    ['cgit','highlight']:
+    ['cgit','highlight', 'python-pygments', 'markdown']:
       ensure => installed;
   }
   Apt::Ppa['ppa:kmscherer/cgit'] -> Package['cgit']
+
+  file {
+    '/var/cache/cgit':
+      ensure => directory,
+      mode   => '0755',
+      owner  => 'www-data',
+      group  => 'www-data';
+  }
 
 }
