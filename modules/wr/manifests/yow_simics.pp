@@ -1,4 +1,3 @@
-#
 class wr::yow_simics {
   include nis
 #  include apache
@@ -17,28 +16,7 @@ class wr::yow_simics {
 	  'twm','lxde']:
       ensure => 'installed';
   }
-#  file {
-#  '/etc/samba/smb.conf':
-#  ensure => present,
-#  content => template('wr/samba.conf.erb');
-#  }
- 
-#  file { '/etc/exports':
-#    ensure  => present,
-#    content => '/buildarea1   *(rw,insecure,async,insecure_locks) 
-#/buildarea2   *(rw,insecure,async,insecure_locks) 
-#/buildarea3   *(rw,insecure,async,insecure_locks) 
-#/buildarea4   *(rw,insecure,async,insecure_locks)';
-#  }
-# 
-# 
-# file {	
-#	"/${hostname}1/jenkins":
-#	ensure	=> directory,
-#	owner	=> 'svc-bld',
-#	group	=> 'users',
-#	mode	=> 0644;
-# }
+
 
 #Allow Root Login
 	file {
