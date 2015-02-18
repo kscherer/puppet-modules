@@ -10,11 +10,14 @@ class wr::yow_simics {
 #  }
 
   package {
-    [ 'openssl','libssl-dev','libbz2-dev','libreadline6','libreadline6-dev','bridge-utils',
-      'uml-utilities','iptables-persistent','vim',
-      'xutils-dev','vsftpd','tftpd-hpa', 'libsqlite3-dev', 'tightvncserver',
-      'twm','lubuntu-desktop']:
-      ensure => 'installed';
+    [ 'git','autoconf','automake','libtool','g++',
+	  'gcc','gcc-4.6','gcc-4.6-base:amd64','gcc-4.7','gcc-4.7-base:amd64',
+	  'gcc-multilib','openssl','libssl-dev','libbz2-dev','libreadline6',
+	  'libreadline6-dev','bridge-utils',
+	  'uml-utilities','iptables-persistent','vim',
+	  'xutils-dev','vsftpd','tftpd-hpa', 'libsqlite3-dev', 'tightvncserver',
+	  'twm','lubuntu-desktop']:
+    ensure => 'installed';
   }
 
 
