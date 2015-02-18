@@ -4,16 +4,16 @@ class wr::yow_simics {
   include ntp
   include sudo
 
-  sudo::conf {
-	'ityow':
-	 source  => 'puppet:///modules/wr/sudoers.d/ityow';
-  }
+#  sudo::conf {
+#	'ityow':
+#	 source  => 'puppet:///modules/wr/sudoers.d/ityow';
+#  }
 
   package {
     [ 'openssl','libssl-dev','libbz2-dev','libreadline6',
       'libreadline6-dev','','bridge-utils','uml-utilities','iptables-persistent','vim',
-	  'xutils-dev','vsftpd','tftpd-hpa', 'libsqlite3-dev', 'tightvncserver', 
-	  'twm','lxde']:
+      'xutils-dev','vsftpd','tftpd-hpa', 'libsqlite3-dev', 'tightvncserver',
+      'twm','lxde']:
       ensure => 'installed';
   }
 
