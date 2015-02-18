@@ -10,10 +10,10 @@ class wr::yow_simics {
 #  }
 
   package {
-    [ 'openssl','libssl-dev','libbz2-dev','libreadline6',
-      'libreadline6-dev','','bridge-utils','uml-utilities','iptables-persistent','vim',
+    [ 'openssl','libssl-dev','libbz2-dev','libreadline6','libreadline6-dev','bridge-utils',
+      'uml-utilities','iptables-persistent','vim',
       'xutils-dev','vsftpd','tftpd-hpa', 'libsqlite3-dev', 'tightvncserver',
-      'twm','lxde']:
+      'twm','lubuntu-desktop']:
       ensure => 'installed';
   }
 

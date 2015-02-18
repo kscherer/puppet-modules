@@ -15,5 +15,8 @@ node 'yow-ssp4-lx.wrs.com' {
 	include wr::yow_ssp_ub
 }
 node 'yow-lab-simics6' {
-    include wr::yow_simics
+	include wr::yow_simics
+}
+node 'yow-lab-simics5' {
+	include wr::yow_simics
 }
