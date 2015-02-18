@@ -39,15 +39,16 @@ class wr::yow_simics {
 #	group	=> 'users',
 #	mode	=> 0644;
 # }
-# #Allow Root Login
-# file {
-#	'/etc/ssh/sshd_config':
-#	ensure => present,
-#	}->
-#	file_line { 'Allow Root login':
-#  path => '/etc/ssh/sshd_config',  
-#  line => 'PermitRootLogin yes',
-#  match   => "^PermitRootLogin .*$",
-#  }
+
+#Allow Root Login
+	file {
+		'/etc/ssh/sshd_config':
+		ensure => present,
+	}->
+	file_line { 'Allow Root login':
+		path => '/etc/ssh/sshd_config',  
+		line => 'PermitRootLogin yes',
+		match   => "^PermitRootLogin .*$",
+	}
  
 }
