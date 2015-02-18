@@ -1,5 +1,5 @@
 #
-class wr::yow-simics {
+class wr::yow_simics {
   include nis
 #  include apache
   include ntp
