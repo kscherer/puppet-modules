@@ -214,4 +214,9 @@ class wr::fileserver {
       group  => 'www-data';
   }
 
+  # needed to retrieve artifacts from Mentor Graphics
+  package {
+    ['subversion', 'mercurial']:
+      ensure => installed;
+  }
 }
