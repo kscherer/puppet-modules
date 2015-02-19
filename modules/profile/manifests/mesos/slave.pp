@@ -167,5 +167,24 @@ class profile::mesos::slave inherits profile::mesos::common {
   sudo::conf {
     'wrlbuild':
       source  => 'puppet:///modules/wr/sudoers.d/wrlbuild';
-    }
+  }
+
+  # check to make sure the wrlinux update script did not fail
+  include nagios::nsca::client
+  @@nagios_service {
+    "check_wrlinux_update_${::hostname}":
+      use                 => 'passive-service',
+      service_description => 'Wrlinux source update check',
+      host_name           => $::fqdn,
+      servicegroups       => 'mesos-slaves';
+  }
+
+  $nsca_server=hiera('nsca')
+
+  cron {
+    'nsca_wrlinux_update_log_check':
+      command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper -H ${::fqdn} -S 'Wrlinux source update check' -N ${nsca_server} -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_wrlinux_update.sh -q",
+      user    => 'nagios',
+      minute  => '*/20';
+  }
 }

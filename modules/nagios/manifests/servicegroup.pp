@@ -13,6 +13,9 @@ class nagios::servicegroup(
     'git-mirrors':
       servicegroup_name => 'git-mirrors',
       alias             => 'Grokmirror mirrors';
+    'mesos-slaves':
+      servicegroup_name => 'mesos-slaves',
+      alias             => 'Mesos Slaves';
   }
 
   #make sure that entries no longer in storedconfigs are cleaned out
