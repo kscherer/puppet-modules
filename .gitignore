@@ -5,3 +5,4 @@ modules/*/spec/fixtures/modules/*
 modules/*/spec/fixtures/manifests/*
 .vagrant
 Vagrantfile
+.DS_Store
