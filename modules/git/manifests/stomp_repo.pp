@@ -14,7 +14,7 @@ class git::stomp_repo {
   }
 
   package {
-    ['ruby193', 'ruby193-ruby-devel']:
+    ['ruby193', 'ruby193-ruby-devel', 'gcc']:
       ensure => installed;
   }
 
