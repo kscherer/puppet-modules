@@ -12,4 +12,10 @@ class git::stomp_repo {
       user     => 'puppet',
       revision => 'master';
   }
+
+  realize( Redhat::Yum_repo['librarian-puppet'] )
+  package {
+    'rubygem-librarian-puppet':
+      ensure => latest;
+  }
 }

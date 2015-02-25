@@ -102,6 +102,8 @@ class redhat::repos {
       baseurl => 'http://yow-mirror.wrs.com/mirror/activemq/6';
     'collectd':
       baseurl => "${mirror}/collectd/${::lsbmajdistrelease}";
+    'librarian-puppet':
+      baseurl => 'http://yow-mirror.wrs.com/mirror/librarian-pupppet';
   }
 
   #setup repos depending on which flavour of redhat
