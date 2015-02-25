@@ -45,6 +45,8 @@ class redhat::repos {
   $centos_mirror_base = "${mirror}/centos/${::lsbmajdistrelease}"
   $centos_mirror_os = "${centos_mirror_base}/os/${::architecture}"
   $centos_mirror_updates = "${centos_mirror_base}/updates/${::architecture}"
+  $centos_mirror_extras = "${centos_mirror_base}/extras/${::architecture}"
+  $centos_mirror_scl = "${centos_mirror_base}/SCL/${::architecture}"
   $centos_gpgkey = "${centos_mirror_os}/RPM-GPG-KEY-CentOS-${::lsbmajdistrelease}"
 
   #special case for fedora puppetlabs repo path
@@ -82,6 +84,12 @@ class redhat::repos {
     'centos-updates':
       repo_gpgkey => $centos_gpgkey,
       baseurl     => $centos_mirror_updates;
+    'centos-extras':
+      repo_gpgkey => $centos_gpgkey,
+      baseurl     => $centos_mirror_extras;
+    'centos-scl':
+      repo_gpgkey => $centos_gpgkey,
+      baseurl     => $centos_mirror_scl;
     'puppetlabs':
       repo_gpgkey => $puppetlabs_gpgkey,
       baseurl     => "${puppetlabs_mirror}/products/${::architecture}";
@@ -94,6 +102,8 @@ class redhat::repos {
       baseurl => 'http://yow-mirror.wrs.com/mirror/activemq/6';
     'collectd':
       baseurl => "${mirror}/collectd/${::lsbmajdistrelease}";
+    'librarian-puppet':
+      baseurl => 'http://yow-mirror.wrs.com/mirror/librarian-pupppet';
   }
 
   #setup repos depending on which flavour of redhat
@@ -101,6 +111,10 @@ class redhat::repos {
     'CentOS': {
       realize( Yum_repo['centos-os'] )
       realize( Yum_repo['centos-updates'] )
+      if ( $::lsbmajdistrelease != '5' ) {
+        realize( Yum_repo['centos-extras'] )
+        realize( Yum_repo['centos-scl'] )
+      }
       realize( Yum_repo['epel'] )
       realize( Yum_repo['epel-testing'] )
       realize( Yum_repo['collectd'] )
