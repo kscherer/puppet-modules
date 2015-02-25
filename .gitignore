@@ -6,3 +6,5 @@ modules/*/spec/fixtures/manifests/*
 .vagrant
 Vagrantfile
 .DS_Store
+.tmp/*
+external/*

@@ -1,0 +1,10 @@
+GIT
+  remote: git://ala-git.wrs.com/external/extra/github.com.puppetlabs.puppetlabs-stdlib.git
+  ref: 4.5.1
+  sha: 7a91f209908f78d305e4de56ccc2f42b2b5953af
+  specs:
+    puppetlabs-stdlib (4.5.1)
+
+DEPENDENCIES
+  puppetlabs-stdlib (>= 0)
+
