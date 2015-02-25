@@ -13,9 +13,17 @@ class git::stomp_repo {
       revision => 'master';
   }
 
-  realize( Redhat::Yum_repo['librarian-puppet'] )
   package {
-    'rubygem-librarian-puppet':
-      ensure => latest;
+    ['ruby193', 'ruby193-ruby-devel']:
+      ensure => installed;
+  }
+
+  $ruby193='/opt/rh/ruby193/root'
+  exec {
+    'librarian-puppet-install':
+      command     => "${ruby193}/usr/bin/gem install librarian-puppet",
+      environment => ["LD_LIBRARY_PATH=${ruby193}/usr/lib64"],
+      unless      => "${ruby193}/usr/bin/gem list --local -i librarian-puppet",
+      require     => [Package['ruby193'], Package['ruby193-ruby-devel']];
   }
 }
