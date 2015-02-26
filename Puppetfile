@@ -19,3 +19,5 @@ mod 'puppet-logstash',
 
 mod 'puppet-riemann',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.garethr.puppet-riemann.git'
+
+mod 'rodjek-logrotate'
