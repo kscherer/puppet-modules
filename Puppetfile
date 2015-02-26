@@ -21,3 +21,7 @@ mod 'puppet-riemann',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.garethr.puppet-riemann.git'
 
 mod 'rodjek-logrotate'
+
+mod 'garethr-docker',
+  :git => 'git://ala-git.wrs.com/external/puppet/github.com.garethr.garethr-docker.git',
+  :ref => 'v3.3.2'

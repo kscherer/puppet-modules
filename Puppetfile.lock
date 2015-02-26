@@ -26,6 +26,16 @@ GIT
       puppetlabs-stdlib (>= 3.2.0)
 
 GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.garethr.garethr-docker.git
+  ref: v3.3.2
+  sha: f6f485d69962a9f0c400a9a9fe06d7ce3267f011
+  specs:
+    garethr-docker (3.3.2)
+      puppetlabs-apt (>= 1.1.0)
+      puppetlabs-stdlib (>= 4.1.0)
+      stahnma-epel (>= 0.0.6)
+
+GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.garethr.puppet-riemann.git
   ref: master
   sha: 59456e1923e7ae3b6b29a4b3dc0eed6c5a336ae0
@@ -46,6 +56,7 @@ GIT
       puppetlabs-stdlib (>= 2.2.1)
 
 DEPENDENCIES
+  garethr-docker (>= 0)
   puppet-logstash (>= 0)
   puppet-riemann (>= 0)
   puppetlabs-apt (>= 0)
