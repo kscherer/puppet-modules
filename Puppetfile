@@ -25,3 +25,7 @@ mod 'rodjek-logrotate'
 mod 'garethr-docker',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.garethr.garethr-docker.git',
   :ref => 'v3.3.2'
+
+mod 'deric-mesos',
+  :git => 'git://ala-git.wrs.com/external/puppet/github.com.deric.puppet-mesos.git',
+  :ref => 'v0.5.2'
