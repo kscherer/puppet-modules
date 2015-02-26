@@ -18,6 +18,9 @@ class wr::ala_lpgweb {
   ensure_resource('package', 'postfix', {'ensure' => 'installed' })
   ensure_resource('package', 'python-yaml', {'ensure' => 'installed' })
 
+  # plantuml can use graphviz make some neat pictures
+  ensure_resource('package', 'graphviz', {'ensure' => 'installed' })
+
   augeas {
     'postfix.main.cf':
       context => '/files/etc/postfix/main.cf',
