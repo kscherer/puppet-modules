@@ -127,7 +127,6 @@ yourself, this F/S will be cleaned up periodically.";
         user    => 'svc-mirror',
         hour    => '6',
         minute  => '0';
-
     }
 
     #dell repo needs to be able to exec cgi scripts
@@ -150,7 +149,7 @@ yourself, this F/S will be cleaned up periodically.";
     include rsync::server
     rsync::server::module{
       'centos':
-        path => '/yow-lpggp21/mirror/centos',;
+        path => '/yow-lpggp21/mirror/centos';
       'epel':
         path => '/yow-lpggp21/mirror/epel';
       'puppetlabs':
@@ -159,5 +158,13 @@ yourself, this F/S will be cleaned up periodically.";
         path => '/yow-lpggp21/mirror/collectd';
     }
   }
-
+  if $::hostname == 'yow-lpggp1' {
+    include rsync::server
+    rsync::server::module{
+      'lava':
+        path      => '/yow-lpggp12/lava/common',
+        list      => 'yes',
+        read_only => 'no';
+    }
+  }
 }
