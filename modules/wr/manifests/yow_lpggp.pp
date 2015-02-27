@@ -162,9 +162,12 @@ yourself, this F/S will be cleaned up periodically.";
     include rsync::server
     rsync::server::module{
       'lava':
-        path      => '/yow-lpggp12/lava/common',
-        list      => 'yes',
-        read_only => 'no';
+        path           => '/yow-lpggp12/lava/common',
+        list           => 'yes',
+        incoming_chmod => '0664',
+        read_only      => 'no',
+        uid            => '1000',
+        gid            => '100';
     }
   }
 }
