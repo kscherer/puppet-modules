@@ -134,6 +134,12 @@ class wr::ala_lpgweb {
       user    => 'rq',
       hour    => '22',
       minute  => '0';
+    'ovp_lava_build':
+      ensure  => present,
+      command => '/home/rq/wr-buildscripts/ovp_lava_enqueue.py',
+      user    => 'rq',
+      hour    => '13',
+      minute  => '0';
   }
 
   #require apache to display exported process docs
