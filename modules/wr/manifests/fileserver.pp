@@ -52,6 +52,20 @@ class wr::fileserver {
       mountpoint => '/git',
       setuid     => 'off',
       devices    => 'off';
+    'pool/stored_builds':
+      ensure   => present,
+      atime    => 'off',
+      sharenfs => 'on',
+      setuid   => 'off',
+      devices  => 'off',
+      require  => Package['nfs-kernel-server'];
+    'pool/prj-wrlinux':
+      ensure   => present,
+      atime    => 'off',
+      sharenfs => 'on',
+      setuid   => 'off',
+      devices  => 'off',
+      require  => Package['nfs-kernel-server'];
   }
 
   # scrub zfs filesystem weekly
