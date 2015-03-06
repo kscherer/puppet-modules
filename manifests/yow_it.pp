@@ -3,7 +3,7 @@ node 'yow-lbreports.wrs.com' {
   include wr::yow_lbreports
 }
 node 'yow-build48-lx.wrs.com' {
-	include wr::yow_eng_vm
+	include wr::yow_build
 }
 node 'yow-ssp3-lx.wrs.com' {
 	include wr::yow_ssp_ub
@@ -19,4 +19,7 @@ node 'yow-lab-simics6' {
 }
 node 'yow-lab-simics5' {
 	include wr::yow_simics
+}
+node 'yow-build52-lx.wrs.com' {
+	include wr::yow_build
 }
