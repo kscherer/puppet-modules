@@ -20,6 +20,6 @@ node 'yow-lab-simics6' {
 node 'yow-lab-simics5' {
 	include wr::yow_simics
 }
-node 'yow-build52-lx.wrs.com' {
+node 'yow-build51-lx.wrs.com' {
 	include wr::yow_build
 }
