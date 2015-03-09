@@ -76,14 +76,6 @@ class profile::mesos::slave inherits profile::mesos::common {
       notify  => Exec['update-grub'];
   }
 
-  #Do not use external isolation
-  file {
-    '/etc/mesos-slave/containerizer_path':
-      ensure => absent;
-    '/etc/mesos-slave/isolation':
-      ensure => absent;
-  }
-
   #for integration with existing nx stats and fails repos
   file {
     ['/home/wrlbuild/.ssh/', '/home/wrlbuild/.history']:
