@@ -166,6 +166,6 @@ class nrpe {
       parameters => '--logfile=/home/git/sync/external.log --criticalpattern=error';
     'check_wrlinux_update':
       command    => 'check_logfiles',
-      parameters => '--logfile=/home/wrlbuild/log/wrlinux_update.log --criticalpattern="pull failed on subgit" --criticalpattern="Error:"';
+      parameters => '--logfile=/home/wrlbuild/log/wrlinux_update.log --rotation=loglog0gzlog1gz --criticalpattern="pull failed on subgit" --criticalpattern="Error:"';
   }
 }

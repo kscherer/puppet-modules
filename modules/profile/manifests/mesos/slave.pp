@@ -52,7 +52,7 @@ class profile::mesos::slave inherits profile::mesos::common {
 
   cron {
     'wrlinux_update':
-      command => 'cd /home/wrlbuild/wr-buildscripts; /usr/bin/git fetch --all; /usr/bin/git reset --hard origin/master; ./wrlinux_update.sh > /home/wrlbuild/log/wrlinux_update.log',
+      command => 'cd /home/wrlbuild/wr-buildscripts; /usr/bin/git fetch --all; /usr/bin/git reset --hard origin/master; ./wrlinux_update.sh >> /home/wrlbuild/log/wrlinux_update.log',
       user    => 'wrlbuild',
       hour    => '*',
       minute  => fqdn_rand(60, 'wrlinux_update');
@@ -150,6 +150,7 @@ class profile::mesos::slave inherits profile::mesos::common {
       hour    => '*',
       minute  => [0,15,30,45];
     'rotate_postprocess_logs':
+      ensure  => absent,
       command => 'cd /home/wrlbuild/log; mv -f postprocess.log postprocess.log.0',
       user    => 'wrlbuild',
       hour    => '0',
@@ -204,5 +205,18 @@ class profile::mesos::slave inherits profile::mesos::common {
       user   => 'wrlbuild',
       key    => extlookup('wfan@pek-wenzong-fan'),
       type   => 'ssh-dss';
+  }
+
+  include logrotate::base
+
+  #rotate the grokmirror log file
+  logrotate::rule {
+    'wraxl':
+      path         => '/home/wrlbuild/log/*.log',
+      rotate       => 7,
+      rotate_every => 'day',
+      missingok    => true,
+      ifempty      => false,
+      compress     => true;
   }
 }
