@@ -128,7 +128,6 @@ class profile::mesos::common inherits profile::nis {
       owner  => root,
       group  => root,
       mode   => '0644',
-      source => 'puppet:///modules/wr/docker.conf',
-      notify => Service['docker'];
+      source => 'puppet:///modules/wr/docker.conf';
   }
 }
