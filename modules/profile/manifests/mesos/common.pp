@@ -120,14 +120,4 @@ class profile::mesos::common inherits profile::nis {
       mode   => '0755',
       source => 'puppet:///modules/wr/docker-rc.local';
   }
-
-  # upgrade of docker module left incorrect version of /etc/init/docker.conf around
-  file {
-    '/etc/init/docker.conf':
-      ensure => file,
-      owner  => root,
-      group  => root,
-      mode   => '0644',
-      source => 'puppet:///modules/wr/docker.conf';
-  }
 }
