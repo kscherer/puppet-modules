@@ -187,4 +187,22 @@ class profile::mesos::slave inherits profile::mesos::common {
       user    => 'nagios',
       minute  => '*/20';
   }
+
+  ssh_authorized_key {
+    'kscherer_desktop_wrlbuild':
+      ensure => 'present',
+      user   => 'wrlbuild',
+      key    => hiera('kscherer@yow-kscherer-d1'),
+      type   => 'ssh-rsa';
+    'kscherer_home_wrlbuild':
+      ensure => 'present',
+      user   => 'wrlbuild',
+      key    => hiera('kscherer@helix'),
+      type   => 'ssh-rsa';
+    'wenzong_wrlbuild':
+      ensure => 'present',
+      user   => 'wrlbuild',
+      key    => extlookup('wfan@pek-wenzong-fan'),
+      type   => 'ssh-dss';
+  }
 }
