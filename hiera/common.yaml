@@ -71,14 +71,17 @@ apache::mod::passenger::passenger_max_requests: "1000"
 mesos::version: 'latest'
 mesos::zookeeper: "zk://147.11.106.56:2181,147.11.106.57:2181,147.11.106.54:2181/mesos"
 mesos::listen_address: "%{::ipaddress_eth0}"
-mesos::slave::listen_address: "%{::ipaddress_eth0}"
+mesos::master::options:
+  quorum: '1'
 mesos::master::listen_address: "%{::ipaddress_eth0}"
+mesos::slave::listen_address: "%{::ipaddress_eth0}"
 mesos::slave::work_dir: '/var/lib/mesos'
 mesos::slave::isolation: 'posix/cpu,posix/mem'
 mesos::slave::checkpoint: true
 mesos::slave::resources:
   tier1: '1'
   tier2: '2'
+mesos::manage_python: false
 
 docker::manage_kernel: false
 docker::extra_parameters:
