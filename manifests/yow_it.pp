@@ -23,3 +23,12 @@ node 'yow-lab-simics5' {
 node 'yow-build51-lx.wrs.com' {
 	include wr::yow_build
 }
+node 'yow-build56-lx.wrs.com' {
+	include wr::yow_build
+}
+node 'yow-build57-lx.wrs.com' {
+	include wr::yow_build
+}
+node 'yow-build58-lx.wrs.com' {
+	include wr::yow_build
+}
