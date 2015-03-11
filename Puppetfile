@@ -27,5 +27,5 @@ mod 'garethr-docker',
   :ref => 'v3.3.2'
 
 mod 'deric-mesos',
-  :git => 'https://github.com/kscherer/puppet-mesos.git',
-  :ref => 'optional_python'
+  :git => 'git://ala-git.wrs.com/external/puppet/github.com.deric.puppet-mesos.git',
+  :ref => 'v0.5.3'
