@@ -57,29 +57,6 @@ class wr::ala_lpgweb {
       owner => 'rq';
   }
 
-  #Setup supervisord to monitor worker process
-  include supervisord
-
-  supervisord::program {
-    'rqworker':
-      command    => '/home/rq/.local/bin/rqworker jira-git',
-      user       => 'rq',
-      numprocs   => '1',
-      directory  => '/home/rq/wr-jira-integration';
-    'rq-dashboard':
-      command    => '/home/rq/.local/bin/rq-dashboard',
-      user       => 'rq',
-      numprocs   => '1',
-      directory  => '/home/rq/',
-      require    => Vcsrepo['wr-jira-integration'];
-    'rqworker-wr-rq':
-      command    => '/home/rq/.local/bin/rqworker wr-rq',
-      user       => 'rq',
-      numprocs   => '1',
-      directory  => '/home/rq/wr-rq',
-      require    => Vcsrepo['wr-rq'];
-  }
-
   vcsrepo {
     'wr-jira-integration':
       ensure   => 'latest',
@@ -104,6 +81,27 @@ class wr::ala_lpgweb {
       revision => 'master';
   }
 
+  file {
+    '/etc/init/rqworker.conf':
+      ensure => present,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
+      notify => Service['rqworker'];
+    '/etc/init/rqworker-wr-rq.conf':
+      ensure => present,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
+      notify => Service['rqworker-wr-rq'];
+    '/etc/init/rq-dashboard.conf':
+      ensure => present,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
+      notify => Service['rq-dashboard'];
+  }
+
   $script = '/home/rq/wr-buildscripts/devbuild_queue_watcher.py'
 
   #not a real service, just a python script that looks like a service
@@ -119,6 +117,15 @@ class wr::ala_lpgweb {
       enable     => manual,
       provider   => base,
       require    => Vcsrepo['wr-buildscripts'];
+    'rqworker':
+      ensure  => running,
+      require => [Vcsrepo['wr-jira-integration'], File['/etc/init/rqworker.conf']];
+    'rqworker-wr-rq':
+      ensure  => running,
+      require => [Vcsrepo['wr-rq'], File['/etc/init/rqworker-wr-rq.conf']];
+    'rq-dashboard':
+      ensure  => running,
+      require => File['/etc/init/rq-dashboard.conf'];
   }
 
   cron {
@@ -205,13 +212,6 @@ class wr::ala_lpgweb {
     password => postgresql_password('oelayer', 'oelayer'),
   }
 
-  supervisord::program {
-    'layerindex_gunicorn':
-      command    => 'python manage.py run_gunicorn 127.0.0.1:8001',
-      user       => 'oelayer',
-      directory  => '/home/oelayer/layerindex-web';
-  }
-
   service {
     'mpt-statusd':
       ensure    => stopped,
@@ -223,16 +223,5 @@ class wr::ala_lpgweb {
   wr::user {
     'errorweb':
       password   => '$5$BgyVYu6DgaQM2cEP$BO9AhcDlJRgvQWH5EkIuygrLMh37.Sl3YGtIffGwfT5';
-  }
-
-  supervisord::program {
-    'main_errorweb':
-      command    => 'python manage.py runserver 0.0.0.0:9000',
-      user       => 'errorweb',
-      directory  => '/home/errorweb/error-report-web';
-    'test_errorweb':
-      command    => 'python manage.py runserver 0.0.0.0:9100',
-      user       => 'errorweb',
-      directory  => '/home/errorweb/test-error-report-web';
   }
 }
