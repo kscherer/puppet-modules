@@ -66,13 +66,6 @@ class wr::fileserver {
       setuid   => 'off',
       devices  => 'off',
       require  => Package['nfs-kernel-server'];
-    'pool/stored_builds':
-      ensure   => present,
-      atime    => 'off',
-      sharenfs => 'on',
-      setuid   => 'off',
-      devices  => 'off',
-      require  => Package['nfs-kernel-server'];
     'pool/sustaining':
       ensure   => present,
       atime    => 'off',
