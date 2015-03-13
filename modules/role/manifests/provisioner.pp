@@ -14,13 +14,13 @@ class role::provisioner {
       location    => 'http://deb.theforeman.org/',
       release     => $::lsbdistcodename,
       include_src => false,
-      repos       => '1.5',
+      repos       => '1.7',
       require     => Apt::Key['foreman_apt_key'];
     'foreman-plugins':
       location    => 'http://deb.theforeman.org/',
       release     => 'plugins',
       include_src => false,
-      repos       => '1.5',
+      repos       => '1.7',
       require     => Apt::Key['foreman_apt_key'];
   }
 
