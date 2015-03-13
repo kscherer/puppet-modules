@@ -209,6 +209,9 @@ class profile::mesos::slave inherits profile::mesos::common {
       rotate_every => 'day',
       missingok    => true,
       ifempty      => false,
+      su           => true,
+      su_owner     => 'wrlbuild',
+      su_group     => 'users',
       compress     => true;
   }
 }

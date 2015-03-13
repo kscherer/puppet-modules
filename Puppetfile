@@ -20,7 +20,7 @@ mod 'puppet-logstash',
 mod 'puppet-riemann',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.garethr.puppet-riemann.git'
 
-mod 'rodjek-logrotate'
+mod 'b4ldr-logrotate'
 
 mod 'garethr-docker',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.garethr.garethr-docker.git',
