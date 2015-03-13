@@ -1,12 +1,12 @@
 FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
+    b4ldr-logrotate (1.1.3)
     ispavailability-file_concat (0.1.0)
     maestrodev-wget (1.5.7)
     puppetlabs-gcc (0.2.0)
     puppetlabs-java (1.3.0)
       puppetlabs-stdlib (>= 2.4.0)
-    rodjek-logrotate (1.1.1)
     stahnma-epel (1.0.2)
 
 GIT
@@ -18,10 +18,10 @@ GIT
 
 GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.deric.puppet-mesos.git
-  ref: v0.5.2
-  sha: 683b5988f433ef973ee23ec649ab290e693669d4
+  ref: v0.5.3
+  sha: 3147b69a3253dcd147099f12c33c048ac19d2f41
   specs:
-    deric-mesos (0.5.2)
+    deric-mesos (0.5.3)
       puppetlabs-apt (>= 1.0.0)
       puppetlabs-stdlib (>= 4.2.0)
 
@@ -65,11 +65,11 @@ GIT
       puppetlabs-stdlib (>= 2.2.1)
 
 DEPENDENCIES
+  b4ldr-logrotate (>= 0)
   deric-mesos (>= 0)
   garethr-docker (>= 0)
   puppet-logstash (>= 0)
   puppet-riemann (>= 0)
   puppetlabs-apt (>= 0)
   puppetlabs-stdlib (>= 0)
-  rodjek-logrotate (>= 0)
 

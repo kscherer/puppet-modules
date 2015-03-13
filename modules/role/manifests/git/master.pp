@@ -14,7 +14,7 @@ class role::git::master inherits role {
   Class['wr::common::repos'] -> Class['profile::bare_metal']
 
   #add logrotate entries for apache to keep logs from overflowing /var
-  include logrotate::base
+  include logrotate
   logrotate::rule {
     'httpd':
       ensure        => 'present',

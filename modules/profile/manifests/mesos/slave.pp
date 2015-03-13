@@ -199,7 +199,7 @@ class profile::mesos::slave inherits profile::mesos::common {
       type   => 'ssh-dss';
   }
 
-  include logrotate::base
+  include logrotate
 
   #rotate the grokmirror log file
   logrotate::rule {

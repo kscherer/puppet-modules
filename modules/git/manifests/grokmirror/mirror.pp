@@ -84,7 +84,7 @@ class git::grokmirror::mirror(
       minute  => fqdn_rand(60);
   }
 
-  include logrotate::base
+  include logrotate
 
   #rotate the grokmirror log file
   logrotate::rule {
