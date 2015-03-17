@@ -15,8 +15,7 @@ class motd {
         mode    => '0755',
         content => template('motd/motd.erb');
       '/etc/motd':
-        ensure => link,
-        target => '/var/run/motd.dynamic';
+        ensure => absent;
     }
   } else {
     concat{
