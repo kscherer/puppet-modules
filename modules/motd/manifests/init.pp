@@ -18,18 +18,19 @@ class motd {
         ensure => link,
         target => '/var/run/motd.dynamic';
     }
-  }
-  concat{
-    $motd:
-      owner => root,
-      group => root,
-      mode  => '0644';
-  }
+  } else {
+    concat{
+      $motd:
+        owner => root,
+        group => root,
+        mode  => '0644';
+    }
 
-  concat::fragment{
-    'motd_header':
-      target  => $motd,
-      content => template('motd/motd.erb'),
-      order   => '01';
+    concat::fragment{
+      'motd_header':
+        target  => $motd,
+        content => template('motd/motd.erb'),
+        order   => '01';
+    }
   }
 }
