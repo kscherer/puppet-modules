@@ -182,7 +182,8 @@ class profile::mesos::slave inherits profile::mesos::common {
     'nsca_wrlinux_update_log_check':
       command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper -H ${::fqdn} -S 'Wrlinux source update check' -N ${nsca_server} -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_wrlinux_update.sh -q",
       user    => 'nagios',
-      hour    => '*';
+      hour    => '*',
+      minute  => '0';
   }
 
   ssh_authorized_key {
