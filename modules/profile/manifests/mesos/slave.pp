@@ -14,7 +14,7 @@ class profile::mesos::slave inherits profile::mesos::common {
   Vcsrepo['/home/wrlbuild/wr-buildscripts'] -> Service['mesos-slave']
 
   file {
-    ['/home/wrlbuild/log','/home/wrlbuild/builds']:
+    '/home/wrlbuild/builds':
       ensure => directory,
       owner  => 'wrlbuild',
       group  => 'users',
