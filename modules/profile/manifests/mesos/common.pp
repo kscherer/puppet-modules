@@ -48,10 +48,24 @@ class profile::mesos::common inherits profile::nis {
       require  => User['wrlbuild'];
   }
 
+  cron {
+    'use_latest_nx_configs':
+      command => 'cd /home/wrlbuild/wr-buildscripts; ./process_nx_configs.sh >> /home/wrlbuild/log/process_nx_configs.log',
+      user    => 'wrlbuild',
+      hour    => '*',
+      minute  => fqdn_rand(60, 'process_nx_configs'),
+      require => File['/home/wrlbuild/log'];
+  }
+
   file {
     '/usr/lib/libjvm.so':
       ensure => link,
       target => '/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server/libjvm.so';
+    '/home/wrlbuild/log':
+      ensure => directory,
+      owner  => 'wrlbuild',
+      group  => 'wrlbuild',
+      mode   => '0755';
   }
 
   package {

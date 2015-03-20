@@ -14,21 +14,7 @@ class profile::mesos::master inherits profile::mesos::common {
   #random build coverage scheduler reads yaml config files
   ensure_resource('package', 'python-yaml', {'ensure' => 'installed' })
 
-  file {
-    '/home/wrlbuild/log':
-      ensure => directory,
-      owner  => 'wrlbuild',
-      group  => 'wrlbuild',
-      mode   => '0755';
-  }
-
   cron {
-    'use_latest_nx_configs':
-      command => 'cd /home/wrlbuild/wr-buildscripts; ./process_nx_configs.sh >> /home/wrlbuild/log/process_nx_configs.log',
-      user    => 'wrlbuild',
-      hour    => '*',
-      minute  => fqdn_rand(60, 'process_nx_configs'),
-      require => File['/home/wrlbuild/log'];
     'wrbuildscripts_update':
       command => 'cd /home/wrlbuild/wr-buildscripts; /usr/bin/git fetch --all; /usr/bin/git reset --hard origin/master > /dev/null 2>&1',
       user    => 'wrlbuild',
