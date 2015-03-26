@@ -16,6 +16,9 @@ class nagios::hostgroup(
       'ala-blades':
         hostgroup_name => 'ala-blades',
         alias          => 'ALA blades';
+      'pek-blades':
+        hostgroup_name => 'pek-blades',
+        alias          => 'PEK blades';
     }
 
     #make sure that entries no longer in storedconfigs are cleaned out

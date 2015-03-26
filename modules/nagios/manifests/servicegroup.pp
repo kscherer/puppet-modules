@@ -16,6 +16,9 @@ class nagios::servicegroup(
     'mesos-slaves':
       servicegroup_name => 'mesos-slaves',
       alias             => 'Mesos Slaves';
+    'ro-mounts':
+      servicegroup_name => 'ro-mounts',
+      alias             => 'RO Mount Passive';
   }
 
   #make sure that entries no longer in storedconfigs are cleaned out

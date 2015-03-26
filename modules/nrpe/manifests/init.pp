@@ -83,6 +83,40 @@ class nrpe {
       ensure => 'present',
       source => 'puppet:///modules/nrpe/grokmirror.cfg',
       mode   => '0644';
+    # Script to check for disks that have gone read only
+    'check_ro_mounts':
+      ensure => 'present',
+      path   => "${defaultdir}/check_ro_mounts",
+      source => 'puppet:///modules/nrpe/check_ro_mounts',
+      mode   => '0755';
+    # Script to check zookeeper cluster health
+    'check_zookeeper':
+      ensure => 'present',
+      path   => "${defaultdir}/check_zookeeper.py",
+      source => 'puppet:///modules/nrpe/check_zookeeper.py',
+      mode   => '0755';
+  }
+
+  # Special binary and script to monitor disks on C6220
+  if $::boardproductname == '09N44V' {
+    file {
+      # binary from LSI for basic reporting on disks and RAID health
+      # downloaded from http://www.lsi.com/downloads/Public/Host%20Bus%20Adapters/Host%20Bus%20Adapters%20Common%20Files/SAS_SATA_6G_P20/SAS2IRCU_P20.zip
+      # More info here: http://hwraid.le-vert.net/wiki/LSIFusionMPTSAS2
+      '/usr/bin/sas2ircu':
+        ensure => 'present',
+        source => 'puppet:///modules/nrpe/sas2ircu',
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0755';
+      # wrapper script for sas2ircu downloaded from hwraid project
+      # https://raw.githubusercontent.com/eLvErDe/hwraid/master/wrapper-scripts/sas2ircu-status
+      'check_lsi_sas_disks':
+        ensure => 'present',
+        path   => "${defaultdir}/sas2ircu-status",
+        source => 'puppet:///modules/nrpe/sas2ircu-status',
+        mode   => '0755';
+    }
   }
 
   case $::operatingsystem {
@@ -125,6 +159,20 @@ class nrpe {
   $ntp_servers = hiera('ntp::servers')
   $first_ntp_server = $ntp_servers[0]
 
+  $base_om_flags = '--state --extinfo --timeout=60'
+  # special cases for different hardware
+  case $::boardproductname {
+    '0599V5': { # R730xd: ignore system battery unknown
+      $om_flags = "${base_om_flags} --vdisk-critical --blacklist bp=all"
+    }
+    '09N44V': { # C6220II: OM does not support storage, ignore PSU unknown
+      $om_flags = "${base_om_flags} --no-storage --blacklist ps=all"
+    }
+    default:  { # ignore battery charging warning and old controller firmware warning
+      $om_flags = "${base_om_flags} --vdisk-critical --blacklist bat_charge=all --blacklist ctrl_driver=all"
+    }
+  }
+
   nrpe::command {
     'check_disks':
       command    => 'check_disk',
@@ -154,7 +202,7 @@ class nrpe {
     #Check the status of the hardware using dell openmanage
     'check_openmanage':
       command    => 'check_openmanage',
-      parameters => '--state --extinfo --vdisk-critical --timeout=60';
+      parameters => $om_flags;
     'check_grokmirror_log':
       command    => 'check_file_age',
       parameters => '-w 300  -c 600 -f /git/log/ala-git.wrs.com.log';
@@ -167,5 +215,11 @@ class nrpe {
     'check_wrlinux_update':
       command    => 'check_logfiles',
       parameters => '--logfile=/home/wrlbuild/log/wrlinux_update.log --rotation=loglog1gzlog2gz --criticalpattern="pull failed on subgit" --criticalpattern="Error:"';
+    'check_lsi_disks':
+      command    => 'sas2ircu-status',
+      parameters => '--nagios';
+    'check_ro_mounts':
+      command    => 'check_ro_mounts',
+      parameters => '-X nfs -x "/mnt/*"';
   }
 }

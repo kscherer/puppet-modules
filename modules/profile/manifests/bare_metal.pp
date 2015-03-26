@@ -38,6 +38,25 @@ class profile::bare_metal {
     }
   }
 
+  # Special binary and script to monitor disks on C6220
+  if $::boardproductname == '09N44V' {
+    $lsi_service_desc = 'Passive LSI Disk Check'
+    @@nagios_service {
+      "check_lsi_disks_${::hostname}":
+        use                 => 'passive-service',
+        service_description => $lsi_service_desc,
+        host_name           => $::fqdn,
+        servicegroups       => 'dell-servers',
+    }
+
+    cron {
+      'nsca_lsi_disk_check':
+        command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper -H ${::fqdn} -S ${lsi_service_desc} -N ${nsca_server} -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_lsi_disks.sh -q",
+        user    => 'nagios',
+        minute  => $min;
+    }
+  }
+
   if 'sda' in $::blockdevices {
     $model = $::blockdevice_sda_model
   } elsif 'sdc' in $::blockdevices {

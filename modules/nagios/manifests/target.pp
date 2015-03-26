@@ -5,6 +5,7 @@ class nagios::target {
     /yow-lppgp/: { $hostgroup='yow-lpggp'}
     /yow-blade/: { $hostgroup='yow-blades'}
     /ala-blade/: { $hostgroup='ala-blades'}
+    /pek-blade/: { $hostgroup='pek-blades'}
     default: {}
   }
 
@@ -51,5 +52,21 @@ class nagios::target {
       command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper -H ${::fqdn} -S 'Passive NTP' -N ${nsca_server} -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_ntp.sh -q",
       user    => 'nagios',
       minute  => '*/5';
+  }
+
+  $ro_mount_service_desc => 'Passive RO Mounts Check'
+  @@nagios_service {
+    "check_ro_mounts_${::hostname}":
+      use                 => 'passive-service',
+      service_description => $ro_mount_service_desc,
+      host_name           => $::fqdn,
+      servicegroups       => 'ro-mounts',
+  }
+
+  cron {
+    'nsca_ro_mount_check':
+      command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper -H ${::fqdn} -S ${ro_mount_service_desc} -N ${nsca_server} -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_ro_mounts.sh -q",
+      user    => 'nagios',
+      minute  => '*/15';
   }
 }
