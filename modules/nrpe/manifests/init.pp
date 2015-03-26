@@ -220,6 +220,6 @@ class nrpe {
       parameters => '--nagios';
     'check_ro_mounts':
       command    => 'check_ro_mounts',
-      parameters => '-X nfs -x "/mnt/*"';
+      parameters => '-X nfs -X proc -x "/mnt/*"';
   }
 }
