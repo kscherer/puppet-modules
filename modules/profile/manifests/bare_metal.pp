@@ -51,7 +51,7 @@ class profile::bare_metal {
 
     cron {
       'nsca_lsi_disk_check':
-        command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper -H ${::fqdn} -S ${lsi_service_desc} -N ${nsca_server} -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_lsi_disks.sh -q",
+        command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper -H ${::fqdn} -S \'${lsi_service_desc}\' -N ${nsca_server} -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_lsi_disks.sh -q",
         user    => 'nagios',
         minute  => $min;
     }

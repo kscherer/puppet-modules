@@ -65,7 +65,7 @@ class nagios::target {
 
   cron {
     'nsca_ro_mount_check':
-      command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper -H ${::fqdn} -S ${ro_mount_service_desc} -N ${nsca_server} -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_ro_mounts.sh -q",
+      command => "PATH=/bin:/sbin:/usr/sbin:/usr/bin /etc/nagios/nsca_wrapper -H ${::fqdn} -S \'${ro_mount_service_desc}\' -N ${nsca_server} -c /etc/nagios/send_nsca.cfg -C /etc/nagios/check_ro_mounts.sh -q",
       user    => 'nagios',
       minute  => '*/15';
   }
