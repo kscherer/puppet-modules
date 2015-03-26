@@ -47,4 +47,19 @@ class wr::ala_lpd_puppet {
   include wr::foreman
   include collectd
   include graphite_reporter
+
+  # monitor the health of the zookeeper cluster
+  # No easy way to generate the list of zookeeper servers right now
+  @@nagios_command {
+    'check_zookeeper':
+      command_line => '$USER1/check_zookeeper.py -s "ala-lpd-mesos:2181,lpd-web:2181,ala-lpd-provision:2181,yow-lpd-provision:2181,pek-lpd-puppet:2181" -o nagios -k zk_num_alive_connections -w 0 -c 0';
+  }
+
+  @@nagios_service {
+    'check_zookeeper':
+      use                 => 'generic-service',
+      check_command       => 'check_zookeeper',
+      service_description => 'Zookeeper',
+      host_name           => $::fqdn,
+  }
 }
