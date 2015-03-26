@@ -52,7 +52,7 @@ class wr::ala_lpd_puppet {
   # No easy way to generate the list of zookeeper servers right now
   @@nagios_command {
     'check_zookeeper':
-      command_line => '$USER1/check_zookeeper.py -s "ala-lpd-mesos:2181,lpd-web:2181,ala-lpd-provision:2181,yow-lpd-provision:2181,pek-lpd-puppet:2181" -o nagios -k zk_num_alive_connections -w 0 -c 0';
+      command_line => '$USER1$/check_zookeeper.py -s "ala-lpd-mesos:2181,lpd-web:2181,ala-lpd-provision:2181,yow-lpd-provision:2181,pek-lpd-puppet:2181" -o nagios -k zk_num_alive_connections -w 0 -c 0';
   }
 
   @@nagios_service {
