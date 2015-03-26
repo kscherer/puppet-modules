@@ -54,7 +54,7 @@ class nagios::target {
       minute  => '*/5';
   }
 
-  $ro_mount_service_desc => 'Passive RO Mounts Check'
+  $ro_mount_service_desc = 'Passive RO Mounts Check'
   @@nagios_service {
     "check_ro_mounts_${::hostname}":
       use                 => 'passive-service',
