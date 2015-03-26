@@ -164,7 +164,7 @@ yourself, this F/S will be cleaned up periodically.";
       'lava':
         path           => '/yow-lpggp12/lava/common',
         list           => 'yes',
-        incoming_chmod => '0664',
+        incoming_chmod => '0666',
         read_only      => 'no',
         uid            => '1000',
         gid            => '100';
