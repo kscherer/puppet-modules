@@ -22,13 +22,6 @@ class wr::yow_lpd_stats {
       gateway => '128.224.137.1';
   }
 
-  exec {
-    'dhcpd_on_em1':
-      command => '/bin/sed -i \'s/INTERFACES=\"eth0\"/INTERFACES=\"em1\"/g\' /etc/default/isc-dhcp-server',
-      onlyif  => '/bin/grep INTERFACES=\"eth0\" /etc/default/isc-dhcp-server',
-      notify  => Service['isc-dhcp-server'];
-  }
-
   package {
     'foreman-proxy':
       ensure  => installed,
