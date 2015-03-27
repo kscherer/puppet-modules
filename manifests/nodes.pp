@@ -152,10 +152,12 @@ node 'ala-lpd-susbld.wrs.com' {
   class { 'wr::ala_lpd_susbld': }
 }
 
-node /(yow|ala)-lpd-provision.wrs.com/ {
-  include role::provisioner
-  include ssmtp
-  include zookeeper
+node 'yow-lpd-provision.wrs.com' {
+  include ::wr::yow_lpd_provision
+}
+
+node 'ala-lpd-provision.wrs.com' {
+  include ::wr::ala_lpd_provision
 }
 
 node 'svl-tuxlab.wrs.com' {
