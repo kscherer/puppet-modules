@@ -63,5 +63,16 @@ class wr::yow_lpd_stats {
       owner  => 'foreman-proxy',
       group  => 'foreman-proxy',
       mode   => '0755';
+    '/var/lib/tftpboot/efi':
+      ensure => directory,
+      owner  => 'foreman-proxy',
+      group  => 'foreman-proxy',
+      mode   => '0755';
+    '/var/lib/tftpboot/efi/syslinux.efi':
+      ensure => present,
+      source => 'puppet:///modules/wr/syslinux.efi';
+    '/var/lib/tftpboot/efi/ldlinux.e64':
+      ensure => present,
+      source => 'puppet:///modules/wr/ldlinux.e64';
   }
 }
