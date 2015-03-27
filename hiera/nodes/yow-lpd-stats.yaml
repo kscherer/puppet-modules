@@ -1,2 +1,4 @@
 ---
-dhcp::interface: em1
+dhcp::interface: "em1"
+dhcp::pxeserver: "128.224.137.19"
+dhcp::pxefilename: "pxelinux.0"

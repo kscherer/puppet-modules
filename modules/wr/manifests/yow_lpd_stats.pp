@@ -18,7 +18,7 @@ class wr::yow_lpd_stats {
     'yow-blades':
       network => '128.224.137.0',
       mask    => '255.255.255.0',
-      range   => '128.224.137.11 128.224.137.100',
+      range   => '128.224.137.96 128.224.137.100',
       gateway => '128.224.137.1';
   }
 
@@ -48,12 +48,20 @@ class wr::yow_lpd_stats {
   }
 
   package {
-    'tftpd-hpa':
+    ['tftpd-hpa', 'syslinux']:
       ensure => installed;
   }
 
   service {
     'tftpd-hpa':
       ensure => running;
+  }
+
+  file {
+    '/var/lib/tftpboot':
+      ensure => directory,
+      owner  => 'foreman-proxy',
+      group  => 'foreman-proxy',
+      mode   => '0755';
   }
 }
