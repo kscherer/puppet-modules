@@ -4,6 +4,7 @@ FORGE
     b4ldr-logrotate (1.1.3)
     ispavailability-file_concat (0.1.0)
     maestrodev-wget (1.5.7)
+    nanliu-staging (1.0.3)
     puppetlabs-gcc (0.2.0)
     puppetlabs-java (1.3.0)
       puppetlabs-stdlib (>= 2.4.0)
@@ -64,6 +65,15 @@ GIT
     puppetlabs-apt (1.7.0)
       puppetlabs-stdlib (>= 2.2.1)
 
+GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.solarkennedy.puppet-consul.git
+  ref: v0.4.6
+  sha: da8f4a61279ae7be27d2b369fb6ecd1568576215
+  specs:
+    solarkennedy-consul (0.4.6)
+      nanliu-staging (>= 0.4.0)
+      puppetlabs-stdlib (>= 0.1.6)
+
 DEPENDENCIES
   b4ldr-logrotate (>= 0)
   deric-mesos (>= 0)
@@ -72,4 +82,5 @@ DEPENDENCIES
   puppet-riemann (>= 0)
   puppetlabs-apt (>= 0)
   puppetlabs-stdlib (>= 0)
+  solarkennedy-consul (>= 0)
 
