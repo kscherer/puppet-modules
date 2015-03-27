@@ -140,14 +140,6 @@ node 'msp-shared1.wrs.com' {
   include git::grokmirror::mirror
 }
 
-node 'splat.wrs.com' {
-  include puppet
-  include git
-  include git::service
-  include git::wr_bin_repo
-  include git::grokmirror::mirror
-}
-
 node 'ala-lpd-susbld.wrs.com' {
   class { 'wr::ala_lpd_susbld': }
 }
@@ -269,4 +261,8 @@ node 'yow-ovp6.wrs.com' {
 
 node 'ala-lpdfs01.wrs.com' {
   include wr::fileserver
+}
+
+node 'yow-lpdfs01.wrs.com' {
+  include profile::nis
 }
