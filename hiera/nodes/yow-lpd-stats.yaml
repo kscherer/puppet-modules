@@ -1,2 +1,2 @@
 ---
-interface: em1
+dhcp::interface: em1
