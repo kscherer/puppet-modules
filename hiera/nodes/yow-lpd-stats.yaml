@@ -1,2 +1,2 @@
 ---
-dhcp_interfaces: em1
+interface: em1
