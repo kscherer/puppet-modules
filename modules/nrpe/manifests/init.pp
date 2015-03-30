@@ -169,7 +169,7 @@ class nrpe {
       $om_flags = "${base_om_flags} --no-storage --blacklist ps=all"
     }
     default:  { # ignore battery charging warning and old controller firmware warning
-      $om_flags = "${base_om_flags} --vdisk-critical --blacklist bat_charge=all --blacklist ctrl_driver=all"
+      $om_flags = "${base_om_flags} --vdisk-critical --blacklist bat_charge=all --blacklist ctrl_driver=all ctrl_fw=all"
     }
   }
 
