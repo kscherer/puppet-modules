@@ -16,6 +16,9 @@ class wr::fileserver {
   #
   # Initial provision setup 10GB for OS and 4GB for swap
   # Remaining space partitioned for ZFS caches
+  # delete home partition: parted -s /dev/sda rm 4
+  # create zil (journal): parted -s /dev/sda -- mkpart zil 15GB 19GB
+  # create l2arc ssd cache: parted -s /dev/sda -- mkpart l2arc 19GB -1
   #
   # Setup hard drives with initial label
   # for arg in {b..m}; do parted -s /dev/sd$arg mklabel gpt; done
@@ -129,10 +132,15 @@ class wr::fileserver {
 
   File['/git'] -> Class['::role::git::mirror']
 
+  case $::location {
+    'yow': { $svc_mirror_home = 'yow-nas2:/vol/vol1/UNIX-Home/svc-mirror' }
+    default: { $svc_mirror_home = 'ala-nas2:/vol/vol0/UNIX-Home/svc-mirror' }
+  }
+
   mount {
     '/home/svc-mirror':
       ensure  => mounted,
-      device  => 'ala-nas2:/vol/vol0/UNIX-Home/svc-mirror',
+      device  => $svc_mirror_home,
       atboot  => true,
       fstype  => 'nfs',
       options => 'rw',
@@ -142,7 +150,7 @@ class wr::fileserver {
   file {
     '/etc/ubumirror.conf':
       ensure => link,
-      target => '/home/svc-mirror/mirror-configs/ubumirror.conf.ala-lpdfs01';
+      target => "/home/svc-mirror/mirror-configs/ubumirror.conf.${::hostname}";
   }
 
   cron {

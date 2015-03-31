@@ -264,5 +264,5 @@ node 'ala-lpdfs01.wrs.com' {
 }
 
 node 'yow-lpdfs01.wrs.com' {
-  include profile::nis
+  include wr::fileserver
 }
