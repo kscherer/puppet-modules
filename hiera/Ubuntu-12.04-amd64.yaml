@@ -3,3 +3,13 @@ packages:
   - libc6:i386
   - libc6-dev-i386
   - libncurses5:i386
+apt::unattended_upgrades::origins:
+  - '${distro_id}:${distro_codename}-security'
+  - '${distro_id}:${distro_codename}-updates'
+apt::unattended_upgrades::blacklist:
+  - lxc-docker
+  - mesos
+apt::unattended_upgrades::minimal_steps: 'true'
+apt::unattended_upgrades::mail_only_on_error: 'true'
+apt::unattended_upgrades::mail_to: 'root'
+apt::unattended_upgrades::randomsleep: '3600'

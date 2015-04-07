@@ -69,4 +69,14 @@ class debian::ubuntu (
       command     => '/usr/sbin/update-grub',
       refreshonly => true;
   }
+
+  # remove obsolete packages every day
+  cron {
+    'autoremove_packages':
+      ensure  => present,
+      command => '/usr/bin/apt-get -y autoremove',
+      user    => 'root',
+      hour    => '2',
+      minute  => fqdn_rand(60, 'autoremove');
+  }
 }
