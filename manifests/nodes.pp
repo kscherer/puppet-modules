@@ -21,7 +21,7 @@ node /yow-blade.*.wrs.com/ {
   include profile::mesos::slave
 }
 
-node /ala-blade(19|49|50|51|52)\.wrs\.com/ {
+node /ala-blade(19|49|5[0-9])\.wrs\.com/ {
   include profile::mesos::slave
 }
 
