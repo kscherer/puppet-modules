@@ -33,7 +33,3 @@ mod 'deric-mesos',
 mod 'solarkennedy-consul',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.solarkennedy.puppet-consul.git',
   :ref => 'v0.4.6'
-
-mod 'puppet-x2go',
-  :git => 'git://ala-git.wrs.com/external/puppet/github.com.ngiger.puppet-x2go.git',
-  :ref => '0.1.3'

@@ -58,14 +58,6 @@ GIT
       stahnma-epel (>= 0.0.6)
 
 GIT
-  remote: git://ala-git.wrs.com/external/puppet/github.com.ngiger.puppet-x2go.git
-  ref: 0.1.3
-  sha: aea04e9e1fca4071010d4465e3bb6a14060b5aa4
-  specs:
-    puppet-x2go (0.1.3)
-      puppetlabs-apt (>= 1.0.0)
-
-GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppet-apt.git
   ref: 1.7.0
   sha: 5179b0e466b82ec9dd912fcac9bd06ffe61aee11
@@ -88,7 +80,6 @@ DEPENDENCIES
   garethr-docker (>= 0)
   puppet-logstash (>= 0)
   puppet-riemann (>= 0)
-  puppet-x2go (>= 0)
   puppetlabs-apt (>= 0)
   puppetlabs-stdlib (>= 0)
   solarkennedy-consul (>= 0)

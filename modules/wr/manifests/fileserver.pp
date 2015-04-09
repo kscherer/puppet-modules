@@ -259,8 +259,6 @@ class wr::fileserver {
   }
 
   # setup x2go server to provide remote graphical access in all DCs
-  x2go::server{
-    'server':
-      ensure => true;
-  }
+  apt::ppa { 'ppa:x2go/stable': }
+  ensure_packages(['x2goserver', 'x2goserver-extensions', 'x2goserver-xsession'])
 }
