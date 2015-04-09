@@ -259,8 +259,8 @@ class wr::fileserver {
   }
 
   # setup x2go server to provide remote graphical access in all DCs
-  class {
-    'x2go::server':
+  x2go::server{
+    'server':
       ensure => true;
   }
 }
