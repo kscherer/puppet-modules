@@ -61,6 +61,7 @@ class wr::fileserver {
       sharenfs => 'on',
       setuid   => 'off',
       devices  => 'off',
+      quota    => '2T',
       require  => Package['nfs-kernel-server'];
     'pool/prj-wrlinux':
       ensure   => present,
@@ -75,6 +76,14 @@ class wr::fileserver {
       sharenfs => 'on',
       setuid   => 'off',
       devices  => 'off',
+      require  => Package['nfs-kernel-server'];
+    'pool/other_builds':
+      ensure   => present,
+      atime    => 'off',
+      sharenfs => 'on',
+      setuid   => 'off',
+      devices  => 'off',
+      quota    => '2T',
       require  => Package['nfs-kernel-server'];
   }
 
