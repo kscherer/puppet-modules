@@ -81,25 +81,8 @@ class wr::ala_lpgweb {
       revision => 'master';
   }
 
-  file {
-    '/etc/init/rqworker.conf':
-      ensure => present,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0644',
-      notify => Service['rqworker'];
-    '/etc/init/rqworker-wr-rq.conf':
-      ensure => present,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0644',
-      notify => Service['rqworker-wr-rq'];
-    '/etc/init/rq-dashboard.conf':
-      ensure => present,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0644',
-      notify => Service['rq-dashboard'];
+  wr::upstart_conf {
+    ['rqworker', 'rqworker-wr-rq', 'rq-dashboard', 'devbuild_watcher']:
   }
 
   $script = '/home/rq/wr-buildscripts/devbuild_queue_watcher.py'
@@ -126,6 +109,9 @@ class wr::ala_lpgweb {
     'rq-dashboard':
       ensure  => running,
       require => File['/etc/init/rq-dashboard.conf'];
+    'devbuild_watcher':
+      ensure  => running,
+      require => [Vcsrepo['wr-buildscripts'], File['/etc/init/devbuild_watcher.conf']];
   }
 
   cron {
