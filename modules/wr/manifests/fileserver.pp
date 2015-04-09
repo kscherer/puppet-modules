@@ -257,4 +257,10 @@ class wr::fileserver {
     ['subversion', 'mercurial']:
       ensure => installed;
   }
+
+  # setup x2go server to provide remote graphical access in all DCs
+  class {
+    'x2go::server':
+      ensure => true;
+  }
 }
