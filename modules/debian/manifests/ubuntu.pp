@@ -74,7 +74,7 @@ class debian::ubuntu (
   cron {
     'autoremove_packages':
       ensure  => present,
-      command => '/usr/bin/apt-get -y autoremove',
+      command => 'PATH=/bin:/sbin:/usr/bin:/usr/sbin /usr/bin/apt-get -y autoremove > /dev/null',
       user    => 'root',
       hour    => '2',
       minute  => fqdn_rand(60, 'autoremove');
