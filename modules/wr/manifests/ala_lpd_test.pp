@@ -104,5 +104,12 @@ class wr::ala_lpd_test {
             Dav On
         </Directory>',
     }
+    include docker
+    group {
+      'docker':
+        ensure  => present,
+        members => 'users',
+        require => Class['docker'];
+    }
   }
 }
