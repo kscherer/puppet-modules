@@ -6,7 +6,7 @@ class wr::fileserver {
   include ::collectd
   include ::role::git::mirror
 
-  ensure_packages(['libc6-dev'])
+  ensure_packages(['libc6-dev', 'vim-nox'])
   include ::zfs
   Package['libc6-dev'] -> Class['zfs']
 
