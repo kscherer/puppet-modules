@@ -232,7 +232,7 @@ class wr::fileserver {
                   path  => '/usr/share/cgit',
                   }],
       redirectmatch_status => ['^/cgit$'],
-      redirectmatch_regexp => ['/cgit'],
+      redirectmatch_regexp => ['/cgit/'],
   }
 
   include rsync::server
