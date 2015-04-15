@@ -55,6 +55,13 @@ class wr::fileserver {
       mountpoint => '/git',
       setuid     => 'off',
       devices    => 'off';
+    'pool/users':
+      ensure     => present,
+      atime      => 'off',
+      mountpoint => '/git/users',
+      setuid     => 'off',
+      quota      => '200G',
+      devices    => 'off';
     'pool/stored_builds':
       ensure   => present,
       atime    => 'off',
@@ -106,6 +113,12 @@ class wr::fileserver {
       group   => 'root',
       mode    => '0644',
       content => '/mnt localhost(ro)';
+    '/git/users':
+      ensure  => directory,
+      owner   => 'git',
+      group   => 'users',
+      mode    => '0775',
+      require => Zfs['/pool/users'];
   }
 
   package {
