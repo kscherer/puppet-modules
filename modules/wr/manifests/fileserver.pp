@@ -276,8 +276,9 @@ class wr::fileserver {
   ensure_packages(['x2goserver', 'x2goserver-extensions', 'x2goserver-xsession', 'xterm'])
 
   apt::ppa { 'ppa:git-core/ppa': }
-  ensure {
+  package {
     'git':
-      ensure => latest;
+      ensure  => latest;
   }
+  Apt::Ppa['ppa:git-core/ppa'] -> Package['git']
 }
