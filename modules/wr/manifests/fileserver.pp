@@ -118,7 +118,7 @@ class wr::fileserver {
       owner   => 'git',
       group   => 'users',
       mode    => '0775',
-      require => Zfs['/pool/users'];
+      require => Zfs['pool/users'];
   }
 
   package {
