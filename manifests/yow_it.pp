@@ -54,7 +54,9 @@ node 'yow-build58-lx.wrs.com' {
 ##   SSP Cluster machines
 #
 
-
+node 'yow-ssp2-lx.wrs.com' {
+  include wr::yow_ovp_ub
+}
 
 node 'yow-ssp3-lx.wrs.com' {
     include wr::yow_ssp_ub
@@ -62,14 +64,6 @@ node 'yow-ssp3-lx.wrs.com' {
 
 node 'yow-ssp4-lx.wrs.com' {
     include wr::yow_ssp_ub
-}
-
-node 'yow-ssp2-lx.wrs.com' {
-    include wr::yow_ovp_ub
-}
-
-node 'yow-ssp2-lx.wrs.com' {
-    include wr::yow_ovp_ub
 }
 
 node 'yow-ssp5-lx.wrs.com' {
