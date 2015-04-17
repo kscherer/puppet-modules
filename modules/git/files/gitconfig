@@ -3,3 +3,5 @@
         name = Git Admin
 [core]
         bigFileThreshold = 100k
+[repack]
+        writeBitmaps = true
