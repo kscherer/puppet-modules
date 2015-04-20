@@ -230,6 +230,14 @@ node 'yow-ovp6.wrs.com' {
   include wr::yow_ovp_rhel
 }
 
-node /(ala|pek|yow)-lpdfs01.wrs.com/ {
+node 'yow-lpdfs01.wrs.com' {
+    include wr::fileserver
+}
+
+node 'ala-lpdfs01.wrs.com' {
+    include wr::fileserver
+}
+
+node 'pek-lpdfs01.wrs.com' {
   include wr::fileserver
 }
