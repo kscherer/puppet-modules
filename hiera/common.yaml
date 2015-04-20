@@ -99,6 +99,9 @@ zookeeper::servers:
   - 'server.3=ala-lpgweb2.wrs.com:2888:3888'
   - 'server.4=yow-lpd-provision.wrs.com:2888:3888:observer'
   - 'server.5=pek-lpd-puppet.wrs.com:2888:3888:observer'
+  - 'server.6=ala-lpdfs01.com:2888:3888'
+  - 'server.7=yow-lpdfs01.com:2888:3888:observer'
+  - 'server.8=pek-lpdfs01.com:2888:3888:observer'
 
 statsd::graphiteHost: "yow-lpd-puppet2.wrs.com"
 statsd::flushInterval: "10"
