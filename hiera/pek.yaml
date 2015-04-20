@@ -12,7 +12,7 @@ graphite::web::time_zone: 'Asia/Shanghai'
 collectd::plugin::write_graphite::host: pek-lpd-puppet.wrs.com
 nsca: 128.224.153.105
 timezone: 'Asia/Shanghai'
-mesos::zookeeper: "zk://128.224.153.105:2181/mesos"
+mesos::zookeeper: "zk://128.224.153.15:2181/mesos"
 mesos::slave::attributes:
   location: 'pek'
 graphite_reporter::graphite_host: pek-lpd-puppet.wrs.com

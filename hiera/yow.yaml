@@ -26,8 +26,8 @@ docker::dns: 128.224.144.130
 snmp::location: "Ottawa, Canada"
 graphite_reporter::graphite_host: yow-lpd-puppet2.wrs.com
 
-#Ottawa should use Zookeeper observer instance on yow-lpd-provision
-mesos::zookeeper: "zk://128.224.194.16:2181/mesos"
+#Ottawa should use Zookeeper observer instance on yow-lpdfs01
+mesos::zookeeper: "zk://128.224.137.11:2181/mesos"
 mesos::slave::attributes:
   location: 'yow'
 
