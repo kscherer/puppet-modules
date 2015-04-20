@@ -1,3 +1,4 @@
 ---
 apache::default_vhost: false
 zookeeper::id: '8'
+zookeeper::client_ip: "%{::ipaddress_em1}"
