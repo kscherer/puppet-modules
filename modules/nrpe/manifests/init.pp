@@ -162,14 +162,14 @@ class nrpe {
   $base_om_flags = '--state --extinfo --timeout=60'
   # special cases for different hardware
   case $::boardproductname {
-    '0599V5': { # R730xd: ignore system battery unknown
+    '0599V5', '0H21J3': { # R730xd: ignore system battery unknown
       $om_flags = "${base_om_flags} --vdisk-critical --blacklist bp=all"
     }
     '09N44V': { # C6220II: OM does not support storage, ignore PSU unknown
       $om_flags = "${base_om_flags} --no-storage --blacklist ps=all"
     }
     default:  { # ignore battery charging warning and old controller firmware warning
-      $om_flags = "${base_om_flags} --vdisk-critical --blacklist bat_charge=all --blacklist ctrl_driver=all ctrl_fw=all"
+      $om_flags = "${base_om_flags} --vdisk-critical --blacklist bat_charge=all --blacklist ctrl_driver=all --blacklist ctrl_fw=all"
     }
   }
 
