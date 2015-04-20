@@ -1,6 +1,6 @@
 #Run internal docker registry
 class profile::docker::registry {
-  include docker
+  include ::docker
 
   #run registry as docker container of course
   docker::image {

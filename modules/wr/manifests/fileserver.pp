@@ -290,6 +290,6 @@ class wr::fileserver {
       setuid     => 'off',
       devices    => 'off';
   }
-  include profile::docker::registry
+  include ::profile::docker::registry
   Zfs['pool/registry'] -> Class['profile::docker::registry']
 }
