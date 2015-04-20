@@ -281,4 +281,15 @@ class wr::fileserver {
       ensure  => latest;
   }
   Apt::Ppa['ppa:git-core/ppa'] -> Package['git']
+
+  zfs {
+    'pool/registry':
+      ensure     => present,
+      atime      => 'off',
+      mountpoint => '/opt/registry',
+      setuid     => 'off',
+      devices    => 'off';
+  }
+  include profile::docker::registry
+  Zfs['pool/registry'] -> Class['profile::docker::registry']
 }
