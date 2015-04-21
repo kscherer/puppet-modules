@@ -8,6 +8,7 @@ FORGE
     puppetlabs-gcc (0.2.0)
     puppetlabs-java (1.3.0)
       puppetlabs-stdlib (>= 2.4.0)
+    richardc-datacat (0.6.1)
     stahnma-epel (1.0.2)
 
 GIT
@@ -25,6 +26,15 @@ GIT
     deric-mesos (0.5.3)
       puppetlabs-apt (>= 1.0.0)
       puppetlabs-stdlib (>= 4.2.0)
+
+GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.deric.puppet-zookeeper.git
+  ref: v0.3.6
+  sha: fa3933277d36560fc0bdd73b4b8c0992c62362a4
+  specs:
+    deric-zookeeper (0.3.6)
+      puppetlabs-stdlib (>= 2.3.3)
+      richardc-datacat (>= 0)
 
 GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.elasticsearch.puppet-logstash.git
@@ -77,6 +87,7 @@ GIT
 DEPENDENCIES
   b4ldr-logrotate (>= 0)
   deric-mesos (>= 0)
+  deric-zookeeper (>= 0)
   garethr-docker (>= 0)
   puppet-logstash (>= 0)
   puppet-riemann (>= 0)
