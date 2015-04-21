@@ -21,12 +21,12 @@ class git::service(
   ssh_authorized_key {
     'kscherer_desktop_git':
       ensure => 'present',
-      user   => $name,
+      user   => 'git',
       key    => hiera('kscherer@yow-kscherer-d1'),
       type   => 'ssh-rsa';
     'kscherer_home_git':
       ensure => 'present',
-      user   => $name,
+      user   => 'git',
       key    => hiera('kscherer@helix'),
       type   => 'ssh-rsa';
   }
