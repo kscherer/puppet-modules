@@ -37,3 +37,7 @@ mod 'solarkennedy-consul',
 mod 'deric-zookeeper',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.deric.puppet-zookeeper.git',
   :ref => 'v0.3.6'
+
+mod 'puppetlabs-inifile',
+  :git => 'git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppetlabs-inifile.git',
+  :ref => '1.2.0'
