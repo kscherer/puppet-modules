@@ -3,7 +3,6 @@ class wr::yow_lpd_provision {
   include ::profile::nis
   include ::wr::foreman_common
   include ::ssmtp
-  include ::zookeeper
 
   #setup yow-lpd-provision as yow internal docker registry
   include profile::docker::registry

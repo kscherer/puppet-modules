@@ -44,6 +44,4 @@ class wr::pek_lpd_puppet {
 
   include wr::activemq
   include collectd
-
-  include zookeeper
 }

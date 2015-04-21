@@ -1,4 +1,3 @@
 ---
 python::dev: true
-zookeeper::id: '3'
 apache::default_vhost: false

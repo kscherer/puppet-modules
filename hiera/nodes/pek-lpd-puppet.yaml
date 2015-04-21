@@ -18,5 +18,3 @@ puppet::passenger_ensure: 'present'
 puppet::storeconfigs: true
 puppet::storeconfigs_dbadapter: 'puppetdb'
 apache::default_vhost: false
-zookeeper::id: '5'
-zookeeper::peer_type: 'observer'
