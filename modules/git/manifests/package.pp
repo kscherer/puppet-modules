@@ -2,11 +2,11 @@
 class git::package {
   include git::params
 
-  if $::osfamily == 'RedHat' and $::lsbmajdistrelease == '5' {
+  if $::osfamily == 'RedHat' and $::lsbmajdistrelease < '7' {
     redhat::yum_repo {
       'git':
-        ensure  => absent,
-        baseurl => 'http://yow-mirror.wrs.com/mirror/git/5';
+        ensure  => present,
+        baseurl => "http://yow-mirror.wrs.com/mirror/git/${::lsbmajdistrelease}";
     }
   }
 
