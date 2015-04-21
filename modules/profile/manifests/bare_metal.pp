@@ -83,6 +83,12 @@ class profile::bare_metal {
     $devices = {'/dev/sda'=>['sat+megaraid,0', 'sat+megaraid,1',
       'sat+megaraid,2', 'sat+megaraid,3', 'sat+megaraid,4', 'sat+megaraid,5',
       'sat+megaraid,6','sat+megaraid,7']}
+  } elsif 'lpdfs01' in $::hostname {
+    $devices = {'/dev/sda'=>[ 'megaraid,0', 'megaraid,1', 'megaraid,2',
+                              'megaraid,3', 'megaraid,4', 'megaraid,5',
+                              'megaraid,6', 'megaraid,7', 'megaraid,8',
+                              'megaraid,9', 'megaraid,10', 'megaraid,11',
+                              'megaraid,12', 'megaraid,13']}
   }
 
   class {
