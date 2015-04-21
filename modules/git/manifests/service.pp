@@ -18,6 +18,19 @@ class git::service(
       ensure => 'present';
   }
 
+  ssh_authorized_key {
+    'kscherer_desktop_git':
+      ensure => 'present',
+      user   => $name,
+      key    => hiera('kscherer@yow-kscherer-d1'),
+      type   => 'ssh-rsa';
+    'kscherer_home_git':
+      ensure => 'present',
+      user   => $name,
+      key    => hiera('kscherer@helix'),
+      type   => 'ssh-rsa';
+  }
+
   include git::params
 
   $daemon_real = $daemon ? {
