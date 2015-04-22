@@ -94,11 +94,11 @@ docker::extra_parameters:
 zookeeper::client_ip: "%{::ipaddress_eth0}"
 zookeeper::purge_interval: '12'
 zookeeper::servers:
-  - 'ala-lpd-mesos.wrs.com:2888:3888'
-  - 'ala-lpd-provision.wrs.com:2888:3888'
-  - 'ala-lpdfs01.com:2888:3888'
-  - 'yow-lpdfs01.com:2888:3888:observer'
-  - 'pek-lpdfs01.com:2888:3888:observer'
+  - 'ala-lpd-mesos.wrs.com'
+  - 'ala-lpd-provision.wrs.com'
+  - 'ala-lpdfs01.com'
+  - 'yow-lpdfs01.com'
+  - 'pek-lpdfs01.com'
 
 statsd::graphiteHost: "yow-lpd-puppet2.wrs.com"
 statsd::flushInterval: "10"

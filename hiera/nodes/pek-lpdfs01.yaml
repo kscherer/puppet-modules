@@ -2,3 +2,4 @@
 apache::default_vhost: false
 zookeeper::id: '5'
 zookeeper::client_ip: "%{::ipaddress_em1}"
+zookeeper::peer_type: 'observer'
