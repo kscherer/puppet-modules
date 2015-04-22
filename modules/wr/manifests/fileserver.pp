@@ -150,6 +150,10 @@ class wr::fileserver {
       owner   => 'git',
       group   => 'users',
       require => Zfs['pool/git'];
+    '/git/git':
+      ensure  => link,
+      target  => '.',
+      require => File['/git'];
   }
 
   File['/git'] -> Class['::role::git::mirror']
