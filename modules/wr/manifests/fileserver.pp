@@ -153,6 +153,8 @@ class wr::fileserver {
     '/git/git':
       ensure  => link,
       target  => '.',
+      owner   => 'git',
+      group   => 'users',
       require => File['/git'];
   }
 
