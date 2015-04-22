@@ -69,6 +69,7 @@ apache::mod::passenger::passenger_max_requests: "1000"
 #since mesos repo is managed locally, latest will only update when package
 #is added to the yow-mirror mesos repo
 mesos::version: 'latest'
+mesos::master: '147.11.106.56'
 mesos::master::options:
   quorum: '1'
 # mesos master is a vm with eth0
