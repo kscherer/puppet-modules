@@ -100,6 +100,10 @@ zookeeper::servers:
   - 'yow-lpdfs01.com'
   - 'pek-lpdfs01.com'
 
+zookeeper::observers:
+  - 'yow-lpdfs01.com'
+  - 'pek-lpdfs01.com'
+
 statsd::graphiteHost: "yow-lpd-puppet2.wrs.com"
 statsd::flushInterval: "10"
 statsd::graphite_legacyNamespace: false
