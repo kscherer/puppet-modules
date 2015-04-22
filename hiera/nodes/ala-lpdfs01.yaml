@@ -2,3 +2,11 @@
 apache::default_vhost: false
 zookeeper::id: '3'
 zookeeper::client_ip: "%{::ipaddress_em1}"
+# ala-lpdfs01 cannot access ala-lpd-provision on 106 and needs to
+# connect over ala-lpd-provision105
+zookeeper::servers:
+  - '147.11.106.56'
+  - '147.11.105.92'
+  - '147.11.105.120'
+  - '128.224.137.11'
+  - '128.224.153.15'
