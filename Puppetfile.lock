@@ -28,6 +28,15 @@ GIT
       puppetlabs-stdlib (>= 4.2.0)
 
 GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.deric.puppet-zookeeper.git
+  ref: v0.3.7
+  sha: 6e7be0b77b6514ef5eae01054e020d52261b448c
+  specs:
+    deric-zookeeper (0.3.7)
+      puppetlabs-stdlib (>= 2.3.3)
+      richardc-datacat (>= 0)
+
+GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.elasticsearch.puppet-logstash.git
   ref: master
   sha: 0b49e12d59898735899b747377c2cf64b4789f80
@@ -81,15 +90,6 @@ GIT
     solarkennedy-consul (0.4.6)
       nanliu-staging (>= 0.4.0)
       puppetlabs-stdlib (>= 0.1.6)
-
-GIT
-  remote: https://github.com/kscherer/puppet-zookeeper.git
-  ref: observer_support
-  sha: 97dc46a3ae41e53868d639771762c1a4f62ae160
-  specs:
-    deric-zookeeper (0.3.7)
-      puppetlabs-stdlib (>= 2.3.3)
-      richardc-datacat (>= 0)
 
 DEPENDENCIES
   b4ldr-logrotate (>= 0)
