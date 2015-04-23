@@ -306,7 +306,7 @@ class wr::fileserver {
   # automatically share all the nfs mounts on boot
   exec {
     'enable_zfs_share_on_boot':
-      command => '/bin/sed -i \'s/ZFS_SHARE=\'no\'/ZFS_SHARE=\'yes\'/g\' /etc/default/zfs',
+      command => '/bin/sed -i "s/ZFS_SHARE=\'no\'/ZFS_SHARE=\'yes\'/" /etc/default/zfs',
       onlyif  => '/bin/grep ZFS_SHARE=\'no\' /etc/default/zfs';
   }
 }
