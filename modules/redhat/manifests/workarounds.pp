@@ -52,7 +52,11 @@ class redhat::workarounds {
   }
 
   #Need lsb package for facter lsb variables
-  ensure_resource('package', 'redhat-lsb', {'ensure' => 'installed' })
+  if ($::osfamily == 'RedHat' and $::lsbmajdistrelease == '5') {
+    ensure_resource('package', 'redhat-lsb', {'ensure' => 'installed' })
+  } else {
+    ensure_resource('package', 'redhat-lsb-core', {'ensure' => 'installed' })
+  }
 
   #cron is absolutely necessary
   if ($::osfamily == 'RedHat' and $::lsbmajdistrelease == '6') {
