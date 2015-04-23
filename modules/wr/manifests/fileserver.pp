@@ -302,4 +302,11 @@ class wr::fileserver {
   # Running zookeeper on vms is problematic due to extra network latency
   # The fileservers will be fairly idle and should make good zookeeper nodes
   include zookeeper
+
+  # automatically share all the nfs mounts on boot
+  exec {
+    'enable_zfs_share_on_boot':
+      command => '/bin/sed -i \'s/ZFS_SHARE=\'no\'/ZFS_SHARE=\'yes\'/g\' /etc/default/zfs',
+      onlyif  => '/bin/grep ZFS_SHARE=\'no\' /etc/default/zfs';
+  }
 }
