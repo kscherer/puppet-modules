@@ -307,6 +307,8 @@ class wr::fileserver {
   file {
     '/etc/default/zfs':
       ensure => present,
+      owner  => 'root',
+      group  => 'root',
       source => 'puppet:///modules/wr/default-zfs';
   }
 }
