@@ -41,10 +41,12 @@ class wr::master {
 
   cron {
     'clean_dashboard':
+      ensure => absent,
       command => 'cd /usr/share/puppet-dashboard; rake RAILS_ENV=production reports:prune upto=1 unit=wk &> /dev/null',
       minute  => '0',
       hour    => '2';
     'optimize_dashboard':
+      ensure => absent,
       command => 'cd /usr/share/puppet-dashboard; rake RAILS_ENV=production db:raw:optimize &> /dev/null',
       minute  => '0',
       hour    => '3',
