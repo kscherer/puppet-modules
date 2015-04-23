@@ -303,10 +303,10 @@ class wr::fileserver {
   # The fileservers will be fairly idle and should make good zookeeper nodes
   include zookeeper
 
-  # automatically share all the nfs mounts on boot
-  exec {
-    'enable_zfs_share_on_boot':
-      command => '/bin/sed -i "s/ZFS_SHARE=\'no\'/ZFS_SHARE=\'yes\'/" /etc/default/zfs',
-      onlyif  => '/bin/grep ZFS_SHARE=\'no\' /etc/default/zfs';
+  # automatically share all the nfs mounts on boot and unshare during shutdown
+  file {
+    '/etc/default/zfs':
+      ensure => present,
+      source => 'puppet:///modules/wr/default-zfs';
   }
 }
