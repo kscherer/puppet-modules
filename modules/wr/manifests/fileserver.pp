@@ -311,4 +311,10 @@ class wr::fileserver {
       group  => 'root',
       source => 'puppet:///modules/wr/default-zfs';
   }
+
+  # mlocate is a waste for resources
+  package {
+    'mlocate':
+      ensure  => absent,
+  }
 }
