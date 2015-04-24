@@ -208,4 +208,21 @@ class wr::ala_lpgweb {
     'errorweb':
       password   => '$5$BgyVYu6DgaQM2cEP$BO9AhcDlJRgvQWH5EkIuygrLMh37.Sl3YGtIffGwfT5';
   }
+
+  file {
+    '/home/rq/log':
+      ensure => directory,
+      owner  => 'rq',
+      group  => 'rq',
+      mode   => '0755';
+  }
+
+  cron {
+    'use_latest_nx_configs':
+      command => 'cd /home/rq/wr-buildscripts; ./process_nx_configs.sh >> /home/rq/log/process_nx_configs.log',
+      user    => 'rq',
+      hour    => '*',
+      minute  => fqdn_rand(60, 'process_nx_configs'),
+      require => File['/home/rq/log'];
+  }
 }
