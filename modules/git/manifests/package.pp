@@ -12,4 +12,14 @@ class git::package {
 
   ensure_resource('package', $git::params::package_name, {'ensure' => 'installed' })
   ensure_resource('package', 'git-email',                {'ensure' => 'installed' })
+
+  # ensure all systems have latest git bash completions
+  file {
+    '/etc/bash_completion.d/git':
+      ensure => present,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
+      source => 'puppet:///modules/git/git-completion.bash';
+  }
 }
