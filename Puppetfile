@@ -20,7 +20,7 @@ mod 'puppet-logstash',
 mod 'puppet-riemann',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.garethr.puppet-riemann.git'
 
-mod 'b4ldr-logrotate'
+mod 'b4ldr-logrotate', '1.1.3'
 
 mod 'garethr-docker',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.garethr.garethr-docker.git',
@@ -41,3 +41,5 @@ mod 'deric-zookeeper',
 mod 'puppetlabs-inifile',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppetlabs-inifile.git',
   :ref => '1.2.0'
+
+mod 'darin/zypprepo', '1.0.2'

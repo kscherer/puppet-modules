@@ -2,6 +2,7 @@ FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
     b4ldr-logrotate (1.1.3)
+    darin-zypprepo (1.0.2)
     ispavailability-file_concat (0.1.0)
     maestrodev-wget (1.5.7)
     nanliu-staging (1.0.3)
@@ -92,7 +93,8 @@ GIT
       puppetlabs-stdlib (>= 0.1.6)
 
 DEPENDENCIES
-  b4ldr-logrotate (>= 0)
+  b4ldr-logrotate (= 1.1.3)
+  darin-zypprepo (= 1.0.2)
   deric-mesos (>= 0)
   deric-zookeeper (>= 0)
   garethr-docker (>= 0)
