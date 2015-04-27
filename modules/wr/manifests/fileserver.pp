@@ -119,6 +119,12 @@ class wr::fileserver {
       group   => 'users',
       mode    => '0775',
       require => Zfs['pool/users'];
+    '/pool/mirrors':
+      ensure  => directory,
+      owner   => 'svc-mirror',
+      group   => 'users',
+      mode    => '0755',
+      require => Zfs['pool/mirror'];
   }
 
   package {
