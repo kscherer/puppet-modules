@@ -90,6 +90,7 @@ docker::manage_kernel: false
 docker::extra_parameters:
   - '--storage-driver devicemapper'
   - '--insecure-registry wr-docker-registry:5000'
+wr::docker_registry_ip: '147.11.105.120'
 
 zookeeper::client_ip: "%{::ipaddress_eth0}"
 zookeeper::purge_interval: '12'
