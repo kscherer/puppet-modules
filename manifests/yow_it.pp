@@ -81,3 +81,7 @@ node 'yow-lab-simics5' {
 node 'yow-samba3test.wrs.com' {
     include wr::yow_samba3test
 }
+
+node 'yow-cgts3-lx.wrs.com' {
+  include wr::cgts
+}
