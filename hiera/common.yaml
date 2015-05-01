@@ -85,6 +85,7 @@ mesos::slave::resources:
 mesos::manage_python: false
 mesos::slave::options:
   containerizers: 'docker,mesos'
+  executor_registration_timeout: '2mins'
 
 docker::manage_kernel: false
 docker::extra_parameters:
