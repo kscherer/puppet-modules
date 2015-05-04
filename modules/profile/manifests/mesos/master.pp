@@ -16,7 +16,7 @@ class profile::mesos::master inherits profile::mesos::common {
 
   cron {
     'wrbuildscripts_update':
-      command => 'cd /home/wrlbuild/wr-buildscripts; /usr/bin/git fetch --all; /usr/bin/git reset --hard origin/master > /dev/null 2>&1',
+      command => 'cd /home/wrlbuild/wr-buildscripts; /usr/bin/git fetch --quiet --all; /usr/bin/git reset --hard origin/master > /dev/null 2>&1',
       user    => 'wrlbuild',
       hour    => '*',
       minute  => '*/15';
