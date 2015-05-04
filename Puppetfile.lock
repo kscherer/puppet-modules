@@ -38,6 +38,14 @@ GIT
       richardc-datacat (>= 0)
 
 GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.dhoppe.puppet-postfix.git
+  ref: 1.0.3
+  sha: b2c48161f9437e4b8f41dbbec0852d29f4884ded
+  specs:
+    dhoppe-postfix (1.0.3)
+      puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
+
+GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.elasticsearch.puppet-logstash.git
   ref: master
   sha: 0b49e12d59898735899b747377c2cf64b4789f80
@@ -97,6 +105,7 @@ DEPENDENCIES
   darin-zypprepo (= 1.0.2)
   deric-mesos (>= 0)
   deric-zookeeper (>= 0)
+  dhoppe-postfix (>= 0)
   garethr-docker (>= 0)
   puppet-logstash (>= 0)
   puppet-riemann (>= 0)

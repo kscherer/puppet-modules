@@ -43,3 +43,7 @@ mod 'puppetlabs-inifile',
   :ref => '1.2.0'
 
 mod 'darin/zypprepo', '1.0.2'
+
+mod 'dhoppe-postfix',
+  :git => 'git://ala-git.wrs.com/external/puppet/github.com.dhoppe.puppet-postfix.git',
+  :ref => '1.0.3'

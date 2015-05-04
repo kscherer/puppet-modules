@@ -8,6 +8,10 @@ class profile::mesos::common inherits profile::nis {
   include collectd
   Class['wr::common::repos'] -> Class['collectd']
 
+  # Use postfix to make sure email from cron and sent to root is sent out
+  include postfix
+  Class['wr::common::repos'] -> Class['postfix']
+
   # Do builds as an unprivileged user which matches uid of user in docker
   group {
     'wrlbuild':
