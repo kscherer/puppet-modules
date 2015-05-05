@@ -75,6 +75,7 @@ class profile::mesos::slave inherits profile::mesos::common {
       hour    => '*',
       minute  => fqdn_rand(60, 'native_sstate_update');
     'kill_hung_builds':
+      ensure  => absent,
       command => 'docker ps -a | grep \'days ago\' | awk \'{print $1}\' | xargs docker rm -f',
       user    => 'root',
       hour    => '0';
