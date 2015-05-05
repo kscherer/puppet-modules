@@ -210,4 +210,17 @@ class profile::mesos::slave inherits profile::mesos::common {
       su_group     => 'users',
       compress     => true;
   }
+
+  # Use cadvisor to expose container stats
+  docker::image {
+    'google/cadvisor':
+      image_tag => 'latest';
+  }
+  docker::run {
+    'cadvisor':
+      image   => 'google/cadvisor',
+      ports   => ['8080:8080'],
+      volumes => ['/:/rootfs:ro', '/var/run:/var/run:rw', '/sys:/sys:ro', '/var/lib/docker/:/var/lib/docker:ro'],
+      detach  => true;
+  }
 }
