@@ -14,29 +14,29 @@ node 'yow-build51-lx.wrs.com' {
     include wr::yow_build
 }
 node 'yow-build47-lx.wrs.com' {
-    include wr::yow_eng_vm
+    include wr::yow_build
 }
 
 node 'yow-build53-lx.wrs.com' {
-    include wr::yow_eng_vm
+    include wr::yow_build
 }
 node 'yow-build54-lx.wrs.com' {
-    include wr::yow_eng_vm
+    include wr::yow_build
 }
 node 'yow-build55-lx.wrs.com' {
-    include wr::yow_eng_vm
+    include wr::yow_build
 }
 node 'yow-build16-lx.wrs.com' {
-    include wr::yow_eng_vm
+    include wr::yow_build
 }
 node 'yow-build11-lx.wrs.com' {
-    include wr::yow_eng_vm
+    include wr::yow_build
 }
 node 'yow-build12-lx.wrs.com' {
-    include wr::yow_eng_vm
+    include wr::yow_build
 }
 node 'yow-build13-lx.wrs.com' {
-    include wr::yow_eng_vm
+    include wr::yow_build
 }
 
 node 'yow-build56-lx.wrs.com' {
