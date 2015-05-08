@@ -73,7 +73,7 @@ class wr::yow_samba3test {
   
   exec { "installSamba":
           commnad => "/folk/rvandenb/scripts/samba",
-	  creates => "/usr/bin/smbd"
+	  creates => "/usr/bin/smbd";
   }
   
 }
