@@ -67,12 +67,12 @@ class wr::yow_samba3test {
 
   ### Samba 3 Test install script
   
-  package { ['samba']
+  package { ['samba']:
     ensure => 'purged';
   }
   
   exec { "installSamba":
-          commnad => "/folk/rvandenb/scripts/samba"
+          commnad => "/folk/rvandenb/scripts/samba",
 	  creates => "/usr/bin/smbd"
   }
   
