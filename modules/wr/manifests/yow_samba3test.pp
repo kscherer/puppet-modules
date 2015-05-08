@@ -71,10 +71,10 @@ class wr::yow_samba3test {
     ensure => 'purged';
   }
   
-  exec { "install_Samba":
-          commnad => "/folk/rvandenb/scripts/samba",
-          creates => "/usr/bin/smbd";
-  }
+#  exec { "install_Samba":
+#          commnad => "/folk/rvandenb/scripts/samba",
+#          creates => "/usr/bin/smbd";
+#  }
   
 }
 
