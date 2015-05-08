@@ -34,11 +34,11 @@ class wr::yow_samba3test {
 	  'freeglut3-dev:amd64','gamin','ghc','ghc-haddock','jove', 'twm','lxde', 'mailutils']:
       ensure => 'installed';
   }
- file {
-	'/etc/samba/smb.conf':
-	ensure => present,
-	content => template('wr/samba.conf.erb');
- }
+ #file {
+#	'/etc/samba/smb.conf':
+#	ensure => present,
+#	content => template('wr/samba.conf.erb');
+# }
  
  file {
 	'/etc/exports':
