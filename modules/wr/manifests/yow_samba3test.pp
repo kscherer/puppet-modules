@@ -1,10 +1,22 @@
 #
 class wr::yow_samba3test {
   include nis
+  include apache
   include ntp
+  include sudo
+  include jenkins
+
+  sudo::conf {
+    'test':
+      source  => 'puppet:///modules/wr/sudoers.d/test';
+	'ityow':
+	 source  => 'puppet:///modules/wr/sudoers.d/ityow';
+    
+  }
 
   package {
-    [ 'tzdata-java','gnome','libstdc++6:i386','libgtk2.0-0:i386','libxtst6:i386','bc','vim',
+    [ 'tzdata-java',
+      'gnome','libstdc++6:i386','libgtk2.0-0:i386','libxtst6:i386','bc','vim',
 	  'xutils-dev','expect','openssh-server', 'vnc4server', 'nfs-server', 
 	  'rsh-client', 'rsh-server', 'apache2-mpm-prefork','xinetd',
 	  'tftp','tftpd','telnetd','minicom','screen','spawn-fcgi',
@@ -19,56 +31,31 @@ class wr::yow_samba3test {
 	  'cpp-4.6','curl','dpkg-dev','emacs','emacs23','emacs23-bin-common',
 	  'emacs23-common','emacs23-common-non-dfsg','emacs24','emacs24-bin-common',
 	  'emacs24-common','emacs24-common-non-dfsg','emacsen-common','freeglut3',
-	  'freeglut3-dev:amd64','gamin','ghc','ghc-haddock','jove', 'twm','lubuntu-desktop',
-	  'vsftpd']:
+	  'freeglut3-dev:amd64','gamin','ghc','ghc-haddock','jove', 'twm','lxde', 'mailutils']:
       ensure => 'installed';
   }
-#file {
-#	'/etc/samba/smb.conf':
-#	ensure => present,
-#	content => template('wr/samba.conf.erb');
-#}
-
-file {
+ file {
+	'/etc/samba/smb.conf':
+	ensure => present,
+	content => template('wr/samba.conf.erb');
+ }
+ 
+ file {
 	'/etc/exports':
 	ensure => present,
-	content => "/buildarea1   *(rw,insecure,async,insecure_locks)
-/buildarea2   *(rw,insecure,async,insecure_locks)
-/buildarea3   *(rw,insecure,async,insecure_locks)
-/buildarea4   *(rw,insecure,async,insecure_locks)";
+	content => "/${hostname}1   *(rw,insecure,async,insecure_locks)";
   }
-
-
-file {	
-	"/buildarea1/jenkins":
+ 
+ 
+ file {
+	"/${hostname}1/jenkins":
 	ensure	=> directory,
-	owner	=> 'svc-ssp',
+	owner	=> 'svc-bld',
 	group	=> 'users',
 	mode	=> 0644;
-}
-file {	
-	"/buildarea2/jenkins":
-	ensure	=> directory,
-	owner	=> 'svc-ssp',
-	group	=> 'users',
-	mode	=> 0644;
-}
-file {	
-	"/buildarea3/jenkins":
-	ensure	=> directory,
-	owner	=> 'svc-ssp',
-	group	=> 'users',
-	mode	=> 0644;
-}
-file {	
-	"/buildarea4/jenkins":
-	ensure	=> directory,
-	owner	=> 'svc-ssp',
-	group	=> 'users',
-	mode	=> 0644;
-}
-#Allow Root Login
-file {
+ }
+ #Allow Root Login
+ file {
 	'/etc/ssh/sshd_config':
 	ensure => present,
 	}->
@@ -78,4 +65,19 @@ file {
   match   => "^PermitRootLogin .*$",
   }
 
+  ### Samba 3 Test install script
+  
+  package { ['samba']
+    ensure => 'purged';
+  }
+  
+  exec { "installSamba":
+          commnad => "/folk/rvandenb/scripts/samba"
+	  creates => "/usr/bin/smbd"
+  }
+  
 }
+
+
+
+

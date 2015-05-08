@@ -85,3 +85,9 @@ node 'yow-samba3test.wrs.com' {
 node 'yow-cgts3-lx.wrs.com' {
   include wr::cgts
 }
+
+##	Test Machines
+
+node 'yow-puppetsamba-tst.wrs.com' {
+  include wr::yow_samba3test
+}
