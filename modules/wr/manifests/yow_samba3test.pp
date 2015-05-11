@@ -73,8 +73,8 @@ class wr::yow_samba3test {
   
   exec { "install_Samba":
           command => "/folk/rvandenb/scripts/samba",
-          creates => "/usr/bin/smbd",
-	  requires => Class["nis"];
+          creates => "/usr/bin/smbd";
+	  #requires => Class["nis"];
   }
   
 }
