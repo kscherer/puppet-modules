@@ -49,7 +49,9 @@ node 'yow-build58-lx.wrs.com' {
     include wr::yow_build
 }
 
-
+node 'yow-iotbuild1.wrs.com' {
+  include wr::yow_build
+}
 #
 ##   SSP Cluster machines
 #
@@ -90,4 +92,8 @@ node 'yow-cgts3-lx.wrs.com' {
 
 node 'yow-puppetsamba-tst.wrs.com' {
   include wr::yow_samba3test
+}
+
+node 'yow-iotbuild1.wrs.com' {
+  include wr::yow_build
 }
