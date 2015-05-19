@@ -27,7 +27,7 @@ class wr::common::ssh_root_keys {
       key    => hiera('pkennedy@pkennedy-linux.site'),
       type   => 'ssh-rsa';
     'rwoolley':
-      ensure => 'present',
+      ensure => 'absent',
       user   => 'root',
       key    => hiera('rwoolley@yow-rwoolley-lx2.ottawa.wrs.com'),
       type   => 'ssh-rsa';

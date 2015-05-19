@@ -11,6 +11,7 @@ class profile::nis inherits profile::monitored {
     'it':
       source  => 'puppet:///modules/wr/sudoers.d/it';
     'scmg':
+      ensure  => 'absent',
       source  => 'puppet:///modules/wr/sudoers.d/scmg';
   }
 
