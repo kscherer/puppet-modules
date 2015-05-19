@@ -99,6 +99,9 @@ class redhat::workarounds {
   #logwatch output is annoying
   ensure_resource('package', 'logwatch', {'ensure' => 'absent' })
 
+  # Disable use of proxies
+  ensure_resource('package', 'tinyproxy', {'ensure' => 'absent' })
+
   #make sure dmesg includes timestamps
   if ($::osfamily == 'RedHat' and $::lsbmajdistrelease == '5') {
     $printk_param='printk_time'
