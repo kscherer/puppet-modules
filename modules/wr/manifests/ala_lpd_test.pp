@@ -46,9 +46,6 @@ class wr::ala_lpd_test {
       ensure => installed;
   }
 
-  # Disable use of proxies
-  ensure_resource('package', 'tinyproxy', {'ensure' => 'absent' })
-
   mount {
     '/data':
       ensure   => mounted,
