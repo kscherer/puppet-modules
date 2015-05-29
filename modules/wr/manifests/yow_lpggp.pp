@@ -77,7 +77,7 @@ yourself, this F/S will be cleaned up periodically.";
 
     cron {
       'dell_linux_repo':
-        ensure      => present,
+        ensure      => absent,
         command     => '/usr/bin/rsync -avHz --delete --delete-delay --exclude-from=/home/svc-mirror/mirror-configs/dell-excludes linux.dell.com::repo /yow-lpggp21/mirror/dell > /yow-lpggp21/mirror/log/dell_repo.log',
         environment => ['HOME=/home/svc-mirror',
                         'PATH=/usr/bin:/bin/:/sbin/:/usr/sbin',
@@ -86,43 +86,43 @@ yourself, this F/S will be cleaned up periodically.";
         hour        => '5',
         minute      => '0';
       'mrepo':
-        ensure  => present,
+        ensure  => absent,
         command => '/home/svc-mirror/mirror-configs/mrepo/mrepo -ug > /yow-lpggp21/mirror/log/mrepo.log 2>&1',
         user    => 'svc-mirror',
         hour    => '19',
         minute  => '0';
       'mrepo_logrotate':
-        ensure  => present,
+        ensure  => absent,
         command => '/usr/sbin/logrotate -s /yow-lpggp21/mirror/log/logrotate.status /home/svc-mirror/mirror-configs/mrepo/mrepo.logrotate',
         user    => 'svc-mirror',
         hour    => '12',
         minute  => '0';
       'mirror-rsync':
-        ensure  => present,
+        ensure  => absent,
         command => 'https_proxy=http://128.224.144.3:9090 /home/svc-mirror/mirror-rsync/mirror-fedora > /yow-lpggp21/mirror/log/mirror-rsync.log',
         user    => 'svc-mirror',
         hour    => '23',
         minute  => '0';
       'ubuntu_archives':
-        ensure  => present,
+        ensure  => absent,
         command => '/home/svc-mirror/mirror-configs/ubuarchive',
         user    => 'svc-mirror',
         hour    => '2',
         minute  => '0';
       'ubuntu_releases':
-        ensure  => present,
+        ensure  => absent,
         command => '/home/svc-mirror/mirror-configs/uburelease',
         user    => 'svc-mirror',
         hour    => '1',
         minute  => '0';
       'debian':
-        ensure  => present,
+        ensure  => absent,
         command => '/home/svc-mirror/mirror-configs/ftpsync',
         user    => 'svc-mirror',
         hour    => '22',
         minute  => '0';
       'make_iso_links':
-        ensure  => present,
+        ensure  => absent,
         command => '/home/svc-mirror/mirror-configs/mk_iso_links.sh',
         user    => 'svc-mirror',
         hour    => '6',
