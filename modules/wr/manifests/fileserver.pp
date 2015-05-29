@@ -140,8 +140,15 @@ class wr::fileserver {
   }
 
   package {
-    'fuseiso':
+    ['fuseiso', 'createrepo']:
       ensure  => installed;
+  }
+
+  group {
+    'fuse':
+      ensure => present,
+      members => 'svc-mirror',
+      require => Package['fuseiso'];
   }
 
   file {
@@ -150,6 +157,9 @@ class wr::fileserver {
     '/etc/fuse.conf':
       ensure  => present,
       require => Package['fuseiso'],
+      owner   => 'root',
+      group   => 'fuse',
+      mode    => '0640',
       content => "user_allow_other\n";
     '/git':
       ensure  => directory,
@@ -214,6 +224,12 @@ class wr::fileserver {
       command => '/home/svc-mirror/mirror-configs/uburelease',
       user    => 'svc-mirror',
       hour    => '1',
+      minute  => '0';
+    'make_iso_links':
+      ensure  => present,
+      command => '/home/svc-mirror/mirror-configs/mk_iso_links.sh',
+      user    => 'svc-mirror',
+      hour    => '6',
       minute  => '0';
   }
 
