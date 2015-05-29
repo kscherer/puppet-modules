@@ -195,6 +195,11 @@ class wr::fileserver {
     '/etc/ubumirror.conf':
       ensure => link,
       target => "/home/svc-mirror/mirror-configs/ubumirror.conf.${::hostname}";
+    '/etc/mirrormanager-client/':
+      ensure => directory;
+    '/etc/mirrormanager-client/report_mirror.conf':
+      ensure => link,
+      target => '/home/svc-mirror/mirror-configs/report_mirror.conf';
   }
 
   cron {
@@ -231,6 +236,17 @@ class wr::fileserver {
       user    => 'svc-mirror',
       hour    => '6',
       minute  => '0';
+  }
+
+  if $::location == 'yow' {
+    cron {
+      'debian':
+        ensure  => present,
+        command => '/home/svc-mirror/mirror-configs/ftpsync',
+        user    => 'svc-mirror',
+        hour    => '22',
+        minute  => '0';
+    }
   }
 
   #dell repo needs to be able to exec cgi scripts
