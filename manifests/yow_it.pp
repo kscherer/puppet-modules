@@ -93,7 +93,3 @@ node 'yow-cgts3-lx.wrs.com' {
 node 'yow-puppetsamba-tst.wrs.com' {
   include wr::yow_samba3test
 }
-
-node 'yow-iotbuild1.wrs.com' {
-  include wr::yow_build
-}
