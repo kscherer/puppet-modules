@@ -220,6 +220,6 @@ class nrpe {
       parameters => '--nagios';
     'check_ro_mounts':
       command    => 'check_ro_mounts',
-      parameters => '-X nfs -X proc -X cgroup -X fuse -X fuseiso -X tmpfs -X iso9660 -x "/mnt/*"';
+      parameters => '-X nfs -X proc -X cgroup -X fuse -X fuse.fuseiso -X tmpfs -X iso9660 -x "/mnt/*"';
   }
 }
