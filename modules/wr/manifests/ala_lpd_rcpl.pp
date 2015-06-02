@@ -146,17 +146,6 @@ class wr::ala_lpd_rcpl {
       require => Class['nis'],
   }
 
-  mount {
-    '/stored_builds':
-      ensure   => mounted,
-      atboot   => true,
-      device   => 'ala-lpgnas2:/vol/vol1',
-      fstype   => 'nfs',
-      options  => 'bg,vers=3,nointr,timeo=600,_netdev',
-      require  => File['/stored_builds'],
-      remounts => true;
-  }
-
   #Add buildadmin to sudoers
   sudo::conf {
     'xylo':
