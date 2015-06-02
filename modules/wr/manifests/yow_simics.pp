@@ -4,10 +4,10 @@ class wr::yow_simics {
   include ntp
   include sudo
 
-#  sudo::conf {
-#	'ityow':
-#	 source  => 'puppet:///modules/wr/sudoers.d/ityow';
-#  }
+  sudo::conf {
+	'ityow':
+	 source  => 'puppet:///modules/wr/sudoers.d/ityow';
+  }
 
   package {
     [ 'git','autoconf','automake','libtool','g++',
