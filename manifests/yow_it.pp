@@ -7,6 +7,10 @@ node 'yow-lbreports.wrs.com' {
 ## Build Cluster Machines
 #
 
+node 'yow-build43-lx.wrs.com' {
+  include wr::yow_simics
+  }
+
 node 'yow-build48-lx.wrs.com' {
     include wr::yow_build
 }
