@@ -52,6 +52,7 @@ class wr::fileserver {
     'pool/git':
       ensure     => present,
       atime      => 'off',
+      sharenfs   => 'on',
       mountpoint => '/git',
       setuid     => 'off',
       devices    => 'off';
