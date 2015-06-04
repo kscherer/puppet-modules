@@ -93,6 +93,14 @@ class wr::fileserver {
       devices  => 'off',
       quota    => '2T',
       require  => Package['nfs-kernel-server'];
+    'pool/ovp':
+      ensure   => present,
+      atime    => 'off',
+      sharenfs => 'on',
+      setuid   => 'off',
+      devices  => 'off',
+      quota    => '2T',
+      require  => Package['nfs-kernel-server'];
   }
 
   # scrub zfs filesystem weekly
@@ -126,6 +134,12 @@ class wr::fileserver {
       group   => 'users',
       mode    => '0755',
       require => Zfs['pool/mirror'];
+    '/pool/ovp':
+      ensure  => directory,
+      owner   => 'root',
+      group   => 'users',
+      mode    => '0775',
+      require => Zfs['pool/ovp'];
   }
 
   package {
@@ -239,17 +253,6 @@ class wr::fileserver {
       minute  => '0';
   }
 
-  if $::location == 'yow' {
-    cron {
-      'debian':
-        ensure  => present,
-        command => '/home/svc-mirror/mirror-configs/ftpsync',
-        user    => 'svc-mirror',
-        hour    => '22',
-        minute  => '0';
-    }
-  }
-
   #dell repo needs to be able to exec cgi scripts
   apache::vhost {
     "mirror-${::hostname}":
@@ -283,7 +286,7 @@ class wr::fileserver {
   include rsync::server
   rsync::server::module{
     'centos':
-      path => '/pool/mirror/centos',;
+      path => '/pool/mirror/centos';
     'epel':
       path => '/pool/mirror/epel';
     'puppetlabs':
@@ -292,6 +295,36 @@ class wr::fileserver {
       path => '/pool/mirror/ubuntu.com/ubuntu';
     'ubuntu-releases':
       path => '/pool/mirror/ubuntu.com/ubuntu-releases';
+  }
+
+  if $::location == 'yow' {
+    cron {
+      'debian':
+        ensure  => present,
+        command => '/home/svc-mirror/mirror-configs/ftpsync',
+        user    => 'svc-mirror',
+        hour    => '22',
+        minute  => '0';
+    }
+
+    rsync::server::module {
+      'lava':
+        path           => '/pool/ovp/lava/common',
+        list           => 'yes',
+        incoming_chmod => '0666',
+        read_only      => 'no',
+        uid            => '1000',
+        gid            => '100';
+    }
+
+    file {
+      ['/pool/ovp/lava', '/pool/ovp/lava/common']:
+        ensure  => directory,
+        owner   => 'root',
+        group   => 'users',
+        mode    => '0777',
+        require => Zfs['pool/ovp'];
+    }
   }
 
   # cgit installation and config
