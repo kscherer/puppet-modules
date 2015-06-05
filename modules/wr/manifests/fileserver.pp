@@ -311,7 +311,7 @@ class wr::fileserver {
       'lava':
         path           => '/pool/ovp/lava/common',
         list           => 'yes',
-        incoming_chmod => '0666',
+        incoming_chmod => 'D775,F664',
         read_only      => 'no',
         uid            => '1000',
         gid            => '100';
