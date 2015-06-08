@@ -74,7 +74,7 @@ class profile::mesos::common inherits profile::nis {
 
   package {
     [ 'openjdk-7-jre-headless','python-setuptools', 'apparmor-utils', 'curl',
-      'linux-image-generic-lts-utopic', 'python-protobuf']:
+      'linux-image-generic-lts-vivid', 'python-protobuf']:
       ensure  => present,
       require => Class['wr::common::repos'];
   }
