@@ -4,7 +4,7 @@ class wr::yow_build {
   include apache
   include ntp
   include sudo
-  include jenkins
+ #include jenkins
 
   sudo::conf {
     'test':
@@ -35,7 +35,11 @@ class wr::yow_build {
           'git-core', 'help2man', 'libsdl1.2-dev', 'subversion', 'chrpath', 'texi2html', 'libncurses5:i386', 'texinfo']:
       ensure => 'installed';
   }
- file {
+  package { ['jenkins']:
+    ensure => 'purged';
+  }
+  
+  file {
 	'/etc/samba/smb.conf':
 	ensure => present,
 	content => template('wr/samba.conf.erb');

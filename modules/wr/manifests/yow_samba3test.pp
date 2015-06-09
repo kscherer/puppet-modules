@@ -4,7 +4,7 @@ class wr::yow_samba3test {
   include apache
   include ntp
   include sudo
-  include jenkins
+ # include jenkins
 
   sudo::conf {
     'test':
