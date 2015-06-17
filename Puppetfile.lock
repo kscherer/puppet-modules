@@ -100,13 +100,31 @@ GIT
       nanliu-staging (>= 0.4.0)
       puppetlabs-stdlib (>= 0.1.6)
 
+GIT
+  remote: https://github.com/dalen/puppet-puppetdbquery.git
+  ref: 1.5.3
+  sha: be650dcfa3c8af92f190685ca17f0f171d1bb3af
+  specs:
+    dalen-puppetdbquery (1.5.3)
+
+GIT
+  remote: https://github.com/jtopjian/puppet-sshkeys.git
+  ref: 2.1.0
+  sha: ae5cf955661fc1f8ff39962d2e8f30ba02cb9ca5
+  specs:
+    jtopjian-sshkeys (2.1.0)
+      dalen-puppetdbquery (>= 1.3.2)
+      puppetlabs-stdlib (>= 4.1.0)
+
 DEPENDENCIES
   b4ldr-logrotate (= 1.1.3)
+  dalen-puppetdbquery (>= 0)
   darin-zypprepo (= 1.0.2)
   deric-mesos (>= 0)
   deric-zookeeper (>= 0)
   dhoppe-postfix (>= 0)
   garethr-docker (>= 0)
+  jtopjian-sshkeys (>= 0)
   puppet-logstash (>= 0)
   puppet-riemann (>= 0)
   puppetlabs-apt (>= 0)

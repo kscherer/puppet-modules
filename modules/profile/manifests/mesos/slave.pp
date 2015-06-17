@@ -224,4 +224,7 @@ class profile::mesos::slave inherits profile::mesos::common {
       volumes => ['/:/rootfs:ro', '/var/run:/var/run:rw', '/sys:/sys:ro', '/var/lib/docker/:/var/lib/docker:ro'],
       detach  => true;
   }
+
+  # create an ssh key for wrlbuild and publish it as a fact
+  sshkeys::create_ssh_key {'wrlbuild': }
 }
