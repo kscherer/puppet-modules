@@ -90,19 +90,19 @@ class profile::mesos::slave inherits profile::mesos::common {
 
   #for integration with existing nx stats and fails repos
   file {
-    ['/home/wrlbuild/.ssh/', '/home/wrlbuild/.history']:
+    '/home/wrlbuild/.history':
       ensure => directory,
       owner  => 'wrlbuild',
       group  => 'wrlbuild',
       mode   => '0700';
     '/home/wrlbuild/.ssh/id_dsa.pub':
-      ensure => present,
+      ensure => absent,
       source => 'puppet:///modules/nx/id_dsa.pub',
       owner  => 'wrlbuild',
       group  => 'wrlbuild',
       mode   => '0600';
     '/home/wrlbuild/.ssh/id_dsa':
-      ensure => present,
+      ensure => absent,
       source => 'puppet:///modules/nx/id_dsa',
       owner  => 'wrlbuild',
       group  => 'wrlbuild',
