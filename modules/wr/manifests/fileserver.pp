@@ -106,7 +106,7 @@ class wr::fileserver {
       atime    => 'off',
       setuid   => 'off',
       devices  => 'off',
-      quota    => '100GB';
+      quota    => '100G';
   }
 
   # scrub zfs filesystem weekly
