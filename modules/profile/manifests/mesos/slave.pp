@@ -219,11 +219,10 @@ class profile::mesos::slave inherits profile::mesos::common {
   }
   docker::run {
     'cadvisor':
-      image            => 'google/cadvisor',
-      ports            => ['8080:8080'],
-      volumes          => ['/:/rootfs:ro', '/var/run:/var/run:rw', '/sys:/sys:ro', '/var/lib/docker/:/var/lib/docker:ro'],
-      extra_parameters => ['--rm=true'],
-      detach           => true;
+      image   => 'google/cadvisor',
+      ports   => ['8080:8080'],
+      volumes => ['/:/rootfs:ro', '/var/run:/var/run:rw', '/sys:/sys:ro', '/var/lib/docker/:/var/lib/docker:ro'],
+      detach  => true;
   }
 
   # create an ssh key for wrlbuild and publish it as a fact
