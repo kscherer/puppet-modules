@@ -101,6 +101,12 @@ class wr::fileserver {
       devices  => 'off',
       quota    => '2T',
       require  => Package['nfs-kernel-server'];
+    'pool/cache':
+      ensure   => present,
+      atime    => 'off',
+      setuid   => 'off',
+      devices  => 'off',
+      quota    => '100GB';
   }
 
   # scrub zfs filesystem weekly
@@ -388,5 +394,44 @@ class wr::fileserver {
   package {
     'mlocate':
       ensure  => absent,
+  }
+
+  # Configuration for squid-deb-proxy
+  file {
+    '/pool/cache/squid-deb-proxy':
+      ensure  => directory,
+      owner   => 'proxy',
+      group   => 'proxy',
+      mode    => '0755',
+      require => Zfs['pool/cache'];
+    '/var/cache/squid-deb-proxy':
+      ensure => link,
+      target => '/pool/cache/squid-deb-proxy';
+    '/etc/squid-deb-proxy/allowed-networks-src.acl.d/windriver-networks':
+      ensure => present,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
+      require => Package['squid-deb-proxy'],
+      notify => Service['squid-deb-proxy'],
+      source => 'puppet:///modules/wr/windriver-networks';
+    '/etc/squid-deb-proxy/mirror-dstdomain.acl.d/mirror-dstdomain':
+      ensure => present,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
+      require => Package['squid-deb-proxy'],
+      notify => Service['squid-deb-proxy'],
+      source => 'puppet:///modules/wr/mirror-dstdomain';
+  }
+  package {
+    'squid-deb-proxy':
+      ensure => installed,
+      require => File['/var/cache/squid-deb-proxy'];
+  }
+  service {
+    'squid-deb-proxy':
+      ensure    => running,
+      require   => [ Package['squid-deb-proxy'], File['/var/cache/squid-deb-proxy']];
   }
 }

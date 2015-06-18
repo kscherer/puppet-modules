@@ -51,4 +51,9 @@ APT::Install-Recommends "0";';
       onlyif  => '/bin/grep -q \'UTC\' /etc/timezone';
   }
 
+  # squid deb proxy is installed on fileservers
+  package {
+    'squid-deb-proxy-client':
+      ensure => installed;
+  }
 }
