@@ -441,4 +441,47 @@ class wr::fileserver {
       onlyif  => '/bin/grep -q \'http_access deny !to_archive_mirrors\' /etc/squid-deb-proxy/squid-deb-proxy.conf',
       notify  => Service['squid-deb-proxy'];
   }
+
+  # Create account which can be used by mesos slaves to transfer files to fileserver
+  group {
+    'wrlbuild':
+      ensure => present,
+  }
+
+  user {
+    'wrlbuild':
+      ensure     => present,
+      gid        => 'wrlbuild',
+      uid        => 1000,
+      managehome => true,
+      home       => '/home/wrlbuild',
+      groups     => ['docker'],
+      shell      => '/bin/bash',
+      password   => '$5$6F1BpKqFcszWi0n$fC5yUBkPNXHfyL8TOJwdJ1EE8kIzwJnKVrtcFYnpbcA',
+      require    => Group [ 'wrlbuild' ];
+  }
+
+  # collect the ssh public keys for all the mesos slave wrlbuild users
+  $sshpubkeys = query_facts('Class["mesos::slave"]',['sshpubkey_wrlbuild'])
+  file {
+    '/home/wrlbuild/':
+      ensure => directory,
+      owner  => wrlbuild,
+      group  => wrlbuild,
+      mode   => '0755';
+    '/home/wrlbuild/.ssh':
+      ensure => directory,
+      owner  => wrlbuild,
+      group  => wrlbuild,
+      mode   => '0700';
+    '/home/wrlbuild/.ssh/authorized_keys':
+      ensure  => present,
+      owner   => wrlbuild,
+      group   => wrlbuild,
+      mode    => '0600',
+      content => inline_template('
+<% @sshpubkeys.each do |host,fact_hash| -%>
+<%= fact_hash["sshpubkey_wrlbuild"] -%>
+<% end -%>');
+  }
 }
