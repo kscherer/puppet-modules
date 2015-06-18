@@ -435,4 +435,10 @@ class wr::fileserver {
       ensure    => running,
       require   => [ Package['squid-deb-proxy'], File['/var/cache/squid-deb-proxy']];
   }
+  exec {
+    'allow_all_mirror_access':
+      command => '/bin/sed -i \'s/http_access deny !to_archive_mirrors/http_access allow !to_archive_mirrors/\' /etc/squid-deb-proxy/squid-deb-proxy.conf',
+      onlyif  => '/bin/grep -q \'http_access deny !to_archive_mirrors\' /etc/squid-deb-proxy/squid-deb-proxy.conf',
+      notify  => Service['squid-deb-proxy'];
+  }
 }
