@@ -483,7 +483,7 @@ class wr::fileserver {
   $keys = []
   $disard_me = inline_template('<%
 @sshpubkeys.to_a.sort.each do |host,fact_hash|
-  @keys << fact_hash[\'sshpubkey_wrlbuild\']
+  @keys << fact_hash[\'sshpubkey_wrlbuild\'].chomp
 end
 %>')
 
