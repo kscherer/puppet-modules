@@ -1,7 +1,7 @@
 # The name is a hash which is really wierd.
 # TODO: rewrite using future parser
 define wr::extract_key($user) {
-  $key=split($name["sshpubkey_${user}"],' ')
+  $key=split($name["sshpubkey_wrlbuild"],' ')
   ssh_authorized_key {
     $key[2]:
       ensure => present,
