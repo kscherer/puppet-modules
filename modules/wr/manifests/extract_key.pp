@@ -1,10 +1,10 @@
-# The name is a hash which is really wierd.
-# TODO: rewrite using future parser
+# The name is a string containing the type, key and id
 define wr::extract_key($user) {
   if $name {
     $key=split($name,' ')
+    $key_name=chomp($key[2])
     ssh_authorized_key {
-      $key[2]:
+      $key_name:
         ensure => present,
         type   => $key[0],
         key    => $key[1],
