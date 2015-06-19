@@ -458,7 +458,6 @@ class wr::fileserver {
       groups         => ['docker'],
       shell          => '/bin/bash',
       password       => '$5$6F1BpKqFcszWi0n$fC5yUBkPNXHfyL8TOJwdJ1EE8kIzwJnKVrtcFYnpbcA',
-      purge_ssh_keys => true,
       require        => Group [ 'wrlbuild' ];
   }
 
