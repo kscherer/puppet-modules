@@ -450,19 +450,18 @@ class wr::fileserver {
 
   user {
     'wrlbuild':
-      ensure     => present,
-      gid        => 'wrlbuild',
-      uid        => 1000,
-      managehome => true,
-      home       => '/home/wrlbuild',
-      groups     => ['docker'],
-      shell      => '/bin/bash',
-      password   => '$5$6F1BpKqFcszWi0n$fC5yUBkPNXHfyL8TOJwdJ1EE8kIzwJnKVrtcFYnpbcA',
-      require    => Group [ 'wrlbuild' ];
+      ensure         => present,
+      gid            => 'wrlbuild',
+      uid            => 1000,
+      managehome     => true,
+      home           => '/home/wrlbuild',
+      groups         => ['docker'],
+      shell          => '/bin/bash',
+      password       => '$5$6F1BpKqFcszWi0n$fC5yUBkPNXHfyL8TOJwdJ1EE8kIzwJnKVrtcFYnpbcA',
+      purge_ssh_keys => true,
+      require        => Group [ 'wrlbuild' ];
   }
 
-  # collect the ssh public keys for all the mesos slave wrlbuild users
-  $sshpubkeys = query_facts('Class["mesos::slave"]',['sshpubkey_wrlbuild'])
   file {
     '/home/wrlbuild/':
       ensure => directory,
@@ -474,14 +473,30 @@ class wr::fileserver {
       owner  => wrlbuild,
       group  => wrlbuild,
       mode   => '0700';
-    '/home/wrlbuild/.ssh/authorized_keys':
-      ensure  => present,
-      owner   => wrlbuild,
-      group   => wrlbuild,
-      mode    => '0600',
-      content => inline_template('
-<% @sshpubkeys.each do |host,fact_hash| -%>
-<%= fact_hash["sshpubkey_wrlbuild"] -%>
-<% end -%>');
+  }
+
+  # collect the ssh public keys for all the mesos slave wrlbuild users
+  # returns a hash of hostname => { sshpubkey_wrlbuild => key }
+  $sshpubkeys = query_facts('Class["mesos::slave"]',['sshpubkey_wrlbuild'])
+
+  # Change hash into array of { sshpubkey_wrlbuild => key } which can be passed
+  # to a defined type. Who knew a hash could be the name of a resource?
+  $sshpubkeys_values = values($sshpubkeys)
+  wr::extract_key {
+    $sshpubkeys_values:
+      user => 'wrlbuild'
+  }
+}
+
+# The name is a hash which is really wierd.
+# TODO: rewrite using future parser
+define wr::extract_key($user) {
+  $key=split($name["sshpubkey_${user}"],' ')
+  ssh_authorized_key {
+    $key[2]:
+      ensure => present,
+      type   => $key[0],
+      key    => $key[1],
+      user   => $user;
   }
 }
