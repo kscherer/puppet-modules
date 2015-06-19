@@ -489,7 +489,7 @@ end
 %>')
 
   wr::extract_key {
-    $sshpubkeys_values:
+    $keys:
       user => 'wrlbuild'
   }
 }

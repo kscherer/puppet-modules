@@ -4,7 +4,7 @@ define wr::extract_key($user) {
   if $name {
     $key=split($name,' ')
     ssh_authorized_key {
-      "${user}_${key[2]}":
+      $key[2]:
         ensure => present,
         type   => $key[0],
         key    => $key[1],
