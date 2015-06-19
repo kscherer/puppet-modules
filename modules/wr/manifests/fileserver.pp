@@ -483,7 +483,7 @@ class wr::fileserver {
   # into the puppet array named key
   $keys = []
   $disard_me = inline_template('<%
-@sshpubkeys.each do |host,fact_hash|
+@sshpubkeys.to_a.sort.each do |host,fact_hash|
   @keys << fact_hash[\'sshpubkey_wrlbuild\']
 end
 %>')
