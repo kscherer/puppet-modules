@@ -479,9 +479,15 @@ class wr::fileserver {
   # returns a hash of hostname => { sshpubkey_wrlbuild => key }
   $sshpubkeys = query_facts('Class["mesos::slave"]',['sshpubkey_wrlbuild'])
 
-  # Change hash into array of { sshpubkey_wrlbuild => key } which can be passed
-  # to a defined type. Who knew a hash could be the name of a resource?
-  $sshpubkeys_values = values($sshpubkeys)
+  # some inline template magic. Loop over the hash and insert the key text
+  # into the puppet array named key
+  $keys = []
+  $disard_me = inline_template('<%
+@sshpubkeys.each do |host,fact_hash|
+  @keys << fact_hash[\'sshpubkey_wrlbuild\']
+end
+%>')
+
   wr::extract_key {
     $sshpubkeys_values:
       user => 'wrlbuild'
