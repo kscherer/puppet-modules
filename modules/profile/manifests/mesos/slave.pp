@@ -96,13 +96,13 @@ class profile::mesos::slave inherits profile::mesos::common {
       group  => 'wrlbuild',
       mode   => '0700';
     '/home/wrlbuild/.ssh/id_dsa.pub':
-      ensure => absent,
+      ensure => present,
       source => 'puppet:///modules/nx/id_dsa.pub',
       owner  => 'wrlbuild',
       group  => 'wrlbuild',
       mode   => '0600';
     '/home/wrlbuild/.ssh/id_dsa':
-      ensure => absent,
+      ensure => present,
       source => 'puppet:///modules/nx/id_dsa',
       owner  => 'wrlbuild',
       group  => 'wrlbuild',
