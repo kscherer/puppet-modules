@@ -38,14 +38,14 @@ up periodically.";
     }
     mount {
       '/mnt/ala-mirror':
-        ensure  => mounted,
+        ensure  => unmounted,
         device  => 'ala-lpgnas1:/vol/ala_mirror',
         atboot  => true,
         fstype  => 'nfs',
         options => 'rw',
         require => File['/mnt/ala-mirror'];
       '/home/svc-mirror':
-        ensure  => mounted,
+        ensure  => unmounted,
         device  => 'ala-nas2:/vol/vol0/UNIX-Home/svc-mirror',
         atboot  => true,
         fstype  => 'nfs',
