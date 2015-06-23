@@ -292,15 +292,20 @@ class wr::fileserver {
   include rsync::server
   rsync::server::module{
     'centos':
-      path => '/pool/mirror/centos';
+      outgoing_chmod => 'D755,F644',
+      path           => '/pool/mirror/centos';
     'epel':
-      path => '/pool/mirror/epel';
+      outgoing_chmod => 'D755,F644',
+      path           => '/pool/mirror/epel';
     'puppetlabs':
-      path => '/pool/mirror/puppetlabs';
+      outgoing_chmod => 'D755,F644',
+      path           => '/pool/mirror/puppetlabs';
     'ubuntu':
-      path => '/pool/mirror/ubuntu.com/ubuntu';
+      outgoing_chmod => 'D755,F644',
+      path           => '/pool/mirror/ubuntu.com/ubuntu';
     'ubuntu-releases':
-      path => '/pool/mirror/ubuntu.com/ubuntu-releases';
+      outgoing_chmod => 'D755,F644',
+      path           => '/pool/mirror/ubuntu.com/ubuntu-releases';
   }
 
   if $::location == 'yow' {
@@ -318,6 +323,7 @@ class wr::fileserver {
         path           => '/pool/ovp/lava/common',
         list           => 'yes',
         incoming_chmod => 'D775,F664',
+        outgoing_chmod => 'D755,F644',
         read_only      => 'no',
         uid            => '1000',
         gid            => '100';
