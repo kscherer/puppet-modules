@@ -1,17 +1,17 @@
 #
 class wr::yow_lpggp {
-  include yocto
-  Class['redhat'] -> Class['yocto']
-
-  include wrlinux
-  Class['redhat'] -> Class['wrlinux']
-
   include profile::nis
-  include git
 
+  include yocto
+  Class['wr::common::repos'] -> Class['yocto']
+
+  include git
+  Class['wr::common::repos'] -> Class['git']
+
+  #another developer request
   package {
-    [ 'quilt', 'wiggle', 'tmux']:
-      ensure => 'latest';
+    ['screen', 'wiggle', 'expect', 'tigervnc-server', 'quilt', 'tmux']:
+      ensure => installed;
   }
 
   motd::register{
@@ -23,5 +23,4 @@ Use /${::hostname}1 as local storage.  It is not backed up, make
 sure you have a secure copy of your data.  Clean up after
 yourself, this F/S will be cleaned up periodically.";
   }
-
 }
