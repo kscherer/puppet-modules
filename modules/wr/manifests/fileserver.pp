@@ -5,6 +5,7 @@ class wr::fileserver {
   include ::apache
   include ::collectd
   include ::role::git::mirror
+  include ::postfix
 
   ensure_packages(['libc6-dev', 'vim-nox', 'screen'])
   include ::zfs
