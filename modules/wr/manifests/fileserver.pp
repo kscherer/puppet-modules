@@ -221,7 +221,7 @@ class wr::fileserver {
       ensure => directory;
     '/etc/mirrormanager-client/report_mirror.conf':
       ensure => link,
-      target => '/home/svc-mirror/mirror-configs/report_mirror.conf';
+      target => "/home/svc-mirror/mirror-rsync/report_mirror.conf.${::hostname}";
   }
 
   cron {
