@@ -134,12 +134,10 @@ class redhat::repos {
       realize( Yum_repo['puppetlabs'] )
       realize( Yum_repo['puppetlabs-deps'] )
       realize( Yum_repo['epel'] )
-      if ( $::lsbmajdistrelease == '7' ) {
-        #subscription manager needs this file
-        file {
-          '/etc/yum.repos.d/redhat.repo':
-            ensure => present;
-        }
+      #subscription manager needs this file
+      file {
+        '/etc/yum.repos.d/redhat.repo':
+          ensure => present;
       }
       package {
         'epel-release':
