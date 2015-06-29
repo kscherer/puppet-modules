@@ -35,7 +35,6 @@ class redhat::repos {
     $fedora_mirror = "${mirror}/fedora"
   }
 
-  $mrepo_mirror = "${mirror}/mrepo/repos"
   if $::operatingsystem == 'RedHat' and $::operatingsystemrelease < '6' {
     $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
   } else {
@@ -74,10 +73,6 @@ class redhat::repos {
       baseurl => "${fedora_mirror}/updates/${::operatingsystemrelease}/${::architecture}";
     'fedora-everything':
       baseurl => "${fedora_mirror}/releases/${::operatingsystemrelease}/Everything/${::architecture}/os";
-    'rhel6-optional':
-      baseurl => "${mrepo_mirror}/rhel6ws-${::architecture}/RPMS.optional";
-    'rhel6-updates':
-      baseurl => "${mrepo_mirror}/rhel6ws-${::architecture}/RPMS.updates";
     'centos-os':
       repo_gpgkey => $centos_gpgkey,
       baseurl     => $centos_mirror_os;
@@ -96,8 +91,6 @@ class redhat::repos {
     'puppetlabs-deps':
       repo_gpgkey => $puppetlabs_gpgkey,
       baseurl     => "${puppetlabs_mirror}/dependencies/${::architecture}";
-    'foreman':
-      baseurl => "http://ala-mirror.wrs.com/mirror/mrepo/repos/foreman-rh6-${::architecture}/RPMS.stable";
     'activemq':
       baseurl => 'http://yow-mirror.wrs.com/mirror/activemq/6';
     'collectd':
@@ -141,10 +134,7 @@ class redhat::repos {
       realize( Yum_repo['puppetlabs'] )
       realize( Yum_repo['puppetlabs-deps'] )
       realize( Yum_repo['epel'] )
-      if ( $::lsbmajdistrelease == '6' ) {
-        realize( Yum_repo['rhel6-updates'] )
-        realize( Yum_repo['rhel6-optional'] )
-      } elsif ( $::lsbmajdistrelease == '7' ) {
+      if ( $::lsbmajdistrelease == '7' ) {
         #subscription manager needs this file
         file {
           '/etc/yum.repos.d/redhat.repo':
