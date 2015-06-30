@@ -32,6 +32,3 @@ apt::source::include_src: false
 # have to do rolling upgrades. This stops docker module from managing
 # the docker package and forces me to install it manually
 docker::manage_package: false
-
-# Default uses https which means it cannot be cached by squid-deb-proxy
-docker::package_source_location: 'http://get.docker.io/ubuntu'
