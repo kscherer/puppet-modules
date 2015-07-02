@@ -67,6 +67,8 @@ class redhat::repos {
       baseurl => "${mirror}/repos/${redhat_dvd_repo}";
     'redhat-dvd2':
       baseurl => "${mirror}/repos/${redhat_dvd_repo}-dvd2";
+    'redhat-dvd-client':
+      baseurl => "${mirror}/repos/${redhat_dvd_repo}/Client";
     'redhat-dvd-workstation':
       baseurl => "${mirror}/repos/${redhat_dvd_repo}/Workstation";
     'fedora-updates':
@@ -130,12 +132,15 @@ class redhat::repos {
       }
     }
     'RedHat': {
-      realize( Yum_repo['redhat-dvd'] )
       if $::operatingsystemrelease == '5' {
+        realize( Yum_repo['redhat-dvd-client'] )
         realize( Yum_repo['redhat-dvd-workstation'] )
         if $::architecture == 'x64_64' {
           realize( Yum_repo['redhat-dvd2'] )
         }
+      }
+      if $::operatingsystem == 'RedHat' and $::operatingsystemrelease < '6' {
+        realize( Yum_repo['redhat-dvd'] )
       }
       if $::operatingsystemrelease == '6' {
         realize( Yum_repo['redhat-dvd-workstation'] )
