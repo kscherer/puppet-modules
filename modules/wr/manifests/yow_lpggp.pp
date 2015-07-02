@@ -24,32 +24,32 @@ sure you have a secure copy of your data.  Clean up after
 yourself, this F/S will be cleaned up periodically.";
   }
 
-  package {
-    'nfs-kernel-server':
-      ensure  => installed,
-      require => File['/etc/exports'];
-  }
-
-  service {
-    'nfs-kernel-server':
-      ensure    => running,
-      require   => [ Package['nfs-kernel-server'], File['/etc/exports']];
-  }
-
-  file {
-    '/etc/exports':
-      ensure  => present,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      content => "/${::hostname}1 *(rw)\n/${::hostname}2 *(rw)",
-      notify  => Service['nfs-kernel-server'];
-  }
-
   if $::operatingsystem == 'Ubuntu' {
+    package {
+      'nfs-kernel-server':
+        ensure  => installed,
+        require => File['/etc/exports'];
+    }
+
+    service {
+      'nfs-kernel-server':
+        ensure    => running,
+        require   => [ Package['nfs-kernel-server'], File['/etc/exports']];
+    }
+
+    file {
+      '/etc/exports':
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => "/${::hostname}1 *(rw)\n/${::hostname}2 *(rw)",
+        notify  => Service['nfs-kernel-server'];
+    }
+
     # setup x2go server to provide remote graphical access
     apt::ppa { 'ppa:x2go/stable': }
     ensure_packages(['x2goserver', 'x2goserver-extensions', 'x2goserver-xsession',
-                     'xterm', 'xtightvncserver'])
+                     'xterm', 'tightvncserver'])
   }
 }
