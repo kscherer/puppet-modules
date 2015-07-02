@@ -42,6 +42,7 @@ yourself, this F/S will be cleaned up periodically.";
       owner   => 'root',
       group   => 'root',
       mode    => '0644',
-      content => "/${::hostname}1 *(rw)\n/${::hostname}2 *(rw)";
+      content => "/${::hostname}1 *(rw)\n/${::hostname}2 *(rw)",
+      notify  => Service['nfs-kernel-server'];
   }
 }
