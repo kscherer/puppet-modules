@@ -35,11 +35,7 @@ class redhat::repos {
     $fedora_mirror = "${mirror}/fedora"
   }
 
-  if $::operatingsystem == 'RedHat' and $::operatingsystemrelease < '6' {
-    $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}-repo"
-  } else {
-    $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}"
-  }
+  $redhat_dvd_repo = "redhat-${::operatingsystemrelease}-${::architecture}"
 
   $centos_mirror_base = "${mirror}/centos/${::lsbmajdistrelease}"
   $centos_mirror_os = "${centos_mirror_base}/os/${::architecture}"
@@ -69,6 +65,10 @@ class redhat::repos {
       baseurl     => "${mirror}/epel/testing/${::lsbmajdistrelease}/${::architecture}";
     'redhat-dvd':
       baseurl => "${mirror}/repos/${redhat_dvd_repo}";
+    'redhat-dvd2':
+      baseurl => "${mirror}/repos/${redhat_dvd_repo}-dvd2";
+    'redhat-dvd-workstation':
+      baseurl => "${mirror}/repos/${redhat_dvd_repo}/Workstation";
     'fedora-updates':
       baseurl => "${fedora_mirror}/updates/${::operatingsystemrelease}/${::architecture}";
     'fedora-everything':
@@ -131,6 +131,15 @@ class redhat::repos {
     }
     'RedHat': {
       realize( Yum_repo['redhat-dvd'] )
+      if $::operatingsystemrelease == '5' {
+        realize( Yum_repo['redhat-dvd-workstation'] )
+        if $::architecture == 'x64_64' {
+          realize( Yum_repo['redhat-dvd2'] )
+        }
+      }
+      if $::operatingsystemrelease == '6' {
+        realize( Yum_repo['redhat-dvd-workstation'] )
+      }
       realize( Yum_repo['puppetlabs'] )
       realize( Yum_repo['puppetlabs-deps'] )
       realize( Yum_repo['epel'] )
