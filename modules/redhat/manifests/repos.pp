@@ -141,9 +141,6 @@ class redhat::repos {
       } else {
         realize( Yum_repo['redhat-dvd'] )
       }
-      if $::lsbmajdistrelease == '6' {
-        realize( Yum_repo['redhat-dvd-workstation'] )
-      }
       realize( Yum_repo['puppetlabs'] )
       realize( Yum_repo['puppetlabs-deps'] )
       realize( Yum_repo['epel'] )
