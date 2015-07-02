@@ -132,14 +132,13 @@ class redhat::repos {
       }
     }
     'RedHat': {
-      if $::operatingsystemrelease == '5' {
+      if $::lsbmajdistrelease == '5' {
         realize( Yum_repo['redhat-dvd-client'] )
         realize( Yum_repo['redhat-dvd-workstation'] )
         if $::architecture == 'x64_64' {
           realize( Yum_repo['redhat-dvd2'] )
         }
-      }
-      if $::operatingsystem == 'RedHat' and $::operatingsystemrelease < '6' {
+      } else {
         realize( Yum_repo['redhat-dvd'] )
       }
       if $::operatingsystemrelease == '6' {
