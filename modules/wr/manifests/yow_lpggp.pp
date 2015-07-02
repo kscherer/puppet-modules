@@ -41,6 +41,7 @@ yourself, this F/S will be cleaned up periodically.";
       ensure  => present,
       owner   => 'root',
       group   => 'root',
-      mode    => '0644';
+      mode    => '0644',
+      content => "/${::hostname}1 *(rw)\n/${::hostname}2 *(rw)";
   }
 }
