@@ -19,7 +19,7 @@ dhcp::nameservers:
   - 128.224.144.130
   - 147.11.57.128
 dhcp::ntpservers:
-  - yow-lpggp2.wrs.com
+  - ntp-7.wrs.com
 
 docker::dns: 128.224.144.130
 wr::docker_registry_ip: '128.224.137.11'
