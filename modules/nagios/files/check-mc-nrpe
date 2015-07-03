@@ -40,9 +40,9 @@ nrpe_results.each do |result|
     exitcode = 3
   end
 
-  #ignore unexpected script errors for now
+  # Convert strange exit codes to UNKNOWN
   if exitcode > 3 or exitcode < 0
-    exitcode = 0
+    exitcode = 3
   end
 
   unless result[:sender].nil?
