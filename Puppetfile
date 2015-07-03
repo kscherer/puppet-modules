@@ -55,3 +55,7 @@ mod 'dalen-puppetdbquery',
 mod 'jtopjian-sshkeys',
   :git => 'https://github.com/jtopjian/puppet-sshkeys.git',
   :ref => '2.1.0'
+
+mod 'bodgit/zfs',
+  :git => 'https://github.com/bodgit/puppet-zfs.git',
+  :ref => '95d6d9f12933fb5ea0c0e42b63faa6a6a66f7d2d'

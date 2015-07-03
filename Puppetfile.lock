@@ -101,6 +101,16 @@ GIT
       puppetlabs-stdlib (>= 0.1.6)
 
 GIT
+  remote: https://github.com/bodgit/puppet-zfs.git
+  ref: 95d6d9f12933fb5ea0c0e42b63faa6a6a66f7d2d
+  sha: 95d6d9f12933fb5ea0c0e42b63faa6a6a66f7d2d
+  specs:
+    bodgit-zfs (1.0.0)
+      puppetlabs-apt (< 2.0.0, >= 1.4.2)
+      puppetlabs-stdlib (< 5.0.0, >= 4.2.0)
+      stahnma-epel (< 2.0.0, >= 1.0.0)
+
+GIT
   remote: https://github.com/dalen/puppet-puppetdbquery.git
   ref: 1.5.3
   sha: be650dcfa3c8af92f190685ca17f0f171d1bb3af
@@ -118,6 +128,7 @@ GIT
 
 DEPENDENCIES
   b4ldr-logrotate (= 1.1.3)
+  bodgit-zfs (>= 0)
   dalen-puppetdbquery (>= 0)
   darin-zypprepo (= 1.0.2)
   deric-mesos (>= 0)
