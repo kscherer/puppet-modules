@@ -56,10 +56,11 @@ class wr::foreman {
       ensure => present;
   }
 
+  $puppetca_conf = '/etc/foreman-proxy/settings.d/puppetca.yml'
   exec {
     'enable_puppetca_proxy':
-      command => '/bin/sed -i \'s/puppetca: false/puppetca: true/\' /etc/foreman-proxy/settings.yml',
-      unless  => '/bin/grep -q \'puppetca: true\' /etc/foreman-proxy/settings.yml',
+      command => "/bin/sed -i 's/enabled: false/enabled: true/' ${puppetca_conf}",
+      unless  => "/bin/grep -q 'enabled: true' ${puppetca_conf}",
       notify  => Service['foreman-proxy'];
   }
 
