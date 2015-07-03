@@ -34,7 +34,7 @@ yourself, this F/S will be cleaned up periodically.";
     concat::fragment {
       'export_buildarea':
         target  => '/etc/exports',
-        content => "/${::hostname}1 *(rw)\n/${::hostname}2 *(rw)",
+        content => "/${::hostname}1 *(rw)\n/${::hostname}2 *(rw)\n",
         order   => '10'
     }
   }

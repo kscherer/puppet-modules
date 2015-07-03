@@ -26,7 +26,7 @@ class nfs::server {
   concat::fragment {
     'base_nfs_exports':
       target  => '/etc/exports',
-      content => '/mnt localhost(ro)',
+      content => '/mnt localhost(ro)\n',
       order   => '01'
   }
 }
