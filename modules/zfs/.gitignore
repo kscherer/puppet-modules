@@ -1,7 +1,0 @@
-.librarian
-.tmp
-.vagrant
-Gemfile.lock
-Puppetfile.lock
-spec/fixtures
-pkg
