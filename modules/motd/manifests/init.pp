@@ -2,17 +2,9 @@
 class motd {
   case $::operatingsystem {
     'Debian' : { $motd = '/etc/motd.tail' }
-    'Ubuntu' : { $motd = '/etc/update-motd.d/55-windriver' }
     default  : { $motd = '/etc/motd' }
   }
 
-  #Ubuntu uses a special update-motd script
-  if $::operatingsystem == 'Ubuntu' {
-    file {
-      '/etc/motd':
-        ensure => absent;
-    }
-  }
   concat{
     $motd:
       owner => root,
