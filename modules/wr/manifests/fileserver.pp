@@ -122,13 +122,9 @@ class wr::fileserver {
   }
 
   #zfs nfs support requires a default mount option in exports
+  include nfs::server
+
   file {
-    '/etc/exports':
-      ensure  => present,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      content => '/mnt localhost(ro)';
     '/git/users':
       ensure  => directory,
       owner   => 'git',
@@ -147,18 +143,6 @@ class wr::fileserver {
       group   => 'users',
       mode    => '0775',
       require => Zfs['pool/ovp'];
-  }
-
-  package {
-    'nfs-kernel-server':
-      ensure  => installed,
-      require => File['/etc/exports'];
-  }
-
-  service {
-    'nfs-kernel-server':
-      ensure    => running,
-      require   => [ Package['nfs-kernel-server'], File['/etc/exports']];
   }
 
   package {
@@ -362,9 +346,7 @@ class wr::fileserver {
       ensure => installed;
   }
 
-  # setup x2go server to provide remote graphical access in all DCs
-  apt::ppa { 'ppa:x2go/stable': }
-  ensure_packages(['x2goserver', 'x2goserver-extensions', 'x2goserver-xsession', 'xterm'])
+  include x2go
 
   apt::ppa { 'ppa:git-core/ppa': }
   package {

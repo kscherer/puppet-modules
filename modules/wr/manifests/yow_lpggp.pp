@@ -25,31 +25,17 @@ yourself, this F/S will be cleaned up periodically.";
   }
 
   if $::operatingsystem == 'Ubuntu' {
-    package {
-      'nfs-kernel-server':
-        ensure  => installed,
-        require => File['/etc/exports'];
-    }
+    include nfs::server
+    include x2go
 
-    service {
-      'nfs-kernel-server':
-        ensure    => running,
-        require   => [ Package['nfs-kernel-server'], File['/etc/exports']];
-    }
+    # some developers are more comfortable with vnc
+    ensure_packages(['tightvncserver'])
 
-    file {
-      '/etc/exports':
-        ensure  => present,
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
+    concat::fragment {
+      'export_buildarea':
+        target  => '/etc/exports',
         content => "/${::hostname}1 *(rw)\n/${::hostname}2 *(rw)",
-        notify  => Service['nfs-kernel-server'];
+        order   => '10'
     }
-
-    # setup x2go server to provide remote graphical access
-    apt::ppa { 'ppa:x2go/stable': }
-    ensure_packages(['x2goserver', 'x2goserver-extensions', 'x2goserver-xsession',
-                     'xterm', 'tightvncserver'])
   }
 }
