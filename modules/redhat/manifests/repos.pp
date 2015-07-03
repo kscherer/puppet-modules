@@ -97,6 +97,8 @@ class redhat::repos {
       baseurl => 'http://yow-mirror.wrs.com/mirror/activemq/6';
     'collectd':
       baseurl => "${mirror}/collectd/${::lsbmajdistrelease}";
+    'foreman':
+      baseurl => "http://yum.theforeman.org/releases/1.7/el${::lsbmajdistrelease}/${::architecture}";
   }
 
   #setup repos depending on which flavour of redhat
