@@ -55,8 +55,4 @@ class wr::yow_lpd_puppet2 {
   include wr::foreman
   include collectd
   include graphite_reporter
-
-  include nodejs
-  include statsd
-  Class['nodejs'] -> Class['statsd']
 }
