@@ -27,4 +27,13 @@ class wr::common::ssh_root_keys {
       key    => hiera('pkennedy@pkennedy-linux.site'),
       type   => 'ssh-rsa';
   }
+
+  # ssh public key auth does not work if home directory is not locked down
+  file {
+    '/root':
+      ensure => directory,
+      owner  => root,
+      group  => root,
+      mode   => '0700';
+  }
 }
