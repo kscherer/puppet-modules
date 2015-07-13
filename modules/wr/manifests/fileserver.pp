@@ -85,7 +85,7 @@ class wr::fileserver {
       sharenfs => 'on',
       setuid   => 'off',
       devices  => 'off',
-      quota    => '2T',
+      quota    => '3T',
       require  => Package['nfs-kernel-server'];
     'pool/other_builds':
       ensure   => present,
