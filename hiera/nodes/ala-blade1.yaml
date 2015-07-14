@@ -1,2 +1,3 @@
 ---
-zookeeper::id: '2'
+zookeeper::id: '2
+mesos::zookeeper: "zk://147.11.106.56:2181,147.11.105.21:2181,147.11.105.120:2181/mesos'
