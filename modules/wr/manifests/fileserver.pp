@@ -481,4 +481,11 @@ end
     $keys:
       user => 'wrlbuild'
   }
+
+  host {
+    'wr-docker-registry':
+      ensure       => present,
+      ip           => hiera('wr::docker_registry_ip', '147.11.105.120'),
+      host_aliases => 'wr-docker-registry.wrs.com';
+  }
 }
