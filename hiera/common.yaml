@@ -95,9 +95,9 @@ wr::docker_registry_ip: '147.11.105.120'
 
 zookeeper::client_ip: "%{::ipaddress_eth0}"
 zookeeper::purge_interval: '12'
+# The order of the servers must match the node ids
 zookeeper::servers:
   - '147.11.106.56'
-  - '147.11.106.57'
   - '147.11.105.21'
   - '147.11.105.120'
   - '128.224.137.11'
