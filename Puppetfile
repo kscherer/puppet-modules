@@ -12,7 +12,7 @@ mod 'puppetlabs-stdlib',
 
 mod 'puppetlabs-apt',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppet-apt.git',
-  :ref => '1.7.0'
+  :ref => '1.8.0'
 
 mod 'puppet-logstash',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.elasticsearch.puppet-logstash.git'
