@@ -72,7 +72,7 @@ mesos::version: 'latest'
 mesos::zookeeper: 'zk://147.11.106.56:2181,147.11.105.21:2181,147.11.105.120:2181/mesos'
 mesos::master::cluster: 'wraxl'
 mesos::master::options:
-  quorum: '1'
+  quorum: '2'
 # mesos master is a vm with eth0
 mesos::master::listen_address: "%{::ipaddress_eth0}"
 mesos::master::env_var:

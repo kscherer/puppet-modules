@@ -1,8 +1,4 @@
 ---
 zookeeper::id: '2'
-mesos::master::options:
-  quorum: '2'
 mesos::master::listen_address: '%{::ipaddress_eth0}'
-mesos::master::env_var:
-  MESOS_log_dir: '/var/log/mesos'
 
