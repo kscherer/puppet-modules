@@ -2,7 +2,6 @@
 class profile::mesos::common inherits profile::nis {
 
   include docker
-  Class['wr::common::repos'] -> Class['docker']
 
   #Use collectd to monitor system utilization
   include collectd
