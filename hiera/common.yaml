@@ -73,11 +73,11 @@ mesos::zookeeper: 'zk://147.11.106.56:2181,147.11.105.21:2181,147.11.105.120:218
 mesos::master::cluster: 'wraxl'
 mesos::master::options:
   quorum: '2'
+  log_dir: '/var/log/mesos'
+  whitelist: 'file:///etc/mesos_slave_whitelist'
 # mesos master is a vm with eth0
 mesos::master::listen_address: "%{::ipaddress_eth0}"
 mesos::master::env_var:
-  MESOS_log_dir: '/var/log/mesos'
-  MESOS_whitelist: 'file:///etc/mesos_slave_whitelist'
 # mesos slaves are bare metal with em1
 mesos::slave::listen_address: "%{::ipaddress_em1}"
 mesos::slave::work_dir: '/var/lib/mesos'
@@ -86,11 +86,10 @@ mesos::slave::checkpoint: true
 mesos::slave::resources:
   tier1: '1'
   tier2: '2'
-mesos::slave::env_var:
-  MESOS_log_dir: '/var/log/mesos'
 mesos::manage_python: false
 mesos::slave::options:
   containerizers: 'docker,mesos'
+  log_dir: '/var/log/mesos'
   executor_registration_timeout: '2mins'
 
 docker::manage_kernel: false
