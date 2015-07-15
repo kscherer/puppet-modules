@@ -1,0 +1,5 @@
+---
+# Enable docker overlay driver on 3.19 kernels
+docker::extra_parameters:
+  - '--storage-driver overlay'
+  - '--insecure-registry wr-docker-registry:5000'

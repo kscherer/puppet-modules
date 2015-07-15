@@ -5,6 +5,7 @@ class hiera (
                   '%{operatingsystem}-%{lsbmajdistrelease}-%{architecture}',
                   '%{operatingsystem}-%{lsbmajdistrelease}',
                   '%{osfamily}',
+                  'kernel/%{kernelmajversion}',
                   'hardware/%{boardproductname}',
                   'common' ],
   $backends   = ['yaml'],

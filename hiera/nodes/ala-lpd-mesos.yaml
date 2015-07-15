@@ -1,3 +1,2 @@
 ---
-docker::extra_parameters: '--storage-driver=aufs'
 zookeeper::id: '1'

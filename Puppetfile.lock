@@ -30,10 +30,10 @@ GIT
 
 GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.deric.puppet-zookeeper.git
-  ref: v0.3.7
-  sha: 6e7be0b77b6514ef5eae01054e020d52261b448c
+  ref: v0.3.9
+  sha: b1912045ac65f13e53d60f73515ad08fff4f4f25
   specs:
-    deric-zookeeper (0.3.7)
+    deric-zookeeper (0.3.9)
       puppetlabs-stdlib (>= 2.3.3)
       richardc-datacat (>= 0)
 
@@ -56,11 +56,11 @@ GIT
 
 GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.garethr.garethr-docker.git
-  ref: v3.3.2
-  sha: f6f485d69962a9f0c400a9a9fe06d7ce3267f011
+  ref: v4.0.2
+  sha: b9a1fb9e5caaf25c01907ad4b3eb46f30df9eae9
   specs:
-    garethr-docker (3.3.2)
-      puppetlabs-apt (>= 1.1.0)
+    garethr-docker (4.0.2)
+      puppetlabs-apt (<= 1.8.0, >= 1.1.0)
       puppetlabs-stdlib (>= 4.1.0)
       stahnma-epel (>= 0.0.6)
 
@@ -93,12 +93,12 @@ GIT
 
 GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.solarkennedy.puppet-consul.git
-  ref: v0.4.6
-  sha: da8f4a61279ae7be27d2b369fb6ecd1568576215
+  ref: v1.0.0
+  sha: b2d5d6e0a4d027ce0ec254bea389e91fdb708bd0
   specs:
-    solarkennedy-consul (0.4.6)
-      nanliu-staging (>= 0.4.0)
-      puppetlabs-stdlib (>= 0.1.6)
+    solarkennedy-consul (0.5.0)
+      nanliu-staging (< 2.0.0, >= 0.4.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.2.0)
 
 GIT
   remote: https://github.com/bodgit/puppet-zfs.git

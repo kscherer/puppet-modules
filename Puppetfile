@@ -24,7 +24,7 @@ mod 'b4ldr-logrotate', '1.1.3'
 
 mod 'garethr-docker',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.garethr.garethr-docker.git',
-  :ref => 'v3.3.2'
+  :ref => 'v4.0.2'
 
 mod 'deric-mesos',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.deric.puppet-mesos.git',
@@ -32,11 +32,11 @@ mod 'deric-mesos',
 
 mod 'solarkennedy-consul',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.solarkennedy.puppet-consul.git',
-  :ref => 'v0.4.6'
+  :ref => 'v1.0.0'
 
 mod 'deric-zookeeper',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.deric.puppet-zookeeper.git',
-  :ref => 'v0.3.7'
+  :ref => 'v0.3.9'
 
 mod 'puppetlabs-inifile',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppetlabs-inifile.git',
