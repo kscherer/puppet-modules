@@ -1,4 +1,3 @@
 ---
 zookeeper::id: '2'
-mesos::master::listen_address: '%{::ipaddress_eth0}'
 

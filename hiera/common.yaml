@@ -77,7 +77,6 @@ mesos::master::options:
   whitelist: 'file:///etc/mesos_slave_whitelist'
 # mesos master is a vm with eth0
 mesos::master::listen_address: "%{::ipaddress_eth0}"
-mesos::master::env_var:
 # mesos slaves are bare metal with em1
 mesos::slave::listen_address: "%{::ipaddress_em1}"
 mesos::slave::work_dir: '/var/lib/mesos'
