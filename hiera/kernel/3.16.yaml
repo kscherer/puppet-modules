@@ -1,7 +1,9 @@
 ---
-# Enable docker overlay driver on 3.19 kernels
+# Enable docker devicemapper driver on 3.16 kernels
+# and add udev sync override to allow devicemapper with docker 1.7
 docker::extra_parameters:
-  - '--storage-driver overlay'
+  - '--storage-driver devicemapper'
+  - '--storage-opt dm.override_udev_sync_check=true'
   - '--insecure-registry ala-lpdfs01:5000'
   - '--insecure-registry yow-lpdfs01:5000'
   - '--insecure-registry pek-lpdfs01:5000'
