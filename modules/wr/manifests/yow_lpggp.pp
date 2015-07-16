@@ -10,7 +10,7 @@ class wr::yow_lpggp {
 
   #another developer request
   package {
-    ['screen', 'wiggle', 'expect', 'quilt', 'tmux']:
+    ['screen', 'wiggle', 'expect', 'quilt', 'tmux', 'curl', 'wget']:
       ensure => installed;
   }
 
