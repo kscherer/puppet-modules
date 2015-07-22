@@ -10,7 +10,9 @@ class wr::yow_build {
     'test':
       source  => 'puppet:///modules/wr/sudoers.d/test';
 	'ityow':
-	 source  => 'puppet:///modules/wr/sudoers.d/ityow';
+	source  => 'puppet:///modules/wr/sudoers.d/ityow';
+	'iotCmdList':
+	source => 'puppet:///modules/wr/sudoers.d/iotCmdList';
     
   }
 
