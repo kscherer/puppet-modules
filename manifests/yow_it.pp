@@ -48,10 +48,20 @@ node 'yow-build57-lx.wrs.com' {
 node 'yow-build58-lx.wrs.com' {
     include wr::yow_build
 }
-
 node 'yow-iotbuild1.wrs.com' {
   include wr::yow_build
 }
+node 'yow-iotbuild4.wrs.com' {
+    include wr::yow_build
+}
+node 'yow-iotbuild5.wrs.com' {
+    include wr::yow_build
+}
+node 'yow-iotbuild6.wrs.com' {
+    include wr::yow_build
+}
+
+
 #
 ##   SSP Cluster machines
 #
