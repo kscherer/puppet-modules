@@ -34,7 +34,7 @@ class wr::yow_build {
 	  'emacs23-common','emacs23-common-non-dfsg','emacs24','emacs24-bin-common',
 	  'emacs24-common','emacs24-common-non-dfsg','emacsen-common','freeglut3',
 	  'freeglut3-dev:amd64','gamin','ghc','ghc-haddock','jove', 'twm','lxde', 'mailutils',
-          'git-core', 'help2man', 'libsdl1.2-dev', 'subversion', 'chrpath', 'texi2html', 'libncurses5:i386', 'texinfo']:
+          'git-core', 'help2man', 'libsdl1.2-dev', 'subversion', 'chrpath', 'texi2html', 'libncurses5:i386', 'texinfo', 'rpm2pcio']:
       ensure => 'installed';
   }
   package { ['jenkins']:
