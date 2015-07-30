@@ -101,6 +101,10 @@ node /ala-blade\d+\.wrs\.com/ {
   }
 }
 
+node 'ala-lpggp5.wrs.com' {
+  include profile::gp_builder
+}
+
 node /ala-lpggp\d+\.wrs\.com/ {
   class { 'wr::ala_lpggp': }
 }
