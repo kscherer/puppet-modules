@@ -250,3 +250,7 @@ node 'ala-lpdfs01.wrs.com' {
 node 'pek-lpdfs01.wrs.com' {
   include wr::fileserver
 }
+
+node /pek-lpggp\d+\.wrs\.com/ {
+  include profile::gp_builder
+}
