@@ -30,7 +30,7 @@ yourself, this F/S will be cleaned up periodically.";
     include docker
 
     # some developers are more comfortable with vnc
-    ensure_packages(['tightvncserver'])
+    ensure_packages(['tightvncserver', 'xfsprogs'])
 
     concat::fragment {
       'export_buildarea':
