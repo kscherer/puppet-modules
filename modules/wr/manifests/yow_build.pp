@@ -47,11 +47,13 @@ class wr::yow_build {
 	content => template('wr/samba.conf.erb');
  }
  
- file {
-	'/etc/exports':
-	ensure => present,
-	content => "/${hostname}1   *(rw,insecure,async,insecure_locks)";
-  }
+ ## Need to figure out a better way to disigish differences from 
+ ## /hostname or /buildarea
+ #file {
+#	'/etc/exports':
+#	ensure => present,
+#	content => "/${hostname}1   *(rw,insecure,async,insecure_locks)";
+ # }
  
  
  file {	
