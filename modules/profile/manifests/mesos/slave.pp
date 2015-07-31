@@ -67,7 +67,7 @@ class profile::mesos::slave inherits profile::mesos::common {
       command => '/usr/bin/docker rm $(/usr/bin/docker ps -a -q) > /dev/null 2>&1',
       minute  => fqdn_rand(60, 'container cleanup');
     'cleanup_untagged_images':
-      command => '/usr/bin/docker rmi $(/usr/bin/docker images | /bin/grep "^<none>" | /usr/bin/awk "{print \$3}") > /dev/null 2>&1',
+      command => '/usr/bin/docker rmi $(/usr/bin/docker images --filter dangling=true -q 2>/dev/null}") > /dev/null 2>&1',
       minute  => fqdn_rand(60, 'images cleanup');
     'native_sstate_update':
       command => '/home/wrlbuild/wr-buildscripts/retrieve_native_sstate.sh /home/wrlbuild > /dev/null 2>&1',
@@ -75,10 +75,11 @@ class profile::mesos::slave inherits profile::mesos::common {
       hour    => '*',
       minute  => fqdn_rand(60, 'native_sstate_update');
     'kill_hung_builds':
-      ensure  => absent,
-      command => 'docker ps -a | grep \'days ago\' | awk \'{print $1}\' | xargs docker rm -f',
-      user    => 'root',
-      hour    => '0';
+      ensure  => present,
+      command => '/home/wrlbuild/wr-buildscripts/kill_hung_tasks.sh >> /home/wrlbuild/log/hung_task.log 2>&1',
+      user    => 'wrlbuild',
+      hour    => '*',
+      minute  => '0';
   }
 
   exec {
