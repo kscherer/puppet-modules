@@ -11,6 +11,11 @@ class wr::common::ssh_root_keys {
       user   => 'root',
       key    => hiera('kscherer@helix'),
       type   => 'ssh-rsa';
+    'kscherer_laptop':
+      ensure => 'present',
+      user   => 'root',
+      key    => hiera('kscherer@yow-kscherer-l1'),
+      type   => 'ssh-rsa';
     'jch_laptop':
       ensure => 'present',
       user   => 'root',

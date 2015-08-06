@@ -131,5 +131,10 @@ class profile::mesos::common inherits profile::nis {
       user   => 'wrlbuild',
       key    => hiera('kscherer@helix'),
       type   => 'ssh-rsa';
+    'kscherer_laptop_wrlbuild':
+      ensure => 'present',
+      user   => 'wrlbuild',
+      key    => hiera('kscherer@yow-kscherer-l1'),
+      type   => 'ssh-rsa';
   }
 }
