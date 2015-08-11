@@ -10,9 +10,14 @@ class profile::nis inherits profile::monitored {
       source  => 'puppet:///modules/wr/sudoers.d/leads';
     'it':
       source  => 'puppet:///modules/wr/sudoers.d/it';
-    'scmg':
-      ensure  => 'absent',
-      source  => 'puppet:///modules/wr/sudoers.d/scmg';
+  }
+
+  # Add CDC IT staff as sudoers to machines in CDC
+  if $::location == 'pek' {
+    sudo::conf {
+      'cdc_it':
+        source  => 'puppet:///modules/wr/sudoers.d/cdc_it';
+    }
   }
 
   Class['wr::common::repos'] -> Class['::nis']
