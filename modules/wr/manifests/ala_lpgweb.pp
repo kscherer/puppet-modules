@@ -53,7 +53,7 @@ class wr::ala_lpgweb {
   include python
 
   wr::pip_userpackage {
-    ['rq', 'rq-dashboard', 'jira-python' ]:
+    ['rq', 'rq-dashboard', 'jira-python', 'flask' ]:
       owner => 'rq';
   }
 
@@ -82,24 +82,11 @@ class wr::ala_lpgweb {
   }
 
   wr::upstart_conf {
-    ['rqworker', 'rqworker-wr-rq', 'rq-dashboard', 'devbuild_watcher']:
+    ['rqworker', 'rqworker-wr-rq', 'rq-dashboard',
+     'devbuild_watcher', 'devbuild_queue_watcher']:
   }
 
-  $script = '/home/rq/wr-buildscripts/devbuild_queue_watcher.py'
-
-  #not a real service, just a python script that looks like a service
   service {
-    'devbuild_queue_watcher':
-      ensure     => running,
-      start      => "${script} start",
-      stop       => "${script} stop",
-      status     => "${script} status",
-      restart    => "${script} restart",
-      hasrestart => true,
-      hasstatus  => true,
-      enable     => manual,
-      provider   => base,
-      require    => Vcsrepo['wr-buildscripts'];
     'rqworker':
       ensure  => running,
       require => [Vcsrepo['wr-jira-integration'], File['/etc/init/rqworker.conf']];
@@ -111,7 +98,12 @@ class wr::ala_lpgweb {
       require => File['/etc/init/rq-dashboard.conf'];
     'devbuild_watcher':
       ensure  => running,
-      require => [Vcsrepo['wr-buildscripts'], File['/etc/init/devbuild_watcher.conf']];
+      require => [Vcsrepo['wr-buildscripts'],
+                  File['/etc/init/devbuild_watcher.conf']];
+    'devbuild_queue_watcher':
+      ensure  => running,
+      require => [Vcsrepo['wr-buildscripts'],
+                  File['/etc/init/devbuild_queue_watcher.conf']];
   }
 
   cron {
