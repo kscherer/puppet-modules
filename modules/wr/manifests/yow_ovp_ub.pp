@@ -1,7 +1,7 @@
 #
 class wr::yow_ovp_ub {
   include nis
-  include apache
+  #include apache
   include ntp
   include sudo
 
