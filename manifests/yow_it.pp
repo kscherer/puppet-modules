@@ -49,31 +49,31 @@ node 'yow-build58-lx.wrs.com' {
     include wr::yow_build
 }
 node 'yow-build59-lx.wrs.com' {
-    include wr::yow_ssp_ub
+    include wr::yow_build
 }
 node 'yow-build60-lx.wrs.com' {
-    include wr::yow_ssp_ub
+    include wr::yow_build
 }
 node 'yow-build61-lx.wrs.com' {
-    include wr::yow_ssp_ub
+    include wr::yow_build
 }
 node 'yow-build62-lx.wrs.com' {
-    include wr::yow_ssp_ub
+    include wr::yow_build
 }
 node 'yow-build63-lx.wrs.com' {
-    include wr::yow_ssp_ub
+    include wr::yow_build
 }
 node 'yow-build64-lx.wrs.com' {
-    include wr::yow_ssp_ub
+    include wr::yow_build
 }
 node 'yow-build65-lx.wrs.com' {
-    include wr::yow_ssp_ub
+    include wr::yow_build
 }
 node 'yow-build66-lx.wrs.com' {
-    include wr::yow_ssp_ub
+    include wr::yow_build
 }
 node 'yow-build67-lx.wrs.com' {
-    include wr::yow_ssp_ub
+    include wr::yow_build
 }
 node 'yow-iotbuild1.wrs.com' {
   include wr::yow_build
