@@ -53,11 +53,18 @@ file {
 	'/etc/exports':
 	ensure => present,
 	content => "/${hostname}1   *(rw,insecure,async,insecure_locks)
-	/${hostname}2   *(rw,insecure,async,insecure_locks)";
+/${hostname}2   *(rw,insecure,async,insecure_locks)";
  }
  
  file {
-	"/${hostname}1/jenkins":
+	"/${hostname}1":
+	ensure	=> directory,
+	owner	=> 'svc-bld',
+	group	=> 'users',
+	mode	=> 0644;
+ }
+ file {
+	"/${hostname}2":
 	ensure	=> directory,
 	owner	=> 'svc-bld',
 	group	=> 'users',
