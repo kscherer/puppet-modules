@@ -16,7 +16,7 @@ class wr::yow_simics {
 	  'libreadline6-dev','bridge-utils',
 	  'uml-utilities','iptables-persistent','vim',
 	  'xutils-dev','vsftpd','tftpd-hpa', 'libsqlite3-dev', 'tightvncserver',
-	  'twm','lubuntu-desktop']:
+	  'twm','lubuntu-desktop', 'cscope']:
     ensure => 'installed';
   }
 
