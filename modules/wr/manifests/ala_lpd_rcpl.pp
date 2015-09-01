@@ -142,7 +142,6 @@ class wr::ala_lpd_rcpl {
     '/stored_builds':
       ensure  => directory,
       owner   => 'buildadmin',
-      group   => 'buildadmin',
       require => Class['nis'],
   }
 
