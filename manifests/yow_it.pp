@@ -69,12 +69,7 @@ node 'yow-build64-lx.wrs.com' {
 node 'yow-build65-lx.wrs.com' {
     include wr::yow_build_lx
 }
-node 'yow-build66-lx.wrs.com' {
-    include wr::yow_build_lx
-}
-node 'yow-build67-lx.wrs.com' {
-    include wr::yow_build_lx
-}
+
 node 'yow-iotbuild1.wrs.com' {
   include wr::yow_build
 }
@@ -121,7 +116,15 @@ node 'yow-lab-simics6' {
 node 'yow-lab-simics5' {
     include wr::yow_simics
 }
-
+node 'yow-lab-simics8-lx.wrs.com' {
+    include wr::yow_simics
+}
+node 'yow-lab-simics9-lx.wrs.com' {
+    include wr::yow_simics
+}
+node 'yow-lab-simics10-lx.wrs.com' {
+    include wr::yow_simics
+}
 node 'yow-samba3test.wrs.com' {
     include wr::yow_samba3test
 }
