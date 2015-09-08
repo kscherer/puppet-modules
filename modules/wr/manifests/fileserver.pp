@@ -462,6 +462,11 @@ class wr::fileserver {
       owner  => wrlbuild,
       group  => wrlbuild,
       mode   => '0700';
+    '/git/managed_builds':
+      ensure => directory,
+      owner  => wrlbuild,
+      group  => users,
+      mode   => '0775';
   }
 
   # collect the ssh public keys for all the mesos slave wrlbuild users
