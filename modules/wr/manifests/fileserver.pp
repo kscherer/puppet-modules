@@ -445,7 +445,7 @@ class wr::fileserver {
       uid            => 1000,
       managehome     => true,
       home           => '/home/wrlbuild',
-      groups         => ['docker'],
+      groups         => ['users'],
       shell          => '/bin/bash',
       password       => '$5$6F1BpKqFcszWi0n$fC5yUBkPNXHfyL8TOJwdJ1EE8kIzwJnKVrtcFYnpbcA',
       require        => Group [ 'wrlbuild' ];
@@ -491,6 +491,16 @@ end
 
   # add keys so wwang and gzhou1 can make git dirs on fileservers
   ssh_authorized_key {
+    'kscherer_desktop_wrlbuild':
+      ensure => 'present',
+      user   => 'root',
+      key    => hiera('kscherer@yow-kscherer-d1'),
+      type   => 'ssh-rsa';
+    'kscherer_home_wrlbuild':
+      ensure => 'present',
+      user   => 'root',
+      key    => hiera('kscherer@helix'),
+      type   => 'ssh-rsa';
     'wwang0_wrlbuild':
       ensure => 'present',
       user   => 'wrlbuild',
