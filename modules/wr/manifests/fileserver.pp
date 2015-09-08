@@ -493,12 +493,12 @@ end
   ssh_authorized_key {
     'kscherer_desktop_wrlbuild':
       ensure => 'present',
-      user   => 'root',
+      user   => 'wrlbuild',
       key    => hiera('kscherer@yow-kscherer-d1'),
       type   => 'ssh-rsa';
     'kscherer_home_wrlbuild':
       ensure => 'present',
-      user   => 'root',
+      user   => 'wrlbuild',
       key    => hiera('kscherer@helix'),
       type   => 'ssh-rsa';
     'wwang0_wrlbuild':
