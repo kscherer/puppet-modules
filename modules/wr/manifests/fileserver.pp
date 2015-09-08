@@ -488,4 +488,18 @@ end
       ip           => hiera('wr::docker_registry_ip', '147.11.105.120'),
       host_aliases => 'wr-docker-registry.wrs.com';
   }
+
+  # add keys so wwang and gzhou1 can make git dirs on fileservers
+  ssh_authorized_key {
+    'wwang0_wrlbuild':
+      ensure => 'present',
+      user   => 'wrlbuild',
+      key    => hiera('wwang0'),
+      type   => 'ssh-dss';
+    'gzhou1_wrlbuild':
+      ensure => 'present',
+      user   => 'wrlbuild',
+      key    => hiera('gzhou1'),
+      type   => 'ssh-rsa';
+  }
 }
