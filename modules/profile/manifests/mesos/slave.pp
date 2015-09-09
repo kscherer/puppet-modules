@@ -228,4 +228,16 @@ class profile::mesos::slave inherits profile::mesos::common {
 
   # create an ssh key for wrlbuild and publish it as a fact
   sshkeys::create_ssh_key {'wrlbuild': }
+
+  # disable apparmor monitoring of docker
+  file {
+    '/etc/apparmor.d/docker':
+      ensure => absent,
+      notify => Exec['apparmor_reload'];
+  }
+  exec {
+    'apparmor_reload':
+      command     => '/usr/sbin/invoke-rc.d apparmor reload',
+      refreshonly => true;
+  }
 }

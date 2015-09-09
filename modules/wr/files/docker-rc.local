@@ -11,9 +11,6 @@
 #
 # By default this script does nothing.
 
-# Turn off apparmor warnings about docker
-aa-complain /etc/apparmor.d/docker
-
 # Clean up any stopped docker containers that couldn't be removed due
 # to devicemapper problems
 docker rm $(docker ps -a -q)
