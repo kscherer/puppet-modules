@@ -56,11 +56,11 @@ GIT
 
 GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.garethr.garethr-docker.git
-  ref: v4.0.2
-  sha: b9a1fb9e5caaf25c01907ad4b3eb46f30df9eae9
+  ref: v4.1.1
+  sha: f3633c22f111dd44efa7861d70655a8365483178
   specs:
-    garethr-docker (4.0.2)
-      puppetlabs-apt (<= 1.8.0, >= 1.1.0)
+    garethr-docker (4.1.1)
+      puppetlabs-apt (<= 3.0.0, >= 1.1.0)
       puppetlabs-stdlib (>= 4.1.0)
       stahnma-epel (>= 0.0.6)
 
