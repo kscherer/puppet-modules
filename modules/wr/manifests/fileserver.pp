@@ -7,7 +7,8 @@ class wr::fileserver {
   include ::role::git::mirror
   include ::postfix
 
-  ensure_packages(['libc6-dev', 'vim-nox', 'screen', 'curl', 'wget', 'tmux', 'diffstat'])
+  ensure_packages(['libc6-dev', 'vim-nox', 'screen', 'curl', 'wget', 'tmux',
+                   'diffstat', 'reprepro'])
   include ::zfs
   Package['libc6-dev'] -> Class['zfs']
 
