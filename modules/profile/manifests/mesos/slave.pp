@@ -229,10 +229,14 @@ class profile::mesos::slave inherits profile::mesos::common {
   # create an ssh key for wrlbuild and publish it as a fact
   sshkeys::create_ssh_key {'wrlbuild': }
 
-  # disable apparmor monitoring of docker
+  # if apparmor monitoring of docker is completely disabled docker
+  # will not work, but forcing it to be in complain mode only works
+  # If apparmor is enabled, builds will fail due syslinux behavior
+  # of passing a /proc filehandle to a child process
   file {
-    '/etc/apparmor.d/docker':
-      ensure => absent,
+    '/etc/apparmor.d/force-complain/docker':
+      ensure => link,
+      target => '/etc/apparmor.d/docker',
       notify => Exec['apparmor_reload'];
   }
   exec {
