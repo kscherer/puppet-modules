@@ -38,7 +38,7 @@ class wr::ala_lpd_susbld {
     '/mnt/ala-lpdfs01':
       ensure   => mounted,
       atboot   => true,
-      device   => 'ala-lpfs01:/pool/sustaining',
+      device   => 'ala-lpdfs01:/pool/sustaining',
       fstype   => 'nfs',
       options  => 'bg,vers=3,nointr,timeo=600,_netdev',
       require  => File['/mnt/ala-lpdfs01'],
