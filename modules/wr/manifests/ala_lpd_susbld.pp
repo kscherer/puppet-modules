@@ -27,7 +27,7 @@ class wr::ala_lpd_susbld {
   }
 
   file {
-    '/mnt/ala-lpgnas2':
+    '/mnt/ala-lpdfs01':
       ensure  => directory,
       owner   => 'svc-bld',
       group   => 'users',
@@ -35,13 +35,13 @@ class wr::ala_lpd_susbld {
   }
 
   mount {
-    '/mnt/ala-lpgnas2':
+    '/mnt/ala-lpdfs01':
       ensure   => mounted,
       atboot   => true,
-      device   => 'ala-lpgnas2:/vol/vol5',
+      device   => 'ala-lpfs01:/pool/sustaining',
       fstype   => 'nfs',
       options  => 'bg,vers=3,nointr,timeo=600,_netdev',
-      require  => File['/mnt/ala-lpgnas2'],
+      require  => File['/mnt/ala-lpdfs01'],
       remounts => true;
   }
 
