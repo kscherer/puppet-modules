@@ -12,7 +12,7 @@ def create_dell_warranty_cache(cache)
 
   begin
     # rescue in case dell.com is down
-    dell_api_key     = '1adecee8a60444738f280aad1cd87d0e' # Public API key
+    dell_api_key     = '849e027f476027a394edd656eaef4842' # Public API key
     uri              = URI.parse("https://api.dell.com/support/v2/assetinfo/warranty/tags.json?svctags=#{servicetag}&apikey=#{dell_api_key}")
     http             = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl     = true
