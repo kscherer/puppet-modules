@@ -89,7 +89,7 @@ class profile::mesos::common inherits profile::nis {
   #add internal apt repo of mesosphere packages
   apt::key {
     'wr_mesos':
-      key        => '7132E47D',
+      key        => '7B189EAFA47D5C008EBC5E11E53FE6207132E47D',
       key_source => 'http://yow-mirror.wrs.com/mirror/mesos/mesos.gpg',
   }
   apt::source {
