@@ -79,6 +79,13 @@ GIT
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
 
 GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.duritong.puppet-sysctl.git
+  ref: v0.0.11
+  sha: 65ffe839a4ce785bc3901452488197a0ef158cd8
+  specs:
+    duritong-sysctl (0.0.11)
+
+GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.elasticsearch.puppet-logstash.git
   ref: master
   sha: 0b49e12d59898735899b747377c2cf64b4789f80
@@ -167,6 +174,7 @@ DEPENDENCIES
   deric-mesos (>= 0)
   deric-zookeeper (>= 0)
   dhoppe-postfix (>= 0)
+  duritong-sysctl (>= 0)
   garethr-docker (>= 0)
   jtopjian-sshkeys (>= 0)
   puppet-logstash (>= 0)

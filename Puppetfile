@@ -76,6 +76,10 @@ mod 'puppetlabs-vcsrepo',
   :git => 'git://ala-git.wrs.com/external/extra/github.com.puppetlabs.puppetlabs-vcsrepo.git',
   :ref => '1.3.1'
 
+mod 'duritong-sysctl',
+  :git => 'git://ala-git.wrs.com/external/puppet/github.com.duritong.puppet-sysctl.git',
+  :ref => 'v0.0.11'
+
 # This depends on apt module > 2.0.1
 #mod 'arioch-redis',
 #  :git => 'git://ala-git.wrs.com/external/puppet/github.com.arioch.puppet-redis.git',
