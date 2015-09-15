@@ -63,3 +63,8 @@ mod 'bodgit/zfs',
 mod 'puppetlabs-concat',
   :git => 'git://ala-git.wrs.com/external/extra/github.com.puppetlabs.puppetlabs-concat.git',
   :ref => '1.2.4'
+
+# This depends on apt module > 2.0.1
+#mod 'arioch-redis',
+#  :git => 'git://ala-git.wrs.com/external/puppet/github.com.arioch.puppet-redis.git',
+#  :ref => '1.1.3'
