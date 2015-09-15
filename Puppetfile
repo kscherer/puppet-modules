@@ -59,3 +59,7 @@ mod 'jtopjian-sshkeys',
 mod 'bodgit/zfs',
   :git => 'https://github.com/bodgit/puppet-zfs.git',
   :ref => '95d6d9f12933fb5ea0c0e42b63faa6a6a66f7d2d'
+
+mod 'puppetlabs-concat',
+  :git => 'git://ala-git.wrs.com/external/extra/github.com.puppetlabs.puppetlabs-concat.git',
+  :ref => '1.2.4'
