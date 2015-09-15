@@ -21,15 +21,8 @@ class dell::openmanage::debian {
     default    => 'absent',
   }
 
-  # key of:
-  # http://linux.dell.com/repo/community/deb/OMSA_6.5/
-  $key_5E3D7775 = $dell::omsa_version ? {
-    'OMSA_6.5' => 'present',
-    default    => 'absent',
-  }
-
-  apt::key {'22D16719':
-    ensure      => present,
+  apt::key {'4A801EC6AFCAF6474226759861872CD922D16719':
+    ensure      => absent,
     key_content => '-----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1.4.10 (GNU/Linux)
 
@@ -63,7 +56,7 @@ Fe9CK7rViEkEGBECAAkFAkXMKU0CGwwACgkQYYcs2SLRZxkfhACgkY453IigmYZl
   }
 
   apt::key {'5E3D7775':
-    ensure      => $key_5E3D7775,
+    ensure      => absent,
     key_content => '-----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1.4.11 (GNU/Linux)
 
@@ -98,7 +91,7 @@ QanLpjDk1ri9fzZiUU+cSuIl3A==
 -----END PGP PUBLIC KEY BLOCK-----',
   }
 
-  apt::key {'34D8786F':
+  apt::key {'42550ABD1E80D7C1BC0BAD851285491434D8786F':
     ensure      => $key_34D8786F,
     key_content => '-----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1.4.11 (GNU/Linux)
