@@ -68,6 +68,10 @@ mod 'puppetlabs-rsync',
   :git => 'git://ala-git.wrs.com/external/extra/github.com.puppetlabs.puppetlabs-rsync.git',
   :ref => '0.4.0'
 
+mod 'puppetlabs-xinetd',
+  :git => 'git://ala-git.wrs.com/external/extra/github.com.puppetlabs.puppetlabs-xinetd.git',
+  :ref => '1.5.0'
+
 # This depends on apt module > 2.0.1
 #mod 'arioch-redis',
 #  :git => 'git://ala-git.wrs.com/external/puppet/github.com.arioch.puppet-redis.git',
