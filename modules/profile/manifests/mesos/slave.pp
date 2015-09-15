@@ -114,6 +114,11 @@ class profile::mesos::slave inherits profile::mesos::common {
       owner  => 'wrlbuild',
       group  => 'wrlbuild',
       source => 'puppet:///modules/nx/ssh_config';
+    '/home/wrlbuild/.ssh/authorized_keys2':
+      ensure => present,
+      mode   => '0600',
+      owner  => 'wrlbuild',
+      group  => 'wrlbuild';
     '/home/wrlbuild/.bashrc':
       ensure => present,
       owner  => 'wrlbuild',
