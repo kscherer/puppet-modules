@@ -1,5 +1,5 @@
 ---
 mesos::slave::resources:
-  tier1: '1'
-  tier2: '2'
+  high: '1'
+  low: '2'
   world: '1'
