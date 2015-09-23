@@ -19,6 +19,4 @@ class wr::cgts {
       'qemu-kvm', 'rake', 'vim-nox', 'git-email']:
       ensure => latest;
   }
-
-  include collectd
 }

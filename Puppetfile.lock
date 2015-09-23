@@ -117,6 +117,15 @@ GIT
       stahnma-epel (>= 0.0.6)
 
 GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.puppet-community.puppet-collectd.git
+  ref: v4.2.0
+  sha: 51b4d026142129e82fd9daf5f417b9fe99df2ee8
+  specs:
+    puppet-collectd (4.2.0)
+      puppetlabs-concat (>= 1.0.4)
+      puppetlabs-stdlib (>= 3.2.0)
+
+GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppet-apt.git
   ref: 1.8.0
   sha: 47c6f338eda98ed849531d92b63c5e33103f76e4
@@ -177,6 +186,7 @@ DEPENDENCIES
   duritong-sysctl (>= 0)
   garethr-docker (>= 0)
   jtopjian-sshkeys (>= 0)
+  puppet-collectd (>= 0)
   puppet-logstash (>= 0)
   puppet-riemann (>= 0)
   puppetlabs-apt (>= 0)

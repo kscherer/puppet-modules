@@ -3,10 +3,6 @@ class profile::mesos::common inherits profile::nis {
 
   include docker
 
-  #Use collectd to monitor system utilization
-  include collectd
-  Class['wr::common::repos'] -> Class['collectd']
-
   # Use postfix to make sure email from cron and sent to root is sent out
   include postfix
   Class['wr::common::repos'] -> Class['postfix']

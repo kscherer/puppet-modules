@@ -1,6 +1,9 @@
 #
 class profile::monitored inherits profile::base {
 
+  include profile::collectd
+  Class['wr::common::repos'] -> Class['::collectd']
+
   include wr::mcollective
   Class['wr::common::repos'] -> Class['wr::mcollective']
 

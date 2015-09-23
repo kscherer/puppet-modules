@@ -80,6 +80,4 @@ class wr::yow_openstack {
       key    => hiera('bruce@yow-bashfiel-d1'),
       type   => 'ssh-dss';
   }
-
-  include collectd
 }

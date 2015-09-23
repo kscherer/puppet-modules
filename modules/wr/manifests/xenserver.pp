@@ -2,7 +2,6 @@
 class wr::xenserver {
 
   include profile::monitored
-  include collectd::disable
   include xen
 
   #set a strong generated password to encourage use of ssh authorized keys

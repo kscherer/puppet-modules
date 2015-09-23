@@ -34,14 +34,5 @@ class wr::pek_lpd_puppet {
       retentions => '10s:14d',
   }
 
-  #concat is another possible extension point
-  concat::fragment {
-    'cpu-aggregrate':
-      target  => '/etc/carbon/aggregation-rules.conf',
-      order   => 1,
-      source  => 'puppet:///modules/wr/cpu-aggregation.conf';
-  }
-
   include wr::activemq
-  include collectd
 }

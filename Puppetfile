@@ -80,6 +80,10 @@ mod 'duritong-sysctl',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.duritong.puppet-sysctl.git',
   :ref => 'v0.0.11'
 
+mod 'puppet-collectd',
+  :git => 'git://ala-git.wrs.com/external/puppet/github.com.puppet-community.puppet-collectd.git',
+  :ref => 'v4.2.0'
+
 # This depends on apt module > 2.0.1
 #mod 'arioch-redis',
 #  :git => 'git://ala-git.wrs.com/external/puppet/github.com.arioch.puppet-redis.git',

@@ -43,16 +43,7 @@ class wr::yow_lpd_puppet2 {
       retentions => '10s:14d';
   }
 
-  #concat is another possible extension point
-  concat::fragment {
-    'cpu-aggregrate':
-      target  => '/etc/carbon/aggregation-rules.conf',
-      order   => 1,
-      source  => 'puppet:///modules/wr/cpu-aggregation.conf';
-  }
-
   include wr::activemq
   include wr::foreman
-  include collectd
   include graphite_reporter
 }

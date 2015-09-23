@@ -3,7 +3,7 @@
 class wr::ala_lpd_mesos {
   include profile::mesos::master
   include profile::docker::registry
-  include collectd
+  include profile::collectd
 
   #running zookeeper in docker means zookeeper will restart when docker restarts
   include zookeeper

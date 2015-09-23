@@ -1,12 +1,38 @@
 ---
 collectd::plugins:
-  - collectd::plugin::base
-  - collectd::plugin::write_graphite
+  - collectd::plugin::cpu
+  - collectd::plugin::load
+  - collectd::plugin::memory
+  - collectd::plugin::swap
+  - collectd::plugin::processes
+  - collectd::plugin::disk
+  - collectd::plugin::aggregation
   - collectd::plugin::vmem
-collectd::plugin::write_graphite::port: "2023"
-collectd::service_ensure: "running"
-graphite::carbon::service::aggregator_ensure: "running"
-graphite::carbon::service::aggregator_enable: true
+  - collectd::plugin::write_graphite
+collectd::purge: true
+collectd::recurse: true
+collectd::purge_config: true
+collectd::plugin::write_graphite::carbons:
+  carbon:
+    graphiteprefix: ""
+    graphitehost: yow-lpd-puppet2.wrs.com
+collectd::plugin::aggregation::aggregators:
+  cpu:
+    plugin: 'cpu'
+    type: 'cpu'
+    groupby:
+      - "Host"
+      - "TypeInstance"
+    setplugin: 'cpu'
+    setplugininstance: "%{aggregation}"
+    calculatenum: false
+    calculatesum: false
+    calculateaverage: true
+    calculateminimum: false
+    calculatemaximum: false
+    calculatestddev: false
+graphite::carbon::service::aggregator_ensure: "stopped"
+graphite::carbon::service::aggregator_enable: false
 packages:
   - make
   - file

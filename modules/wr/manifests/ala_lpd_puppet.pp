@@ -26,6 +26,17 @@ class wr::ala_lpd_puppet {
 
   include wr::activemq
   include wr::foreman
-  include collectd
+
+  include apache::mod::wsgi
+  include graphite
+  Class['apache::mod::wsgi'] -> Class['graphite']
+
+  graphite::carbon::storage {
+    'default_10s_for_2weeks':
+      pattern    => '.*',
+      order      => '99',
+      retentions => '10s:14d';
+  }
+
   include graphite_reporter
 }
