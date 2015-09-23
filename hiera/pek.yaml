@@ -19,3 +19,4 @@ mesos::slave::attributes:
 graphite_reporter::graphite_host: pek-lpd-puppet.wrs.com
 docker::dns: 128.224.160.11
 wr::docker_registry_ip: '128.224.153.15'
+wr::graphite: '128.224.153.105'

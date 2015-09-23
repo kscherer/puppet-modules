@@ -15,7 +15,7 @@ collectd::purge_config: true
 collectd::plugin::write_graphite::carbons:
   carbon:
     graphiteprefix: ""
-    graphitehost: yow-lpd-puppet2.wrs.com
+    graphitehost: graphite
 collectd::plugin::aggregation::aggregators:
   cpu:
     plugin: 'cpu'
@@ -123,6 +123,7 @@ docker::extra_parameters:
   - '--insecure-registry pek-lpdfs01:5000'
   - '--insecure-registry wr-docker-registry:5000'
 wr::docker_registry_ip: '147.11.105.120'
+wr::graphite: '147.11.106.55'
 
 zookeeper::client_ip: "%{::ipaddress_eth0}"
 zookeeper::purge_interval: '12'

@@ -23,6 +23,7 @@ dhcp::ntpservers:
 
 docker::dns: 128.224.144.130
 wr::docker_registry_ip: '128.224.137.11'
+wr::graphite: '128.224.195.118'
 
 snmp::location: "Ottawa, Canada"
 graphite_reporter::graphite_host: yow-lpd-puppet2.wrs.com
