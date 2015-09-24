@@ -29,7 +29,7 @@ class redhat::repos {
   $mirror = "http://${mirror_host}/mirror"
 
   #setup archives for old fedora releases
-  if $::operatingsystem == 'Fedora' and $::operatingsystemrelease < '18' {
+  if $::operatingsystem == 'Fedora' and $::operatingsystemrelease < '21' {
     $fedora_mirror = 'https://archives.fedoraproject.org/pub/archive/fedora/linux'
   } else {
     $fedora_mirror = "${mirror}/fedora"
