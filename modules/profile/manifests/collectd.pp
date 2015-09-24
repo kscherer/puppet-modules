@@ -1,10 +1,8 @@
 #
 class profile::collectd {
-  if $::osfamily != 'Suse' {
-    include ::collectd
+  include ::collectd
 
-    $plugins = hiera_array('collectd::plugins',[])
-    include $plugins
-  }
+  $plugins = hiera_array('collectd::plugins',[])
+  include $plugins
 }
 
