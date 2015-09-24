@@ -4,7 +4,6 @@ collectd::plugins:
   - collectd::plugin::load
   - collectd::plugin::memory
   - collectd::plugin::swap
-  - collectd::plugin::processes
   - collectd::plugin::disk
   - collectd::plugin::aggregation
   - collectd::plugin::vmem
