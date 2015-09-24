@@ -5,18 +5,11 @@ $extlookup_precedence = [ '%{fqdn}', 'package', 'common']
 #set the default path for all exec resources
 Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
-#do not define a filebucket if server is not valid
-if $::hostname != '' and $::hostname != 'puppet' {
-  # Define the bucket
-  filebucket {
-    'main':
-      server => $::server,
-      path   => false
-  }
-
-  # Specify it as the default target
-  File { backup => main }
+filebucket {
+  'main':
+    path   => false
 }
+File { backup => main }
 
 if versioncmp($::puppetversion,'3.6.1') >= 0 {
   # Kill deprecation warnings in Puppet 3.6+
