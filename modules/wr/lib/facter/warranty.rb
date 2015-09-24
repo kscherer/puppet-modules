@@ -72,8 +72,9 @@ Facter.add('warranty') do
   setcode do
     warranty ='Unsupported'
     # Just support for dell/lenovo so far... Contribute *hint*
-    next if Facter.value('manufacturer').downcase !~ /(dell.*|lenovo)/
     next if !Facter.value('serialnumber')
+    next if Facter.value('manufacturer').nil?
+    next if Facter.value('manufacturer').downcase !~ /(dell.*|lenovo)/
 
     if Facter.value('operatingsystem') == 'windows'
       cache_file = 'C:\ProgramData\PuppetLabs\puppet\var\facts\facter_warranty.fact'
