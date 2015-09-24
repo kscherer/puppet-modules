@@ -3,7 +3,6 @@ class wr::fileserver {
   include ::profile::nis
   include ::rsync
   include ::apache
-  include ::collectd
   include ::role::git::mirror
   include ::postfix
 
