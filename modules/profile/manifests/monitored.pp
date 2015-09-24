@@ -1,10 +1,8 @@
 #
 class profile::monitored inherits profile::base {
 
-  if $::operatingsystem != 'SLED' {
-    include profile::collectd
-    Class['wr::common::repos'] -> Class['::collectd']
-  }
+  include profile::collectd
+  Class['wr::common::repos'] -> Class['::collectd']
 
   # Send collectd stats to local graphite server
   host {

@@ -1,8 +1,10 @@
 #
 class profile::collectd {
-  include ::collectd
+  if $::operatingsystem != 'SLED' {
+    include ::collectd
 
-  $plugins = hiera_array('collectd::plugins',[])
-  include $plugins
+    $plugins = hiera_array('collectd::plugins',[])
+    include $plugins
+  }
 }
 
