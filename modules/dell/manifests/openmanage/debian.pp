@@ -139,7 +139,7 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
 
   $omsa_release = $::operatingsystem ? {
     'Debian' => 'wheezy',
-    'Ubuntu' => 'precise',
+    'Ubuntu' => $::lsbdistcodename,
   }
 
   apt::source{'dell':
