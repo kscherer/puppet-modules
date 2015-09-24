@@ -6,7 +6,7 @@ $extlookup_precedence = [ '%{fqdn}', 'package', 'common']
 Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
 #do not define a filebucket if server is not valid
-if $::server != '' and $::server != 'puppet' {
+if $::hostname != '' and $::hostname != 'puppet' {
   # Define the bucket
   filebucket {
     'main':
@@ -32,7 +32,7 @@ case $::location {
   undef: {
     #This path is used for stdlib facter_dot_d module
     #if location fact is not set by pluginsync, use default from puppet server used
-    $location = regsubst($::servername, '^(\w\w\w).*','\1')
+    $location = regsubst($::hostname, '^(\w\w\w).*','\1')
     notice("Using calculated location of ${::location}")
     file {
       '/etc/facter/':
