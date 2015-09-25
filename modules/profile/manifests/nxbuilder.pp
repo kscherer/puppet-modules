@@ -20,8 +20,6 @@ class profile::nxbuilder inherits profile::nis {
       'root':
         password => '$1$5VSxF7IZ$.yx57bNrz.RCFQRnz3KYV0';
     }
-    #setup ssmtp to forward all email sent to root to Konrad
-    include ssmtp
   }
 
   if $::osfamily == 'RedHat' and $::lsbmajdistrelease == '5' {
