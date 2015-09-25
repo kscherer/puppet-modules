@@ -251,7 +251,7 @@ class puppet::master (
 
   cron {
     'report_clean':
-      command => '/usr/bin/find /var/lib/puppet/reports -ctime +3 -name \'*.yaml\' -exec rm {} \; &> /dev/null',
+      command => '/usr/bin/find /var/lib/puppet/reports -ctime +3 -name \'*.yaml\' -delete \; &> /dev/null',
       user    => 'puppet',
       minute  => '0',
       hour    => '2';
