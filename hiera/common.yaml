@@ -8,6 +8,7 @@ collectd::plugins:
   - collectd::plugin::aggregation
   - collectd::plugin::vmem
   - collectd::plugin::write_graphite
+  - collectd::plugin::syslog
 collectd::purge: true
 collectd::recurse: true
 collectd::purge_config: true
