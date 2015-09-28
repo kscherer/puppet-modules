@@ -32,10 +32,10 @@ class wr::ala_lpd_puppet {
   Class['apache::mod::wsgi'] -> Class['graphite']
 
   graphite::carbon::storage {
-    'default_10s_for_2weeks':
+    'default_15s_for_1weeks':
       pattern    => '.*',
       order      => '99',
-      retentions => '10s:14d';
+      retentions => '15s:7d';
   }
 
   include graphite_reporter
