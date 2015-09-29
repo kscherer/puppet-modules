@@ -109,6 +109,10 @@ node /ala-lpggp\d+\.wrs\.com/ {
   class { 'wr::ala_lpggp': }
 }
 
+node 'yow-lpggp3.wrs.com' {
+  include profile::gp_builder
+}
+
 node /yow-lpggp\d+\.wrs\.com/ {
   class { 'wr::yow_lpggp': }
 }

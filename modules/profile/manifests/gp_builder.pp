@@ -53,5 +53,4 @@ yourself, this F/S will be cleaned up periodically.";
       ensure => present,
       mode   => '0666';
   }
-
 }

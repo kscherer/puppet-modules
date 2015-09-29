@@ -23,20 +23,4 @@ Use /${::hostname}1 as local storage.  It is not backed up, make
 sure you have a secure copy of your data.  Clean up after
 yourself, this F/S will be cleaned up periodically.";
   }
-
-  if $::operatingsystem == 'Ubuntu' {
-    include nfs::server
-    include x2go
-    include docker
-
-    # some developers are more comfortable with vnc
-    ensure_packages(['tightvncserver'])
-
-    concat::fragment {
-      'export_buildarea':
-        target  => '/etc/exports',
-        content => "/${::hostname}1 *(rw)\n/${::hostname}2 *(rw)\n",
-        order   => '10'
-    }
-  }
 }
