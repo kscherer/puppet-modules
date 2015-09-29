@@ -40,4 +40,18 @@ yourself, this F/S will be cleaned up periodically.";
     }
   }
 
+  #enable running docker and runqemu using sudo
+  sudo::conf {
+    'lpg':
+      source  => 'puppet:///modules/wr/sudoers.d/lpg';
+  }
+
+  # to allow kvm access to all, make kvm device accessible to all
+  # There isn't an easy way to add all lpg group members to kvm group
+  file {
+    '/dev/kvm':
+      ensure => present,
+      mode   => '0666';
+  }
+
 }
