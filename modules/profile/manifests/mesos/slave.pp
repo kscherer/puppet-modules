@@ -164,7 +164,7 @@ class profile::mesos::slave inherits profile::mesos::common {
       command => 'cd /home/wrlbuild/wr-buildscripts; ./build_postprocess.sh >> /home/wrlbuild/log/postprocess.log',
       user    => 'wrlbuild',
       hour    => '*',
-      minute  => [0,15,30,45];
+      minute  => '*/5';
     #Delete log files older that 10 days
     'clean_docker_tmp':
       command => '/usr/bin/find /mnt/docker -mtime +1 -delete &> /dev/null',
