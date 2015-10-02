@@ -200,6 +200,8 @@ class wr::ala_lpgweb {
     'errorweb':
       password   => '$5$BgyVYu6DgaQM2cEP$BO9AhcDlJRgvQWH5EkIuygrLMh37.Sl3YGtIffGwfT5';
   }
+  # used to setup errorweb application
+  ensure_resource('package', 'python-virtualenv', {'ensure' => 'installed' })
 
   file {
     '/home/rq/log':
