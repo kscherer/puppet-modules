@@ -129,6 +129,13 @@ class wr::ala_lpgweb {
 
   #require apache to display exported process docs
   include apache
+  include apache::mod::proxy
+  include apache::mod::wsgi
+  apache::vhost {
+    'ala-lpgweb2.wrs.com':
+      port       => 80,
+      docroot    => '/var/www/';
+  }
 
   #make link into rendered docs
   file {
