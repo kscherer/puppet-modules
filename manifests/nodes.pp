@@ -157,6 +157,11 @@ node 'ala-lpd-susbld.wrs.com' {
   class { 'wr::ala_lpd_susbld': }
 }
 
+node 'ala-lpd-susbld2.wrs.com' {
+  include profile::nis
+  include yocto
+}
+
 node 'yow-lpd-provision.wrs.com' {
   include ::wr::yow_lpd_provision
 }
