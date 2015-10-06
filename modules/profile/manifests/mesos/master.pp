@@ -31,6 +31,7 @@ class profile::mesos::master inherits profile::mesos::common {
 
   #This installs python-pip
   include python
+  Class['wr::common::repos'] -> Class['python']
 
   #rq is used by build scheduler to read queues
   wr::pip_userpackage {
