@@ -130,11 +130,10 @@ zookeeper::purge_interval: '12'
 # The order of the servers must match the node ids
 zookeeper::servers:
   - '147.11.106.56'
-  - '147.11.105.21'
+  - '147.11.105.37'
   - '147.11.105.120'
   - '128.224.137.11'
   - '128.224.153.15'
-  - '147.11.105.37'
 
 zookeeper::observers:
   - '128.224.137.11'
