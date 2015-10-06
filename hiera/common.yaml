@@ -94,7 +94,7 @@ apache::mod::passenger::passenger_max_requests: "1000"
 #since mesos repo is managed locally, latest will only update when package
 #is added to the yow-mirror mesos repo
 mesos::version: 'latest'
-mesos::zookeeper: 'zk://147.11.106.56:2181,147.11.105.21:2181,147.11.105.120:2181/mesos'
+mesos::zookeeper: 'zk://147.11.106.56:2181,147.11.105.37:2181,147.11.105.120:2181/mesos'
 mesos::master::cluster: 'wraxl'
 mesos::master::options:
   quorum: '2'
