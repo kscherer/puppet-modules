@@ -109,13 +109,6 @@ class wr::ala_blades {
       ensure  => installed,
   }
 
-  #make sure latest Twig package is installed
-  package {
-    'perl-XML-Twig':
-      ensure  => latest,
-      require => Yumrepo['xylo'];
-  }
-
   #To build 4.3 on ala-blades install required packages
   include wrlinux
 }
