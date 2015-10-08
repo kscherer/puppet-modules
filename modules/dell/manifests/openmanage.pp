@@ -41,11 +41,11 @@ class dell::openmanage {
   case $::osfamily {
     'RedHat': {
 
-      # openmanage is a mess to install on redhat, and recent versions
-      # don't support older hardware. So puppet will install it if absent,
-      # or else leave it unmanaged.
-      include ::dell::openmanage::redhat
-      Class['::dell::openmanage::redhat'] -> Class['::dell::openmanage']
+      # don't manage openmanage yum repos on RH5 because upstream is broken
+      if $::operatingsystemmajrelease != '5' {
+        include ::dell::openmanage::redhat
+        Class['::dell::openmanage::redhat'] -> Class['::dell::openmanage']
+      }
 
       augeas { 'disable dell yum plugin once OM is installed':
         changes => [
