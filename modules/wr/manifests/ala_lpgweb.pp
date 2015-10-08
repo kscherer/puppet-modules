@@ -79,6 +79,13 @@ class wr::ala_lpgweb {
       source   => 'git://ala-git.wrs.com/lpd-ops/wr-buildscripts.git',
       user     => 'rq',
       revision => 'master';
+    'lpd_hardware':
+      ensure   => 'latest',
+      path     => '/home/rq/lpd_hardware',
+      provider => 'git',
+      source   => 'git://ala-git.wrs.com/lpd-ops/lpd_hardware.git',
+      user     => 'rq',
+      revision => 'master';
   }
 
   wr::upstart_conf {
@@ -125,6 +132,12 @@ class wr::ala_lpgweb {
       user    => 'rq',
       hour    => '13',
       minute  => '0';
+    'make_hardware_table':
+      ensure  => present,
+      command => '/home/rq/lpd_hardware/make_hardware_table.sh',
+      user    => 'rq',
+      hour    => '*/6',
+      minute  => '0';
   }
 
   #make link into rendered docs
@@ -132,6 +145,9 @@ class wr::ala_lpgweb {
     '/var/www/wr-process':
       ensure => link,
       target => '/home/rq/wr-process';
+    '/var/www/table.html':
+      ensure => link,
+      target => '/home/rq/lpd_hardware/table.html';
   }
 
   #plantuml requires java

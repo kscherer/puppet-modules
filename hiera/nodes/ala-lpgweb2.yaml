@@ -1,3 +1,4 @@
 ---
 python::dev: true
 apache::default_vhost: false
+mcollective::client: true
