@@ -145,9 +145,9 @@ class wr::ala_lpgweb {
     '/var/www/wr-process':
       ensure => link,
       target => '/home/rq/wr-process';
-    '/var/www/table.html':
+    '/var/www/lpd_hardware':
       ensure => link,
-      target => '/home/rq/lpd_hardware/table.html';
+      target => '/home/rq/lpd_hardware/';
   }
 
   #plantuml requires java
