@@ -20,12 +20,6 @@ class wr::ala_lpd_susbld {
       type   => 'ssh-rsa';
   }
 
-  service {
-    'httpd':
-      ensure => running,
-      enable => true,
-  }
-
   file {
     '/mnt/ala-lpdfs01':
       ensure  => directory,
@@ -57,6 +51,11 @@ class wr::ala_lpd_susbld {
         source  => 'puppet:///modules/wr/sudoers.d/lpg';
     }
   } else {
+    service {
+      'httpd':
+        ensure => running,
+        enable => true,
+    }
     #clearcase installation depends on this specific kernel
     package {
       'kernel':
