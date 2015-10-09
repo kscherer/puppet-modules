@@ -163,7 +163,7 @@ node 'ala-lpd-susbld.wrs.com' {
 }
 
 node 'ala-lpd-susbld2.wrs.com' {
-  include profile::nis
+  include wr::ala_lpd_susbld
   include yocto
 }
 

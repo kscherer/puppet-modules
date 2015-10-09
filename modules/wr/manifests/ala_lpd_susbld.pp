@@ -45,9 +45,13 @@ class wr::ala_lpd_susbld {
       remounts => true;
   }
 
-  #clearcase installation depends on this specific kernel
-  package {
-    'kernel':
-      ensure => '2.6.18-194.el5';
+  if $::osfamily == 'Debian' {
+    include docker
+  } else {
+    #clearcase installation depends on this specific kernel
+    package {
+      'kernel':
+        ensure => '2.6.18-194.el5';
+    }
   }
 }
