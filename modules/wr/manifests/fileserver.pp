@@ -487,13 +487,6 @@ end
       user => 'wrlbuild'
   }
 
-  host {
-    'wr-docker-registry':
-      ensure       => present,
-      ip           => hiera('wr::docker_registry_ip', '147.11.105.120'),
-      host_aliases => 'wr-docker-registry.wrs.com';
-  }
-
   # add keys so wwang and gzhou1 can make git dirs on fileservers
   ssh_authorized_key {
     'kscherer_desktop_wrlbuild':

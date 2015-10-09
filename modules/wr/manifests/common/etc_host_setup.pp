@@ -23,5 +23,11 @@ class wr::common::etc_host_setup {
     'localhost':
       host_aliases => 'localhost.localdomain',
       ip           => '127.0.0.1';
+    # Use hosts file as substitute for geographically aware DNS
+    # Default to ala-lpdfs01
+    'wr-docker-registry':
+      ensure       => present,
+      ip           => hiera('wr::docker_registry_ip', '147.11.105.120'),
+      host_aliases => 'wr-docker-registry.wrs.com';
   }
 }

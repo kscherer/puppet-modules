@@ -98,15 +98,6 @@ class profile::mesos::common inherits profile::nis {
   }
   Apt::Source['mesos'] -> Package['mesos']
 
-  # Use hosts file as substitute for geographically aware DNS
-  # Default to ala-lpdfs01
-  host {
-    'wr-docker-registry':
-      ensure       => present,
-      ip           => hiera('wr::docker_registry_ip', '147.11.105.120'),
-      host_aliases => 'wr-docker-registry.wrs.com';
-  }
-
   file {
     '/etc/rc.local':
       ensure => file,
