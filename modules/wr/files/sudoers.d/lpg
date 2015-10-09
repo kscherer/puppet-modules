@@ -4,6 +4,7 @@ User_Alias LINUXGROUP = %lpg, %lpg-test, dlerner
 Cmnd_Alias LINUXCOMMANDS = /usr/bin/docker, \
    /*/*/layers/oe-core/scripts/runqemu-ifup, /*/*/layers/oe-core/scripts/runqemu-ifdown, \
    /*/*/*/layers/oe-core/scripts/runqemu-ifup, /*/*/*/layers/oe-core/scripts/runqemu-ifdown, \
-   /*/*/*/*/layers/oe-core/scripts/runqemu-ifup, /*/*/*/*/layers/oe-core/scripts/runqemu-ifdown
+   /*/*/poky/scripts/runqemu-ifup, /*/*/poky/scripts/runqemu-ifdown,
+
 
 LINUXGROUP ALL=NOPASSWD: LINUXCOMMANDS
