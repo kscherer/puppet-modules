@@ -47,6 +47,15 @@ class wr::ala_lpd_susbld {
 
   if $::osfamily == 'Debian' {
     include docker
+    # some developers are more comfortable with vnc
+    ensure_packages( ['screen', 'wiggle', 'expect', 'quilt', 'tmux', 'curl',
+                      'wget','tightvncserver', 'xfsprogs', 'vim-nox'])
+
+    #enable running docker and runqemu using sudo
+    sudo::conf {
+      'lpg':
+        source  => 'puppet:///modules/wr/sudoers.d/lpg';
+    }
   } else {
     #clearcase installation depends on this specific kernel
     package {
