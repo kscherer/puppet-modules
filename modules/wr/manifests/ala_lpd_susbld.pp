@@ -49,6 +49,8 @@ class wr::ala_lpd_susbld {
     sudo::conf {
       'lpg':
         source  => 'puppet:///modules/wr/sudoers.d/lpg';
+      'rcpl':
+        source  => 'puppet:///modules/wr/sudoers.d/rcpl';
     }
   } else {
     service {
