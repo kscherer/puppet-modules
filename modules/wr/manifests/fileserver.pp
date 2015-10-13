@@ -509,5 +509,10 @@ end
       user   => 'wrlbuild',
       key    => hiera('gzhou1'),
       type   => 'ssh-rsa';
+    'ywei_wrlbuild':
+      ensure => 'present',
+      user   => 'wrlbuild',
+      key    => hiera('ywei'),
+      type   => 'ssh-dss';
   }
 }
