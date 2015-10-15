@@ -6,8 +6,8 @@ class wr::fileserver {
   include ::role::git::mirror
   include ::postfix
 
-  ensure_packages(['libc6-dev', 'vim-nox', 'screen', 'curl', 'wget', 'tmux',
-                   'diffstat', 'reprepro'])
+  ensure_packages( ['libc6-dev', 'vim-nox', 'screen', 'curl', 'wget', 'tmux',
+                    'diffstat', 'reprepro', 'unzip'])
   include ::zfs
   Package['libc6-dev'] -> Class['zfs']
 
@@ -109,6 +109,14 @@ class wr::fileserver {
       setuid   => 'off',
       devices  => 'off',
       quota    => '100G';
+    'pool/wrlinux_installs':
+      ensure   => present,
+      atime    => 'off',
+      sharenfs => 'on',
+      setuid   => 'off',
+      devices  => 'off',
+      quota    => '2T',
+      require  => Package['nfs-kernel-server'];
   }
 
   # scrub zfs filesystem weekly
@@ -144,6 +152,12 @@ class wr::fileserver {
       group   => 'users',
       mode    => '0775',
       require => Zfs['pool/ovp'];
+    '/pool/wrlinux_installs':
+      ensure => directory,
+      owner  => wrlbuild,
+      group  => users,
+      mode   => '0775',
+      require => Zfs['pool/wrlinux_installs'];
   }
 
   package {
