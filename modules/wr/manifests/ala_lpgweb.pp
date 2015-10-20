@@ -134,7 +134,7 @@ class wr::ala_lpgweb {
       minute  => '0';
     'make_hardware_table':
       ensure  => present,
-      command => '/home/rq/lpd_hardware/make_hardware_table.sh',
+      command => 'cd /home/rq/lpd_hardware; ./make_hardware_table.sh',
       user    => 'rq',
       hour    => '*/6',
       minute  => '0';
