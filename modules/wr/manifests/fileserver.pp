@@ -70,7 +70,7 @@ class wr::fileserver {
       sharenfs => 'on',
       setuid   => 'off',
       devices  => 'off',
-      quota    => '8T',
+      quota    => '10T',
       require  => Package['nfs-kernel-server'];
     'pool/prj-wrlinux':
       ensure   => present,
