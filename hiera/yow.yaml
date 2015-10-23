@@ -2,7 +2,7 @@
 amqp_server: yow-lpd-puppet2.wrs.com
 puppet::puppet_server: yow-lpd-puppet2.wrs.com
 ntp::servers:
-  - ntp-7.wrs.com
+  - yow-lpggp3.wrs.com
 mirror: yow-mirror.wrs.com
 graphite::web::time_zone: US/Eastern
 collectd::plugin::write_graphite::host: yow-lpd-puppet2.wrs.com
@@ -19,7 +19,7 @@ dhcp::nameservers:
   - 128.224.144.130
   - 147.11.57.128
 dhcp::ntpservers:
-  - ntp-7.wrs.com
+  - yow-lpggp3.wrs.com
 
 docker::dns: 128.224.144.130
 wr::docker_registry_ip: '128.224.137.11'
