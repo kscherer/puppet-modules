@@ -229,7 +229,7 @@ class wr::fileserver {
       ensure => present,
       owner  => 'svc-mirror',
       group  => 'mirror',
-      content => 'puppet:///wr/mirror.list';
+      source => 'puppet:///modules/wr/mirror.list';
   }
 
   cron {
