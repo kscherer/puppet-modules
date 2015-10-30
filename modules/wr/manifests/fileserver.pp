@@ -161,7 +161,7 @@ class wr::fileserver {
   }
 
   package {
-    ['fuseiso', 'createrepo']:
+    ['fuseiso', 'createrepo', 'apt-mirror']:
       ensure  => installed;
   }
 
@@ -221,6 +221,15 @@ class wr::fileserver {
     '/etc/mirrormanager-client/report_mirror.conf':
       ensure => link,
       target => "/home/svc-mirror/mirror-rsync/report_mirror.conf.${::hostname}";
+    '/pool/mirror/apt':
+      ensure => directory,
+      owner  => 'svc-mirror',
+      group  => 'mirror';
+    '/pool/mirror/apt/mirror.list':
+      ensure => present,
+      owner  => 'svc-mirror',
+      group  => 'mirror',
+      content => 'puppet:///wr/mirror.list';
   }
 
   cron {
@@ -257,6 +266,13 @@ class wr::fileserver {
       user    => 'svc-mirror',
       hour    => '6',
       minute  => '0';
+    'apt-mirror-sync':
+      ensure  => present,
+      command => '/usr/bin/apt-mirror /pool/mirror/apt/mirror.list',
+      user    => 'svc-mirror',
+      hour    => '3',
+      minute  => '0',
+      require => Package['apt-mirror'];
   }
 
   #dell repo needs to be able to exec cgi scripts
