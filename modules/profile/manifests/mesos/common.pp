@@ -93,6 +93,7 @@ class profile::mesos::common inherits profile::nis {
       location    => "http://${::location}-mirror.wrs.com/mirror/apt/repos.mesosphere.io/ubuntu",
       release     => $::lsbdistcodename,
       repos       => 'main',
+      architecture => 'amd64',
       include_src => false;
     'wr-docker':
       location     => "http://${::location}-mirror.wrs.com/mirror/apt/apt.dockerproject.org/repo/",
