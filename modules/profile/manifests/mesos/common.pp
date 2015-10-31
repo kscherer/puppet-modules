@@ -87,9 +87,6 @@ class profile::mesos::common inherits profile::nis {
     'wr_mesos':
       key        => '7B189EAFA47D5C008EBC5E11E53FE6207132E47D',
       key_source => "http://${::location}-mirror.wrs.com/mirror/apt/repos.mesosphere.io/ubuntu/dists/trusty/Release.gpg";
-    'wr_docker':
-      key        => '58118E89F3A912897C070ADBF76221572C52609D',
-      key_source => "http://${::location}-mirror.wrs.com/mirror/apt/apt.dockerproject.org/repo/dists/ubuntu-trusty/Release.gpg";
   }
   apt::source {
     'mesos':
@@ -103,6 +100,8 @@ class profile::mesos::common inherits profile::nis {
       repos        => 'main',
       architecture => 'amd64',
       include_src  => false,
+      key          => '58118E89F3A912897C070ADBF76221572C52609D',
+      key_server   => 'p80.pool.sks-keyservers.net:80';
   }
   Apt::Key['wr_mesos'] -> Apt::Source['mesos'] -> Package['mesos']
 
@@ -110,7 +109,7 @@ class profile::mesos::common inherits profile::nis {
     'docker-engine':
       ensure  => '1.8.3-0~trusty';
   }
-  Apt::Key['wr_docker'] -> Apt::Source['mesos'] -> Package['docker-engine']
+  Apt::Source['wr-docker'] -> Package['docker-engine']
 
   file {
     '/etc/rc.local':
