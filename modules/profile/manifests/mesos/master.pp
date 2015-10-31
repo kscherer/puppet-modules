@@ -43,8 +43,8 @@ class profile::mesos::master inherits profile::mesos::common {
   # required by the random_config_scheduler which is written in python
   # Slaves use the docker containerizer which is shipped with mesos and no
   # python is required
-  $mesos_egg = 'mesos-0.23.0-py2.7-linux-x86_64.egg'
-  $mesos_interface_egg = 'mesos.interface-0.23.0-py2.7.egg'
+  $mesos_egg = 'mesos-0.24.1-py2.7-linux-x86_64.egg'
+  $mesos_interface_egg = 'mesos.interface-0.24.1-py2.7.egg'
 
   include wget
   wget::fetch {
