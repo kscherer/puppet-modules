@@ -98,7 +98,7 @@ class profile::mesos::common inherits profile::nis {
       repos       => 'main',
       include_src => false;
     'wr-docker':
-      location     => "http://${::location}-mirror.wrs.com/mirror/apt/apt.dockerproject.org/repo/dists/",
+      location     => "http://${::location}-mirror.wrs.com/mirror/apt/apt.dockerproject.org/repo/",
       release      => "ubuntu-${::lsbdistcodename}",
       repos        => 'main',
       architecture => 'amd64',
