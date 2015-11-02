@@ -8,6 +8,7 @@ apt::unattended_upgrades::origins:
   - '${distro_id}:${distro_codename}-updates'
 apt::unattended_upgrades::blacklist:
   - lxc-docker
+  - docker-engine
   - mesos
 apt::unattended_upgrades::minimal_steps: true
 apt::unattended_upgrades::mail_only_on_error: true
