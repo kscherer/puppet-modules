@@ -83,18 +83,15 @@ class profile::mesos::common inherits profile::nis {
   Package['openjdk-7-jre-headless'] -> File['/usr/lib/libjvm.so'] -> Package['mesos']
 
   #add internal apt repo of mesosphere packages
-  apt::key {
-    'wr_mesos':
-      key        => '7B189EAFA47D5C008EBC5E11E53FE6207132E47D',
-      key_source => "http://${::location}-mirror.wrs.com/mirror/apt/repos.mesosphere.io/ubuntu/dists/trusty/Release.gpg";
-  }
   apt::source {
     'mesos':
       location    => "http://${::location}-mirror.wrs.com/mirror/apt/repos.mesosphere.io/ubuntu",
       release     => $::lsbdistcodename,
       repos       => 'main',
       architecture => 'amd64',
-      include_src => false;
+      include_src => false,
+      key         => '81026D0004C44CF7EF55ADF8DF7D54CBE56151BF',
+      key_server  => 'keyserver.ubuntu.com';
     'wr-docker':
       location     => "http://${::location}-mirror.wrs.com/mirror/apt/apt.dockerproject.org/repo/",
       release      => "ubuntu-${::lsbdistcodename}",
