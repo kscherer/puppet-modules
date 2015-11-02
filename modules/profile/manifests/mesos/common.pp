@@ -101,7 +101,7 @@ class profile::mesos::common inherits profile::nis {
       key          => '58118E89F3A912897C070ADBF76221572C52609D',
       key_server   => 'hkp://pgp.mit.edu:80';
   }
-  Apt::Key['wr_mesos'] -> Apt::Source['mesos'] -> Package['mesos']
+  Apt::Source['mesos'] -> Package['mesos']
 
   package {
     'docker-engine':
