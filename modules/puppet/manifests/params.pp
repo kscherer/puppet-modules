@@ -60,8 +60,8 @@ class puppet::params {
       $puppet_logdir                = '/var/log/puppet'
       $puppet_vardir                = '/var/lib/puppet'
       $puppet_ssldir                = '/var/lib/puppet/ssl'
-      $package_provider             = 'aptitude'
-      $mysql_package_provider       = 'aptitude'
+      $package_provider             = 'apt'
+      $mysql_package_provider       = 'apt'
       $ruby_mysql_package           = 'libmysql-ruby1.8'
     }
     'opensuse', 'sled', 'sles': {

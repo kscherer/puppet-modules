@@ -34,7 +34,8 @@ Aptitude::CmdLine::Package-Display-Format "%c%a%M %p# - %d%V#";
 APT::Install-Recommends "0";';
   }
 
-  include apt::unattended_upgrades
+  include apt
+  include unattended_upgrades
 
   # fsck of /boot/efi fails and causes boot to hang
   exec {

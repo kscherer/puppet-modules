@@ -24,9 +24,11 @@ snmp::snmpd_options: '-Lsd -Lf /dev/null -u snmp -g snmp -I smux -p /var/run/snm
 
 java::package: 'openjdk-7-jre-headless'
 
-apt::purge_sources_list: true
-apt::purge_sources_list_d: true
-apt::source::include_src: false
+apt::purge:
+  sources.list: true
+  sources.list.d: true
+apt::update:
+  frequency: 'daily'
 
 # Because upgrading docker causes all running instances to be killed I
 # have to do rolling upgrades. This stops docker module from managing

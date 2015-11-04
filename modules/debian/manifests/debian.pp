@@ -20,18 +20,15 @@ class debian::debian(
     'debian_mirror_wheezy':
       location    => "${mirror_base}/debian",
       release     => 'wheezy',
-      repos       => 'main contrib non-free',
-      include_src => false;
+      repos       => 'main contrib non-free';
     'debian_mirror_wheezy_updates':
       location    => "${mirror_base}/debian",
       release     => 'wheezy-updates',
-      repos       => 'main contrib non-free',
-      include_src => false;
+      repos       => 'main contrib non-free';
     'debian_mirror_wheezy_security':
       location    => 'http://security.debian.org/',
       release     => 'wheezy/updates',
-      repos       => 'main contrib non-free',
-      include_src => false;
+      repos       => 'main contrib non-free';
     'yow_puppetlabs_mirror':
       location    => "${mirror_base}/puppetlabs/apt",
       release     => 'wheezy',
@@ -40,7 +37,6 @@ class debian::debian(
     'debian_mirror_jessie':
       location    =>  "${mirror_base}/debian",
       release     => 'jessie',
-      include_src => false,
       repos       => 'main contrib non-free';
   }
 

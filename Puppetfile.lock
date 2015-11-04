@@ -32,10 +32,10 @@ GIT
 
 GIT
   remote: git://ala-git.wrs.com/external/extra/github.com.puppetlabs.puppetlabs-stdlib.git
-  ref: 4.5.1
-  sha: 7a91f209908f78d305e4de56ccc2f42b2b5953af
+  ref: 4.6.0
+  sha: 73474b00b5ae3cbccec6cd0711311d6450139e51
   specs:
-    puppetlabs-stdlib (4.5.1)
+    puppetlabs-stdlib (4.6.0)
 
 GIT
   remote: git://ala-git.wrs.com/external/extra/github.com.puppetlabs.puppetlabs-vcsrepo.git
@@ -126,12 +126,21 @@ GIT
       puppetlabs-stdlib (>= 3.2.0)
 
 GIT
-  remote: git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppet-apt.git
-  ref: 1.8.0
-  sha: 47c6f338eda98ed849531d92b63c5e33103f76e4
+  remote: git://ala-git.wrs.com/external/puppet/github.com.puppet-community.puppet-unattended_upgrades.git
+  ref: e56c49dd4dfd08587fa3e86dfc177ae5202989b8
+  sha: e56c49dd4dfd08587fa3e86dfc177ae5202989b8
   specs:
-    puppetlabs-apt (1.8.0)
-      puppetlabs-stdlib (>= 2.2.1)
+    puppet-unattended_upgrades (1.0.3)
+      puppetlabs-apt (< 3.0.0, >= 2.2.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
+
+GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppet-apt.git
+  ref: 2.2.0
+  sha: 800c8cc1b2e06d7e0a273d8b51a999da8dae7ecb
+  specs:
+    puppetlabs-apt (2.2.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.5.0)
 
 GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppetlabs-inifile.git
@@ -148,16 +157,6 @@ GIT
     solarkennedy-consul (0.5.0)
       nanliu-staging (< 2.0.0, >= 0.4.0)
       puppetlabs-stdlib (< 5.0.0, >= 4.2.0)
-
-GIT
-  remote: https://github.com/bodgit/puppet-zfs.git
-  ref: 95d6d9f12933fb5ea0c0e42b63faa6a6a66f7d2d
-  sha: 95d6d9f12933fb5ea0c0e42b63faa6a6a66f7d2d
-  specs:
-    bodgit-zfs (1.0.0)
-      puppetlabs-apt (< 2.0.0, >= 1.4.2)
-      puppetlabs-stdlib (< 5.0.0, >= 4.2.0)
-      stahnma-epel (< 2.0.0, >= 1.0.0)
 
 GIT
   remote: https://github.com/dalen/puppet-puppetdbquery.git
@@ -177,7 +176,6 @@ GIT
 
 DEPENDENCIES
   b4ldr-logrotate (= 1.1.3)
-  bodgit-zfs (>= 0)
   dalen-puppetdbquery (>= 0)
   darin-zypprepo (= 1.0.2)
   deric-mesos (>= 0)
@@ -189,6 +187,7 @@ DEPENDENCIES
   puppet-collectd (>= 0)
   puppet-logstash (>= 0)
   puppet-riemann (>= 0)
+  puppet-unattended_upgrades (>= 0)
   puppetlabs-apt (>= 0)
   puppetlabs-concat (>= 0)
   puppetlabs-inifile (>= 0)

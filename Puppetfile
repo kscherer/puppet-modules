@@ -8,11 +8,15 @@ forge "https://forgeapi.puppetlabs.com"
 
 mod 'puppetlabs-stdlib',
   :git => 'git://ala-git.wrs.com/external/extra/github.com.puppetlabs.puppetlabs-stdlib.git',
-  :ref => '4.5.1'
+  :ref => '4.6.0'
 
 mod 'puppetlabs-apt',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppet-apt.git',
-  :ref => '1.8.0'
+  :ref => '2.2.0'
+
+mod 'puppet-unattended_upgrades',
+  :git => 'git://ala-git.wrs.com/external/puppet/github.com.puppet-community.puppet-unattended_upgrades.git',
+  :ref => 'e56c49dd4dfd08587fa3e86dfc177ae5202989b8'
 
 mod 'puppet-logstash',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.elasticsearch.puppet-logstash.git'
@@ -55,10 +59,6 @@ mod 'dalen-puppetdbquery',
 mod 'jtopjian-sshkeys',
   :git => 'https://github.com/jtopjian/puppet-sshkeys.git',
   :ref => '2.1.0'
-
-mod 'bodgit/zfs',
-  :git => 'https://github.com/bodgit/puppet-zfs.git',
-  :ref => '95d6d9f12933fb5ea0c0e42b63faa6a6a66f7d2d'
 
 mod 'puppetlabs-concat',
   :git => 'git://ala-git.wrs.com/external/extra/github.com.puppetlabs.puppetlabs-concat.git',

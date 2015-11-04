@@ -9,11 +9,9 @@ class nis {
 
   $nis_server = $::hostname ? {
     'ala-git' => ['neptune','saturn'],
-    'splat' => ['128.224.60.19'],
     /^pek.*$/ => ['128.224.160.15'],
-    /^ala.*$/ => ['ala-adnis1','ala-adnis2'],
     /^yow.*$/ => ['yow-adnis1','yow-adnis2'],
-    /^bos.*$/ => ['bos-adnis1.wrs.com'],
+    default   => ['ala-adnis1','ala-adnis2'],
   }
 
   if $::operatingsystem == 'Ubuntu' {

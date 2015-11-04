@@ -6,7 +6,7 @@ packages:
 apt::unattended_upgrades::origins:
   - '${distro_id}:${distro_codename}-security'
   - '${distro_id}:${distro_codename}-updates'
-apt::unattended_upgrades::blacklist:
+unattended_upgrades::blacklist:
   - lxc-docker
   - docker-engine
   - mesos
