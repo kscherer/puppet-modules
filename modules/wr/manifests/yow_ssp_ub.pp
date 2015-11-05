@@ -1,7 +1,6 @@
 #
 class wr::yow_ssp_ub {
   include nis
-  include apache
   include ntp
   include sudo
   include puppet
