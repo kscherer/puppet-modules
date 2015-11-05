@@ -53,6 +53,16 @@ GIT
       puppetlabs-stdlib (>= 2.2.1)
 
 GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.arioch.puppet-redis.git
+  ref: 1.1.3
+  sha: 8fde53fb9d9e2f8e10cde9bce54bca43daf8954e
+  specs:
+    arioch-redis (1.1.3)
+      puppetlabs-apt (< 3.0.0, >= 2.0.1)
+      puppetlabs-stdlib (< 5.0.0, >= 1.0.2)
+      stahnma-epel (< 2.0.0, >= 1.0.2)
+
+GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.deric.puppet-mesos.git
   ref: v0.5.3
   sha: 3147b69a3253dcd147099f12c33c048ac19d2f41
@@ -183,6 +193,7 @@ GIT
       puppetlabs-stdlib (>= 4.1.0)
 
 DEPENDENCIES
+  arioch-redis (>= 0)
   b4ldr-logrotate (= 1.1.3)
   dalen-puppetdbquery (>= 0)
   darin-zypprepo (= 1.0.2)
