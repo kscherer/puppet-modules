@@ -7,8 +7,6 @@ FORGE
     maestrodev-wget (1.5.7)
     nanliu-staging (1.0.3)
     puppetlabs-gcc (0.2.0)
-    puppetlabs-java (1.3.0)
-      puppetlabs-stdlib (>= 2.4.0)
     richardc-datacat (0.6.1)
     stahnma-epel (1.0.2)
 
@@ -160,6 +158,14 @@ GIT
     puppetlabs-inifile (1.2.0)
 
 GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppetlabs-java.git
+  ref: 1.4.2
+  sha: faede8c802c89ebe1f5e1a6c0f1b7b11d9cef996
+  specs:
+    puppetlabs-java (1.4.2)
+      puppetlabs-stdlib (< 5.0.0, >= 2.4.0)
+
+GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppetlabs-ntp.git
   ref: 4.1.0
   sha: 5774e6b206afabfda696ac13aff4e09503170341
@@ -210,6 +216,7 @@ DEPENDENCIES
   puppetlabs-apt (>= 0)
   puppetlabs-concat (>= 0)
   puppetlabs-inifile (>= 0)
+  puppetlabs-java (>= 0)
   puppetlabs-ntp (>= 0)
   puppetlabs-rsync (>= 0)
   puppetlabs-stdlib (>= 0)

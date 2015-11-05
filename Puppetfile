@@ -91,3 +91,7 @@ mod 'puppetlabs-ntp',
 mod 'arioch-redis',
  :git => 'git://ala-git.wrs.com/external/puppet/github.com.arioch.puppet-redis.git',
  :ref => '1.1.3'
+
+mod 'puppetlabs-java',
+ :git => 'git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppetlabs-java.git',
+ :ref => '1.4.2'
