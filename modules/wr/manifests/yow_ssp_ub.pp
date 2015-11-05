@@ -16,7 +16,7 @@ class wr::yow_ssp_ub {
 
   package {
     [ 'tzdata-java','gnome','libstdc++6:i386','libgtk2.0-0:i386','libxtst6:i386','bc','vim',
-      'xutils-dev','expect','openssh-server', 'vnc4server', 'nfs-server',
+      'xutils-dev','expect','openssh-server', 'vnc4server', 'nfs-kernel-server',
       'rsh-client', 'rsh-server', 'apache2-mpm-prefork','xinetd',
       'tftp','tftpd','telnetd','minicom','screen','spawn-fcgi',
       'tcl-dev:amd64','tcl8.5-dev:amd64','icedtea-7-plugin','bum',
