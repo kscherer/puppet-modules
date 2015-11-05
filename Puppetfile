@@ -84,6 +84,10 @@ mod 'puppet-collectd',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.puppet-community.puppet-collectd.git',
   :ref => 'v4.2.0'
 
+mod 'puppetlabs-ntp',
+  :git => 'git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppetlabs-ntp.git',
+  :ref => '4.1.0'
+
 # This depends on apt module > 2.0.1
 #mod 'arioch-redis',
 #  :git => 'git://ala-git.wrs.com/external/puppet/github.com.arioch.puppet-redis.git',

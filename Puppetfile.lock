@@ -150,6 +150,14 @@ GIT
     puppetlabs-inifile (1.2.0)
 
 GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppetlabs-ntp.git
+  ref: 4.1.0
+  sha: 5774e6b206afabfda696ac13aff4e09503170341
+  specs:
+    puppetlabs-ntp (4.1.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
+
+GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.solarkennedy.puppet-consul.git
   ref: v1.0.0
   sha: b2d5d6e0a4d027ce0ec254bea389e91fdb708bd0
@@ -191,6 +199,7 @@ DEPENDENCIES
   puppetlabs-apt (>= 0)
   puppetlabs-concat (>= 0)
   puppetlabs-inifile (>= 0)
+  puppetlabs-ntp (>= 0)
   puppetlabs-rsync (>= 0)
   puppetlabs-stdlib (>= 0)
   puppetlabs-vcsrepo (>= 0)
