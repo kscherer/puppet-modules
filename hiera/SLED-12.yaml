@@ -14,4 +14,4 @@ packages:
   - python-curses
   - glibc-locale
   - tcl
-ntp::package_name: ntpd
+ntp::service_name: ntpd
