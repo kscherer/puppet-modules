@@ -268,7 +268,7 @@ class wr::fileserver {
       minute  => '0';
     'apt-mirror-sync':
       ensure  => present,
-      command => '/usr/bin/apt-mirror /pool/mirror/apt/mirror.list',
+      command => '/usr/bin/apt-mirror /pool/mirror/apt/mirror.list > /pool/mirror/apt/apt-mirror.log',
       user    => 'svc-mirror',
       hour    => '3',
       minute  => '0',
