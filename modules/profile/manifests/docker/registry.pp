@@ -64,7 +64,7 @@ class profile::docker::registry {
       command => ' ',
       ports   => ['5500:5000'],
       volumes => ['/opt/registry:/registry',
-                  '/opt/registry/docker_registry_config2.yml:/etc/docker/registry/config.yml'],
+                  '/opt/registry/config2.yml:/etc/docker/registry/config.yml'],
       require => [File['/opt/registry/store2'], File['/opt/registry/config2.yml'],
                   Service['docker']];
   }
