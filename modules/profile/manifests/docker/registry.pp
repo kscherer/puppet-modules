@@ -77,7 +77,7 @@ class profile::docker::registry {
       command => ' ',
       ports   => ['6000:5000'],
       volumes => ['/opt/registry:/registry',
-                  '/opt/registry/docker_registry_proxy.yml:/etc/docker/registry/config.yml'],
+                  '/opt/registry/proxy.yml:/etc/docker/registry/config.yml'],
       require => [File['/opt/registry/proxy'], File['/opt/registry/proxy.yml'],
                   Service['docker']];
   }
