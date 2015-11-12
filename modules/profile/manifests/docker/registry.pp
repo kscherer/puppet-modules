@@ -46,23 +46,11 @@ class profile::docker::registry {
       source => 'puppet:///modules/wr/docker_registry_proxy.yml';
   }
 
-  #Run the registry image with bind mount to registry directory and config
-  docker::run {
-    'registry':
-      image   => 'registry',
-      command => ' ',
-      ports   => ['5000:5000'],
-      volumes => ['/opt/registry:/registry'],
-      env     => ['DOCKER_REGISTRY_CONFIG=/registry/config.yml','SETTINGS_FLAVOR=prod'],
-      require => [File['/opt/registry/store'], File['/opt/registry/config.yml'],
-                  Service['docker']];
-  }
-
   docker::run {
     'registry2':
       image   => 'registry:2',
       command => ' ',
-      ports   => ['5500:5000'],
+      ports   => ['5000:5000'],
       volumes => ['/opt/registry:/registry',
                   '/opt/registry/config2.yml:/etc/docker/registry/config.yml'],
       require => [File['/opt/registry/store2'], File['/opt/registry/config2.yml'],
