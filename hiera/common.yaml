@@ -151,8 +151,8 @@ logstash::manage_repo: true
 logstash::install_contrib: true
 logstash::java_install: true
 
-consul::download_url_base: 'http://%{::location}-mirror/mirror/consul'
-consul::ui_download_url_base: 'http://%{::location}-mirror/mirror/consul'
+consul::download_url_base: 'http://%{::location}-mirror/mirror/consul/'
+consul::ui_download_url_base: 'http://%{::location}-mirror/mirror/consul/'
 consul::pretty_config: true
 consul_config_hash:
   server: false
