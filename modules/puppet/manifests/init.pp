@@ -135,7 +135,7 @@ class puppet (
         ],
         datadir         => '/etc/puppet/environments/%{environment}/hiera',
         eyaml           => true,
-        eyaml_extention => 'yaml',
+        eyaml_extension => 'yaml',
     } ->
     class {'puppet::master':
       puppet_master_ensure      => $puppet_master_ensure,
