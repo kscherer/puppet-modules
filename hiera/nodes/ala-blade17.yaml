@@ -3,7 +3,7 @@ zookeeper::id: '2'
 zookeeper::client_ip: "%{::ipaddress_em1}"
 
 consul_config_hash:
-  server: 'true'
+  server: true
   bootstrap_expect: '3'
   retry_join_wan:
     - '128.224.195.118' # yow-lpd-puppet
