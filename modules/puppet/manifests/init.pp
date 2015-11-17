@@ -137,7 +137,7 @@ class puppet (
         eyaml           => true,
         eyaml_extension => 'yaml',
         create_keys     => false,
-    } ->
+    }
     class {'puppet::master':
       puppet_master_ensure      => $puppet_master_ensure,
       confdir                   => $confdir,
