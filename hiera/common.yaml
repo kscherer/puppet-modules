@@ -94,9 +94,9 @@ mesos::master::options:
   log_dir: '/var/log/mesos'
   whitelist: 'file:///etc/mesos_slave_whitelist'
 # mesos master is a vm with eth0
-mesos::master::listen_address: "%{::ipaddress_eth0}"
+mesos::master::listen_address: "%{::ipaddress_primary}"
 # mesos slaves are bare metal with em1
-mesos::slave::listen_address: "%{::ipaddress_em1}"
+mesos::slave::listen_address: "%{::ipaddress_primary}"
 mesos::slave::work_dir: '/var/lib/mesos'
 mesos::slave::isolation: 'posix/cpu,posix/mem'
 mesos::slave::checkpoint: true
@@ -154,6 +154,7 @@ logstash::java_install: true
 consul::download_url_base: 'http://%{::location}-mirror/mirror/consul/'
 consul::ui_download_url_base: 'http://%{::location}-mirror/mirror/consul/'
 consul::pretty_config: true
+consul::bin_dir: '/opt/consul/bin/'
 consul_config_hash:
   server: false
   data_dir: '/opt/consul'
