@@ -3,6 +3,7 @@ class profile::bare_metal {
   include dell
   include dell::openmanage
   include snmp
+  include ::profile::consul
 
   Class['wr::common::repos'] -> Class['dell::openmanage']
   Class['wr::common::repos'] -> Class['snmp']

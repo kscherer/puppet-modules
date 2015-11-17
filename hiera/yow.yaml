@@ -35,6 +35,13 @@ mesos::slave::attributes:
 
 timezone: 'America/New_York'
 
+consul_config_hash:
+  datacenter: 'yow'
+  retry_join:
+    - '128.224.195.118' # yow-lpd-puppet
+    - '128.224.137.11' # yow-lpdfs01
+    - '128.224.137.13' # yow-lpggp3
+
 # The IP and interface that external sources will use to communicate with the instance and hypervisors.
 openstack::compute::public_interface:   'eth0'
 openstack::compute::internal_address:   "%{ipaddress_eth0}"

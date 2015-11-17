@@ -21,5 +21,9 @@ mesos::slave::attributes:
   location: 'ala'
 timezone: 'US/Pacific'
 
-
-
+consul_config_hash:
+  datacenter: 'ala'
+  retry_join:
+    - '147.11.105.120' # ala-lpdfs01
+    - '147.11.106.55' # ala-lpd-puppet
+    - '147.11.105.37' # ala-blade17

@@ -18,3 +18,14 @@ puppet::passenger_ensure: 'present'
 puppet::storeconfigs: true
 puppet::storeconfigs_dbadapter: 'puppetdb'
 apache::default_vhost: false
+
+consul_config_hash:
+  server: 'true'
+  bootstrap_expect: '3'
+  retry_join_wan:
+    - '128.224.195.118' # yow-lpd-puppet
+    - '128.224.137.11' # yow-lpdfs01
+    - '128.224.137.13' # yow-lpggp3
+    - '147.11.105.120' # ala-lpdfs01
+    - '147.11.106.55' # ala-lpd-puppet
+    - '147.11.105.37' # ala-blade17

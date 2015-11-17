@@ -20,3 +20,10 @@ graphite_reporter::graphite_host: pek-lpd-puppet.wrs.com
 docker::dns: 128.224.160.11
 wr::docker_registry_ip: '128.224.153.15'
 wr::graphite: '128.224.153.105'
+
+consul_config_hash:
+  datacenter: 'pek'
+  retry_join:
+    - '128.224.153.15' # pek-lpdfs01
+    - '128.224.153.105' # pek-lpd-puppet
+    - '128.224.153.63' # pek-blade30

@@ -1,5 +1,4 @@
 ---
-zookeeper::id: '1'
 
 consul_config_hash:
   server: 'true'
@@ -8,6 +7,6 @@ consul_config_hash:
     - '128.224.195.118' # yow-lpd-puppet
     - '128.224.137.11' # yow-lpdfs01
     - '128.224.137.13' # yow-lpggp3
-    - '128.224.153.15' # pek-lpdfs01
-    - '128.224.153.105' # pek-lpd-puppet
-    - '128.224.153.63' # pek-blade30
+    - '147.11.105.120' # ala-lpdfs01
+    - '147.11.106.55' # ala-lpd-puppet
+    - '147.11.105.37' # ala-blade17

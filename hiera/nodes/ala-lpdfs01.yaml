@@ -2,3 +2,16 @@
 apache::default_vhost: false
 zookeeper::id: '3'
 zookeeper::client_ip: "%{::ipaddress_em1}"
+
+consul_config_hash:
+  server: 'true'
+  bootstrap_expect: '3'
+  retry_join_wan:
+    - '128.224.195.118' # yow-lpd-puppet
+    - '128.224.137.11' # yow-lpdfs01
+    - '128.224.137.13' # yow-lpggp3
+    - '128.224.153.15' # pek-lpdfs01
+    - '128.224.153.105' # pek-lpd-puppet
+    - '128.224.153.63' # pek-blade30
+  client_addr: '0.0.0.0'
+  ui_dir: '/opt/consol/ui'

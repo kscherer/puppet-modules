@@ -151,6 +151,26 @@ logstash::manage_repo: true
 logstash::install_contrib: true
 logstash::java_install: true
 
+consul::download_url_base: 'http://%{::location}-mirror/mirror/consul'
+consul::ui_download_url_base: 'http://%{::location}-mirror/mirror/consul'
+consul::pretty_config: true
+consul_config_hash:
+  server: false
+  bin_dir: '/opt/consul/bin'
+  data_dir: '/opt/consul'
+  disable_update_check: true
+  rejoin_after_leave: true
+  encrypt: >
+    ENC[PKCS7,MIIBiQYJKoZIhvcNAQcDoIIBejCCAXYCAQAxggEhMIIBHQIBADAFMAACAQEw
+    DQYJKoZIhvcNAQEBBQAEggEAVLgisvuB29cwsQRNvk71YaxBCL7sps+QyXkd
+    VlAnhns+A5QYngyY+rL28n2fEeAVCYvCkJ1LO5EXPIp/2qHVGm3nhWk48IrS
+    d3R2fowYZMhY0N0BuLqvZTTyCUlUL9nU6ziSh5Ni90njah5tEW3t0re8G1Az
+    XrJCA0XvQR0lyftQXChZsC9sj0v1YyFThGUsiQmBeKVvnXPsXwFCYumbWDOA
+    IbJ87cWLeFFhGk9sEcOu1UzGIOvyVKk8J4FrCmdLcC1TyFv9KXwcZLZoc3n6
+    9NM5JtLqT47FUA+OrBrhUbKZ6XKMWI2ErZ95S/avsLe7nIVBCasiPrM7kPmj
+    pqPKNjBMBgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBBz8iQrtK5MFPIuSjhH
+    Cjs1gCAA/PjD+LmJLPDu0nBNBDpvlwnKFYjTPlUMVciQEJz5sw==]
+
 kscherer@yow-kscherer-l1: AAAAB3NzaC1yc2EAAAADAQABAAABAQCs5QlOT/Z9cYBI98+DwMtfyOF9uObQ0LVuLe0lM/SK3GgV2gtUDBElVlUXX+XSXXkdxbASqv6yjYZTGDM5+TjS6yaUdhl6z/SOC8njBAKUR+AxAgOHllQH9EnrsNGitgrM8sIj+2pyhPhwiSkWGuddhmWd/0SH/t41WpdwykkaZyoaECVRponMXz5KOEGEuq2i0tEvAbEXz9siZvSgp6VWNPuMrWc9Qv2c+9BzOyvfVU0gmzN1k1FtNZNWTqVILOLjXxnsfrHs4Fq3obfIPEmrOTkTtPvl28UtJNwjnh+9dvP7DJxA72TyiSdmwlMdPab06MonFmFAymsEG6fpngkV
 kscherer@yow-kscherer-d1: AAAAB3NzaC1yc2EAAAADAQABAAABAQDIEqmo+bxVNQdb1zZ0PAb8OVfMWP2ozeqEpEDstCGIQTgwo3kKABSTDKVJsj50VZugn9EqWc1nnLD9HJMb+z8mgnyGuIRdoozh93OttVE9Cz9mPBAKLjFk2T99xYCj/x15deC7s/BDlIPgNAK6QZkh5tJFeliKeiC5eh+ht1f1o6cBgJqvbvmE24b9AcjAdYbQBdlUaJdozhAQMdKUWLLb9AHFs6DlTcbdgyKnjyYu/cbVfkJ1JL92TXksurtjiRmCdHr1CiTU/x0BccNn05XWQMnUPMQyOHvC9xGXOwAcYZnQn+ab2xtG4KiMGeIRWSi1zXqQ0ATCE3unUVre0Nz/
 kscherer@helix: AAAAB3NzaC1yc2EAAAABIwAAAQEAoMAWBsZ+dbQWeRYZ8y2Vtdk7nbcK4HaL2Ael/HxRCgcDBIBkJOU80pizQWq3JstUI0Ls9zCywcKpISOuSBp/3OVHsAExMK6gwiyLn/Rq7NT2I9xZ2jSgFltGi/b9x/+QrUvQ1yq7otv0fFrwhKNbpb11nCJR0CcXFGcQD4kgdmQd+4DAbhvHICBn1041CQWFrWKGfd5maLL1l+cghr0/qNcTr9Fxi81zhqEsT2VJRjacho7qaWJl3xT7l2Lg4Al/qECQRs32NHF8fmbO7eZsBawnwp+gWsabAXWwn28GCQNLGtURxPCKwWJ2RfGOZ5sXmRehg39/9Vxxq8wQnFkiGQ==
