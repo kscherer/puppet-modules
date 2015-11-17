@@ -26,4 +26,8 @@ class profile::monitored inherits profile::base {
   include nagios::target
   Class['wr::common::repos'] -> Class['nrpe']
   Class['wr::common::repos'] -> Class['nagios::target']
+
+  include ::profile::consul
+  # consul class installs unzip
+  Class['wr::common::repos'] -> Class['::consul']
 }
