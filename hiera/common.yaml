@@ -156,7 +156,6 @@ consul::ui_download_url_base: 'http://%{::location}-mirror/mirror/consul/'
 consul::pretty_config: true
 consul_config_hash:
   server: false
-  bin_dir: '/opt/consul/bin'
   data_dir: '/opt/consul'
   disable_update_check: true
   rejoin_after_leave: true
