@@ -159,6 +159,7 @@ consul_config_hash:
   data_dir: '/opt/consul'
   disable_update_check: true
   rejoin_after_leave: true
+  advertise_addr: "%{::ipaddress_primary}"
   encrypt: >
     ENC[PKCS7,MIIBiQYJKoZIhvcNAQcDoIIBejCCAXYCAQAxggEhMIIBHQIBADAFMAACAQEw
     DQYJKoZIhvcNAQEBBQAEggEAVLgisvuB29cwsQRNvk71YaxBCL7sps+QyXkd
