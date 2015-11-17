@@ -95,3 +95,7 @@ mod 'arioch-redis',
 mod 'puppetlabs-java',
  :git => 'git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppetlabs-java.git',
  :ref => '1.4.2'
+
+mod 'hunner-hiera',
+ :git => 'git://ala-git.wrs.com/external/puppet/github.com.hunner.puppet-hiera.git',
+ :ref => '1.3.2'

@@ -121,6 +121,22 @@ class puppet (
   }
 
   if $master_bool {
+    class {
+      '::hiera':
+        hierarchy       => [
+          'nodes/%{hostname}',
+          '%{location}',
+          '%{operatingsystem}-%{lsbmajdistrelease}-%{architecture}',
+          '%{operatingsystem}-%{lsbmajdistrelease}',
+          '%{osfamily}',
+          'kernel/%{kernelmajversion}',
+          'hardware/%{boardproductname}',
+          'common'
+        ],
+        datadir         => '/etc/puppet/environments/%{environment}/hiera',
+        eyaml           => true,
+        eyaml_extention => 'yaml',
+    } ->
     class {'puppet::master':
       puppet_master_ensure      => $puppet_master_ensure,
       confdir                   => $confdir,

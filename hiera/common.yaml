@@ -54,11 +54,6 @@ git::grokmirror::mirror::toplevel: "/git"
 dell::omsa_version: 'latest'
 java::version: 'latest'
 
-hiera::hiera_yaml: '/etc/puppet/hiera.yaml'
-hiera::logger: 'puppet'
-hiera::backends:
-  - 'yaml'
-
 puppetdb::listen_address: 0.0.0.0
 puppetdb::open_ssl_listen_port: false
 puppetdb::open_postgres_port: false

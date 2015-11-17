@@ -125,6 +125,14 @@ GIT
       stahnma-epel (>= 0.0.6)
 
 GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.hunner.puppet-hiera.git
+  ref: 1.3.2
+  sha: 5bc109737e0b3b2b1436225ba83c66e12a4fb804
+  specs:
+    hunner-hiera (1.3.2)
+      puppetlabs-stdlib (>= 0)
+
+GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.puppet-community.puppet-collectd.git
   ref: v4.2.0
   sha: 51b4d026142129e82fd9daf5f417b9fe99df2ee8
@@ -208,6 +216,7 @@ DEPENDENCIES
   dhoppe-postfix (>= 0)
   duritong-sysctl (>= 0)
   garethr-docker (>= 0)
+  hunner-hiera (>= 0)
   jtopjian-sshkeys (>= 0)
   puppet-collectd (>= 0)
   puppet-logstash (>= 0)
