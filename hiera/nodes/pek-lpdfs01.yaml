@@ -15,4 +15,4 @@ consul_config_hash:
     - '147.11.106.55' # ala-lpd-puppet
     - '147.11.105.37' # ala-blade17
   client_addr: '0.0.0.0'
-  ui_dir: '/opt/consol/ui'
+  ui_dir: '/opt/consul/ui'
