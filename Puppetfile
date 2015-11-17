@@ -36,7 +36,7 @@ mod 'deric-mesos',
 
 mod 'solarkennedy-consul',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.solarkennedy.puppet-consul.git',
-  :ref => 'v1.0.0'
+  :ref => 'v1.0.2'
 
 mod 'deric-zookeeper',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.deric.puppet-zookeeper.git',

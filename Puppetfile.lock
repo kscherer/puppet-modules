@@ -175,10 +175,10 @@ GIT
 
 GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.solarkennedy.puppet-consul.git
-  ref: v1.0.0
-  sha: b2d5d6e0a4d027ce0ec254bea389e91fdb708bd0
+  ref: v1.0.2
+  sha: 3d503f4e5197812e40fd66dfea2b2d07d5dc9533
   specs:
-    solarkennedy-consul (0.5.0)
+    solarkennedy-consul (1.0.1)
       nanliu-staging (< 2.0.0, >= 0.4.0)
       puppetlabs-stdlib (< 5.0.0, >= 4.2.0)
 
