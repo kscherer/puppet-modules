@@ -154,7 +154,7 @@ logstash::java_install: true
 consul::download_url_base: 'http://%{::location}-mirror/mirror/consul/'
 consul::ui_download_url_base: 'http://%{::location}-mirror/mirror/consul/'
 consul::pretty_config: true
-consul::bin_dir: '/opt/consul/bin/'
+consul::bin_dir: '/opt/consul/'
 consul_config_hash:
   server: false
   data_dir: '/opt/consul'
