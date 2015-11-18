@@ -37,6 +37,11 @@ class profile::nxbuilder inherits profile::nis {
     }
   }
 
+  package {
+    ['curl','tightvncserver']:
+      ensure => installed;
+  }
+
   if $::hostname =~ /ala-blade4[78]/ {
     include docker
     group {
