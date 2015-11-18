@@ -265,7 +265,7 @@ class profile::mesos::slave inherits profile::mesos::common {
         {
         id       => 'health',
         name     => 'Mesos Agent Health',
-        http     => 'http://localhost:5051/health',
+        http     => "http://${::hostname}:5051/health",
         interval => '10s',
         timeout  => '1s'
         }
