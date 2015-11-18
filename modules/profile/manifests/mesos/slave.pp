@@ -255,4 +255,20 @@ class profile::mesos::slave inherits profile::mesos::common {
       command     => '/usr/sbin/invoke-rc.d apparmor reload',
       refreshonly => true;
   }
+
+  ::consul::service {
+    'mesos-agent':
+      service_name => 'Mesos Agent',
+      port         => 5051,
+      tags         => ['mesos', 'wraxl', 'mesos-agent'],
+      checks       => [
+        {
+        id       => 'health',
+        name     => 'Mesos Agent Health',
+        http     => 'http://localhost:5051/health',
+        interval => '10s',
+        timeout  => '1s'
+        }
+      ]
+  }
 }
