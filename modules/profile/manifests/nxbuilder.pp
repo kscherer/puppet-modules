@@ -38,7 +38,7 @@ class profile::nxbuilder inherits profile::nis {
   }
 
   package {
-    ['curl','tightvncserver']:
+    ['curl', 'tightvncserver', 'xorg', 'xfwm4']:
       ensure => installed;
   }
 
