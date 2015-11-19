@@ -37,9 +37,11 @@ class profile::nxbuilder inherits profile::nis {
     }
   }
 
-  package {
-    ['curl', 'tightvncserver', 'xorg', 'xfwm4']:
-      ensure => installed;
+  if $::osfamily == 'Debian'  {
+    package {
+      ['curl', 'tightvncserver', 'xorg', 'xfwm4']:
+        ensure => installed;
+    }
   }
 
   if $::hostname =~ /ala-blade4[78]/ {
