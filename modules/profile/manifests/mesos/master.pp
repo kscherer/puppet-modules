@@ -67,4 +67,19 @@ class profile::mesos::master inherits profile::mesos::common {
       require => [ Package['python-setuptools'], Wget::Fetch[$mesos_interface_egg]];
   }
 
+  ::consul::service {
+    'mesos-master':
+      service_name => 'Mesos Master',
+      port         => 5050,
+      tags         => ['mesos', 'wraxl', 'mesos-master'],
+      checks       => [
+        {
+        id       => 'health',
+        name     => 'Mesos Master Health',
+        http     => "http://${::hostname}:5050/health",
+        interval => '10s',
+        timeout  => '1s'
+        }
+      ]
+  }
 }
