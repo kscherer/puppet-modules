@@ -105,7 +105,7 @@ class profile::mesos::common inherits profile::nis {
 
   package {
     'docker-engine':
-      ensure  => '1.8.3-0~trusty';
+      ensure  => 'present';
   }
   Apt::Source['wr-docker'] -> Package['docker-engine']
 
