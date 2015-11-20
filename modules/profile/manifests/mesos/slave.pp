@@ -258,13 +258,13 @@ class profile::mesos::slave inherits profile::mesos::common {
 
   ::consul::service {
     'mesos-agent':
-      service_name => 'Mesos Agent',
+      service_name => 'mesos-agent',
       port         => 5051,
-      tags         => ['mesos', 'wraxl', 'mesos-agent'],
+      tags         => ['wraxl'],
       checks       => [
         {
         id       => 'health',
-        name     => 'Mesos Agent Health',
+        name     => 'mesos-agent-health',
         http     => "http://${::hostname}:5051/health",
         interval => '10s',
         timeout  => '1s'
