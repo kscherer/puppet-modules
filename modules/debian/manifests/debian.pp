@@ -4,8 +4,6 @@ class debian::debian(
 ) {
 
   include apt
-  #base all debian machines on jessie
-  class { 'apt::release' : release_id => 'jessie' }
 
   apt::source {
     'yow_puppetlabs_mirror':
