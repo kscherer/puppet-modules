@@ -176,7 +176,7 @@ class nrpe {
   nrpe::command {
     'check_disks':
       command    => 'check_disk',
-      parameters => '--warning=10% --critical=5% --all --ignore-eregi-path=\'(shm|boot|prebuilt_cache|folk|net|india|stored_builds|nashua|run)\' --units GB';
+      parameters => '--warning=10% --critical=5% --all --ignore-eregi-path=\'(shm|boot|prebuilt_cache|folk|net|india|stored_builds|nashua|run|ureadahead)\' --units GB';
     'check_ntp':
       command    => 'check_ntp_time',
       parameters => "-H ${first_ntp_server} -w 1.0 -c 2.0";
@@ -220,6 +220,6 @@ class nrpe {
       parameters => '--nagios';
     'check_ro_mounts':
       command    => 'check_ro_mounts',
-      parameters => '-X nfs -X proc -X cgroup -X fuse -X fuse.fuseiso -X tmpfs -X iso9660 -x "/mnt/*"';
+      parameters => '-X nfs -X proc -X cgroup -X fuse -X fuse.fuseiso -X tmpfs -X iso9660 -X tracefs -x "/mnt/*"';
   }
 }
