@@ -267,9 +267,14 @@ class profile::mesos::slave inherits profile::mesos::common {
       tags         => ['wraxl'],
       checks       => [
         {
-        id       => 'health',
-        name     => 'mesos-agent-health',
+        id       => 'mesos-agent-health',
         http     => "http://${::hostname}:5051/health",
+        interval => '10s',
+        timeout  => '1s'
+        },
+        {
+        id       => 'docker_health',
+        http     => 'http://127.0.0.1:2375/_ping',
         interval => '10s',
         timeout  => '1s'
         }
