@@ -221,6 +221,10 @@ class profile::mesos::slave inherits profile::mesos::common {
       su           => true,
       su_owner     => 'wrlbuild',
       su_group     => 'wrlbuild',
+      create       => true,
+      create_mode  => '0644',
+      create_owner => 'wrlbuild',
+      create_group => 'wrlbuild',
       compress     => true;
   }
 
