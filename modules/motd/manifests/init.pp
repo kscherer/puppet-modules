@@ -1,7 +1,8 @@
 # class to setup basic motd, include on all nodes
 class motd {
+  $motd = '/etc/motd'
   concat{
-    '/etc/motd':
+    $motd:
       owner => root,
       group => root,
       mode  => '0644';
