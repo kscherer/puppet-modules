@@ -2,11 +2,7 @@ Welcome to <%= @hostname %>
 <%= @operatingsystem %> <%= @operatingsystemrelease %> <% if has_variable?("architecture") then %><%= @architecture %><% end %>
 
 FQDN: <%= @fqdn %>
-<% if has_variable?("ipaddress_em1") then -%>
-IP:   <%= @ipaddress_em1 %>
-<% else -%>
-IP:   <%= @ipaddress_eth0 %>
-<% end -%>
+IP:   <%= @ipaddress_primary %>
 
 <% if has_variable?("processor0") then -%>
 Processor: <%= @processor0 %>

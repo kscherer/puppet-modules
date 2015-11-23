@@ -1,12 +1,7 @@
 # class to setup basic motd, include on all nodes
 class motd {
-  case $::operatingsystem {
-    'Debian' : { $motd = '/etc/motd.tail' }
-    default  : { $motd = '/etc/motd' }
-  }
-
   concat{
-    $motd:
+    '/etc/motd':
       owner => root,
       group => root,
       mode  => '0644';
