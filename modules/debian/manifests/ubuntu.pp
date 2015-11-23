@@ -75,4 +75,7 @@ class debian::ubuntu (
       hour    => '2',
       minute  => fqdn_rand(60, 'autoremove');
   }
+
+  # No need to waste time trying to optimize boot times with readahead
+  ensure_resource('package', 'ureadahead', {'ensure' => 'absent' })
 }
