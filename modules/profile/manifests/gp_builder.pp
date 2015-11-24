@@ -25,9 +25,9 @@ yourself, this F/S will be cleaned up periodically.";
   }
 
   if $::operatingsystem == 'Ubuntu' {
-    include nfs::server
-    include x2go
-    include docker
+    include ::nfs::server
+    include ::x2go
+    include ::profile::docker
 
     # some developers are more comfortable with vnc
     ensure_packages(['tightvncserver', 'xfsprogs', 'vim-nox'])

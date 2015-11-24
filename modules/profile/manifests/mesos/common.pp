@@ -1,7 +1,7 @@
 #
 class profile::mesos::common inherits profile::nis {
 
-  include docker
+  include ::profile::docker
 
   # Use postfix to make sure email from cron and sent to root is sent out
   include postfix
@@ -92,22 +92,8 @@ class profile::mesos::common inherits profile::nis {
       include_src => false,
       key         => '81026D0004C44CF7EF55ADF8DF7D54CBE56151BF',
       key_server  => 'keyserver.ubuntu.com';
-    'wr-docker':
-      location     => "http://${::location}-mirror.wrs.com/mirror/apt/apt.dockerproject.org/repo/",
-      release      => "ubuntu-${::lsbdistcodename}",
-      repos        => 'main',
-      architecture => 'amd64',
-      include_src  => false,
-      key          => '58118E89F3A912897C070ADBF76221572C52609D',
-      key_server   => 'hkp://pgp.mit.edu:80';
   }
   Apt::Source['mesos'] -> Package['mesos']
-
-  package {
-    'docker-engine':
-      ensure  => 'present';
-  }
-  Apt::Source['wr-docker'] -> Package['docker-engine']
 
   file {
     '/etc/rc.local':
