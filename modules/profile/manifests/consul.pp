@@ -7,7 +7,7 @@ class profile::consul {
   }
 
   # Puppet is not detecting systemd on Debian 8 properly
-  if $::operatingsystem == 'Debian' {
+  if $::operatingsystem == 'Debian' and $::operatingsystemmajrelease > '7' {
     Service {provider => 'systemd'}
   }
 
