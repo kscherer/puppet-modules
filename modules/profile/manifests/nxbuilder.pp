@@ -39,7 +39,7 @@ class profile::nxbuilder inherits profile::nis {
 
   if $::osfamily == 'Debian'  {
     package {
-      ['curl', 'tightvncserver', 'xorg', 'xfwm4']:
+      ['curl', 'tightvncserver', 'xorg', 'xfwm4', 'ia32-libs', 'appmenu-gtk:i386']:
         ensure => installed;
     }
   }
