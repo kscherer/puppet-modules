@@ -32,6 +32,9 @@ yourself, this F/S will be cleaned up periodically.";
     # some developers are more comfortable with vnc
     ensure_packages(['tightvncserver', 'xfsprogs', 'vim-nox'])
 
+    # packages for suite installer
+    ensure_packages(['libstdc++6:i386', 'libgtk2.0-0:i386', 'libXtst6:i386'])
+
     concat::fragment {
       'export_buildarea':
         target  => '/etc/exports',
