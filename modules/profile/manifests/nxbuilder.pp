@@ -37,10 +37,22 @@ class profile::nxbuilder inherits profile::nis {
     }
   }
 
-  if $::osfamily == 'Debian'  {
+  if $::operatingsystem == 'Ubuntu'  {
     package {
-      ['curl', 'tightvncserver', 'xorg', 'xfwm4', 'ia32-libs', 'appmenu-gtk:i386']:
+      ['curl', 'tightvncserver', 'xorg', 'xfwm4']:
         ensure => installed;
+    }
+
+    if $::operatingsystemmajrelease == '12' {
+      package {
+        ['ia32-libs', 'appmenu-gtk:i386']:
+          ensure => installed;
+      }
+    } else {
+      package {
+        ['libstdc++6:i386','libgtk2.0-0:i386','libXtst6:i386']:
+          ensure => installed;
+      }
     }
   }
 
