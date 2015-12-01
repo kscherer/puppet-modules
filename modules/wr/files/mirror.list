@@ -15,6 +15,7 @@ set _tilde 0
 ############# end config ##############
 
 deb http://apt.dockerproject.org/repo ubuntu-trusty main
+deb http://apt.dockerproject.org/repo ubuntu-precise main
 deb http://ppa.launchpad.net/git-core/ppa/ubuntu trusty main
 deb http://repos.mesosphere.io/ubuntu trusty main
 
