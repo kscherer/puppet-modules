@@ -41,6 +41,11 @@ yourself, this F/S will be cleaned up periodically.";
         content => "/${::hostname}1 *(rw)\n/${::hostname}2 *(rw)\n",
         order   => '10'
     }
+    # mlocate is a waste for resources
+    package {
+      'mlocate':
+        ensure  => absent,
+    }
   }
 
   #enable running docker and runqemu using sudo
