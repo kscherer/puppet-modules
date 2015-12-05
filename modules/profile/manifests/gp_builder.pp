@@ -33,7 +33,7 @@ yourself, this F/S will be cleaned up periodically.";
     ensure_packages(['tightvncserver', 'xfsprogs', 'vim-nox'])
 
     # packages for suite installer
-    ensure_packages(['libstdc++6:i386', 'libgtk2.0-0:i386', 'libXtst6:i386'])
+    ensure_packages(['libstdc++6:i386', 'libgtk2.0-0:i386', 'libxtst6:i386'])
 
     concat::fragment {
       'export_buildarea':

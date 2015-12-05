@@ -50,7 +50,7 @@ class profile::nxbuilder inherits profile::nis {
       }
     } else {
       package {
-        ['libstdc++6:i386','libgtk2.0-0:i386','libXtst6:i386']:
+        ['libstdc++6:i386','libgtk2.0-0:i386','libxtst6:i386']:
           ensure => installed;
       }
     }
