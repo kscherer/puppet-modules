@@ -10,7 +10,14 @@ class profile::mesos::slave inherits profile::mesos::common {
   }
   Package['mesos']->Service['mesos-master']
 
-  #Make sure chronos-docker executor is available before slave service is started
+  # Install latest kernel on slaves for overlayfs support
+  package {
+    ['linux-image-generic-lts-wily']:
+      ensure  => present,
+      require => Class['wr::common::repos'];
+  }
+
+  #Make sure git repo is available before slave service is started
   Vcsrepo['/home/wrlbuild/wr-buildscripts'] -> Service['mesos-slave']
 
   file {

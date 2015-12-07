@@ -545,4 +545,11 @@ end
       key    => hiera('ywei'),
       type   => 'ssh-dss';
   }
+
+  # These tools are used to post-process managed build feeds for release
+  package {
+    ['rdfind', 'symlinks']:
+      ensure  => present,
+      require => Class['wr::common::repos'];
+  }
 }
