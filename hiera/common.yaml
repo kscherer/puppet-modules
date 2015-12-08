@@ -115,6 +115,8 @@ docker::extra_parameters:
   - '--insecure-registry yow-lpdfs01:5000'
   - '--insecure-registry pek-lpdfs01:5000'
   - '--insecure-registry wr-docker-registry:5000'
+# Enable http port on localhost for consul health checks
+docker::tcp_bind: 'tcp://127.0.0.1:2375'
 wr::docker_registry_ip: '147.11.105.120'
 wr::graphite: '147.11.106.55'
 
