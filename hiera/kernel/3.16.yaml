@@ -4,6 +4,7 @@
 docker::extra_parameters:
   - '--storage-driver devicemapper'
   - '--storage-opt dm.override_udev_sync_check=true'
+  - '--registry-mirror=http://wr-docker-registry:6000'
   - '--insecure-registry ala-lpdfs01:5000'
   - '--insecure-registry yow-lpdfs01:5000'
   - '--insecure-registry pek-lpdfs01:5000'
