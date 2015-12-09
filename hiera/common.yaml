@@ -111,6 +111,7 @@ mesos::slave::options:
 
 docker::manage_kernel: false
 docker::extra_parameters:
+  - '--registry-mirror=http://wr-docker-registry:6000'
   - '--insecure-registry ala-lpdfs01:5000'
   - '--insecure-registry yow-lpdfs01:5000'
   - '--insecure-registry pek-lpdfs01:5000'
