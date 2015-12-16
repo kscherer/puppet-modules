@@ -50,11 +50,8 @@ class profile::mesos::common inherits profile::nis {
       mode   => '0755';
   }
 
-  package {
-    [ 'openjdk-7-jre-headless','python-setuptools', 'apparmor-utils', 'curl']:
-      ensure  => present,
-      require => Class['wr::common::repos'];
-  }
+  ensure_packages( ['openjdk-7-jre-headless','python-setuptools',
+                    'apparmor-utils', 'curl'] )
 
   package {
     'landscape-common':
