@@ -7,24 +7,7 @@ class profile::mesos::common inherits profile::nis {
   include postfix
   Class['wr::common::repos'] -> Class['postfix']
 
-  # Do builds as an unprivileged user which matches uid of user in docker
-  group {
-    'wrlbuild':
-      ensure => present,
-  }
-
-  user {
-    'wrlbuild':
-      ensure     => present,
-      gid        => 'wrlbuild',
-      uid        => 1000,
-      managehome => true,
-      home       => '/home/wrlbuild',
-      groups     => ['docker'],
-      shell      => '/bin/bash',
-      password   => '$5$6F1BpKqFcszWi0n$fC5yUBkPNXHfyL8TOJwdJ1EE8kIzwJnKVrtcFYnpbcA',
-      require    => Group [ 'wrlbuild' ];
-  }
+  include ::profile::mesos::wrlbuild
 
   # group created by docker package, must be declared here so that wrlbuild
   # can be in docker group
