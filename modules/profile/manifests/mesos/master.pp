@@ -69,13 +69,13 @@ class profile::mesos::master inherits profile::mesos::common {
 
   ::consul::service {
     'mesos-master':
-      service_name => 'Mesos Master',
+      service_name => 'mesos-master',
       port         => 5050,
-      tags         => ['mesos', 'wraxl', 'mesos-master'],
+      tags         => ['wraxl'],
       checks       => [
         {
         id       => 'health',
-        name     => 'Mesos Master Health',
+        name     => 'mesos-master-health',
         http     => "http://${::hostname}:5050/health",
         interval => '10s',
         timeout  => '1s'
