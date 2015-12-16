@@ -82,22 +82,4 @@ class profile::mesos::common inherits profile::nis {
       mode   => '0755',
       source => 'puppet:///modules/wr/docker-rc.local';
   }
-
-  ssh_authorized_key {
-    'kscherer_desktop_wrlbuild':
-      ensure => 'present',
-      user   => 'wrlbuild',
-      key    => hiera('kscherer@yow-kscherer-d1'),
-      type   => 'ssh-rsa';
-    'kscherer_home_wrlbuild':
-      ensure => 'present',
-      user   => 'wrlbuild',
-      key    => hiera('kscherer@helix'),
-      type   => 'ssh-rsa';
-    'kscherer_laptop_wrlbuild':
-      ensure => 'present',
-      user   => 'wrlbuild',
-      key    => hiera('kscherer@yow-kscherer-l1'),
-      type   => 'ssh-rsa';
-  }
 }

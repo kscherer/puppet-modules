@@ -19,4 +19,17 @@ class profile::mesos::wrlbuild {
       password       => '$5$6F1BpKqFcszWi0n$fC5yUBkPNXHfyL8TOJwdJ1EE8kIzwJnKVrtcFYnpbcA',
       require        => Group [ 'wrlbuild' ];
   }
+
+  ssh_authorized_key {
+    'kscherer_desktop_wrlbuild':
+      ensure => 'present',
+      user   => 'wrlbuild',
+      key    => hiera('kscherer@yow-kscherer-d1'),
+      type   => 'ssh-rsa';
+    'kscherer_home_wrlbuild':
+      ensure => 'present',
+      user   => 'wrlbuild',
+      key    => hiera('kscherer@helix'),
+      type   => 'ssh-rsa';
+  }
 }

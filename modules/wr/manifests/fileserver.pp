@@ -502,16 +502,6 @@ end
 
   # add keys so wwang and gzhou1 can make git dirs on fileservers
   ssh_authorized_key {
-    'kscherer_desktop_wrlbuild':
-      ensure => 'present',
-      user   => 'wrlbuild',
-      key    => hiera('kscherer@yow-kscherer-d1'),
-      type   => 'ssh-rsa';
-    'kscherer_home_wrlbuild':
-      ensure => 'present',
-      user   => 'wrlbuild',
-      key    => hiera('kscherer@helix'),
-      type   => 'ssh-rsa';
     'wwang0_wrlbuild':
       ensure => 'present',
       user   => 'wrlbuild',
