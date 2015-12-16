@@ -552,4 +552,9 @@ end
       ensure  => present,
       require => Class['wr::common::repos'];
   }
+
+  # file server is third mesos master in HA setup in Alameda DC
+  if $::hostname == 'ala-lpdfs01' {
+    include ::profile::mesos::master
+  }
 }
