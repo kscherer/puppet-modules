@@ -1,4 +1,4 @@
-User_Alias LINUXGROUP = %lpg, %lpg-test, dlerner
+User_Alias LINUXGROUP = %lpg, %lpg-test, %users, dlerner
 
 # Very hacky way to give users way to run the ifup and ifdown scripts
 Cmnd_Alias LINUXCOMMANDS = /usr/bin/docker, \
