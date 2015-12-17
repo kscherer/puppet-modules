@@ -96,7 +96,7 @@ class profile::mesos::master inherits profile::mesos::common {
   consul_template::watch {
     'mesos_agent_whitelist':
       template    => 'wr/mesos_agent_whitelist.ctmpl.erb',
-      destination => '/etc/mesos_agent_whitelist',
-      command     => true;
+      destination => '/tmp/mesos_agent_whitelist',
+      command     => 'sed \'/^$/d\' /tmp/mesos_agent_whitelist | sort -V > /etc/mesos_agent_whitelist';
   }
 }
