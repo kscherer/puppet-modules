@@ -99,3 +99,7 @@ mod 'puppetlabs-java',
 mod 'hunner-hiera',
  :git => 'git://ala-git.wrs.com/external/puppet/github.com.hunner.puppet-hiera.git',
  :ref => '1.3.2'
+
+mod 'saz-sudo',
+ :git => 'git://ala-git.wrs.com/external/puppet/github.com.saz.puppet-sudo.git',
+ :ref => 'v3.1.0'

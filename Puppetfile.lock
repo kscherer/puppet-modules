@@ -182,13 +182,21 @@ GIT
       puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
 
 GIT
-  remote: git://ala-git.wrs.com/external/puppet/github.com.solarkennedy.puppet-consul.git
-  ref: v1.0.2
-  sha: 3d503f4e5197812e40fd66dfea2b2d07d5dc9533
+  remote: git://ala-git.wrs.com/external/puppet/github.com.saz.puppet-sudo.git
+  ref: v3.1.0
+  sha: e5fe01b9df91d380f1785f4be2818913bfdaba25
   specs:
-    solarkennedy-consul (1.0.1)
+    saz-sudo (3.1.0)
+      puppetlabs-stdlib (< 5.0.0, >= 2.3.0)
+
+GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.solarkennedy.puppet-consul.git
+  ref: v1.0.4
+  sha: 39ad8ea5b1f6825f7f64bd963d53cb8f91aaed77
+  specs:
+    solarkennedy-consul (1.0.4)
       nanliu-staging (< 2.0.0, >= 0.4.0)
-      puppetlabs-stdlib (< 5.0.0, >= 4.2.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
 
 GIT
   remote: https://github.com/dalen/puppet-puppetdbquery.git
@@ -231,5 +239,6 @@ DEPENDENCIES
   puppetlabs-stdlib (>= 0)
   puppetlabs-vcsrepo (>= 0)
   puppetlabs-xinetd (>= 0)
+  saz-sudo (>= 0)
   solarkennedy-consul (>= 0)
 
