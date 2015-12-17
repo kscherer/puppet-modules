@@ -125,6 +125,16 @@ GIT
       stahnma-epel (>= 0.0.6)
 
 GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.gdhbashton.puppet-consul_template.git
+  ref: ef908e5bdda5e830b4b00a68a83fbc28a1b255ed
+  sha: ef908e5bdda5e830b4b00a68a83fbc28a1b255ed
+  specs:
+    gdhbashton-consul_template (0.2.4)
+      nanliu-staging (>= 0.4.0)
+      puppetlabs-concat (>= 1.1.0)
+      puppetlabs-stdlib (>= 1.0.0)
+
+GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.hunner.puppet-hiera.git
   ref: 1.3.2
   sha: 5bc109737e0b3b2b1436225ba83c66e12a4fb804
@@ -213,16 +223,6 @@ GIT
     jtopjian-sshkeys (2.1.0)
       dalen-puppetdbquery (>= 1.3.2)
       puppetlabs-stdlib (>= 4.1.0)
-
-GIT
-  remote: https://github.com/kscherer/puppet-consul_template.git
-  ref: upstart_user
-  sha: be7462f20a1437c090353c8b9c67a6c6d7d08121
-  specs:
-    gdhbashton-consul_template (0.2.4)
-      nanliu-staging (>= 0.4.0)
-      puppetlabs-concat (>= 1.1.0)
-      puppetlabs-stdlib (>= 1.0.0)
 
 DEPENDENCIES
   arioch-redis (>= 0)
