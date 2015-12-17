@@ -125,6 +125,16 @@ GIT
       stahnma-epel (>= 0.0.6)
 
 GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.gdhbashton.puppet-consul_template.git
+  ref: 5f11634518483cfc27750a56a7932aaa6f8a90e9
+  sha: 5f11634518483cfc27750a56a7932aaa6f8a90e9
+  specs:
+    gdhbashton-consul_template (0.2.4)
+      nanliu-staging (>= 0.4.0)
+      puppetlabs-concat (>= 1.1.0)
+      puppetlabs-stdlib (>= 1.0.0)
+
+GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.hunner.puppet-hiera.git
   ref: 1.3.2
   sha: 5bc109737e0b3b2b1436225ba83c66e12a4fb804
@@ -224,6 +234,7 @@ DEPENDENCIES
   dhoppe-postfix (>= 0)
   duritong-sysctl (>= 0)
   garethr-docker (>= 0)
+  gdhbashton-consul_template (>= 0)
   hunner-hiera (>= 0)
   jtopjian-sshkeys (>= 0)
   puppet-collectd (>= 0)

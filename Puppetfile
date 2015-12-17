@@ -103,3 +103,7 @@ mod 'hunner-hiera',
 mod 'saz-sudo',
  :git => 'git://ala-git.wrs.com/external/puppet/github.com.saz.puppet-sudo.git',
  :ref => 'v3.1.0'
+
+mod 'gdhbashton-consul_template',
+ :git => 'git://ala-git.wrs.com/external/puppet/github.com.gdhbashton.puppet-consul_template.git',
+ :ref => '5f11634518483cfc27750a56a7932aaa6f8a90e9'

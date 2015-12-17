@@ -82,4 +82,19 @@ class profile::mesos::master inherits profile::mesos::common {
         }
       ]
   }
+
+  include ::consul_template
+  file {
+    '/etc/mesos_agent_whitelist':
+      ensure => present,
+      owner  => 'consul-template',
+      group  => 'consul-template',
+      mode   => '0666';
+  }
+  consul_template::watch {
+    'mesos_agent_whitelist':
+      template    => 'wr/mesos_agent_whitelist.ctmpl.erb',
+      destination => '/etc/mesos_agent_whitelist',
+      command     => true;
+  }
 }
