@@ -89,7 +89,7 @@ class profile::mesos::master inherits profile::mesos::common {
       ensure => present,
       owner  => 'consul-template',
       group  => 'consul-template',
-      mode   => '0666';
+      mode   => '0644';
     '/opt/consul-template':
       ensure => directory;
   }
