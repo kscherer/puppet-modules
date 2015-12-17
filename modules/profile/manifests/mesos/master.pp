@@ -90,6 +90,8 @@ class profile::mesos::master inherits profile::mesos::common {
       owner  => 'consul-template',
       group  => 'consul-template',
       mode   => '0666';
+    '/opt/consul-template':
+      ensure => directory;
   }
   consul_template::watch {
     'mesos_agent_whitelist':
