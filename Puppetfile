@@ -108,4 +108,4 @@ mod 'gdhbashton-consul_template',
 # :git => 'git://ala-git.wrs.com/external/puppet/github.com.gdhbashton.puppet-consul_template.git',
 # :ref => '5f11634518483cfc27750a56a7932aaa6f8a90e9'
  :git => 'https://github.com/kscherer/puppet-consul_template.git',
- :ref => 'e9792e4912f9277e1159fe3a24a10ae8e19fd4f5'
+ :ref => 'upstart_user'
