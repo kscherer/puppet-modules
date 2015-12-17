@@ -105,7 +105,5 @@ mod 'saz-sudo',
  :ref => 'v3.1.0'
 
 mod 'gdhbashton-consul_template',
-# :git => 'git://ala-git.wrs.com/external/puppet/github.com.gdhbashton.puppet-consul_template.git',
-# :ref => '5f11634518483cfc27750a56a7932aaa6f8a90e9'
- :git => 'https://github.com/kscherer/puppet-consul_template.git',
- :ref => 'upstart_user'
+ :git => 'git://ala-git.wrs.com/external/puppet/github.com.gdhbashton.puppet-consul_template.git',
+ :ref => 'ef908e5bdda5e830b4b00a68a83fbc28a1b255ed'
