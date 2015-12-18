@@ -62,11 +62,11 @@ GIT
 
 GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.deric.puppet-mesos.git
-  ref: v0.5.3
-  sha: 3147b69a3253dcd147099f12c33c048ac19d2f41
+  ref: v0.6.4
+  sha: ec495369fb018ef8806096dc0b380556b99a2b51
   specs:
-    deric-mesos (0.5.3)
-      puppetlabs-apt (>= 1.0.0)
+    deric-mesos (0.6.4)
+      puppetlabs-apt (>= 2.1.0)
       puppetlabs-stdlib (>= 4.2.0)
 
 GIT

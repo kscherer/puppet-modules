@@ -32,7 +32,7 @@ mod 'garethr-docker',
 
 mod 'deric-mesos',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.deric.puppet-mesos.git',
-  :ref => 'v0.5.3'
+  :ref => 'v0.6.4'
 
 mod 'solarkennedy-consul',
   :git => 'git://ala-git.wrs.com/external/puppet/github.com.solarkennedy.puppet-consul.git',

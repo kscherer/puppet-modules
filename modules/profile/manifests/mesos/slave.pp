@@ -9,6 +9,7 @@ class profile::mesos::slave inherits profile::mesos::common {
       ensure => stopped;
   }
   Package['mesos']->Service['mesos-master']
+  Package['mesos']~>Service['mesos-slave']
 
   # Install latest kernel on slaves for overlayfs support
   package {
