@@ -86,7 +86,7 @@ snmp::snmpd_config:
 apache::mod::passenger::passenger_high_performance: "On"
 apache::mod::passenger::passenger_max_requests: "1000"
 
-mesos::version: '0.24.1-0.2.35.ubuntu1404'
+mesos::version: '0.25.0-0.2.70.ubuntu1404'
 mesos::zookeeper: 'zk://147.11.106.56:2181,147.11.105.37:2181,147.11.105.120:2181/mesos'
 mesos::master::cluster: 'wraxl'
 mesos::master::options:
