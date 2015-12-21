@@ -92,7 +92,7 @@ mesos::master::cluster: 'wraxl'
 mesos::master::options:
   quorum: '2'
   logging_level: 'WARNING'
-  whitelist: 'file:///etc/mesos_slave_whitelist'
+  whitelist: 'file:///etc/mesos_agent_whitelist'
 # mesos master is a vm with eth0
 mesos::master::listen_address: "%{::ipaddress_primary}"
 # mesos slaves are bare metal with em1
