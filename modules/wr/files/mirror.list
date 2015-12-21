@@ -18,7 +18,9 @@ deb http://apt.dockerproject.org/repo ubuntu-trusty main
 deb http://apt.dockerproject.org/repo ubuntu-precise main
 deb http://ppa.launchpad.net/git-core/ppa/ubuntu trusty main
 deb http://repos.mesosphere.io/ubuntu trusty main
+deb http://download.draios.com/stable/deb stable-amd64
 
 clean http://apt.dockerproject.org/repo
 clean http://ppa.launchpad.net/git-core
 clean http://repos.mesosphere.io/ubuntu
+clean http://download.draios.com/stable/deb
