@@ -19,6 +19,23 @@ GIT
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
 
 GIT
+  remote: git://ala-git.wrs.com/external/extra/github.com.puppetlabs.puppetlabs-firewall.git
+  ref: 1.7.2
+  sha: 71c659faf38d5e0cf19cfc16bb690b4c450fbd2a
+  specs:
+    puppetlabs-firewall (1.7.2)
+
+GIT
+  remote: git://ala-git.wrs.com/external/extra/github.com.puppetlabs.puppetlabs-postgresql.git
+  ref: 4.6.1
+  sha: bd44f6677cffdbd31a792688d7e1d817c7f3551c
+  specs:
+    puppetlabs-postgresql (4.6.1)
+      puppetlabs-apt (< 3.0.0, >= 1.8.0)
+      puppetlabs-concat (< 2.0.0, >= 1.1.0)
+      puppetlabs-stdlib (~> 4.0)
+
+GIT
   remote: git://ala-git.wrs.com/external/extra/github.com.puppetlabs.puppetlabs-rsync.git
   ref: 0.4.0
   sha: 8fe65d0b70c0615a63551ae4af2bb5f808ef2421
@@ -201,6 +218,17 @@ GIT
       puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
 
 GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppetlabs-puppetdb.git
+  ref: 4.3.0
+  sha: ad946c55cb6e360420ec42746106d890e3ed53fa
+  specs:
+    puppetlabs-puppetdb (4.3.0)
+      puppetlabs-firewall (< 2.0.0, >= 1.1.3)
+      puppetlabs-inifile (< 2.0.0, >= 1.1.3)
+      puppetlabs-postgresql (< 5.0.0, >= 4.0.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.2.2)
+
+GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.saz.puppet-sudo.git
   ref: v3.1.0
   sha: e5fe01b9df91d380f1785f4be2818913bfdaba25
@@ -253,9 +281,12 @@ DEPENDENCIES
   puppetlabs-apache (>= 0)
   puppetlabs-apt (>= 0)
   puppetlabs-concat (>= 0)
+  puppetlabs-firewall (>= 0)
   puppetlabs-inifile (>= 0)
   puppetlabs-java (>= 0)
   puppetlabs-ntp (>= 0)
+  puppetlabs-postgresql (>= 0)
+  puppetlabs-puppetdb (>= 0)
   puppetlabs-rsync (>= 0)
   puppetlabs-stdlib (>= 0)
   puppetlabs-vcsrepo (>= 0)

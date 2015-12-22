@@ -111,3 +111,15 @@ mod 'gdhbashton-consul_template',
 mod 'puppetlabs-apache',
  :git => 'git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppetlabs-apache.git',
  :ref => '1.7.1'
+
+mod 'puppetlabs-firewall',
+ :git => 'git://ala-git.wrs.com/external/extra/github.com.puppetlabs.puppetlabs-firewall.git',
+ :ref => '1.7.2'
+
+mod 'puppetlabs-postgresql',
+ :git => 'git://ala-git.wrs.com/external/extra/github.com.puppetlabs.puppetlabs-postgresql.git',
+ :ref => '4.6.1'
+
+mod 'puppetlabs-puppetdb',
+ :git => 'git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppetlabs-puppetdb.git',
+ :ref => '4.3.0'
