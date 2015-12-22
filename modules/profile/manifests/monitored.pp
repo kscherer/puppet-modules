@@ -3,7 +3,7 @@ class profile::monitored inherits profile::base {
 
   if $::osfamily != 'Suse' {
     include profile::collectd
-    Class['wr::common::repos'] -> Class['::collectd']
+    # Class['wr::common::repos'] -> Class['::collectd']
   }
 
   include wr::mcollective
