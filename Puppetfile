@@ -107,3 +107,7 @@ mod 'saz-sudo',
 mod 'gdhbashton-consul_template',
  :git => 'git://ala-git.wrs.com/external/puppet/github.com.gdhbashton.puppet-consul_template.git',
  :ref => 'ef908e5bdda5e830b4b00a68a83fbc28a1b255ed'
+
+mod 'puppetlabs-apache',
+ :git => 'git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppetlabs-apache.git',
+ :ref => '1.7.1'
