@@ -7,15 +7,10 @@ collectd::plugins:
   - collectd::plugin::disk
   - collectd::plugin::aggregation
   - collectd::plugin::vmem
-  - collectd::plugin::write_graphite
   - collectd::plugin::syslog
 collectd::purge: true
 collectd::recurse: true
 collectd::purge_config: true
-collectd::plugin::write_graphite::carbons:
-  carbon:
-    graphiteprefix: ""
-    graphitehost: graphite
 collectd::plugin::aggregation::aggregators:
   cpu:
     plugin: 'cpu'
@@ -31,8 +26,6 @@ collectd::plugin::aggregation::aggregators:
     calculateminimum: false
     calculatemaximum: false
     calculatestddev: false
-graphite::carbon::service::aggregator_ensure: "stopped"
-graphite::carbon::service::aggregator_enable: false
 packages:
   - make
   - file
@@ -118,7 +111,6 @@ docker::extra_parameters:
 # Enable http port on localhost for consul health checks
 docker::tcp_bind: 'tcp://127.0.0.1:2375'
 wr::docker_registry_ip: '147.11.105.120'
-wr::graphite: '147.11.106.55'
 
 zookeeper::client_ip: "%{::ipaddress_eth0}"
 zookeeper::purge_interval: '12'
@@ -142,10 +134,6 @@ postfix::config_file_hash:
     config_file_string: "%{::fqdn}"
 postfix::recipient: "Konrad.Scherer@windriver.com"
 postfix::relayhost: "prod-webmail.wrs.com"
-
-statsd::graphiteHost: "yow-lpd-puppet2.wrs.com"
-statsd::flushInterval: "10"
-statsd::graphite_legacyNamespace: false
 
 logstash::logstash_user: logstash
 logstash::logstash_group: logstash

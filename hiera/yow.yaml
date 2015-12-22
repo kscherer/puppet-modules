@@ -4,8 +4,6 @@ puppet::puppet_server: yow-lpd-puppet2.wrs.com
 ntp::servers:
   - yow-lpggp3.wrs.com
 mirror: yow-mirror.wrs.com
-graphite::web::time_zone: US/Eastern
-collectd::plugin::write_graphite::host: yow-lpd-puppet2.wrs.com
 nsca: 128.224.195.118
 nameservers:
   - 128.224.144.130
@@ -23,10 +21,8 @@ dhcp::ntpservers:
 
 docker::dns: 128.224.144.130
 wr::docker_registry_ip: '128.224.137.11'
-wr::graphite: '128.224.195.118'
 
 snmp::location: "Ottawa, Canada"
-graphite_reporter::graphite_host: yow-lpd-puppet2.wrs.com
 
 #Ottawa should use Zookeeper observer instance on yow-lpdfs01
 mesos::zookeeper: "zk://128.224.137.11:2181/mesos"

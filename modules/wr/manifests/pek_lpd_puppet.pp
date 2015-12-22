@@ -20,19 +20,9 @@ class wr::pek_lpd_puppet {
   include git::stomp_listener
   Class['wr::common::repos'] -> Class['git::stomp_listener']
 
-  include apache::mod::wsgi
-  include graphite
-  Class['apache::mod::wsgi'] -> Class['graphite']
-
   include nagios
   include nagios::nsca::server
   Class['wr::mcollective'] -> Class['nagios']
-
-  graphite::carbon::storage {
-    'default_10s_for_2weeks':
-      pattern    => '.*',
-      retentions => '10s:14d',
-  }
 
   include wr::activemq
 }

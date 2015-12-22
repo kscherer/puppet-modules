@@ -6,14 +6,6 @@ class profile::monitored inherits profile::base {
     Class['wr::common::repos'] -> Class['::collectd']
   }
 
-  # Send collectd stats to local graphite server
-  host {
-    'graphite':
-      ensure       => present,
-      ip           => hiera('wr::graphite', '147.11.106.55'),
-      host_aliases => 'graphite.wrs.com';
-  }
-
   include wr::mcollective
   Class['wr::common::repos'] -> Class['wr::mcollective']
 

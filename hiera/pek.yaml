@@ -8,18 +8,14 @@ nameservers:
   - 128.224.160.12
   - 128.224.160.11
   - 147.11.57.128
-graphite::web::time_zone: 'Asia/Shanghai'
-collectd::plugin::write_graphite::host: pek-lpd-puppet.wrs.com
 nsca: 128.224.153.105
 timezone: 'Asia/Shanghai'
 # China should use Zookeeper observer instance on pek-lpdfs01
 mesos::zookeeper: "zk://128.224.153.15:2181/mesos"
 mesos::slave::attributes:
   location: 'pek'
-graphite_reporter::graphite_host: pek-lpd-puppet.wrs.com
 docker::dns: 128.224.160.11
 wr::docker_registry_ip: '128.224.153.15'
-wr::graphite: '128.224.153.105'
 
 consul_config_hash:
   datacenter: 'pek'

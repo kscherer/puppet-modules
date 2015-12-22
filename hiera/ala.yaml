@@ -1,8 +1,6 @@
 ---
 amqp_server: ala-lpd-puppet.wrs.com
 puppet::puppet_server: ala-lpd-puppet.wrs.com
-graphite::web::time_zone: America/Los_Angeles
-collectd::plugin::write_graphite::host: ala-lpd-puppet.wrs.com
 mirror: ala-mirror.wrs.com
 nsca: 147.11.106.55
 nameservers:
@@ -14,8 +12,6 @@ foreman_ssl_cert: '/var/lib/puppet/ssl/certs/ala-lpd-puppet.wrs.com.pem'
 foreman_ssl_key: '/var/lib/puppet/ssl/private_keys/ala-lpd-puppet.wrs.com.pem'
 dell::omsa_url_base: 'http://ala-mirror.wrs.com/mirror/dell/hardware/'
 snmp::location: "Alameda, USA"
-graphite_reporter::graphite_host: ala-lpd-puppet.wrs.com
-graphite_reporter::graphite_port: 2023
 docker::dns: 147.11.57.128
 mesos::slave::attributes:
   location: 'ala'

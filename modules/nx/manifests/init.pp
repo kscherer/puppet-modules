@@ -215,8 +215,7 @@ class nx {
 
   nx::script {
     [ 'hostel-fix-config','pull-multicore-layer','hostel-make',
-      'pull-toolchain.sh','send_stats_to_graphite.sh',
-      'cleanup-sstate-cache.sh']:
+      'pull-toolchain.sh', 'cleanup-sstate-cache.sh']:
   }
 
   case $::hostname {
