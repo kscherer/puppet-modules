@@ -275,6 +275,7 @@ class wr::fileserver {
       require => Package['apt-mirror'];
   }
 
+  include ::apache::mod::proxy
   include ::apache::mod::proxy_http
 
   #dell repo needs to be able to exec cgi scripts
