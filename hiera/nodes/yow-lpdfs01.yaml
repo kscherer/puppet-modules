@@ -14,5 +14,4 @@ consul_config_hash:
     - '128.224.153.15' # pek-lpdfs01
     - '128.224.153.105' # pek-lpd-puppet
     - '128.224.153.63' # pek-blade30
-  client_addr: '0.0.0.0'
   ui_dir: '/opt/consul/ui'

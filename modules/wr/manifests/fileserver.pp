@@ -281,31 +281,30 @@ class wr::fileserver {
   #dell repo needs to be able to exec cgi scripts
   apache::vhost {
     "mirror-${::hostname}":
-      port             => '80',
-      docroot          => '/var/www/',
-      directories      =>
-      [{
+      port        => '80',
+      docroot     => '/var/www/',
+      directories => [{
         path           => '/var/www/',
         options        => ['Indexes', 'FollowSymLinks', 'MultiViews', 'ExecCGI'],
         allow_override => ['None'],
         order          => ['Allow','Deny'],
         allow          => 'from all',
-        addhandlers    => [{ handler => 'cgi-script', extensions => ['.cgi']}],
-       },
-       {
-        path           => '/usr/lib/cgit',
-        options        => ['FollowSymLinks', 'ExecCGI'],
-      }],
-      scriptaliases => [{
-                        alias => '/cgit/',
-                        path  => '/usr/lib/cgit/cgit.cgi/',
-                        }],
-      aliases => [{
-                  alias => '/cgit-css',
-                  path  => '/usr/share/cgit',
-                  }],
+        addhandlers    => [{ handler => 'cgi-script', extensions => ['.cgi'] }]
+        },
+        { path => '/usr/lib/cgit', options => ['FollowSymLinks', 'ExecCGI'] }
+      ],
+      scriptaliases => [
+        { alias => '/cgit/', path  => '/usr/lib/cgit/cgit.cgi/'}
+      ],
+      aliases => [
+        { alias => '/cgit-css', path  => '/usr/share/cgit'}
+      ],
       redirectmatch_status => ['^/cgit$'],
       redirectmatch_regexp => ['/cgit/'],
+      proxy_pass => [
+        { 'path' => '/consul', 'url' => 'http://127.0.0.1/ui' },
+        { 'path' => '/v1', 'url' => 'http://127.0.0.1/v1' },
+      ],
   }
 
   include rsync::server
