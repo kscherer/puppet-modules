@@ -299,7 +299,7 @@ class wr::fileserver {
       aliases => [
         { alias => '/cgit-css', path  => '/usr/share/cgit'}
       ],
-      redirectmatch_status => ['404'],
+      redirectmatch_status => [' '],
       redirectmatch_regexp => ['^/cgit$'],
       redirectmatch_dest   => ['/cgit/'],
       proxy_pass => [
