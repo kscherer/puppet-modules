@@ -299,9 +299,9 @@ class wr::fileserver {
       aliases => [
         { alias => '/cgit-css', path  => '/usr/share/cgit'}
       ],
-      redirectmatch_status => ['301'],
-      redirectmatch_regexp => ['^/cgit$'],
-      redirectmatch_dest   => ['/cgit/'],
+      redirectmatch_status => ['301','301'],
+      redirectmatch_regexp => ['^/cgit$','^/consul$'],
+      redirectmatch_dest   => ['/cgit/','/consul/'],
       proxy_pass => [
         { 'path' => '/consul', 'url' => 'http://127.0.0.1:8500/ui' },
         { 'path' => '/v1', 'url' => 'http://127.0.0.1:8500/v1' },
