@@ -65,4 +65,11 @@ class profile::nxbuilder inherits profile::nis {
         require => Class['docker'];
     }
   }
+
+  if $::hostname == 'ala-blade46' {
+    sudo::conf {
+      'overc_test':
+        source  => 'puppet:///modules/wr/sudoers.d/overc_test';
+    }
+  }
 }
