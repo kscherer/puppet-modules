@@ -8,7 +8,12 @@ class profile::consul {
 
   # Puppet is not detecting systemd on Debian 8 properly
   if $::operatingsystem == 'Debian' and $::operatingsystemmajrelease > '7' {
-    Service {provider => 'systemd'}
+    Service { provider => 'systemd' }
+  }
+
+  # Puppet is not detecting systemd on OpenSuSE 12.3 properly
+  if $::operatingsystem == 'OpenSuSE' {
+    Service { provider => 'systemd' }
   }
 
   class {
