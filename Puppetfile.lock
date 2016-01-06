@@ -237,6 +237,15 @@ GIT
       puppetlabs-stdlib (< 5.0.0, >= 2.3.0)
 
 GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.solarkennedy.puppet-consul.git
+  ref: 4e93a9b933100aa65d695a01453103557e34f697
+  sha: 4e93a9b933100aa65d695a01453103557e34f697
+  specs:
+    solarkennedy-consul (1.0.5)
+      nanliu-staging (< 2.0.0, >= 0.4.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
+
+GIT
   remote: https://github.com/dalen/puppet-puppetdbquery.git
   ref: 1.5.3
   sha: be650dcfa3c8af92f190685ca17f0f171d1bb3af
@@ -251,15 +260,6 @@ GIT
     jtopjian-sshkeys (2.1.0)
       dalen-puppetdbquery (>= 1.3.2)
       puppetlabs-stdlib (>= 4.1.0)
-
-GIT
-  remote: https://github.com/kscherer/puppet-consul
-  ref: 3f678343f9c636b10b024c4aa5ffc25aaa6d6218
-  sha: 3f678343f9c636b10b024c4aa5ffc25aaa6d6218
-  specs:
-    solarkennedy-consul (1.0.5)
-      nanliu-staging (< 2.0.0, >= 0.4.0)
-      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
 
 DEPENDENCIES
   arioch-redis (>= 0)
