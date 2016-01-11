@@ -6,11 +6,11 @@ class profile::collectd {
   #include $plugins
 
   # disable collectd until I have somewhere to send the stats
-  service {
-    'collectd':
-      ensure  => stopped,
-      enable  => false;
-  }
+  # service {
+  #   'collectd':
+  #     ensure  => stopped,
+  #     enable  => false;
+  # }
 
 }
 
