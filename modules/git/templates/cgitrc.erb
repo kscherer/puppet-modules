@@ -44,6 +44,9 @@ max-repodesc-length=0
 # Use a custom logo
 logo=/cgit-data/cgit.png
 
+#Do not allow git clones using cgit
+enable-http-clone=0
+
 # Enable statistics per week, month and quarter
 # max-stats=quarter
 
@@ -66,7 +69,7 @@ mimetype.png=image/png
 mimetype.svg=image/svg+xml
 
 # Enable syntax highlighting (requires the highlight package)
-source-filter=/usr/lib/cgit/filters/syntax-highlighting.sh
+source-filter=/usr/lib/cgit/filters/syntax-highlighting.py
 
 ##
 ## List of repositories.
