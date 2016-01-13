@@ -297,7 +297,7 @@ class wr::fileserver {
         { alias => '/cgit/', path  => '/usr/lib/cgit/cgit.cgi/'}
       ],
       aliases => [
-        { alias => '/cgit-css', path  => '/usr/share/cgit'}
+        { alias => '/cgit-data', path  => '/usr/share/cgit'}
       ],
       redirectmatch_status => ['301','301'],
       redirectmatch_regexp => ['^/cgit$','^/consul$'],
