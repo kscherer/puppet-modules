@@ -3,17 +3,16 @@
 #
 
 # Specify the number of entries to list per page
-max-repo-count=1000
+max-repo-count=2000
 
-# Enable caching of up to 1000 output entries
-cache-size=1000
+# Disable caching because it fixes problems
+cache-size=0
 
 # Specify some default clone prefixes
-#clone-prefix=git://example.com ssh://example.com/pub/git http://example.com/git
-clone-prefix=git://ala-lpd-rcpl.wrs.com/ ssh://ala-lpd-rcpl/git
+clone-prefix=git://<%= @hostname -%>.wrs.com/ ssh://<%= @hostname -%>.wrs.com/git
 
 # Set the title and heading of the repository index page
-root-title=Git Repositories (ala-lpd-rcpl)
+root-title=Git Repositories (<%= @hostname -%> )
 
 # Set a subheading for the repository index page
 root-desc=Wind River Projects
@@ -33,6 +32,9 @@ enable-log-filecount=1
 # Show number of added/removed lines per commit on the log pages
 enable-log-linecount=1
 
+# Disable display of owner column
+enable-index-owner=0
+
 # Add a cgit favicon
 #favicon=/favicon.ico
 
@@ -40,7 +42,7 @@ enable-log-linecount=1
 logo=/cgit-data/cgit.png
 
 # Enable statistics per week, month and quarter
-max-stats=quarter
+# max-stats=quarter
 
 # Include some more info about this site on the index page
 #root-readme=/var/www/html/about.html
@@ -72,11 +74,4 @@ source-filter=/usr/libexec/cgit/filters/syntax-highlighting.sh
 ##        include=/etc/cgitrepos
 ##
 
-#repo.url=foo
-#repo.path=/var/lib/git/foo.git
-#repo.desc=the master foo repository
-#repo.owner=fooman@example.com
-#repo.readme=info/web/about.html
-
-# Specify where to scan for repos
-scan-path=/data/git/
+include=/home/git/repos.list
