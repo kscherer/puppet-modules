@@ -14,7 +14,7 @@ class git::cgit {
   file {
     '/etc/cgitrc':
       ensure   => present,
-      content => template('puppet:///modules/git/cgitrc.erb');
+      content => template('git/cgitrc.erb');
     '/home/git/generate_cgit_repolist.sh':
       ensure => present,
       owner  => 'git',
