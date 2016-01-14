@@ -7,7 +7,7 @@ class git::cgit {
   }
 
   package {
-    ['cgit', 'highlight']:
+    ['cgit', 'highlight', 'python-pygments']:
       ensure => installed;
   }
 
