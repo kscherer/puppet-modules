@@ -4,6 +4,9 @@ class profile::consul {
   file {
     '/opt':
       ensure => directory;
+    '/usr/local/bin/consul':
+      ensure => link,
+      target => '/opt/consul/consul';
   }
 
   # Puppet is not detecting systemd on Debian 8 properly
