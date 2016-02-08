@@ -62,7 +62,7 @@ class wr::fileserver {
       atime      => 'off',
       mountpoint => '/git/users',
       setuid     => 'off',
-      quota      => '200G',
+      quota      => '500G',
       devices    => 'off';
     'pool/stored_builds':
       ensure   => present,
