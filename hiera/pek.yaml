@@ -7,7 +7,7 @@ mirror: pek-mirror.wrs.com
 nameservers:
   - 128.224.160.12
   - 128.224.160.11
-  - 147.11.57.128
+  - 147.11.57.133
 nsca: 128.224.153.105
 timezone: 'Asia/Shanghai'
 # China should use Zookeeper observer instance on pek-lpdfs01

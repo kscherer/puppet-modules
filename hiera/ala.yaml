@@ -4,15 +4,15 @@ puppet::puppet_server: ala-lpd-puppet.wrs.com
 mirror: ala-mirror.wrs.com
 nsca: 147.11.106.55
 nameservers:
-  - 147.11.57.128
   - 147.11.57.133
+  - 147.11.57.143
 foreman_url: 'https://ala-lpd-provision.wrs.com/'
 foreman_ssl_ca: '/var/lib/puppet/ssl/ca/ca_crt.pem'
 foreman_ssl_cert: '/var/lib/puppet/ssl/certs/ala-lpd-puppet.wrs.com.pem'
 foreman_ssl_key: '/var/lib/puppet/ssl/private_keys/ala-lpd-puppet.wrs.com.pem'
 dell::omsa_url_base: 'http://ala-mirror.wrs.com/mirror/dell/hardware/'
 snmp::location: "Alameda, USA"
-docker::dns: 147.11.57.128
+docker::dns: 147.11.57.133
 mesos::slave::attributes:
   location: 'ala'
 timezone: 'US/Pacific'
