@@ -1,7 +1,11 @@
 #
-class debian::ubuntu (
-  $mirror_base = "http://${::location}-mirror.wrs.com/mirror",
-  $dash        = true) {
+class debian::ubuntu ($dash = true)
+{
+  if $::location == 'otp' {
+    $mirror_base = 'http://ftp.astral.ro/mirrors'
+  } else {
+    $mirror_base = "http://${::location}-mirror.wrs.com/mirror"
+  }
 
   $ubuntu_mirror = "${mirror_base}/ubuntu.com/ubuntu"
 
