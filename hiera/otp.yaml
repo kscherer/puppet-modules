@@ -1,0 +1,22 @@
+---
+amqp_server: ala-lpd-puppet.wrs.com
+puppet::puppet_server: ala-lpd-puppet.wrs.com
+ntp::servers:
+  - 128.224.126.11
+  - 128.224.168.11
+mirror: ala-mirror.wrs.com
+nsca: 147.11.106.55
+nameservers:
+  - 128.224.126.11
+  - 128.224.168.11
+docker::dns: 128.224.126.11
+mesos::slave::attributes:
+  location: 'otp'
+timezone: 'Europe/Bucharest'
+
+consul_config_hash:
+  datacenter: 'ala'
+  retry_join:
+    - '147.11.105.120' # ala-lpdfs01
+    - '147.11.106.55' # ala-lpd-puppet
+    - '147.11.105.37' # ala-blade17

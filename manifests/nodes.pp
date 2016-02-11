@@ -268,3 +268,7 @@ node 'pek-lpdfs01.wrs.com' {
 node /pek-lpggp\d+\.wrs\.com/ {
   include profile::gp_builder
 }
+
+node 'otp-linux01.corp.ad.wrs.com' {
+  include profile::gp_builder
+}
