@@ -25,7 +25,7 @@ class debian::ubuntu ($dash = true)
       release     => "${::lsbdistcodename}-updates",
       repos       => 'main restricted universe multiverse';
     'yow_puppetlabs_mirror':
-      location    => "${mirror_base}/puppetlabs/apt",
+      location    => "http://${::location}-mirror.wrs.com/mirror/puppetlabs/apt",
       release     => $::lsbdistcodename,
       repos       => 'main dependencies';
   }
