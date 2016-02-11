@@ -142,8 +142,8 @@ logstash::install_contrib: true
 logstash::java_install: true
 
 consul::version: '0.6.0'
-consul::download_url_base: 'http://%{::location}-mirror/mirror/consul/'
-consul::ui_download_url_base: 'http://%{::location}-mirror/mirror/consul/'
+consul::download_url_base: 'http://%{::mirror}/mirror/consul/'
+consul::ui_download_url_base: 'http://%{::mirror}/mirror/consul/'
 consul::pretty_config: true
 consul::bin_dir: '/opt/consul/'
 consul_config_hash:
