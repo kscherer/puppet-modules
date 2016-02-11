@@ -21,7 +21,7 @@
 # same will not be seen as the first read key seen takes
 # precedence.
 #
-<% if @location != "ala" -%>
+<% if @location != "ala" and @location != "otp" -%>
 /folk   auto.<%= @location %> vers=3
 <% end -%>
 +auto.master
