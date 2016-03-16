@@ -8,3 +8,4 @@
 [wrgit]
 	username = wrlbuild
 	autoupdate = false
+	addons = wr-secure,wr-common,wr-ovp,wr-ovp-ovirt,wr-cgp
