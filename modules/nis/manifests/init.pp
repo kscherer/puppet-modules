@@ -83,6 +83,13 @@ class nis {
       group   => root,
       mode    => '0644',
       require => Package['autofs'];
+    '/etc/auto.net':
+      source  => 'puppet:///modules/nis/auto.net',
+      owner   => root,
+      group   => root,
+      mode    => '0644',
+      notify  => Service['autofs'],
+      require => Package['autofs'];
     ['/net','/folk']:
       ensure  => directory,
       notify  => Service['autofs'];
