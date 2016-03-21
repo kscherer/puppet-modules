@@ -87,7 +87,7 @@ class nis {
       source  => 'puppet:///modules/nis/auto.net',
       owner   => root,
       group   => root,
-      mode    => '0644',
+      mode    => '0755',
       notify  => Service['autofs'],
       require => Package['autofs'];
     ['/net','/folk']:
