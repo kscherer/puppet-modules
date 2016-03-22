@@ -35,7 +35,7 @@ class debian::ubuntu ($dash = true)
   }
 
   # Due to git CVE-2016-2315 and CVE-2016-2324 update git on all Ubuntu machines
-  apt::ppa { 'ppa:git-core/ppa': }
+  apt::ppa { 'ppa:git-core/ppa': package_manage => true }
   package {
     'git':
       ensure  => latest;

@@ -29,7 +29,6 @@ apt::purge:
   sources.list.d: true
 apt::update:
   frequency: 'daily'
-apt::ppa::package_manage: true
 
 # Because upgrading docker causes all running instances to be killed I
 # have to do rolling upgrades. This stops docker module from managing
