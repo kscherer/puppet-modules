@@ -34,6 +34,14 @@ class debian::ubuntu ($dash = true)
     apt::ppa { 'ppa:kmscherer/collectd': }
   }
 
+  # Due to git CVE-2016-2315 and CVE-2016-2324 update git on all Ubuntu machines
+  apt::ppa { 'ppa:git-core/ppa': }
+  package {
+    'git':
+      ensure  => latest;
+  }
+  Apt::Ppa['ppa:git-core/ppa'] -> Package['git']
+
   if $dash == true {
     $shell='dash'
   } else {

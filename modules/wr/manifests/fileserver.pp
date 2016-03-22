@@ -373,13 +373,6 @@ class wr::fileserver {
 
   include x2go
 
-  apt::ppa { 'ppa:git-core/ppa': }
-  package {
-    'git':
-      ensure  => latest;
-  }
-  Apt::Ppa['ppa:git-core/ppa'] -> Package['git']
-
   zfs {
     'pool/registry':
       ensure     => present,
