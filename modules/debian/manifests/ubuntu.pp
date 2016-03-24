@@ -11,13 +11,6 @@ class debian::ubuntu ($dash = true)
 
   include apt
 
-  apt::key {
-    'git-core-ppa-key':
-      key     => 'E1DD270288B4E6030699E45FA1715D88E1DF1F24',
-      server  => 'keyserver.ubuntu.com',
-      notify  => Exec['apt_update'];
-  }
-
   apt::source {
     'yow-mirror_ubuntu':
       location    => $ubuntu_mirror,
@@ -37,10 +30,13 @@ class debian::ubuntu ($dash = true)
       repos       => 'main dependencies';
     # Due to git CVE-2016-2315 and CVE-2016-2324 update git on all Ubuntu machines
     'git-core-ppa':
-      location    => "http://${::location}-mirror.wrs.com/mirror/apt/ppa.launchpad.net/git-core/ppa/ubuntu/",
-      release     => $::lsbdistcodename,
-      repos       => 'main',
-      require     => Apt::Key['git-core-ppa-key'];
+      location     => "http://${::location}-mirror.wrs.com/mirror/apt/ppa.launchpad.net/git-core/ppa/ubuntu/",
+      release      => $::lsbdistcodename,
+      repos        => 'main',
+      architecture => 'amd64',
+      include_src  => false,
+      key          => 'E1DD270288B4E6030699E45FA1715D88E1DF1F24',
+      key_server   => 'keyserver.ubuntu.com';
   }
 
   if $::lsbmajdistrelease =~ /^12/ {
