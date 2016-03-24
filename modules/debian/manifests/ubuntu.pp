@@ -11,6 +11,13 @@ class debian::ubuntu ($dash = true)
 
   include apt
 
+  apt::key {
+    'git-core-ppa-key':
+      key     => 'E1DD270288B4E6030699E45FA1715D88E1DF1F24',
+      server  => 'keyserver.ubuntu.com',
+      notify  => Exec['apt_update'];
+  }
+
   apt::source {
     'yow-mirror_ubuntu':
       location    => $ubuntu_mirror,
@@ -28,19 +35,17 @@ class debian::ubuntu ($dash = true)
       location    => "http://${::location}-mirror.wrs.com/mirror/puppetlabs/apt",
       release     => $::lsbdistcodename,
       repos       => 'main dependencies';
+    # Due to git CVE-2016-2315 and CVE-2016-2324 update git on all Ubuntu machines
+    'git-core-ppa':
+      location    => "http://${::location}-mirror.wrs.com/mirror/apt/ppa.launchpad.net/git-core/ppa/ubuntu/",
+      release     => $::lsbdistcodename,
+      repos       => 'main',
+      require     => Apt::Key['git-core-ppa-key'];
   }
 
   if $::lsbmajdistrelease =~ /^12/ {
     apt::ppa { 'ppa:kmscherer/collectd': }
   }
-
-  # Due to git CVE-2016-2315 and CVE-2016-2324 update git on all Ubuntu machines
-  apt::ppa { 'ppa:git-core/ppa': package_manage => true }
-  package {
-    'git':
-      ensure  => latest;
-  }
-  Apt::Ppa['ppa:git-core/ppa'] -> Package['git']
 
   if $dash == true {
     $shell='dash'
