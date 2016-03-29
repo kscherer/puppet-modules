@@ -1,4 +1,5 @@
 # from https://github.com/panaman/puppet-hostint/blob/master/lib/facter/hostint.rb
+ktype = (Facter.value('Kernel'))
 Facter.add("ipaddress_primary") do
   confine :kernel => %w{Linux Darwin FreeBSD}
   if ktype == 'FreeBSD'
