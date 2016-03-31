@@ -1,5 +1,5 @@
 #User alias specification
-User_Alias IOTDEV = dbush, hchowdhu, kshafiee, ttai, rli4, rhage, dgallos, pwarner, pbarrett, ppeng, zliu1 ,ywang
+User_Alias IOTDEV = dbush, ttai, rli4, rhage, pwarner, pbarrett, ppeng, zliu1 ,ywang, jshi, bli3, aning, dkhoerni, ezhang
 
 # Cmnd alias specification
 Cmnd_Alias IOT_COMMANDS = /bin/mount, /bin/umount, /sbin/losetup, /bin/cp, /usr/bin/find
