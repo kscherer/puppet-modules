@@ -91,4 +91,5 @@ class debian::ubuntu ($dash = true)
 
   # No need to waste time trying to optimize boot times with readahead
   ensure_resource('package', 'ureadahead', {'ensure' => 'absent' })
+  ensure_resource('package', 'command-not-found', {'ensure' => 'absent' })
 }
