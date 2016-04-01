@@ -45,7 +45,6 @@ alias ec='emacsclient --no-wait'
 alias ack='ack-grep'
 
 alias svi='sudo vi'
-alias xm='sudo xm'
 
 alias upgrade='sudo apt-get update && apt-get upgrade && apt-get clean'
 
@@ -54,9 +53,13 @@ alias yow-git-init='if [ ! -d bin ] ; then git clone git://yow-git.wrs.com/git/b
 alias yow-git-clone='wrgit clone git://yow-git.wrs.com/git/wrlinux-x'
 alias et="SUDO_EDITOR=\"emacsclient -t -a emacs\" sudoedit"
 
-alias yow-mirror='ssh svc-mirror@yow-lpggp1'
-alias ala-mirror='ssh svc-mirror@ala-lpggp4'
-alias yow-puppet='ssh root@yow-lpd-puppet'
+alias yow-mirror='ssh svc-mirror@yow-mirror'
+alias ala-mirror='ssh svc-mirror@ala-mirror'
+alias pek-mirror='ssh svc-mirror@pek-mirror'
+alias yow-puppet='ssh root@yow-lpd-puppet2'
 alias ala-puppet='ssh root@ala-lpd-puppet'
+alias pek-puppet='ssh root@pek-lpd-puppet'
 
 alias pat='puppet agent --test'
+alias di='docker images'
+alias dps='docker ps -a'
