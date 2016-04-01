@@ -160,6 +160,14 @@ GIT
       puppetlabs-stdlib (>= 0)
 
 GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.mrjoshuap.puppet-dnsmasq.git
+  ref: e96635b8428be746162c1732a75636e64345681c
+  sha: e96635b8428be746162c1732a75636e64345681c
+  specs:
+    mrjoshuap-dnsmasq (1.1.2)
+      puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
+
+GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.puppet-community.puppet-collectd.git
   ref: v4.2.0
   sha: 51b4d026142129e82fd9daf5f417b9fe99df2ee8
@@ -274,6 +282,7 @@ DEPENDENCIES
   gdhbashton-consul_template (>= 0)
   hunner-hiera (>= 0)
   jtopjian-sshkeys (>= 0)
+  mrjoshuap-dnsmasq (>= 0)
   puppet-collectd (>= 0)
   puppet-logstash (>= 0)
   puppet-riemann (>= 0)

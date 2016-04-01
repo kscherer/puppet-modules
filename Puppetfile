@@ -123,3 +123,7 @@ mod 'puppetlabs-postgresql',
 mod 'puppetlabs-puppetdb',
  :git => 'git://ala-git.wrs.com/external/puppet/github.com.puppetlabs.puppetlabs-puppetdb.git',
  :ref => '4.3.0'
+
+mod 'mrjoshuap-dnsmasq',
+ :git => 'git://ala-git.wrs.com/external/puppet/github.com.mrjoshuap.puppet-dnsmasq.git',
+ :ref => 'e96635b8428be746162c1732a75636e64345681c'
