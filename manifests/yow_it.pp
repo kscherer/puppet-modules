@@ -128,6 +128,9 @@ node 'yow-lab-simics10-lx.wrs.com' {
 node 'yow-lab-simics11.wrs.com' {
 	include wr::yow_simics
 }
+node 'yow-lab-simics12.wrs.com' {
+	include wr::yow_simics
+}
 node 'yow-samba3test.wrs.com' {
     include wr::yow_samba3test
 }
