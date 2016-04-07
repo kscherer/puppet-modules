@@ -17,6 +17,6 @@ class wr::ala_lpd_mesos {
       hostname        => $::fqdn,
       restart_service => true,
       pull_on_start   => true,
-      require         => [Docker::Image['mesos-scheduler'],Service['docker']];
+      require         => [Service['docker']];
   }
 }
