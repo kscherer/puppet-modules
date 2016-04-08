@@ -17,6 +17,7 @@ class wr::ala_lpd_mesos {
       hostname        => $::fqdn,
       restart_service => true,
       pull_on_start   => true,
+      env             => ["LIBPROCESS_IP=${::ipaddress_primary}"],
       volumes         => ['/home/wrlbuild/wr-buildscripts:/mnt/'],
       require         => [Service['docker']];
   }
