@@ -15,7 +15,6 @@ class wr::ala_lpd_mesos {
       command         => '--master zk://147.11.106.56:2181,147.11.105.21:2181,147.11.105.120:2181/mesos --config /mnt/wraxl/scheduler.yaml',
       ports           => ['8080:8080'],
       net             => 'host',
-      hostname        => $::fqdn,
       restart_service => true,
       pull_on_start   => true,
       volumes         => ['/home/wrlbuild/wr-buildscripts:/mnt/'],
