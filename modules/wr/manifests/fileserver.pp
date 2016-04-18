@@ -117,6 +117,14 @@ class wr::fileserver {
       devices  => 'off',
       quota    => '2T',
       require  => Package['nfs-kernel-server'];
+    'pool/export_sources':
+      ensure   => present,
+      atime    => 'off',
+      sharenfs => 'on',
+      setuid   => 'off',
+      devices  => 'off',
+      quota    => '50G',
+      require  => Package['nfs-kernel-server'];
   }
 
   # scrub zfs filesystem weekly
