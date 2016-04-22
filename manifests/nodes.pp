@@ -24,6 +24,7 @@ node /yow-blade.*.wrs.com/ {
 node 'ala-blade17.wrs.com' {
   include zookeeper
   include profile::mesos::master
+  include profile::lava
 }
 
 node /ala-blade([1-9]|19|31|34|49|5[0-9]|6[0-9])\.wrs\.com/ {
