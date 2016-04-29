@@ -79,12 +79,12 @@ GIT
 
 GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.deric.puppet-mesos.git
-  ref: v0.6.4
-  sha: ec495369fb018ef8806096dc0b380556b99a2b51
+  ref: v0.8.0
+  sha: c69e493c1d4c1813517fd0b9da6a36e904eb3747
   specs:
-    deric-mesos (0.6.4)
-      puppetlabs-apt (>= 2.1.0)
-      puppetlabs-stdlib (>= 4.2.0)
+    deric-mesos (0.8.0)
+      puppetlabs-apt (<= 3.0.0, >= 2.1.0)
+      puppetlabs-stdlib (< 5.0.0, >= 2.4.0, >= 4.2.0)
 
 GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.deric.puppet-zookeeper.git
@@ -121,11 +121,11 @@ GIT
 
 GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.garethr.garethr-docker.git
-  ref: v4.1.1
-  sha: f3633c22f111dd44efa7861d70655a8365483178
+  ref: v5.2.0
+  sha: 68dd0024fb845de1839df95713154d8181349851
   specs:
-    garethr-docker (4.1.1)
-      puppetlabs-apt (<= 3.0.0, >= 1.1.0)
+    garethr-docker (5.2.0)
+      puppetlabs-apt (<= 3.0.0, >= 1.8.0)
       puppetlabs-stdlib (>= 4.1.0)
       stahnma-epel (>= 0.0.6)
 
