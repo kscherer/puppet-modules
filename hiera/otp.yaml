@@ -9,7 +9,6 @@ nsca: 147.11.106.55
 nameservers:
   - 128.224.126.11
   - 128.224.168.11
-docker::dns: 128.224.126.11
 mesos::slave::attributes:
   location: 'otp'
 timezone: 'Europe/Bucharest'

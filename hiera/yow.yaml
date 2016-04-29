@@ -19,7 +19,6 @@ dhcp::nameservers:
 dhcp::ntpservers:
   - yow-lpggp3.wrs.com
 
-docker::dns: 128.224.144.130
 wr::docker_registry_ip: '128.224.137.11'
 
 snmp::location: "Ottawa, Canada"
