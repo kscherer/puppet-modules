@@ -2,12 +2,6 @@
 class profile::mesos::slave inherits profile::mesos::common {
   include ::mesos::slave
 
-  #The mesos package can start the mesos master so make sure it is
-  #not running on slaves
-  service {
-    'mesos-master':
-      ensure => stopped;
-  }
   Package['mesos']->Service['mesos-master']
   Package['mesos']~>Service['mesos-slave']
 
