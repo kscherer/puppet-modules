@@ -220,67 +220,69 @@ class wr::fileserver {
       require => File['/home/svc-mirror'];
   }
 
-  file {
-    '/etc/ubumirror.conf':
-      ensure => link,
-      target => "/home/svc-mirror/mirror-configs/ubumirror.conf.${::hostname}";
-    '/etc/mirrormanager-client/':
-      ensure => directory;
-    '/etc/mirrormanager-client/report_mirror.conf':
-      ensure => link,
-      target => "/home/svc-mirror/mirror-rsync/report_mirror.conf.${::hostname}";
-    '/pool/mirror/apt':
-      ensure => directory,
-      owner  => 'svc-mirror',
-      group  => 'mirror';
-    '/pool/mirror/apt/mirror.list':
-      ensure => present,
-      owner  => 'svc-mirror',
-      group  => 'mirror',
-      source => 'puppet:///modules/wr/mirror.list';
-  }
+  if $::location != 'otp' {
+    file {
+      '/etc/ubumirror.conf':
+        ensure => link,
+        target => "/home/svc-mirror/mirror-configs/ubumirror.conf.${::hostname}";
+      '/etc/mirrormanager-client/':
+        ensure => directory;
+      '/etc/mirrormanager-client/report_mirror.conf':
+        ensure => link,
+        target => "/home/svc-mirror/mirror-rsync/report_mirror.conf.${::hostname}";
+      '/pool/mirror/apt':
+        ensure => directory,
+        owner  => 'svc-mirror',
+        group  => 'mirror';
+      '/pool/mirror/apt/mirror.list':
+        ensure => present,
+        owner  => 'svc-mirror',
+        group  => 'mirror',
+        source => 'puppet:///modules/wr/mirror.list';
+    }
 
-  cron {
-    'dell_linux_repo':
-      ensure      => present,
-      command     => '/usr/bin/rsync -avHz --delete --delete-delay --exclude-from=/home/svc-mirror/mirror-configs/dell-excludes linux.dell.com::repo /pool/mirror/dell > /pool/mirror/log/dell_repo.log',
-      environment => ['HOME=/home/svc-mirror',
-                      'PATH=/usr/bin:/bin/:/sbin/:/usr/sbin',
-                      'MAILTO=konrad.scherer@windriver.com'],
-      user        => 'svc-mirror',
-      hour        => '5',
-      minute      => '0';
-    'mirror-rsync':
-      ensure  => present,
-      command => '/home/svc-mirror/mirror-rsync/mirror-fedora > /pool/mirror/log/mirror-rsync.log',
-      user    => 'svc-mirror',
-      hour    => '23',
-      minute  => '0';
-    'ubuntu_archives':
-      ensure  => present,
-      command => '/home/svc-mirror/mirror-configs/ubuarchive',
-      user    => 'svc-mirror',
-      hour    => '2',
-      minute  => '0';
-    'ubuntu_releases':
-      ensure  => present,
-      command => '/home/svc-mirror/mirror-configs/uburelease',
-      user    => 'svc-mirror',
-      hour    => '1',
-      minute  => '0';
-    'make_iso_links':
-      ensure  => present,
-      command => '/home/svc-mirror/mirror-configs/mk_iso_links.sh',
-      user    => 'svc-mirror',
-      hour    => '6',
-      minute  => '0';
-    'apt-mirror-sync':
-      ensure  => present,
-      command => '/usr/bin/apt-mirror /pool/mirror/apt/mirror.list > /pool/mirror/apt/apt-mirror.log',
-      user    => 'svc-mirror',
-      hour    => '3',
-      minute  => '0',
-      require => Package['apt-mirror'];
+    cron {
+      'dell_linux_repo':
+        ensure      => present,
+        command     => '/usr/bin/rsync -avHz --delete --delete-delay --exclude-from=/home/svc-mirror/mirror-configs/dell-excludes linux.dell.com::repo /pool/mirror/dell > /pool/mirror/log/dell_repo.log',
+        environment => ['HOME=/home/svc-mirror',
+                        'PATH=/usr/bin:/bin/:/sbin/:/usr/sbin',
+                        'MAILTO=konrad.scherer@windriver.com'],
+        user        => 'svc-mirror',
+        hour        => '5',
+        minute      => '0';
+      'mirror-rsync':
+        ensure  => present,
+        command => '/home/svc-mirror/mirror-rsync/mirror-fedora > /pool/mirror/log/mirror-rsync.log',
+        user    => 'svc-mirror',
+        hour    => '23',
+        minute  => '0';
+      'ubuntu_archives':
+        ensure  => present,
+        command => '/home/svc-mirror/mirror-configs/ubuarchive',
+        user    => 'svc-mirror',
+        hour    => '2',
+        minute  => '0';
+      'ubuntu_releases':
+        ensure  => present,
+        command => '/home/svc-mirror/mirror-configs/uburelease',
+        user    => 'svc-mirror',
+        hour    => '1',
+        minute  => '0';
+      'make_iso_links':
+        ensure  => present,
+        command => '/home/svc-mirror/mirror-configs/mk_iso_links.sh',
+        user    => 'svc-mirror',
+        hour    => '6',
+        minute  => '0';
+      'apt-mirror-sync':
+        ensure  => present,
+        command => '/usr/bin/apt-mirror /pool/mirror/apt/mirror.list > /pool/mirror/apt/apt-mirror.log',
+        user    => 'svc-mirror',
+        hour    => '3',
+        minute  => '0',
+        require => Package['apt-mirror'];
+    }
   }
 
   include ::apache::mod::proxy
