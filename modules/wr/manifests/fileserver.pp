@@ -392,9 +392,11 @@ class wr::fileserver {
   include ::profile::docker::registry
   Zfs['pool/registry'] -> Class['profile::docker::registry']
 
-  # Running zookeeper on vms is problematic due to extra network latency
-  # The fileservers will be fairly idle and should make good zookeeper nodes
-  include zookeeper
+  if $::location != 'otp' {
+    # Running zookeeper on vms is problematic due to extra network latency
+    # The fileservers will be fairly idle and should make good zookeeper nodes
+    include zookeeper
+  }
 
   # automatically share all the nfs mounts on boot and unshare during shutdown
   file {
