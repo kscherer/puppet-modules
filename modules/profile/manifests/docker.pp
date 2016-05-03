@@ -6,7 +6,7 @@ class profile::docker {
   # Use local docker mirror created using apt-mirror
   apt::source {
     'wr-docker':
-      location     => "http://${::location}-mirror.wrs.com/mirror/apt/apt.dockerproject.org/repo/",
+      location     => "http://${::mirror}/mirror/apt/apt.dockerproject.org/repo/",
       release      => "ubuntu-${::lsbdistcodename}",
       repos        => 'main',
       architecture => 'amd64',

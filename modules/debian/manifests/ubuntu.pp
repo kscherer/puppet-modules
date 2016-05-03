@@ -4,7 +4,7 @@ class debian::ubuntu ($dash = true)
   if $::location == 'otp' {
     $mirror_base = 'http://ftp.astral.ro/mirrors'
   } else {
-    $mirror_base = "http://${::location}-mirror.wrs.com/mirror"
+    $mirror_base = "http://${::mirror}/mirror"
   }
 
   $ubuntu_mirror = "${mirror_base}/ubuntu.com/ubuntu"
@@ -25,12 +25,12 @@ class debian::ubuntu ($dash = true)
       release     => "${::lsbdistcodename}-updates",
       repos       => 'main restricted universe multiverse';
     'yow_puppetlabs_mirror':
-      location    => "http://${::location}-mirror.wrs.com/mirror/puppetlabs/apt",
+      location    => "http://${::mirror}/mirror/puppetlabs/apt",
       release     => $::lsbdistcodename,
       repos       => 'main dependencies';
     # Due to git CVE-2016-2315 and CVE-2016-2324 update git on all Ubuntu machines
     'git-core-ppa':
-      location     => "http://${::location}-mirror.wrs.com/mirror/apt/ppa.launchpad.net/git-core/ppa/ubuntu/",
+      location     => "http://${::mirror}/mirror/apt/ppa.launchpad.net/git-core/ppa/ubuntu/",
       release      => $::lsbdistcodename,
       repos        => 'main',
       architecture => 'amd64',
