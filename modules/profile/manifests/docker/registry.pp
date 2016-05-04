@@ -5,7 +5,7 @@ class profile::docker::registry {
   #run registry as docker container of course
   docker::image {
     'registry':
-      image_tag => 'latest';
+      image_tag => '2';
   }
 
   #store all registry info in /opt
