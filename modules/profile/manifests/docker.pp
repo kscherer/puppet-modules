@@ -22,4 +22,5 @@ class profile::docker {
   Apt::Source['wr-docker'] -> Package['docker-engine']
 
   include ::docker
+  include ::profile::docker::dnsmasq
 }
