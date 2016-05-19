@@ -34,3 +34,4 @@ apt::update:
 # have to do rolling upgrades. This stops docker module from managing
 # the docker package and forces me to install it manually
 docker::manage_package: false
+docker::use_upstream_package_source: false
