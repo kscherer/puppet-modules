@@ -14,11 +14,13 @@ set _tilde 0
 #
 ############# end config ##############
 
+deb http://apt.dockerproject.org/repo ubuntu-xenial main
 deb http://apt.dockerproject.org/repo ubuntu-trusty main
 deb http://apt.dockerproject.org/repo ubuntu-precise main
 deb http://ppa.launchpad.net/git-core/ppa/ubuntu precise main
 deb http://ppa.launchpad.net/git-core/ppa/ubuntu trusty main
 deb http://ppa.launchpad.net/git-core/ppa/ubuntu xenial main
+deb http://repos.mesosphere.io/ubuntu xenial main
 deb http://repos.mesosphere.io/ubuntu trusty main
 deb http://download.draios.com/stable/deb stable-amd64
 
