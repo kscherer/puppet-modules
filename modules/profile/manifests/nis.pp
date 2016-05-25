@@ -20,6 +20,13 @@ class profile::nis inherits profile::monitored {
     }
   }
 
+  if $::location == 'otp' {
+    sudo::conf {
+      'itotp':
+        source  => 'puppet:///modules/wr/sudoers.d/itotp';
+    }
+  }
+
   Class['wr::common::repos'] -> Class['::nis']
   Class['wr::common::repos'] -> Class['::nfs::client']
   Class['wr::common::repos'] -> Class['sudo']

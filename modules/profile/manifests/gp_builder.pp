@@ -61,11 +61,4 @@ yourself, this F/S will be cleaned up periodically.";
       ensure => present,
       mode   => '0666';
   }
-
-  if $::location == 'otp' {
-    sudo::conf {
-      'itotp':
-        source  => 'puppet:///modules/wr/sudoers.d/itotp';
-    }
-  }
 }
