@@ -7,7 +7,7 @@ class wr::fileserver {
   include ::postfix
 
   ensure_packages( ['libc6-dev', 'vim-nox', 'screen', 'curl', 'wget', 'tmux',
-                    'diffstat', 'reprepro', 'unzip'])
+                    'diffstat', 'reprepro', 'unzip', 'wakeonlan'])
   include ::zfs
   Package['libc6-dev'] -> Class['zfs']
 
