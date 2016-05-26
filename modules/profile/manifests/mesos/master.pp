@@ -39,34 +39,6 @@ class profile::mesos::master inherits profile::mesos::common {
       owner => 'wrlbuild';
   }
 
-  # install mesos.native and mesos.interface eggs
-  # required by the random_config_scheduler which is written in python
-  # Slaves use the docker containerizer which is shipped with mesos and no
-  # python is required
-  $mesos_egg = 'mesos-0.25.0-py2.7-linux-x86_64.egg'
-  $mesos_interface_egg = 'mesos.interface-0.25.0-py2.7.egg'
-
-  include wget
-  wget::fetch {
-    $mesos_egg:
-      source      => "http://${::location}-mirror.wrs.com/mirror/mesos/${mesos_egg}",
-      destination => "/root/${mesos_egg}";
-    $mesos_interface_egg:
-      source      => "http://${::location}-mirror.wrs.com/mirror/mesos/${mesos_interface_egg}",
-      destination => "/root/${mesos_interface_egg}",
-  }
-
-  exec {
-    'install_mesos_egg':
-      command => "/usr/bin/easy_install /root/${mesos_egg}",
-      unless  => "/usr/bin/test -e /usr/local/lib/python2.7/dist-packages/${mesos_egg}",
-      require => [ Package['python-setuptools'], Wget::Fetch[$mesos_egg]];
-    'install_mesos_interface_egg':
-      command => "/usr/bin/easy_install /root/${mesos_interface_egg}",
-      unless  => "/usr/bin/test -e /usr/local/lib/python2.7/dist-packages/${mesos_interface_egg}",
-      require => [ Package['python-setuptools'], Wget::Fetch[$mesos_interface_egg]];
-  }
-
   ::consul::service {
     'mesos-master':
       service_name => 'mesos-master',
