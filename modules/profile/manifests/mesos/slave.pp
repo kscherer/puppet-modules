@@ -27,11 +27,6 @@ class profile::mesos::slave inherits profile::mesos::common {
     '/mnt/docker':
       ensure => directory;
     # make sure that wrlinux update log file can be read by nagios scripts
-    '/home/wrlbuild/log/':
-      ensure => directory,
-      owner  => 'wrlbuild',
-      group  => 'wrlbuild',
-      mode   => '0755';
     '/home/wrlbuild/log/wrlinux_update.log':
       ensure => file,
       owner  => 'wrlbuild',
