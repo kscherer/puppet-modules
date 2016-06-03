@@ -82,6 +82,15 @@ node 'yow-iotbuild5.wrs.com' {
 node 'yow-iotbuild6.wrs.com' {
     include wr::yow_build
 }
+node 'yow-iotbuild7.wrs.com' {
+    include wr::yow_build
+}
+node 'yow-iotbuild8.wrs.com' {
+    include wr::yow_build
+}
+node 'yow-iotbuild9.wrs.com' {
+    include wr::yow_build
+}
 
 
 #
