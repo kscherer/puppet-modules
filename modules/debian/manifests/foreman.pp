@@ -12,13 +12,13 @@ class debian::foreman {
       location    => 'http://deb.theforeman.org/',
       release     => $::lsbdistcodename,
       include_src => false,
-      repos       => '1.7',
+      repos       => '1.11',
       require     => Apt::Key['foreman_apt_key'];
     'foreman-plugins':
       location    => 'http://deb.theforeman.org/',
       release     => 'plugins',
       include_src => false,
-      repos       => '1.7',
+      repos       => '1.11',
       require     => Apt::Key['foreman_apt_key'];
   }
 }
