@@ -239,6 +239,12 @@ class wr::fileserver {
         owner  => 'svc-mirror',
         group  => 'mirror',
         source => 'puppet:///modules/wr/mirror.list';
+      '/pool/mirror/apt/postmirror.sh':
+        ensure => present,
+        mode   => '0755',
+        owner  => 'svc-mirror',
+        group  => 'mirror',
+        source => 'puppet:///modules/wr/postmirror.sh';
     }
 
     cron {
