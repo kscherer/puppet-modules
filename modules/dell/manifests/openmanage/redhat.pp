@@ -9,12 +9,6 @@ class dell::openmanage::redhat {
     fail 'You need to declare class dell'
   }
 
-  # this package contains the yum plugin which find the best yum repository
-  # depending on the hardware.
-  package{'firmware-addon-dell':
-    ensure => latest,
-  }
-
   package { ['srvadmin-base', 'srvadmin-storageservices', 'srvadmin-omcommon']:
     ensure  => present,
     require => Yumrepo['dell-omsa-specific'],
