@@ -41,7 +41,7 @@ class redhat::repos {
   $centos_mirror_os = "${centos_mirror_base}/os/${::architecture}"
   $centos_mirror_updates = "${centos_mirror_base}/updates/${::architecture}"
   $centos_mirror_extras = "${centos_mirror_base}/extras/${::architecture}"
-  $centos_mirror_scl = "${centos_mirror_base}/SCL/${::architecture}"
+  $centos_mirror_scl = "${centos_mirror_base}/sclo/${::architecture}/rh"
   $centos_gpgkey = "${centos_mirror_os}/RPM-GPG-KEY-CentOS-${::lsbmajdistrelease}"
 
   #special case for fedora puppetlabs repo path
