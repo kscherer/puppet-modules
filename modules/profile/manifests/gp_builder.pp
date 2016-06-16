@@ -46,6 +46,14 @@ yourself, this F/S will be cleaned up periodically.";
       'mlocate':
         ensure  => absent,
     }
+    cron {
+      #Delete /tmp files older that 2 days
+      'clean_tmp':
+        command => '/usr/bin/find /tmp -mtime +2 -delete &> /dev/null',
+        user    => root,
+        hour    => 23,
+        minute  => 0;
+    }
   }
 
   #enable running docker and runqemu using sudo
