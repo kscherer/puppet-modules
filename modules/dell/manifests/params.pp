@@ -26,11 +26,6 @@ class dell::params {
             $omsa_url_base = 'http://linux.dell.com/repo/community/deb/'
         }
       }
-
-      $smbios_pkg = $::lsbdistcodename ? {
-        'lenny' => 'libsmbios-bin',
-        default => 'smbios-utils',
-      }
     }
 
     default:  { fail("Unsupported OS family: ${::osfamily}") }

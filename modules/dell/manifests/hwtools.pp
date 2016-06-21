@@ -15,11 +15,6 @@ class dell::hwtools {
   # bios & firmwares.
 
   case $::osfamily {
-    'Debian': {
-      package { "${::dell::params::smbios_pkg}":
-        ensure => latest,
-      }
-    }
     'RedHat': {
       package{['libsmbios', 'firmware-tools']:
         ensure => latest,
