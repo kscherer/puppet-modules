@@ -145,14 +145,18 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
   apt::source{'dell':
     location    => 'http://linux.dell.com/repo/community/debian',
     release     => $omsa_release,
-    repos       => 'openmanage/740',
+    repos       => 'openmanage/830',
     include_src => false,
   }
 
-  package { $omsa_pkg_name:
-    ensure  => present,
-    require => Apt::Source['dell'],
-    before  => Service['dataeng'],
+  package {
+    $omsa_pkg_name:
+      ensure  => present,
+      require => Apt::Source['dell'],
+      before  => Service['dataeng'];
+    # Installed for OM 7.4, but cause problems on 8.3
+    ['firmware-addon-dell', 'smbios-utils']:
+      ensure => absent;
   }
 
 }
