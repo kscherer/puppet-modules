@@ -11,8 +11,8 @@ class wr::ala_lpd_mesos {
 
   docker::run {
     'wraxl_scheduler':
-      image            => 'wr-docker-registry:5000/mesos-scheduler:0.26.1',
-      command          => '--master zk://147.11.106.56:2181,147.11.105.21:2181,147.11.105.120:2181/mesos --config /mnt/random_coverage_config.yaml',
+      image            => 'wr-docker-registry:5000/mesos-scheduler:0.27.2',
+      command          => '/usr/bin/wraxl_scheduler --master zk://147.11.106.56:2181,147.11.105.21:2181,147.11.105.120:2181/mesos --config /mnt/random_coverage_config.yaml',
       ports            => ['8080:8080'],
       net              => 'host',
       restart_service  => true,
