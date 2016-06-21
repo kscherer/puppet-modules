@@ -133,7 +133,7 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
     'squeeze' => [ 'srvadmin-base', 'srvadmin-storageservices' ],
     default   => [
       'srvadmin-base',
-      'srvadmin-storageservices',
+      'srvadmin-storage-cli',
       'srvadmin-omcommon' ],
   }
 
@@ -159,4 +159,12 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
       ensure => absent;
   }
 
+  # This file needs to be executable for check_openmanage to work
+  file {
+    '/opt/dell/srvadmin/bin/stdcliproxy':
+      ensure => file,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0755';
+  }
 }
