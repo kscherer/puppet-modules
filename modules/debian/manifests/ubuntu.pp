@@ -1,5 +1,5 @@
 #
-class debian::ubuntu ($dash = true)
+class debian::ubuntu ($dash = false)
 {
   if $::location == 'otp' {
     $mirror_base = 'http://ftp.astral.ro/mirrors'
