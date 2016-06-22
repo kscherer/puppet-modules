@@ -131,7 +131,6 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
   $omsa_pkg_name = $::lsbdistcodename ? {
     'lenny'   => 'dellomsa',
     'squeeze' => [ 'srvadmin-base', 'srvadmin-storageservices' ],
-    'jessie'  => [ 'srvadmin-base', 'srvadmin-omcommon', 'srvadmin-storageservices' ],
     'wheezy'  => [ 'srvadmin-base', 'srvadmin-omcommon', 'srvadmin-storageservices' ],
     'precise' => [ 'srvadmin-base', 'srvadmin-omcommon', 'srvadmin-storageservices' ],
     default   => [
@@ -141,13 +140,12 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
   }
 
   $omsa_release = $::operatingsystem ? {
-    'Debian' => 'wheezy',
+    'Debian' => $::lsbdistcodename,
     'Ubuntu' => $::lsbdistcodename,
   }
 
   $omsa_release_set = $::lsbdistcodename ? {
     'precise' => 'openmanage/740',
-    'jessie'  => 'openmanage/740',
     'wheezy'  => 'openmanage/740',
     default   => 'openmanage/830'
   }
