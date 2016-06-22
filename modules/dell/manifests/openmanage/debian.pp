@@ -133,10 +133,7 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
     'squeeze' => [ 'srvadmin-base', 'srvadmin-storageservices' ],
     'wheezy'  => [ 'srvadmin-base', 'srvadmin-omcommon', 'srvadmin-storageservices' ],
     'precise' => [ 'srvadmin-base', 'srvadmin-omcommon', 'srvadmin-storageservices' ],
-    default   => [
-      'srvadmin-base',
-      'srvadmin-storage-cli',
-      'srvadmin-omcommon' ],
+    default   => [ 'srvadmin-base', 'srvadmin-storage-cli', 'srvadmin-omcommon' ],
   }
 
   $omsa_release = $::operatingsystem ? {
@@ -151,7 +148,7 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
   }
 
   apt::source{'dell':
-    location    => 'http://linux.dell.com/repo/community/debian',
+    location    => "http://${::location}-mirror.wrs.com/mirror/dell/community/debian",
     release     => $omsa_release,
     repos       => $omsa_release_set,
     include_src => false,
@@ -167,7 +164,7 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
   if $omsa_release_set == 'openmanage/830' {
     package {
       # Installed for OM 7.4, but cause problems on 8.3
-      ['firmware-addon-dell', 'smbios-utils']:
+      ['firmware-addon-dell']:
         ensure => absent;
     }
 
