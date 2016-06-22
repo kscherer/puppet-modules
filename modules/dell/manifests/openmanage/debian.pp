@@ -145,7 +145,7 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
 
   $omsa_release_set = $::lsbdistcodename ? {
     'precise' => 'openmanage/740',
-    default   => 'openmanage/830';
+    default   => 'openmanage/830'
   }
 
   apt::source{'dell':
