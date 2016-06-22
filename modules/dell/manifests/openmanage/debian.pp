@@ -131,7 +131,7 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
   $omsa_pkg_name = $::lsbdistcodename ? {
     'lenny'   => 'dellomsa',
     'squeeze' => [ 'srvadmin-base', 'srvadmin-storageservices' ],
-    'precise' => [ 'srvadmin-base', 'srvadmin-storageservices' ],
+    'precise' => [ 'srvadmin-base', 'srvadmin-omcommon', 'srvadmin-storageservices' ],
     default   => [
       'srvadmin-base',
       'srvadmin-storage-cli',
