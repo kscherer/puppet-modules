@@ -133,6 +133,7 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
     'squeeze' => [ 'srvadmin-base', 'srvadmin-storageservices' ],
     'wheezy'  => [ 'srvadmin-base', 'srvadmin-omcommon', 'srvadmin-storageservices' ],
     'precise' => [ 'srvadmin-base', 'srvadmin-omcommon', 'srvadmin-storageservices' ],
+    'jessie'  => [ 'srvadmin-omacore', 'srvadmin-storage-cli', 'srvadmin-omcommon' ],
     default   => [ 'srvadmin-base', 'srvadmin-storage-cli', 'srvadmin-omcommon' ],
   }
 
