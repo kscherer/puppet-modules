@@ -131,6 +131,7 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
   $omsa_pkg_name = $::lsbdistcodename ? {
     'lenny'   => 'dellomsa',
     'squeeze' => [ 'srvadmin-base', 'srvadmin-storageservices' ],
+    'precise' => [ 'srvadmin-base', 'srvadmin-storageservices' ],
     default   => [
       'srvadmin-base',
       'srvadmin-storage-cli',
@@ -142,10 +143,15 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
     'Ubuntu' => $::lsbdistcodename,
   }
 
+  $omsa_release_set = $::lsbdistcodename ? {
+    'precise' => 'openmanage/740',
+    default   => 'openmanage/830';
+  }
+
   apt::source{'dell':
     location    => 'http://linux.dell.com/repo/community/debian',
     release     => $omsa_release,
-    repos       => 'openmanage/830',
+    repos       => $omsa_release_set,
     include_src => false,
   }
 
@@ -154,17 +160,22 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
       ensure  => present,
       require => Apt::Source['dell'],
       before  => Service['dataeng'];
-    # Installed for OM 7.4, but cause problems on 8.3
-    ['firmware-addon-dell', 'smbios-utils']:
-      ensure => absent;
   }
 
-  # This file needs to be executable for check_openmanage to work
-  file {
-    '/opt/dell/srvadmin/bin/stdcliproxy':
-      ensure => file,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0755';
+  if $omsa_release_set == 'openmanage/830' {
+    package {
+      # Installed for OM 7.4, but cause problems on 8.3
+      ['firmware-addon-dell', 'smbios-utils']:
+        ensure => absent;
+    }
+
+    # This file needs to be executable for check_openmanage to work
+    file {
+      '/opt/dell/srvadmin/bin/stdcliproxy':
+        ensure => file,
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0755';
+    }
   }
 }
