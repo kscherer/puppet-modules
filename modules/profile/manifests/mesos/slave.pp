@@ -7,7 +7,7 @@ class profile::mesos::slave inherits profile::mesos::common {
 
   # Install latest kernel on slaves for overlayfs support
   package {
-    ['linux-image-generic-lts-wily']:
+    ['linux-image-generic-lts-xenial']:
       ensure  => present,
       require => Class['wr::common::repos'];
   }
