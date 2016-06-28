@@ -5,6 +5,7 @@
 	suppresscc = all
 	smtpserver = prod-webmail.wrs.com
 	chainreplyto = true
+	assume8bitEncoding = UTF-8
 [wrgit]
 	username = wrlbuild
 	autoupdate = false
