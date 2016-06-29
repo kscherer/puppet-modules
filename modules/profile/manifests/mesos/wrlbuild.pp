@@ -14,10 +14,10 @@ class profile::mesos::wrlbuild {
       uid            => 1000,
       managehome     => true,
       home           => '/home/wrlbuild',
-      groups         => ['users'],
+      groups         => ['users', 'docker'],
       shell          => '/bin/bash',
       password       => '$5$6F1BpKqFcszWi0n$fC5yUBkPNXHfyL8TOJwdJ1EE8kIzwJnKVrtcFYnpbcA',
-      require        => Group [ 'wrlbuild' ];
+      require        => [ Group['wrlbuild'], Group['docker']];
   }
 
   ssh_authorized_key {
