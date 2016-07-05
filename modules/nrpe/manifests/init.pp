@@ -165,7 +165,7 @@ class nrpe {
     '0599V5', '0H21J3': { # R730xd: ignore system battery unknown
       $om_flags = "${base_om_flags} --vdisk-critical --blacklist bp=all"
     }
-    '09N44V': { # C6220II: OM does not support storage, ignore PSU unknown
+    '09N44V', '05XKKK': { # C6220II or R310: does not support storage, ignore PSU unknown
       $om_flags = "${base_om_flags} --no-storage --blacklist ps=all"
     }
     default:  { # ignore battery charging warning and old controller firmware warning
