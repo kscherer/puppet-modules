@@ -9,14 +9,6 @@ class profile::mesos::common inherits profile::nis {
 
   include ::profile::mesos::wrlbuild
 
-  # group created by docker package, must be declared here so that wrlbuild
-  # can be in docker group
-  group {
-    'docker':
-      ensure  => present,
-      require => Class['docker'];
-  }
-
   #turn off locate package which scans filesystem and use a lot of IO
   ensure_resource('package', 'mlocate', {'ensure' => 'absent' })
 

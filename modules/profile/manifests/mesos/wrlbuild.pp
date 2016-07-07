@@ -7,6 +7,14 @@ class profile::mesos::wrlbuild {
       ensure => present,
   }
 
+  # group created by docker package, must be declared here so that wrlbuild
+  # can be in docker group
+  group {
+    'docker':
+      ensure  => present,
+      require => Class['docker'];
+  }
+
   user {
     'wrlbuild':
       ensure         => present,
