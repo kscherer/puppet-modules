@@ -125,6 +125,14 @@ class wr::fileserver {
       devices  => 'off',
       quota    => '50G',
       require  => Package['nfs-kernel-server'];
+    'pool/builds':
+      ensure   => present,
+      atime    => 'off',
+      sharenfs => 'on',
+      setuid   => 'off',
+      devices  => 'off',
+      quota    => '2T',
+      require  => Package['nfs-kernel-server'];
   }
 
   # scrub zfs filesystem weekly
@@ -166,6 +174,12 @@ class wr::fileserver {
       group  => users,
       mode   => '0775',
       require => Zfs['pool/wrlinux_installs'];
+    ['/pool/builds', '/pool/builds/wrlinux']:
+      ensure  => directory,
+      owner   => 'wrlbuild',
+      group   => 'users',
+      mode    => '0775',
+      require => Zfs['pool/builds'];
   }
 
   package {
@@ -341,6 +355,14 @@ class wr::fileserver {
     'ubuntu-releases':
       outgoing_chmod => 'D755,F644',
       path           => '/pool/mirror/ubuntu.com/ubuntu-releases';
+    'builds':
+      path           => '/pool/builds',
+      list           => 'yes',
+      incoming_chmod => 'D775,F664',
+      outgoing_chmod => 'D755,F644',
+      read_only      => 'no',
+      uid            => '1000',
+      gid            => '100';
   }
 
   if $::location == 'yow' {
