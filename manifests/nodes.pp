@@ -269,6 +269,6 @@ node 'otp-linux01.corp.ad.wrs.com' {
   include profile::gp_builder
 }
 
-node 'otp-rhfs1-new.wrs.com' {
+node 'otp-git-new.wrs.com' {
   include wr::fileserver
 }
