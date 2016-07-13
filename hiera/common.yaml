@@ -87,6 +87,7 @@ mesos::master::options:
   quorum: '2'
   logging_level: 'WARNING'
   whitelist: 'file:///etc/mesos_agent_whitelist'
+  max_slave_ping_timeouts: '40' # 15s * 40 = 10min
 # mesos master is a vm with eth0
 mesos::master::listen_address: "%{::ipaddress_primary}"
 # mesos slaves are bare metal with em1
