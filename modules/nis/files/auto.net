@@ -11,7 +11,7 @@ key="$1"
 # add "nonstrict" to make it OK for some filesystems to not mount
 # choose one of the two lines below depending on the NFS version in your
 # environment
-opts="-fstype=nfs,soft,intr,nodev,nosuid"
+opts="-fstype=nfs,hard,intr,nodev,nosuid"
 #opts="-fstype=nfs4,hard,intr,nodev,nosuid,async"
 
 # Showmount comes in a number of names and varieties.  "showmount" is
@@ -23,14 +23,14 @@ opts="-fstype=nfs,soft,intr,nodev,nosuid"
 
 for P in /bin /sbin /usr/bin /usr/sbin
 do
-	for M in showmount kshowmount
-	do
-		if [ -x $P/$M ]
-		then
-			SMNT=$P/$M
-			break
-		fi
-	done
+    for M in showmount kshowmount
+    do
+        if [ -x $P/$M ]
+        then
+            SMNT=$P/$M
+            break
+        fi
+    done
 done
 
 [ -x $SMNT ] || exit 1
@@ -38,9 +38,9 @@ done
 # Newer distributions get this right
 SHOWMOUNT="$SMNT --no-headers -e $key"
 
-$SHOWMOUNT | LC_ALL=C cut -d' ' -f1 | LC_ALL=C sort -u | \
-	awk -v key="$key" -v opts="$opts" -- '
-	BEGIN	{ ORS=""; first=1 }
-		{ if (first) { print opts; first=0 }; print " \\\n\t" $1, key ":" $1 }
-	END	{ if (!first) print "\n"; else exit 1 }
-	' | sed 's/#/\\#/g'
+$SHOWMOUNT | LC_ALL=C sort -k 1 | \
+    awk -v key="$key" -v opts="$opts" -- '
+    BEGIN   { ORS=""; first=1 }
+        { if (first) { print opts; first=0 }; print " \\\n\t" $1, key ":" $1 }
+    END { if (!first) print "\n"; else exit 1 }
+    ' | sed 's/#/\\#/g'

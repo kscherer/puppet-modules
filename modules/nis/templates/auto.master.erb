@@ -11,7 +11,7 @@
 #       "nosuid" and "nodev" options unless the "suid" and "dev"
 #       options are explicitly given.
 #
-/net /etc/auto.net vers=3 -hosts
+/net auto.net
 ##
 # Include central master map if it can be found using
 # nsswitch sources.
@@ -22,6 +22,6 @@
 # precedence.
 #
 <% if @location != "ala" -%>
-/folk   auto.<%= @location %> vers=3
+/folk   auto.<%= @location %>
 <% end -%>
 +auto.master
