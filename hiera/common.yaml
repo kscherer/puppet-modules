@@ -114,7 +114,7 @@ docker::extra_parameters:
 docker::tcp_bind: 'tcp://127.0.0.1:2375'
 wr::docker_registry_ip: '147.11.105.120'
 # Use the docker0 interface address where dnsmasq is listening
-docker::dns: "%{ipaddress_primary}
+docker::dns: "%{ipaddress_primary}"
 
 zookeeper::client_ip: "%{::ipaddress_eth0}"
 zookeeper::purge_interval: '12'
