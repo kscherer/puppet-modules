@@ -180,6 +180,10 @@ class wr::fileserver {
       group   => 'users',
       mode    => '0775',
       require => Zfs['pool/builds'];
+    '/var/www/builds':
+      ensure => link,
+      target  => '/pool/builds',
+      require => File['/pool/builds'];
   }
 
   package {
