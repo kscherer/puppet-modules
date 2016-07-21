@@ -93,6 +93,9 @@ class debian::ubuntu ($dash = false)
   ensure_resource('package', 'ureadahead', {'ensure' => 'absent' })
   ensure_resource('package', 'command-not-found', {'ensure' => 'absent' })
 
+  # do not run this service to send reports to canonical
+  ensure_resource('package', 'whoopsie', {'ensure' => 'absent' })
+
   # Developer requests
   ensure_packages(['emacs', 'zsh'])
 }
