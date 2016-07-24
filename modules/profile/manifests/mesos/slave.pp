@@ -159,7 +159,7 @@ class profile::mesos::slave inherits profile::mesos::common {
   }
 
   #post process script uses git send-email
-  ensure_resource('package', 'git-email', {'ensure' => 'present' })
+  ensure_packages(['git', 'git-email'], {'ensure' => 'latest' } )
 
   cron {
     'build_postprocess':
@@ -282,6 +282,4 @@ class profile::mesos::slave inherits profile::mesos::common {
         }
       ]
   }
-
-  ensure_packages(['git', 'git-email'], {'ensure' => 'latest' } )
 }
