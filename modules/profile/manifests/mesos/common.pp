@@ -20,6 +20,13 @@ class profile::mesos::common inherits profile::nis {
       user     => 'wrlbuild',
       revision => 'master',
       require  => User['wrlbuild'];
+    '/home/wrlbuild/wrl-test-definitions':
+      ensure   => 'present',
+      provider => 'git',
+      source   => 'git://ala-git.wrs.com/lava/wrl-test-definitions.git',
+      user     => 'wrlbuild',
+      revision => 'master',
+      require  => User['wrlbuild'];
   }
 
   cron {
