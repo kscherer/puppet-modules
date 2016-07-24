@@ -282,4 +282,6 @@ class profile::mesos::slave inherits profile::mesos::common {
         }
       ]
   }
+
+  ensure_packages(['git', 'git-email'], {'ensure' => 'latest' } )
 }
