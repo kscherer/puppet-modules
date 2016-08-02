@@ -36,7 +36,7 @@ class profile::mesos::slave inherits profile::mesos::common {
 
   mount {
     '/mnt/docker':
-      ensure   => unmounted,
+      ensure   => absent,
       atboot   => true,
       device   => 'tmpfs',
       fstype   => 'tmpfs',
