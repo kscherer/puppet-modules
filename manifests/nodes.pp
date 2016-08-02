@@ -27,7 +27,7 @@ node 'ala-blade17.wrs.com' {
   include profile::lava
 }
 
-node /ala-blade([1-9]|19|31|3[3-9]|4[0-1]|49|5[0-9]|6[0-9])\.wrs\.com/ {
+node /ala-blade([1-9]|19|31|3[3-9]|4[0-5]|49|5[0-9]|6[0-9])\.wrs\.com/ {
   include profile::mesos::slave
 }
 
