@@ -12,7 +12,7 @@ def create_dell_warranty_cache(cache)
 
   begin
     # rescue in case dell.com is down
-    dell_api_key     = '849e027f476027a394edd656eaef4842' # Public API key
+    dell_api_key     = 'd676cf6e1e0ceb8fd14e8cb69acd812d' # Public API key
     uri              = URI.parse("https://api.dell.com/support/v2/assetinfo/warranty/tags.json?svctags=#{servicetag}&apikey=#{dell_api_key}")
     http             = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl     = true
@@ -38,8 +38,12 @@ def create_dell_warranty_cache(cache)
 
   warranty = true if expiration_date > Time.now()
 
-  File.open(cache, 'w') do |file|
-    YAML.dump({'warranty_status' => warranty, 'expiration_date' => expiration_date.strftime("%Y-%m-%d")}, file)
+  # only write out file if expiration date is valid
+  valid_expiration_date = Time.parse('2000-01-01T00:00:00')
+  if expiration_date > valid_expiration_date
+    File.open(cache, 'w') do |file|
+      YAML.dump({'warranty_status' => warranty, 'expiration_date' => expiration_date.strftime("%Y-%m-%d")}, file)
+    end
   end
 end
 
@@ -82,8 +86,7 @@ Facter.add('warranty') do
       cache_file = '/var/cache/.facter_warranty.fact'
     end
 
-    # refresh cache daily
-    if File.exists?(cache_file) and Time.now < File.stat(cache_file).mtime + 86400 * 30
+    if File.exists?(cache_file)
       Facter.debug('warranty cache: Valid')
     else
       Facter.debug('warranty cache: Outdated, recreating')
