@@ -12,14 +12,16 @@ def create_dell_warranty_cache(cache)
 
   begin
     # rescue in case dell.com is down
-    dell_api_key     = 'd676cf6e1e0ceb8fd14e8cb69acd812d' # Public API key
+    dell_api_key     = '849e027f476027a394edd656eaef4842' # Public API key
     uri              = URI.parse("https://api.dell.com/support/v2/assetinfo/warranty/tags.json?svctags=#{servicetag}&apikey=#{dell_api_key}")
     http             = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl     = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request          = Net::HTTP::Get.new(uri.request_uri)
     response         = http.request(request)
+    Facter.debug("Query Dell API #{uri}")
     r                = JSON.parse(response.body)
+    Facter.debug("Received Dell API response #{response.body}")
   rescue
   end
 
@@ -96,6 +98,10 @@ Facter.add('warranty') do
       else
         create_lenovo_warranty_cache cache_file
       end
+    end
+
+    if !File.exists?(cache_file)
+      next false
     end
 
     cache = YAML::load_file cache_file
