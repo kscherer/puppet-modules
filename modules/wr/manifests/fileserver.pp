@@ -475,12 +475,11 @@ class wr::fileserver {
   package {
     'squid-deb-proxy':
       ensure => installed,
-      require => File['/var/cache/squid-deb-proxy'];
   }
   service {
     'squid-deb-proxy':
       ensure    => running,
-      require   => [ Package['squid-deb-proxy'], File['/var/cache/squid-deb-proxy']];
+      require   => [ Package['squid-deb-proxy']];
   }
   exec {
     'allow_all_mirror_access':
