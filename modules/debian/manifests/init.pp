@@ -55,6 +55,6 @@ APT::Install-Recommends "0";';
   # squid deb proxy is installed on fileservers
   package {
     'squid-deb-proxy-client':
-      ensure => installed;
+      ensure => absent;
   }
 }
