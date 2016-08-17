@@ -455,10 +455,6 @@ class wr::fileserver {
       group   => 'proxy',
       mode    => '0755',
       require => Zfs['pool/cache'];
-    '/var/cache/squid-deb-proxy':
-      ensure => link,
-      force  => true,
-      target => '/pool/cache/squid-deb-proxy';
     '/etc/squid-deb-proxy/allowed-networks-src.acl.d/windriver-networks':
       ensure => present,
       owner  => 'root',
