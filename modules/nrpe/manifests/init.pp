@@ -208,7 +208,7 @@ class nrpe {
       parameters => '-w 300  -c 600 -f /git/log/ala-git.wrs.com.log';
     'check_grokmirror_log_errors':
       command    => 'check_logfiles',
-      parameters => "--config ${nrpe::nrpe_dir}/grokmirror.cfg";
+      parameters => "--config ${nrpe::nrpe_dir}/grokmirror.cfg --noprotocol";
     'check_external_log_errors':
       command    => 'check_logfiles',
       parameters => '--logfile=/home/git/sync/external.log --criticalpattern=error:';
