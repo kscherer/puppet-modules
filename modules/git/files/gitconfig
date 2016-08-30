@@ -5,3 +5,5 @@
         bigFileThreshold = 100k
 [repack]
         writeBitmaps = true
+[gc]
+        auto = 0
