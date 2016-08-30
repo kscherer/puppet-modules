@@ -127,3 +127,11 @@ mod 'puppetlabs-puppetdb',
 mod 'mrjoshuap-dnsmasq',
  :git => 'git://ala-git.wrs.com/external/puppet/github.com.mrjoshuap.puppet-dnsmasq.git',
  :ref => 'e96635b8428be746162c1732a75636e64345681c'
+
+mod 'puppet-archive',
+ :git => 'git://ala-git.wrs.com/external/puppet/github.com.voxpupuli.puppet-archive.git',
+ :ref => 'v1.1.1'
+
+mod 'puppet-jenkins',
+ :git => 'git://ala-git.wrs.com/external/puppet/github.com.jenkinsci.puppet-jenkins.git',
+ :ref => 'v1.7.0'

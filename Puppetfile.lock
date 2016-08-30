@@ -160,6 +160,18 @@ GIT
       puppetlabs-stdlib (>= 0)
 
 GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.jenkinsci.puppet-jenkins.git
+  ref: v1.7.0
+  sha: c1da0b46afae711382bdb1f03f12750f30eeea88
+  specs:
+    puppet-jenkins (1.7.0)
+      darin-zypprepo (< 2.0.0, >= 1.0.1)
+      puppet-archive (>= 0.4.8)
+      puppetlabs-apt (< 3.0.0, >= 0.0.3)
+      puppetlabs-java (< 2.0.0, >= 1.0.1)
+      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
+
+GIT
   remote: git://ala-git.wrs.com/external/puppet/github.com.mrjoshuap.puppet-dnsmasq.git
   ref: e96635b8428be746162c1732a75636e64345681c
   sha: e96635b8428be746162c1732a75636e64345681c
@@ -254,6 +266,14 @@ GIT
       puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
 
 GIT
+  remote: git://ala-git.wrs.com/external/puppet/github.com.voxpupuli.puppet-archive.git
+  ref: v1.1.1
+  sha: 2366a201819fefc30a1194049122980bc81ad1b9
+  specs:
+    puppet-archive (1.1.1)
+      puppetlabs-stdlib (< 5.0.0, >= 4.2.0)
+
+GIT
   remote: https://github.com/dalen/puppet-puppetdbquery.git
   ref: 1.5.3
   sha: be650dcfa3c8af92f190685ca17f0f171d1bb3af
@@ -283,7 +303,9 @@ DEPENDENCIES
   hunner-hiera (>= 0)
   jtopjian-sshkeys (>= 0)
   mrjoshuap-dnsmasq (>= 0)
+  puppet-archive (>= 0)
   puppet-collectd (>= 0)
+  puppet-jenkins (>= 0)
   puppet-logstash (>= 0)
   puppet-riemann (>= 0)
   puppet-unattended_upgrades (>= 0)
